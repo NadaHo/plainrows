@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Semrush API alternative: keyword volume, domain traffic and backlinks, pay per result | PlainRows</title><meta name="description" content="No Business plan, no API unit packages. Keyword search volume, CPC, difficulty, domain organic traffic and backlinks as JSON, billed per row returned.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/semrush-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>A Semrush API alternative you pay per result</h1>
+<p class="lead">You need search volume, CPC, keyword difficulty, a domain's organic traffic or its backlinks inside a script,
+a spreadsheet or an AI agent. You do not need a full SEO suite subscription to get them.</p>
+
+<h2>What the Semrush API requires</h2>
+<ul>
+<li>Standard API access is an add-on for the <b>SEO Toolkit Business</b> subscription: you upgrade first, and the API unit balance starts at zero
+(<a href="https://developer.semrush.com/api/get-started/api-access">Semrush developer docs</a>).</li>
+<li>Units are then bought in packages of 2,000,000, 5,000,000, 10,000,000 or 20,000,000 units, renewed with the subscription
+(<a href="https://www.semrush.com/kb/5-api">Semrush knowledge base</a>).</li>
+<li>Keyword Overview costs 10 API units per line, 50 for historical data
+(<a href="https://developer.semrush.com/api/v3/analytics/keyword-reports/">Keyword reports</a>).</li>
+<li>On 2026-10-07, the plan with API access was listed at €526 per month, or €436.99 per month billed annually
+(<a href="https://www.semrush.com/prices/">semrush.com/prices</a>, viewed from Europe), before any API units.</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us. The tools run on Apify: the free Apify plan is enough to test them, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price per row (Starter plan)</th></tr>
+<tr><td>Search volume, CPC, competition, difficulty, intent, 12-month trend</td><td><a href="../keyword-search-volume/">Keyword Search Volume</a></td><td>$0.008 per keyword found</td></tr>
+<tr><td>Estimated organic traffic and keyword counts of a domain</td><td><a href="../domain-seo-overview/">Website Organic Traffic &amp; Top Keywords</a></td><td>$0.004 per domain, $0.002 per top keyword</td></tr>
+<tr><td>Backlinks with anchor, dofollow flag, first seen date</td><td><a href="../backlink-checker/">Backlink Checker</a></td><td>$0.035 per target checked + $0.002 per backlink</td></tr>
+</table>
+<p>Example: 2,000 keywords a month with Keyword Search Volume cost about $16.00,
+which fits inside the $19 of usage included in the Apify Starter plan. Keywords with no data are not billed.</p>
+
+<h2>When Semrush is the better choice</h2>
+<ul>
+<li>You also use the Semrush interface every day (position tracking, site audit, content tools): the API comes with a plan you already pay for.</li>
+<li>You need Semrush's own numbers, or its historical databases going back years. PlainRows tools use DataForSEO data,
+so values differ from Semrush, as they differ between any two SEO tools.</li>
+<li>You pull tens of millions of rows a month and have negotiated unit prices.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You need a few hundred to a few hundred thousand rows a month and no SEO suite.</li>
+<li>You run the lookups from n8n, Make, Zapier, Google Sheets or an AI agent (MCP) and want one API token for everything.</li>
+<li>You want to know the price of a run before it starts: every tool stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-07 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-07.</footer>
+</body></html>
