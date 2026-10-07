@@ -1,0 +1,265 @@
+{
+  "name": "Compare competitors' organic traffic and top keywords in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Compare competitors' organic traffic and top keywords in Google Sheets\n\n### Who's it for\nMarketers, SEO consultants and founders who want to know which competitors win on Google, and with which keywords, without a Semrush or Ahrefs seat.\n\n### How it works\n1. Reads competitor domains from the `Competitors` tab (column `domain`).\n2. The **Domain SEO Overview** Actor on Apify (`plainrows/domain-seo-overview`) returns, for each site, estimated monthly Google organic traffic, number of ranking keywords, traffic value, positions and its top traffic keywords.\n3. A Code node turns the top keywords into a readable cell.\n4. One dated row per domain is appended to the `Traffic` tab, so each run adds a snapshot you can chart over time.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with `Competitors` and `Traffic` tabs.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Set `country` (US, GB, DE, FR...) and `topKeywords` (0 = traffic only, the cheapest; 10 to 1,000) in the **Settings** node.\n- Replace the Manual Trigger with a Schedule Trigger for weekly or monthly tracking.\n- Add a Slack or email node to share the snapshot.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "4c0a5ebc-7678-51a3-8532-65aa1b2f3753",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Spreadsheet with tabs `Competitors` (header `domain`) and `Traffic` (empty).\n2. Connect Google Sheets in both Sheets nodes, paste the spreadsheet URL.\n3. Add your Apify credential to *Get organic traffic*.\n4. In **Settings**, set `country` (US, GB, DE, FR...) and `topKeywords` (0 for traffic only, the cheapest; 10 to 1000 for keywords).\n\nSwap the Manual Trigger for a Schedule Trigger to track competitors every week or month.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "0eeaaecf-9287-5430-94e9-1a22d26c67de",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "04779c14-72ac-5c1d-a3a9-fffb276f9638",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39d4aaba-f13b-5744-9fab-2fff62c5a4b7",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "92c34d31-af67-525d-9c81-cf4810024303",
+              "name": "topKeywords",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e5c21fc4-0535-504a-a8cc-bbfd07170ee6",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Competitors",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "5e0174d5-7294-5179-9313-271be64fe077",
+      "name": "Read competitors",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect the domains of column \"domain\" into one list.\nconst domains = $input.all()\n  .map((item) => String(item.json.domain ?? '').trim())\n  .filter(Boolean);\nif (domains.length === 0) throw new Error('No domain found: add a column named \"domain\" to the Competitors tab.');\nreturn [{ json: { domains } }];"
+      },
+      "id": "52ec216a-5ff3-5142-8cdc-fb12aa58feb2",
+      "name": "Collect domains",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~domain-seo-overview",
+        "customBody": "={{ JSON.stringify({ domains: $json.domains, country: $('Settings').first().json.country, topKeywords: $('Settings').first().json.topKeywords }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "d064042c-e568-5470-b594-412aa8344b06",
+      "name": "Get organic traffic",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per domain; the top keywords become a readable text cell.\nreturn $input.all().map(({ json: d }) => ({\n  json: {\n    date: new Date().toISOString().slice(0, 10),\n    domain: d.domain,\n    dataFound: d.found,\n    organicTraffic: d.organicTraffic ?? null,\n    organicKeywords: d.organicKeywords ?? null,\n    organicTrafficValueUsd: d.organicTrafficValueUsd ?? null,\n    paidTraffic: d.paidTraffic ?? null,\n    top3Positions: d.organicPositions ? (d.organicPositions.pos1 ?? 0) + (d.organicPositions.pos2to3 ?? 0) : null,\n    topKeywords: (d.topKeywords || [])\n      .map((k) => `${k.keyword} (#${k.position}, ${Math.round(k.estimatedTraffic)} visits)`)\n      .join(' | '),\n    country: d.country,\n  },\n}));"
+      },
+      "id": "8082e086-4133-529e-83e7-0e3963e8eff6",
+      "name": "Format rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Traffic",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "48ffe987-35e4-5c8b-9e97-95d598561eda",
+      "name": "Append snapshot",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Read competitors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read competitors": {
+      "main": [
+        [
+          {
+            "node": "Collect domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect domains": {
+      "main": [
+        [
+          {
+            "node": "Get organic traffic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get organic traffic": {
+      "main": [
+        [
+          {
+            "node": "Format rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format rows": {
+      "main": [
+        [
+          {
+            "node": "Append snapshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

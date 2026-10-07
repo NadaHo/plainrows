@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Maps Businesses Scraper: Leads, Phones &amp; Ratings | PlainRows</title><meta name="description" content="Extract businesses from Google Maps searches: name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Place ID. Fast API-">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-maps-businesses/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Maps Businesses Scraper: Leads, Phones &amp; Ratings</h1>
+<p class="lead">Extract businesses from Google Maps searches: name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Place ID. Fast API-based results in seconds, no browser. Pay only per place found.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-maps-businesses">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-maps-businesses" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Lead generation: local businesses by trade and city, with phone and website, ready for your CRM or cold-calling list.</li><li>Web design and marketing agencies: find businesses without a website (`website: &quot;without&quot;`) or with a low rating.</li><li>Local SEO: see who ranks in the Google Maps pack for a query, with rating, review count and claimed status.</li><li>Market research: count and map competitors, franchises or points of sale in an area.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per result, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Place</b><br><span>One Google Maps business returned with its details (address, phone, website, rating, hours, coordinates). Queries with no result and places removed by your filters are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-maps-businesses/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchQueries&quot;: [
+    &quot;coffee shop in Austin, TX&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-maps-businesses&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;coffee shop in Austin, TX&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-maps-businesses</code>.</li>
+<li><a href="../templates/google-maps-leads-to-sheets.json">Scrape Google Maps business leads into Google Sheets with Apify</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-maps-businesses</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-maps-businesses">https://apify.com/plainrows/google-maps-businesses</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-07.</footer>
+</body></html>

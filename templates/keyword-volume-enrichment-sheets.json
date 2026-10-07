@@ -1,0 +1,265 @@
+{
+  "name": "Enrich a Google Sheets keyword list with search volume, CPC and difficulty",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Enrich a Google Sheets keyword list with search volume, CPC and difficulty\n\n### Who's it for\nSEO and PPC freelancers, content teams and agencies who keep keyword lists in Google Sheets and want metrics without an SEO tool subscription.\n\n### How it works\n1. Reads every keyword from the `Keywords` tab (column `keyword`).\n2. A Code node sends them in one batch to the **Keyword Search Volume** Actor on Apify (`plainrows/keyword-search-volume`).\n3. The Actor returns Google search volume, CPC, competition, keyword difficulty, search intent, trends and 12-month history, for 20 countries.\n4. One row per keyword is written to the `Results` tab.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Keywords` tab and a `Results` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Change `country` and `historyMonths` in the **Settings** node.\n- Swap the Manual Trigger for a Schedule Trigger to refresh volumes every month.\n- Write to the same tab with *Append or update* matched on `keyword`.\n\nKeywords without data are returned with `found = false` and are not billed.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "e9041144-6245-54e0-bbc9-26ab9ed8ba88",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Create a spreadsheet with two tabs: `Keywords` (header `keyword` in A1) and `Results` (empty).\n2. Connect Google Sheets in both Sheets nodes and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Get search volume*.\n4. Set `country` in **Settings** if you don't target the US (e.g. `GB`, `DE`, `FR`).\n\nRun it manually, or replace the trigger with a Schedule Trigger to refresh monthly.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "3866a573-0274-5841-8066-bd92aa987d17",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "fcc4423c-f061-528c-b4a2-af3aa7eed21f",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dacfb0e7-01d6-5eab-8a7c-72f315f760b4",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "e9ff58c7-ed92-5dc2-ba64-ea3e4770da41",
+              "name": "historyMonths",
+              "value": 12,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ece50234-a038-5411-b8cf-cb9c1c54c0b6",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Keywords",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "b0bd0ba7-1f5e-5873-9ac4-7a67b5196125",
+      "name": "Read keywords",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect the keywords of column \"keyword\" into one list (one Actor run for the whole sheet).\nconst keywords = $input.all()\n  .map((item) => String(item.json.keyword ?? '').trim())\n  .filter(Boolean);\nif (keywords.length === 0) throw new Error('No keyword found: add a column named \"keyword\" to the Keywords tab.');\nreturn [{ json: { keywords } }];"
+      },
+      "id": "bf340c8c-2e1d-5923-ae07-25a45c864a77",
+      "name": "Collect keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~keyword-search-volume",
+        "customBody": "={{ JSON.stringify({ keywords: $json.keywords, country: $('Settings').first().json.country, historyMonths: $('Settings').first().json.historyMonths }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "6f2b712a-9344-5be8-a15a-1d9eb84b8a5b",
+      "name": "Get search volume",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per keyword; the 12-month history becomes a compact text cell.\nreturn $input.all().map(({ json: k }) => ({\n  json: {\n    keyword: k.keyword,\n    found: k.found,\n    searchVolume: k.searchVolume ?? null,\n    cpcUsd: k.cpcUsd ?? null,\n    competition: k.competitionLevel ?? null,\n    keywordDifficulty: k.keywordDifficulty ?? null,\n    searchIntent: k.searchIntent ?? null,\n    trendYearlyPct: k.trendYearlyPct ?? null,\n    last12Months: (k.monthlySearches || []).map((m) => `${m.month}: ${m.searchVolume}`).join(' | '),\n    country: k.country,\n    checkedAt: k.observedAt,\n  },\n}));"
+      },
+      "id": "35fb0fe8-3b61-5214-a76a-0f9df7eb1fd0",
+      "name": "Format rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Results",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "9613a0f0-9cd7-52e6-bc24-42eef15077d9",
+      "name": "Write results",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Read keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read keywords": {
+      "main": [
+        [
+          {
+            "node": "Collect keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect keywords": {
+      "main": [
+        [
+          {
+            "node": "Get search volume",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get search volume": {
+      "main": [
+        [
+          {
+            "node": "Format rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format rows": {
+      "main": [
+        [
+          {
+            "node": "Write results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

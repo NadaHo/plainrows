@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nadaho.github.io/plainrows/sitemap.xml

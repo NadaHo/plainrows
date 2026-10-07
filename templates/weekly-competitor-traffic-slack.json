@@ -1,0 +1,203 @@
+{
+  "name": "Send a weekly competitor organic traffic report to Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Send a weekly competitor organic traffic report to Slack\n\n### Who's it for\nMarketing and growth teams who want a Monday-morning view of how competitors perform on Google, without opening an SEO tool.\n\n### How it works\n1. Every Monday at 8:00 the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your competitor domains and the country.\n3. The **Domain SEO Overview** Actor on Apify (`plainrows/domain-seo-overview`) returns each competitor's estimated monthly Google organic traffic and ranking keyword count.\n4. A Code node ranks competitors from highest to lowest traffic and builds one message.\n5. The message is posted to your Slack channel.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `domains` (comma-separated) and `country` in **Settings**.\n- Change day and hour in the Schedule Trigger.\n- Replace Slack with Gmail, Microsoft Teams or Discord using `{{ $json.text }}` as the message.\n- Set `topKeywords` above 0 in the Apify node input to add each competitor's best keywords.\n\nWith `topKeywords: 0` a weekly run costs only a few cents.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "b79c9ac0-3ee3-5936-b2bb-bc31f13f376e",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your competitors in `domains` (comma-separated) and set `country` in **Settings**.\n2. Add your Apify credential (free account at apify.com).\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Change the day and hour in *Every Monday 8:00* if needed.\n\nWant email instead? Replace the Slack node with Gmail or Send Email and use `{{ $json.text }}` as the body.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "6b988f8f-ab4c-5ef2-9690-599852d85761",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "63c8b712-892e-5217-8986-cf01f0000486",
+      "name": "Every Monday 8:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6e414ab7-5d1c-5b63-8692-566d6845ad25",
+              "name": "domains",
+              "value": "semrush.com, ahrefs.com, moz.com",
+              "type": "string"
+            },
+            {
+              "id": "f7c2ec96-d596-52e9-b36e-3c04dd6837f8",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a050986b-1949-573d-bd0e-b59bc53d5693",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~domain-seo-overview",
+        "customBody": "={{ JSON.stringify({ domains: $json.domains.split(',').map((d) => d.trim()).filter(Boolean), country: $json.country, topKeywords: 0 }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "558f7173-2290-5d0a-b71b-cc467d9ac00f",
+      "name": "Get competitor traffic",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build one Slack message: traffic per competitor, highest first.\nconst rows = $input.all().map((i) => i.json).filter((d) => d.found !== false);\nrows.sort((a, b) => (b.organicTraffic ?? 0) - (a.organicTraffic ?? 0));\nconst fmt = (n) => (n == null ? 'n/a' : Math.round(n).toLocaleString('en-US'));\nconst lines = rows.map((d, i) => `${i + 1}. *${d.domain}*: ${fmt(d.organicTraffic)} organic visits/month, ${fmt(d.organicKeywords)} keywords`);\nconst missing = $input.all().map((i) => i.json).filter((d) => d.found === false).map((d) => d.domain);\nlet text = `:bar_chart: *Weekly competitor organic traffic* (${rows[0]?.country ?? ''})\\n` + lines.join('\\n');\nif (missing.length) text += `\\n_No data: ${missing.join(', ')}_`;\nreturn [{ json: { text } }];"
+      },
+      "id": "4035c944-3401-5f07-80ac-dae666989293",
+      "name": "Build report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "fc7d8c01-efa0-5a66-8704-4b60feafa8a7",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday 8:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get competitor traffic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get competitor traffic": {
+      "main": [
+        [
+          {
+            "node": "Build report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build report": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

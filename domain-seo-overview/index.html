@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Domain SEO Overview: Organic Traffic &amp; Top Keywords | PlainRows</title><meta name="description" content="Estimated Google organic traffic, ranking keyword counts, position distribution and the top traffic keywords for any list of websites, in 20 countries. Licensed">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/domain-seo-overview/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Domain SEO Overview: Organic Traffic &amp; Top Keywords</h1>
+<p class="lead">Estimated Google organic traffic, ranking keyword counts, position distribution and the top traffic keywords for any list of websites, in 20 countries. Licensed SEO data, no scraping. You only pay for domains and keywords with data.</p>
+<p><a class="btn" href="https://apify.com/plainrows/domain-seo-overview">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/domain-seo-overview" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Size up competitors: who gets the most organic traffic, from which keywords and pages.</li><li>Qualify leads or partners by their organic search visibility, in bulk.</li><li>Track your own and your competitors&#x27; organic traffic and keyword counts over time by scheduling runs.</li><li>Feed SEO dashboards, spreadsheets, n8n / Make workflows or AI agents with clean JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per result, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Domain</b><br><span>One domain returned with data: estimated organic and paid Google traffic and keyword counts. Domains without data, duplicates and invalid entries are never charged.</span></td><td>$0.006</td><td>$0.004</td><td>$0.0035</td><td>$0.003</td></tr><tr><td><b>Top keyword</b><br><span>One top traffic keyword returned for a domain (position, URL, estimated traffic, volume, CPC, difficulty, intent). Only charged when you ask for top keywords (topKeywords &gt; 0).</span></td><td>$0.003</td><td>$0.002</td><td>$0.002</td><td>$0.0018</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~domain-seo-overview/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;apify.com&quot;,
+    &quot;moz.com&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/domain-seo-overview&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;apify.com&#x27;, &#x27;moz.com&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/domain-seo-overview</code>.</li>
+<li><a href="../templates/competitor-organic-traffic-sheets.json">Compare competitors&#x27; organic traffic and top keywords in Google Sheets</a> (n8n workflow JSON)</li><li><a href="../templates/weekly-competitor-traffic-slack.json">Send a weekly competitor organic traffic report to Slack</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/domain-seo-overview</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/domain-seo-overview">https://apify.com/plainrows/domain-seo-overview</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-07.</footer>
+</body></html>

@@ -1,0 +1,277 @@
+{
+  "name": "Scrape Google Maps business leads into Google Sheets with Apify",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Scrape Google Maps business leads into Google Sheets\n\n### Who's it for\nAgencies, freelancers and sales teams who build local prospect lists: web designers looking for businesses without a website, SEO consultants, cold-callers, B2B sales reps.\n\n### How it works\n1. A form asks what you would type in Google Maps (one search per line, e.g. `plumber in Austin, TX`), the country, how many places you want and optional filters.\n2. The Apify node runs the **Google Maps Businesses** Actor (`plainrows/google-maps-businesses`). It returns name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Google Maps link in seconds, without a browser or proxies.\n3. A Code node keeps the places found and flattens opening hours.\n4. Each place is appended as a row to your Google Sheet.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Pick *Only businesses without a website* to get web design leads, or require a phone number for cold-calling lists.\n- Replace Google Sheets with Airtable, HubSpot or your CRM.\n- Add a deduplication step on `googleMapsUrl` before writing.\n\nPricing: pay per place returned; places removed by filters are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "46140bce-5678-52ee-b717-9da2aa4e5d19",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup (5 min)\n1. **Apify**: create a free account at apify.com, then add your Apify credential to the *Run Google Maps Businesses* node.\n2. **Google Sheets**: connect your account, paste your spreadsheet URL in *Append leads to Google Sheets* and create a tab named `Leads` (headers are filled automatically).\n3. Open the form URL from the trigger node and run a search.\n\n**Cost:** pay per place returned (see the Actor's Pricing tab). The node caps each run with *Maximum Cost per Run*.",
+        "height": 300,
+        "width": 420,
+        "color": 7
+      },
+      "id": "b2ec42a0-b3a7-5cc3-9c14-3bf4262923ed",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Google Maps lead search",
+        "formDescription": "One search per line, as you would type it in Google Maps.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Search queries",
+              "fieldType": "textarea",
+              "placeholder": "plumber in Austin, TX\nelectrician in Austin, TX",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Country",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "US"
+                  },
+                  {
+                    "option": "GB"
+                  },
+                  {
+                    "option": "CA"
+                  },
+                  {
+                    "option": "AU"
+                  },
+                  {
+                    "option": "IE"
+                  },
+                  {
+                    "option": "IN"
+                  },
+                  {
+                    "option": "DE"
+                  },
+                  {
+                    "option": "AT"
+                  },
+                  {
+                    "option": "CH"
+                  },
+                  {
+                    "option": "FR"
+                  },
+                  {
+                    "option": "BE"
+                  },
+                  {
+                    "option": "ES"
+                  },
+                  {
+                    "option": "MX"
+                  },
+                  {
+                    "option": "IT"
+                  },
+                  {
+                    "option": "NL"
+                  },
+                  {
+                    "option": "PT"
+                  },
+                  {
+                    "option": "BR"
+                  },
+                  {
+                    "option": "PL"
+                  },
+                  {
+                    "option": "SE"
+                  },
+                  {
+                    "option": "JP"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Max places per query",
+              "fieldType": "number",
+              "placeholder": "50"
+            },
+            {
+              "fieldLabel": "Website",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Any"
+                  },
+                  {
+                    "option": "Only businesses without a website"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Phone number required",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "No"
+                  },
+                  {
+                    "option": "Yes"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1dfd598-492c-5131-bf2f-b8c5aa0f4039",
+      "name": "Lead search form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-maps-businesses",
+        "customBody": "={{ JSON.stringify({\n  searchQueries: $json['Search queries'].split('\\n').map((q) => q.trim()).filter(Boolean),\n  country: $json['Country'],\n  maxPlacesPerQuery: Number($json['Max places per query']) || 50,\n  website: $json['Website'] === 'Only businesses without a website' ? 'without' : 'any',\n  requirePhone: $json['Phone number required'] === 'Yes'\n}) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "a37d5beb-fe86-54ee-85da-9e5a396c721e",
+      "name": "Run Google Maps Businesses",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        240,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Keep found places and turn nested fields into readable cells for Google Sheets.\nconst days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];\nreturn $input.all()\n  .filter((item) => item.json.found !== false)\n  .map(({ json: p }) => ({\n    json: {\n      name: p.name,\n      category: p.category,\n      address: p.address,\n      city: p.city,\n      postalCode: p.postalCode,\n      phone: p.phone,\n      website: p.website,\n      rating: p.rating,\n      reviewsCount: p.reviewsCount,\n      isClaimed: p.isClaimed,\n      openingHours: p.openingHours\n        ? days.map((d) => `${d.slice(0, 3)} ${(p.openingHours[d] || []).join(', ') || 'closed'}`).join(' | ')\n        : null,\n      latitude: p.latitude,\n      longitude: p.longitude,\n      googleMapsUrl: p.googleMapsUrl,\n      searchQuery: p.searchQuery,\n      scrapedAt: p.observedAt,\n    },\n  }));"
+      },
+      "id": "7d27d034-2863-5713-a626-053a267da4fe",
+      "name": "Clean places for Sheets",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "48155066-cc03-5295-a2ce-8fa51c5c6cd2",
+      "name": "Append leads to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lead search form": {
+      "main": [
+        [
+          {
+            "node": "Run Google Maps Businesses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Google Maps Businesses": {
+      "main": [
+        [
+          {
+            "node": "Clean places for Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean places for Sheets": {
+      "main": [
+        [
+          {
+            "node": "Append leads to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
