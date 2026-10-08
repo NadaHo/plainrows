@@ -1,0 +1,206 @@
+{
+  "name": "Get a Slack alert when competitors launch new Google ads",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get a Slack alert when competitors launch new Google ads\n\n### Who's it for\nMarketers, PPC managers and agencies who want to know the day a competitor starts a new Google ad (Search, YouTube, Display, Shopping), without checking the Google Ads Transparency Center by hand.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your competitors (domains, brand names or advertiser IDs) and the region.\n3. The **Google Ads Transparency Scraper** Actor on Apify (`plainrows/google-ads-transparency`) runs with **Only new ads** on: it remembers the ads it already delivered, so each run returns only ads launched since the last one.\n4. A Code node groups the new ads by competitor and builds one message with format, first shown date and a link to each ad.\n5. The message is posted to Slack. No new ad, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `competitors` (one per line), `country` and `monitorName` in **Settings**. Use a new `monitorName` to start a fresh history.\n- Change the hour or frequency in the Schedule Trigger (weekly works too).\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets using the same fields.\n\nThe first run lists every current ad (up to 40 per competitor) and seeds the memory; later runs only pay for new ads plus a small fee per competitor searched.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "f23c2862-7fbe-5d03-9548-fc67bb0323f6",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your competitors in `competitors` (one per line: domain, brand name or advertiser ID) and set `country` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new ads*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists current ads and seeds the memory.\n\n**Cost:** a small fee per competitor searched plus a price per new ad (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "71d8bca1-7b78-5dc9-8959-41cbedd6ce57",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "359f76e4-c973-53d6-ab68-27e5d5f17195",
+      "name": "Every day 9:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7a162681-1b7e-58a9-a07d-de207ab4c149",
+              "name": "competitors",
+              "value": "hubspot.com\nsalesforce.com\npipedrive.com",
+              "type": "string"
+            },
+            {
+              "id": "cffdb975-8634-54ae-a0b4-cbddbb83534a",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "5aa8592e-5f58-5d96-a675-f1d312357eb7",
+              "name": "monitorName",
+              "value": "n8n-competitor-ads",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dbcf4e45-9943-53d8-a979-cc923fa0633f",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-ads-transparency",
+        "customBody": "={{ JSON.stringify({ targets: $json.competitors.split('\\n').map((t) => t.trim()).filter(Boolean), country: $json.country, maxAdsPerTarget: 40, onlyNewAds: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "2e0db8c8-f7fa-5326-b7ef-3d190621dd33",
+      "name": "Get new ads",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing the new ads, grouped by competitor. No new ad: no message.\nconst ads = $input.all().map((i) => i.json).filter((a) => a.found !== false);\nif (ads.length === 0) return [];\nconst byCompetitor = {};\nfor (const a of ads) (byCompetitor[a.query] ??= []).push(a);\nconst day = (iso) => (iso ? iso.slice(0, 10) : 'n/a');\nconst blocks = Object.entries(byCompetitor).map(([competitor, list]) => {\n  const lines = list.slice(0, 10).map((a) => `• ${a.format ?? 'ad'} by ${a.advertiserName ?? 'unknown advertiser'}, first shown ${day(a.firstShown)}: <${a.transparencyUrl}|view ad>`);\n  if (list.length > 10) lines.push(`…and ${list.length - 10} more`);\n  return `*${competitor}*: ${list.length} new ad${list.length > 1 ? 's' : ''}\\n${lines.join('\\n')}`;\n});\nconst text = `:mega: *New competitor Google ads* (${ads[0].region})\\n\\n${blocks.join('\\n\\n')}`;\nreturn [{ json: { text, newAds: ads.length } }];"
+      },
+      "id": "9d3509e2-f246-5efe-be52-9f7c914ee8c0",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "194df673-7c30-58b1-993f-3f6c6f9a7957",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 9:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new ads": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

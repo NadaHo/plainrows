@@ -15,6 +15,8 @@ Store page and full documentation: https://apify.com/plainrows/google-ads-transp
 | `format` | string: `all`, `text`, `image`, `video` | "all" | Only text, image or video ads. |
 | `dateFrom` | string |  | Only ads shown on or after this date (YYYY-MM-DD, earliest 2018-05-31). If you set only one date, the other defaults to the archive start or today. |
 | `dateTo` | string |  | Only ads shown on or before this date (YYYY-MM-DD, at most today). |
+| `onlyNewAds` | boolean | false | Return only ads this tool has never delivered to you for the same advertiser, region, platform and format. The first run returns every ad and remembers them; later runs (for example a daily schedule) return and bill... |
+| `monitorName` | string |  | Name of the key-value store in your Apify account that remembers delivered ads (default "plainrows-ads-monitor"). Use a different name per monitoring task to keep separate histories, or a new name to start over.... |
 
 ## Example input
 
