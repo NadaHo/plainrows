@@ -1,6 +1,6 @@
 ---
 name: plainrows-data
-description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Google Maps Businesses Scraper; Google Ads Transparency Scraper; Amazon Product Search Scraper; Google News Scraper; YouTube Search Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per result.
+description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Google Maps Businesses Scraper; Google Ads Transparency Scraper; Amazon Product Search Scraper; Google News Scraper; YouTube Search Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per use.
 compatibility: Needs network access to api.apify.com and an APIFY_TOKEN environment variable (free Apify account).
 metadata:
   author: PlainRows
@@ -31,7 +31,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 
 ## Rules that matter
 
-- Rows with `"found": false` mean the source had no data for that input; they are not billed.
+- Rows with `"found": false` mean the source had no data for that input; they are not billed as results (some tools charge a small fixed fee per search, listed on their pricing table).
 - Missing values are `null`, never guessed.
 - Invalid inputs end the run without charge; the reason is in the run's status message and in the `OUTPUT` record of its key-value store.
 - Prices are per result (see each reference file). Tell the user the expected cost before large runs.
