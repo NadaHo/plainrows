@@ -48,7 +48,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-maps-businesses` | Google Maps Businesses Scraper: Leads, Phones & Ratings | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
 | `plainrows/keyword-ideas-generator` | Keyword Ideas Generator: Volume, CPC & Difficulty | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
-| `plainrows/keyword-search-volume` | Keyword Search Volume, CPC & Difficulty | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
+| `plainrows/keyword-search-volume` | Keyword Search Volume & Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
 | `plainrows/youtube-search-scraper` | YouTube Search Scraper: Videos, Views & Channels by Keyword | from $0.001 per video | [references/youtube-search-scraper.md](references/youtube-search-scraper.md) |
 
 Other ways to use the same tools: MCP server `https://mcp.apify.com?tools=plainrows/<slug>`, n8n, Make and Zapier (Apify integration).

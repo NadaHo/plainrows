@@ -12,7 +12,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Maps Businesses Scraper: Leads, Phones & Ratings](https://apify.com/plainrows/google-maps-businesses)
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Keyword Ideas Generator: Volume, CPC & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
-- [Keyword Search Volume, CPC & Difficulty](https://apify.com/plainrows/keyword-search-volume)
+- [Keyword Search Volume & Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
 
 Free n8n workflow templates are in [`templates/`](templates/).

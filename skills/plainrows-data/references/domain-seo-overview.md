@@ -1,6 +1,6 @@
 # Website Traffic Checker: Organic Traffic & Keywords (`plainrows/domain-seo-overview`)
 
-Estimated Google organic traffic, ranking keyword counts, position distribution and the top traffic keywords for any list of websites, in 20 countries. Licensed SEO data, no scraping. You only pay for domains and keywords with data.
+Estimated Google organic traffic, ranking keyword counts and up to 1,000 ranking keywords per website for competitor keyword research, in 20 countries. A Semrush and Ahrefs alternative without a subscription, no scraping. You only pay for domains and keywords with data.
 
 Store page and full documentation: https://apify.com/plainrows/domain-seo-overview
 

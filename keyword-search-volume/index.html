@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Keyword Search Volume, CPC &amp; Difficulty | PlainRows</title><meta name="description" content="Get Google search volume, CPC, competition, keyword difficulty, search intent and up to 8 years of monthly history for up to 10,000 keywords per run in 20 count">
+<title>Keyword Search Volume &amp; Difficulty: Ahrefs Alternative | PlainRows</title><meta name="description" content="An Ahrefs and Semrush alternative without a subscription: Google search volume, CPC, competition, keyword difficulty, search intent and up to 8 years of monthly">
 <link rel="canonical" href="https://nadaho.github.io/plainrows/keyword-search-volume/"><link rel="stylesheet" href="../style.css">
 </head><body><header><a class="brand" href="../">PlainRows</a></header>
 <main>
-<h1>Keyword Search Volume, CPC &amp; Difficulty</h1>
-<p class="lead">Get Google search volume, CPC, competition, keyword difficulty, search intent and up to 8 years of monthly history for up to 10,000 keywords per run in 20 countries. You only pay for keywords that have data.</p>
+<h1>Keyword Search Volume &amp; Difficulty: Ahrefs Alternative</h1>
+<p class="lead">An Ahrefs and Semrush alternative without a subscription: Google search volume, CPC, competition, keyword difficulty, search intent and up to 8 years of monthly history for up to 10,000 keywords per run in 20 countries. You only pay for keywords that have data.</p>
 <p><a class="btn" href="https://apify.com/plainrows/keyword-search-volume">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/keyword-search-volume" alt="Actor status"></p>
 <h2>Typical uses</h2><ul><li>Prioritise a content plan: volume, difficulty and intent for every keyword idea in one table.</li><li>Estimate ad budgets with CPC and top-of-page bid ranges per country.</li><li>Spot seasonality and rising topics with up to 8 years of monthly history.</li><li>Enrich keyword lists in Google Sheets, n8n / Make workflows or AI agents.</li></ul>
 <h2>Pricing</h2>
@@ -22,12 +22,14 @@
     &quot;espresso machine&quot;,
     &quot;french press&quot;
   ],
+  &quot;mode&quot;: &quot;volume&quot;,
   &quot;country&quot;: &quot;US&quot;
 }&#x27;</pre>
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
 run = client.actor(&quot;plainrows/keyword-search-volume&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;coffee maker&#x27;, &#x27;espresso machine&#x27;, &#x27;french press&#x27;],
+ &#x27;mode&#x27;: &#x27;volume&#x27;,
  &#x27;country&#x27;: &#x27;US&#x27;})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
     print(row)</pre>
