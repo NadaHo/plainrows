@@ -17,6 +17,8 @@ Store page and full documentation: https://apify.com/plainrows/youtube-search-sc
 | `duration` | string: `any`, `short`, `medium`, `long` | "any" | YouTube's duration filter. |
 | `includeShorts` | boolean | true | Turn off to get regular videos only (uses YouTube's "Videos" type filter). Shorts removed are not billed. |
 | `includeLive` | boolean | true | Turn off to skip streams that are live right now. Skipped streams are not billed. |
+| `onlyNewVideos` | boolean | false | Return only videos this tool has never delivered to you for the same query, country and language. The first run returns every video and remembers them; later runs (for example a daily schedule) return and bill only new... |
+| `monitorName` | string |  | Name of the key-value store in your Apify account that remembers delivered videos (default "plainrows-youtube-monitor"). Use a different name per monitoring task to keep separate histories, or a new name to start over.... |
 
 ## Example input
 
