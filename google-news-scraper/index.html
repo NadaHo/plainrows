@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google News Scraper API: Articles, Sources &amp; Dates | PlainRows</title><meta name="description" content="Monitor brands and topics in Google News: title, URL, publisher, snippet, publication time and position for every article, in 20 countries. Time filter, sort by">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-news-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google News Scraper API: Articles, Sources &amp; Dates</h1>
+<p class="lead">Monitor brands and topics in Google News: title, URL, publisher, snippet, publication time and position for every article, in 20 countries. Time filter, sort by date, only-new-articles mode for scheduled alerts (no duplicates). Pay only per article found.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-news-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-news-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Brand and competitor monitoring: turn on Only new articles, schedule a daily run on your brand names and get (and pay for) each new article mentioning them once.</li><li>PR and media relations: see which outlets cover a topic, how high they rank and when they published.</li><li>Market and investment watch: follow companies, tickers, products or regulations in several countries at once.</li><li>Content and SEO teams: find what is trending in Google News for your keywords, with the publishers that rank.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Slack, Google Sheets or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per result, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Article</b><br><span>One Google News article returned with its title, URL, publisher, snippet, publication time and position. Queries with no result, duplicates and input mistakes are free.</span></td><td>$0.002</td><td>$0.0016</td><td>$0.0013</td><td>$0.0009</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-news-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;queries&quot;: [
+    &quot;Tesla&quot;,
+    &quot;\&quot;electric vehicles\&quot; Europe&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-news-scraper&quot;).call(run_input={&#x27;queries&#x27;: [&#x27;Tesla&#x27;, &#x27;&quot;electric vehicles&quot; Europe&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-news-scraper</code>.</li>
+<li><a href="../templates/brand-news-alert-slack.json">Get a Slack alert for new Google News articles about your brand</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-news-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-news-scraper">https://apify.com/plainrows/google-news-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>

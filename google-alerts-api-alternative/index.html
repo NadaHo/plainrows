@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Alerts API alternative: new Google News articles as JSON, once each | PlainRows</title><meta name="description" content="Google Alerts sends e-mails and has no API. Get only new Google News articles about your brand or topic as JSON, on a schedule, billed once per article.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-alerts-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Alerts as an API: only new articles, as JSON, on your schedule</h1>
+<p class="lead">You want to know when a brand, a competitor or a topic appears in the news, and you want it in a script,
+a spreadsheet, Slack, n8n or an AI agent rather than in an inbox. Here is what Google Alerts offers, and what PlainRows offers.</p>
+
+<h2>What Google Alerts does</h2>
+<p>From Google's help page <a href="https://support.google.com/websearch/answer/4815696?hl=en">Create an alert</a> on 2026-10-08:</p>
+<ul>
+<li>You create each alert by hand on the Google Alerts page, signed in to a Google account.</li>
+<li>"You'll get emails whenever we find matching search results"; options are how often, the types of sites, language, region and how many results.</li>
+<li>The page describes no API: there is no documented way to create alerts or read their results from code.</li>
+</ul>
+
+<h2>What PlainRows offers</h2>
+<p>The <a href="../google-news-scraper/">Google News Scraper API</a> with <strong>Only new articles</strong> turned on: schedule it hourly or daily,
+and each run returns only the Google News articles it has never delivered to you (title, URL, publisher, snippet, publication time, position),
+as JSON, CSV or Excel, or straight into n8n, Make, Zapier, Slack or Google Sheets. The memory of delivered articles stays in your own Apify account.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>New Google News articles for up to 1,000 searches per run (brand names, "exact phrases", -excluded words), in 20 countries and their languages.</td>
+<td><a href="../google-news-scraper/">Google News Scraper API</a></td><td>$0.0016 per new article; runs with nothing new cost nothing</td></tr>
+</table>
+<p>Example: watching 10 brand names, with about 5 new articles each per day, is about 1,500 articles a month,
+about $2.40. The tool runs on Apify: the free plan is enough to test it,
+the Starter plan ($19 per month with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<p>Ready-made workflow: <a href="../templates/brand-news-alert-slack.json">new Google News articles about your brand to Slack (n8n)</a>.</p>
+
+<h2>When Google Alerts is the better choice</h2>
+<ul>
+<li>You follow a handful of topics and an e-mail is all you need: Google Alerts is free.</li>
+<li>You also want blogs, forums and other web pages: Google Alerts covers more than news; this tool reads Google News only.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>

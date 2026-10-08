@@ -6,9 +6,11 @@ Website: https://nadaho.github.io/plainrows/
 
 - [Amazon Product Search Scraper: Prices, ASINs & Ratings](https://apify.com/plainrows/amazon-product-search)
 - [Backlink Checker API: Backlinks, Referring Domains & Anchors](https://apify.com/plainrows/backlink-checker)
+- [Domain Authority Checker: Bulk Rank, Backlinks & Spam Score](https://apify.com/plainrows/domain-authority-checker)
 - [Website Traffic Checker: Organic Traffic & Keywords](https://apify.com/plainrows/domain-seo-overview)
 - [Google Ads Transparency Scraper: Competitor Ads Library](https://apify.com/plainrows/google-ads-transparency)
 - [Google Maps Businesses Scraper: Leads, Phones & Ratings](https://apify.com/plainrows/google-maps-businesses)
+- [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Keyword Ideas Generator: Volume, CPC & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Search Volume, CPC & Difficulty](https://apify.com/plainrows/keyword-search-volume)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)

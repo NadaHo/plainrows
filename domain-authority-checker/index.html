@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Domain Authority Checker: Bulk Rank, Backlinks &amp; Spam Score | PlainRows</title><meta name="description" content="Check domain authority for up to 10,000 domains per run: domain rank (0-100), spam score, backlinks, referring domains and nofollow counts in one row per domain">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/domain-authority-checker/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Domain Authority Checker: Bulk Rank, Backlinks &amp; Spam Score</h1>
+<p class="lead">Check domain authority for up to 10,000 domains per run: domain rank (0-100), spam score, backlinks, referring domains and nofollow counts in one row per domain. Licensed backlink data, results in seconds. Pay only per domain with data.</p>
+<p><a class="btn" href="https://apify.com/plainrows/domain-authority-checker">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/domain-authority-checker" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Link building and outreach: sort a prospect list by authority and drop spammy sites before you pitch them.</li><li>Guest post and PR vetting: check the referring domains and spam score of sites selling links or placements.</li><li>Expired domain and domain investing research: screen thousands of domains in one run.</li><li>Competitor and market mapping: compare the backlink strength of every site in a niche.</li><li>Automations and AI agents: enrich a Google Sheet, CRM or agent workflow with authority metrics.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per result, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Domain</b><br><span>One domain returned with its domain rank, spam score, backlinks and referring domains. Domains the backlink index has no data for are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr><tr><td><b>Batch lookup</b><br><span>One lookup of one metric group (rank, spam score, backlinks or referring domains) for a batch of up to 1,000 domains. A run of up to 1,000 domains with all four metric groups = 4 batch lookups.</span></td><td>$0.04</td><td>$0.035</td><td>$0.033</td><td>$0.032</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~domain-authority-checker/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;apify.com&quot;,
+    &quot;forbes.com&quot;,
+    &quot;bbc.co.uk&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/domain-authority-checker&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;apify.com&#x27;, &#x27;forbes.com&#x27;, &#x27;bbc.co.uk&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/domain-authority-checker</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/domain-authority-checker</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/domain-authority-checker">https://apify.com/plainrows/domain-authority-checker</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>

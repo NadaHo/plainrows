@@ -1,0 +1,206 @@
+{
+  "name": "Get a Slack alert for new Google News articles about your brand",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get a Slack alert for new Google News articles about your brand\n\n### Who's it for\nPR, communications and marketing teams, founders and analysts who want every new news article about a brand, competitor or topic in Slack, once, without a media monitoring subscription.\n\n### How it works\n1. Every hour (or day) the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your searches (one per line: brand names, `\"exact phrases\"`, `-excluded` words) and the country.\n3. The **Google News Scraper** Actor on Apify (`plainrows/google-news-scraper`) searches Google News, newest first, with **Only new articles** on: it remembers the articles it already delivered, so each run returns only new ones.\n4. A Code node groups the new articles by search and builds one message with title, publisher and link.\n5. The message is posted to Slack. No new article, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `searches`, `country` and `monitorName` in **Settings**. Use a new `monitorName` to start a fresh history.\n- Change the frequency in the Schedule Trigger; keep `timeRange` longer than the interval (`day` for an hourly or daily schedule).\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets using the same fields.\n\nYou pay only for new articles (see the Actor's Pricing tab); the node's *Maximum Cost per Run* caps every run.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "c3467d52-c1de-5071-8a50-c6f0499930e5",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your searches in `searches` (one per line) and set `country` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new articles*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists today's articles and seeds the memory.\n\n**Cost:** a price per new article (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "06db3560-2c59-5a29-921a-a299511d9cfa",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "2e6016c4-7c91-5ce2-ac97-d742a20ec1e3",
+      "name": "Every hour",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "89ff73ee-7237-59a1-aebd-d53529ecdaf0",
+              "name": "searches",
+              "value": "OpenAI\n\"Anthropic\" Claude",
+              "type": "string"
+            },
+            {
+              "id": "830f5bb6-4781-59c7-892e-46d4f054103a",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "f9970bf8-e282-5470-b802-717d450d8ac0",
+              "name": "monitorName",
+              "value": "n8n-brand-news",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "27708d9f-4e11-5ed1-862a-2e1e8605835c",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-news-scraper",
+        "customBody": "={{ JSON.stringify({ queries: $json.searches.split('\\n').map((t) => t.trim()).filter(Boolean), country: $json.country, maxArticlesPerQuery: 50, timeRange: 'day', sortBy: 'date', onlyNewArticles: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "68710b99-876c-5a10-a4a7-aa3953c1d9c4",
+      "name": "Get new articles",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing the new articles, grouped by search. No new article: no message.\nconst articles = $input.all().map((i) => i.json).filter((a) => a.found !== false);\nif (articles.length === 0) return [];\nconst bySearch = {};\nfor (const a of articles) (bySearch[a.searchQuery] ??= []).push(a);\nconst blocks = Object.entries(bySearch).map(([search, list]) => {\n  const lines = list.slice(0, 15).map((a) => `• <${a.url}|${(a.title ?? '').replace(/[<>|]/g, ' ')}>${a.sourceName || a.sourceDomain ? ` (${a.sourceName ?? a.sourceDomain})` : ''}`);\n  if (list.length > 15) lines.push(`…and ${list.length - 15} more`);\n  return `*${search}*: ${list.length} new article${list.length > 1 ? 's' : ''}\\n${lines.join('\\n')}`;\n});\nreturn [{ json: { text: `:newspaper: *New articles in Google News*\\n\\n${blocks.join('\\n\\n')}`, newArticles: articles.length } }];"
+      },
+      "id": "3262f0a9-a699-5da9-b7b3-164c04d90f1a",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "14f6f875-b023-510c-ab59-2401d9e69c35",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every hour": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new articles": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

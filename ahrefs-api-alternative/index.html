@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ahrefs API alternative: domain rank and backlinks in bulk, pay per result | PlainRows</title><meta name="description" content="No Ahrefs subscription and no API unit budget. Bulk domain rank, spam score, backlinks and referring domains as JSON, billed per domain or backlink returned.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/ahrefs-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>An Ahrefs API alternative you pay per result</h1>
+<p class="lead">You need the authority of a list of domains, or the backlinks of a site, inside a script, a spreadsheet or an AI agent.
+You do not necessarily need a full SEO suite subscription and a monthly API unit budget for it.</p>
+
+<h2>What the Ahrefs API requires</h2>
+<ul>
+<li>API access comes with an Ahrefs subscription. On 2026-10-08 the Lite plan was listed at €119 per month, Standard at €229, Advanced at €419,
+and Enterprise at €1,394 per month with an annual commitment (<a href="https://ahrefs.com/pricing">ahrefs.com/pricing</a>, viewed from Europe).</li>
+<li>Each plan includes a monthly budget of API units: 200,000 on Lite, 800,000 on Standard, 2,000,000 on Advanced, custom on Enterprise
+(<a href="https://help.ahrefs.com/en/articles/6559232-about-api-v3">About API v3</a>).</li>
+<li>Every request costs at least 50 units; beyond that, the cost depends on the number of rows returned and the fields requested (same source).</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us. The tools run on Apify: the free Apify plan is enough to test them, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Domain rank (0-100), spam score, backlinks and referring domains count, for up to 10,000 domains per run</td><td><a href="../domain-authority-checker/">Bulk Domain Authority Checker</a></td><td>$0.0015 per domain with data + $0.035 per metric group and batch of 1,000 domains</td></tr>
+<tr><td>Backlinks with anchor, dofollow flag, ranks, spam score, first and last seen; or referring domains</td><td><a href="../backlink-checker/">Backlink Checker</a></td><td>$0.035 per target checked + $0.002 per row</td></tr>
+</table>
+<p>Example: checking 1,000 domains costs about $1.50 for the rows,
+plus one batch fee per metric group you keep (four by default). Domains with no data are not billed.</p>
+
+<h2>When Ahrefs is the better choice</h2>
+<ul>
+<li>You already pay for Ahrefs and use its interface every day: the API units come with your plan.</li>
+<li>You need Ahrefs' own metrics, such as Domain Rating (DR) or Ahrefs' traffic estimates. PlainRows tools use DataForSEO's backlink index:
+<code>domainRank</code> is a different 0-100 metric and will not match DR.</li>
+<li>You need Ahrefs' historical data or its other reports through the same API.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You need bulk authority checks or backlink lists a few times a month, not a full SEO suite.</li>
+<li>You run them from n8n, Make, Zapier, Google Sheets or an AI agent (MCP) and want to pay only for the rows you get.</li>
+<li>You want a hard cap: every run stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>

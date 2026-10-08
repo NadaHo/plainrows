@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NewsAPI alternative for production: Google News results billed per article | PlainRows</title><meta name="description" content="NewsAPI&#x27;s free plan cannot be used in production and its Business plan costs $449 a month. Get Google News articles with publisher, date and position as JSON, b">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/newsapi-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>A news API for production without a $449 subscription</h1>
+<p class="lead">You want news articles about a brand, a company or a topic inside a script, a spreadsheet, n8n or an AI agent:
+headline, link, publisher and publication time. Here is where NewsAPI stands, and what PlainRows offers.</p>
+
+<h2>NewsAPI plans and their limits</h2>
+<p>From <a href="https://newsapi.org/pricing">newsapi.org/pricing</a> on 2026-10-08:</p>
+<ul>
+<li><strong>Developer (free):</strong> 100 requests per day, "Articles have a 24 hour delay", search up to a month old,
+and it "cannot be used in a staging or production environment".</li>
+<li><strong>Business:</strong> $449 per month for 250,000 requests, real-time articles, search up to 5 years old.</li>
+<li><strong>Advanced:</strong> $1,749 per month for 2,000,000 requests.</li>
+</ul>
+<p>Google News itself has no public API.</p>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us. The tool runs on Apify: the free Apify plan is enough to test it, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Google News results for up to 1,000 queries per run, up to 200 articles per query, in 20 countries and their languages:
+title, URL, publisher, snippet, publication time, position, Top stories. Filters for past hour, day, week, month or year, sort by date.</td>
+<td><a href="../google-news-scraper/">Google News Scraper API</a></td><td>$0.0016 per article returned; queries with no result and duplicates are free</td></tr>
+</table>
+<p>Example: monitoring 10 brand names every day, with about 20 new articles each, is about 6,000 articles a month,
+about $9.60.</p>
+
+<h2>When NewsAPI is the better choice</h2>
+<ul>
+<li>You are prototyping and a 24-hour delay is fine: the free Developer plan costs nothing.</li>
+<li>You need an archive of up to 5 years, or several hundred thousand requests a month at a fixed price.</li>
+<li>You need article content or author fields. PlainRows returns what Google News shows: headline, publisher, snippet and time.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You need current articles in production and your volume is far below what $449 a month buys.</li>
+<li>You want the articles Google News ranks for a query, in a given country and language, with their position and Top stories.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP), with a hard cap: every run stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>
