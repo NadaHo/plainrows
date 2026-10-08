@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moz API alternative: bulk domain authority and spam score, pay per domain | PlainRows</title><meta name="description" content="No monthly Moz API plan or row budget. Bulk domain rank (0-100), spam score, backlinks and referring domains for up to 10,000 domains per run, billed per domain">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/moz-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>A Moz API alternative for bulk domain authority checks</h1>
+<p class="lead">You need an authority score and a spam score for a list of domains (link building, outreach lists, SEO audits),
+inside a script, a spreadsheet, n8n or an AI agent. Here is what the Moz API plans include, and what PlainRows charges.</p>
+
+<h2>What the Moz API plans include</h2>
+<p>From <a href="https://moz.com/products/api/pricing">moz.com/products/api/pricing</a> on 2026-10-08 (the page showed a limited-time discount banner that day):</p>
+<ul>
+<li>Free: up to 50 rows per month, one request every ten seconds.</li>
+<li>Starter: $20 per month for 3,000 rows (no overage), or $75 per month for 15,000 rows ($5 per extra 1,000 rows).</li>
+<li>Growth: $125 per month for 50,000 rows, $250 for 120,000 rows, $500 for 500,000 rows, with overage per 10,000 rows.</li>
+<li>Rows measure the cost of each request: Moz says the endpoint and parameters determine how many rows a call uses.</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No monthly plan with us. The <a href="../domain-authority-checker/">Bulk Domain Authority Checker</a> runs on Apify: the free Apify plan is enough to test it,
+the Starter plan ($19 per month with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Domain rank (0-100), spam score (0-100), backlinks and referring domains count, for up to 10,000 domains per run</td>
+<td><a href="../domain-authority-checker/">Bulk Domain Authority Checker</a></td>
+<td>$0.0015 per domain with data + $0.035 per metric group and batch of 1,000 domains</td></tr>
+</table>
+<p>Example: domain rank only for 1,000 domains costs about $1.50 plus one batch fee of
+$0.035; each extra metric group (spam score, backlinks, referring domains) adds one batch fee per 1,000 domains.
+Domains with no data, duplicates and input mistakes are free, and a run never spends more than the maximum cost you set.</p>
+
+<h2>When the Moz API is the better choice</h2>
+<ul>
+<li>You need Moz Domain Authority (DA) or Moz Spam Score themselves, for example because a client asks for DA. PlainRows returns DataForSEO's
+domain rank and spam score, from a different backlink index: values will not match Moz's.</li>
+<li>You check a few dozen domains a month: the free Moz plan may be enough.</li>
+<li>You need Moz's other endpoints (URL metrics history, link status, keyword data) through one API.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You check large lists now and then (thousands of domains in one run) and do not want a monthly row budget.</li>
+<li>You want results in n8n, Make, Zapier, Google Sheets or an AI agent (MCP) and to pay only for domains with data.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>
