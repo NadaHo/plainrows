@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon Product Advertising API alternative: search results without 10 sales a month | PlainRows</title><meta name="description" content="PA-API 5 is deprecated and its successor, the Creators API, needs an Associates account with 10 qualifying sales in 30 days. Get Amazon search results with ASIN">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/amazon-product-advertising-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Amazon search data without the Product Advertising API</h1>
+<p class="lead">You want Amazon search results inside a script, a spreadsheet, n8n or an AI agent: which products rank for a keyword,
+their ASIN, price, rating, number of reviews and badges. Here is where Amazon's own API stands, and what PlainRows offers.</p>
+
+<h2>Amazon's API and its conditions</h2>
+<p>From Amazon's Associates documentation on 2026-10-08:</p>
+<ul>
+<li><strong>PA-API 5 is deprecated:</strong> "The Amazon Product Advertising API 5.0 (PA-API 5) has been deprecated and is being replaced by the Creators API",
+and "Applications that continue to call PA-API 5 receive an HTTP 403 Forbidden response"
+(<a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation">PA-API 5 deprecation</a>).</li>
+<li><strong>Creators API eligibility:</strong> you must "Be enrolled in the Amazon Associates program for your target marketplace" and
+"Have at least 10 qualifying sales within the past 30 days"
+(<a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction">Creators API introduction</a>).
+It is part of the affiliate program: access depends on the sales you send to Amazon.</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us and no Amazon account. The tool runs on Apify: the free Apify plan is enough to test it, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Amazon search results on 15 marketplaces, up to 700 products per keyword: ASIN, title, price, currency, rating, number of ratings,
+Best Seller and Amazon's Choice badges, "bought in past month", coupons, image, organic rank and sponsored flag. Filters for price, rating and reviews.</td>
+<td><a href="../amazon-product-search/">Amazon Product Search API</a></td><td>$0.0015 per product returned; keywords with no result and filtered-out products are free</td></tr>
+</table>
+<p>Example: tracking the top 50 products for 20 keywords every week is about 4,000 products a month,
+about $6.00.</p>
+
+<h2>When Amazon's API is the better choice</h2>
+<ul>
+<li>You are an active Associate with the required sales and you link to Amazon to earn commissions: the API is made for that.</li>
+<li>You need full product details for known ASINs (all images, feature bullets, variations, offers). PlainRows returns what the search results page shows.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You do product or niche research, price monitoring or Amazon SEO, with or without an Associates account.</li>
+<li>You want the ranking for a keyword as shoppers see it: organic rank, sponsored placements, badges and "bought in past month".</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP), with a hard cap: every run stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>

@@ -1,0 +1,272 @@
+{
+  "name": "Generate keyword ideas with search volume and difficulty into Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate keyword ideas with search volume and difficulty into Google Sheets\n\n### Who's it for\nBloggers, content marketers and SEO agencies who plan articles or campaigns and need keyword ideas with real metrics.\n\n### How it works\n1. A form asks for seed keywords (one per line), the type of ideas (long-tail suggestions, related searches or same-topic ideas), the country and optional minimum volume.\n2. The **Keyword Ideas Generator** Actor on Apify (`plainrows/keyword-ideas-generator`) returns up to 1,000 ideas per seed with Google search volume, CPC, keyword difficulty, competition and search intent.\n3. A Code node keeps the ideas found and formats them.\n4. Ideas are appended to the `Ideas` tab of your Google Sheet, ready to sort and filter.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with an `Ideas` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Add include/exclude words or a maximum difficulty to the Apify node input.\n- Send the best ideas to Notion or Airtable as a content calendar.\n- Chain an AI node to cluster ideas by topic.\n\nPricing: a small fee per seed plus a price per idea returned.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "6b6a4a19-2021-557e-82c2-3fd4ce3b4070",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Add your Apify credential (free account at apify.com) to *Generate keyword ideas*.\n2. Connect Google Sheets, paste your spreadsheet URL and create a tab named `Ideas`.\n3. Open the form URL from the trigger and submit a seed keyword.\n\nCost: a small fee per seed plus a price per idea returned (see the Actor's Pricing tab). The node's *Maximum Cost per Run* caps every run.",
+        "height": 300,
+        "width": 420,
+        "color": 7
+      },
+      "id": "58208fe4-8aff-50b1-8ed2-9c876eeebce8",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Keyword ideas",
+        "formDescription": "One seed keyword per line.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Seed keywords",
+              "fieldType": "textarea",
+              "placeholder": "coffee maker",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Mode",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Long-tail suggestions"
+                  },
+                  {
+                    "option": "Related searches"
+                  },
+                  {
+                    "option": "Same topic ideas"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Country",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "US"
+                  },
+                  {
+                    "option": "GB"
+                  },
+                  {
+                    "option": "CA"
+                  },
+                  {
+                    "option": "AU"
+                  },
+                  {
+                    "option": "IE"
+                  },
+                  {
+                    "option": "IN"
+                  },
+                  {
+                    "option": "DE"
+                  },
+                  {
+                    "option": "AT"
+                  },
+                  {
+                    "option": "CH"
+                  },
+                  {
+                    "option": "FR"
+                  },
+                  {
+                    "option": "BE"
+                  },
+                  {
+                    "option": "ES"
+                  },
+                  {
+                    "option": "MX"
+                  },
+                  {
+                    "option": "IT"
+                  },
+                  {
+                    "option": "NL"
+                  },
+                  {
+                    "option": "PT"
+                  },
+                  {
+                    "option": "BR"
+                  },
+                  {
+                    "option": "PL"
+                  },
+                  {
+                    "option": "SE"
+                  },
+                  {
+                    "option": "JP"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ideas per seed",
+              "fieldType": "number",
+              "placeholder": "100"
+            },
+            {
+              "fieldLabel": "Minimum monthly searches",
+              "fieldType": "number",
+              "placeholder": "50"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "82648ddd-6424-50cc-ab61-0bd982b470d1",
+      "name": "Keyword research form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~keyword-ideas-generator",
+        "customBody": "={{ JSON.stringify({\n  seedKeywords: $json['Seed keywords'].split('\\n').map((s) => s.trim()).filter(Boolean),\n  mode: { 'Long-tail suggestions': 'suggestions', 'Related searches': 'related', 'Same topic ideas': 'ideas' }[$json['Mode']] || 'suggestions',\n  country: $json['Country'],\n  maxIdeasPerSeed: Number($json['Ideas per seed']) || 100,\n  minSearchVolume: Number($json['Minimum monthly searches']) || undefined\n}) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "3c822450-c5ba-5c50-861b-461ee1ab52f7",
+      "name": "Generate keyword ideas",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        240,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per keyword idea, ready for Google Sheets.\nreturn $input.all()\n  .filter((item) => item.json.found !== false)\n  .map(({ json: k }) => ({\n    json: {\n      keyword: k.keyword,\n      seed: k.seed,\n      searchVolume: k.searchVolume ?? null,\n      cpcUsd: k.cpcUsd ?? null,\n      keywordDifficulty: k.keywordDifficulty ?? null,\n      searchIntent: k.searchIntent ?? null,\n      competition: k.competitionLevel ?? null,\n      trendYearlyPct: k.trendYearlyPct ?? null,\n      country: k.country,\n      generatedAt: k.observedAt,\n    },\n  }));"
+      },
+      "id": "f3a946be-3b20-5323-bdd1-aa19da3264eb",
+      "name": "Format ideas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Ideas",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "e83c3e43-3d35-5d88-bf58-9565343f2af8",
+      "name": "Append ideas to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Keyword research form": {
+      "main": [
+        [
+          {
+            "node": "Generate keyword ideas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate keyword ideas": {
+      "main": [
+        [
+          {
+            "node": "Format ideas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format ideas": {
+      "main": [
+        [
+          {
+            "node": "Append ideas to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

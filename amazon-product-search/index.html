@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon Product Search Scraper: Prices, ASINs &amp; Ratings | PlainRows</title><meta name="description" content="Search Amazon by keyword in 15 marketplaces and get every product: ASIN, title, price, rating, reviews count, Best Seller and Amazon&#x27;s Choice badges, bought las">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/amazon-product-search/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Amazon Product Search Scraper: Prices, ASINs &amp; Ratings</h1>
+<p class="lead">Search Amazon by keyword in 15 marketplaces and get every product: ASIN, title, price, rating, reviews count, Best Seller and Amazon&#x27;s Choice badges, bought last month, image and rank. Fast API results, no browser. Pay only per product found.</p>
+<p><a class="btn" href="https://apify.com/plainrows/amazon-product-search">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/amazon-product-search" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Product and niche research: price range, ratings and sales signals (&quot;bought in past month&quot;) for any keyword, before you launch or source a product.</li><li>Amazon SEO and rank tracking: where your ASIN and your competitors&#x27; ASINs rank for your keywords, organic and sponsored.</li><li>Price monitoring: schedule the same keywords daily and track price, coupons and badges over time.</li><li>Market comparison: the same keyword on amazon.com, amazon.de and amazon.co.jp in one go (one run per marketplace).</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per result, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Product</b><br><span>One Amazon product from the search results with its details (ASIN, title, price, rating, reviews count, badges, image, rank). Keywords with no result and products removed by your filters are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~amazon-product-search/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchQueries&quot;: [
+    &quot;wireless earbuds&quot;
+  ],
+  &quot;marketplace&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/amazon-product-search&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;wireless earbuds&#x27;], &#x27;marketplace&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/amazon-product-search</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/amazon-product-search</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/amazon-product-search">https://apify.com/plainrows/amazon-product-search</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-08.</footer>
+</body></html>
