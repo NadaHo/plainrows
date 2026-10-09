@@ -1,0 +1,213 @@
+{
+  "name": "Export every keyword your competitors rank for to Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Export every keyword your competitors rank for to Google Sheets\n\n### Who's it for\nSEO consultants, content marketers and founders who want a competitor's ranking keywords as a spreadsheet (content gaps, page ideas, writer briefs) without an SEO suite seat.\n\n### How it works\n1. The **Settings** node holds the competitor domains, the country and how many keywords per site you want (up to 1,000).\n2. The **Domain SEO Overview** Actor on Apify (`plainrows/domain-seo-overview`) returns each site's top Google keywords by estimated traffic.\n3. A Code node turns them into one row per keyword: domain, keyword, position, ranking URL, estimated traffic, search volume, CPC, difficulty and intent.\n4. The rows are appended to the `Keywords` tab with today's date.\n\n### Requirements\n- An Apify account (free plan available: 3 domains and 10 keywords per site) and its API token.\n- A Google Sheets account and a spreadsheet with a `Keywords` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Raise `topKeywords` for deeper lists; billing is per keyword returned and the node caps each run with *Maximum Cost per Run*.\n- Set `minSearchVolume` to skip tiny keywords before they reach the sheet.\n- Replace the Manual Trigger with a Schedule Trigger for a monthly snapshot.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "a8ae2075-ab56-5a0c-ba71-2989d964456d",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Spreadsheet with a tab named `Keywords` (it can be empty: headers are written on the first run).\n2. Connect Google Sheets in *Append keywords* and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Get ranking keywords*.\n4. In **Settings**, list the `domains` (comma-separated), the `country` (US, GB, DE, FR...), `topKeywords` per site (up to 1000) and `minSearchVolume` (0 keeps all).",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "003415cc-b48e-5b44-b2ec-d4b0d186f66a",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "58d8c1c8-a617-5265-9b22-5b6c894cb190",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8357c832-c473-53ca-877f-c48b2b4f59d3",
+              "name": "domains",
+              "value": "canva.com, figma.com",
+              "type": "string"
+            },
+            {
+              "id": "cd98d5dc-4c20-58ef-9982-3b1d29971548",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "91581066-9acf-517e-b961-5ad455c547f9",
+              "name": "topKeywords",
+              "value": 200,
+              "type": "number"
+            },
+            {
+              "id": "014281c6-7a97-5587-a440-619e2448f9fc",
+              "name": "minSearchVolume",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d50efcea-bb91-561e-a895-199c9cec7b30",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~domain-seo-overview",
+        "customBody": "={{ JSON.stringify({ domains: $json.domains.split(',').map((d) => d.trim()).filter(Boolean), country: $json.country, topKeywords: $json.topKeywords }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "5a58b64a-532e-5885-959b-a6604946fae2",
+      "name": "Get ranking keywords",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per ranking keyword (the Actor nests them in topKeywords). Sites without data are skipped.\nconst minVolume = Number($('Settings').first().json.minSearchVolume) || 0;\nconst date = new Date().toISOString().slice(0, 10);\nconst out = [];\nfor (const { json: d } of $input.all()) {\n  if (d.found === false) continue;\n  for (const k of d.topKeywords || []) {\n    if ((k.searchVolume ?? 0) < minVolume) continue;\n    out.push({ json: {\n      date, domain: d.domain, keyword: k.keyword, position: k.position, url: k.url,\n      estimatedTraffic: k.estimatedTraffic == null ? null : Math.round(k.estimatedTraffic),\n      searchVolume: k.searchVolume ?? null, cpcUsd: k.cpcUsd ?? null,\n      keywordDifficulty: k.keywordDifficulty ?? null, searchIntent: k.searchIntent ?? null, country: d.country,\n    } });\n  }\n}\nreturn out;"
+      },
+      "id": "073c71c5-b299-5e2a-8536-69c883316676",
+      "name": "One row per keyword",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Keywords",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "79cb4b4b-4293-578f-8a7c-9532c5be8be3",
+      "name": "Append keywords",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get ranking keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ranking keywords": {
+      "main": [
+        [
+          {
+            "node": "One row per keyword",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per keyword": {
+      "main": [
+        [
+          {
+            "node": "Append keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
