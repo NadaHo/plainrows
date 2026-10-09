@@ -1,0 +1,222 @@
+{
+  "name": "Check a hotel's prices on every booking site daily in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Check a hotel's prices on every booking site daily in Google Sheets\n\n### Who's it for\nHotel revenue managers, small hotel groups and travel agencies who want to know every day whether Booking.com, Expedia, Agoda and others undercut the hotel's own website (rate parity), and what competitors charge.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your hotels (one per line: Google hotel IDs, Google Hotels links, or names with their city), how many days ahead to check, the number of nights and the currency.\n3. The **Google Hotels Prices Scraper** Actor on Apify (`plainrows/google-hotels-prices`) runs in price comparison mode: for each hotel it returns the price of every booking site Google lists for that night, the official site's price, and the cheapest night of the coming month.\n4. A Code node turns each hotel into one row: lowest price and site, official site price, the gap in %, the sites cheaper than the official site, and the cheapest upcoming night.\n5. One dated row per hotel is appended to the `Parity` tab.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Parity` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `hotels`, `daysAhead`, `nights` and `currency` in **Settings**. Use hotel IDs or links rather than names: a name costs one extra lookup per run.\n- Send the rows where `cheaperThanOfficial` is not empty to Slack or email instead of (or as well as) Sheets.\n- Run it several times a day, or for several `daysAhead` values, by duplicating the trigger.\n\nPricing: one hotel check per hotel per run (plus one lookup for each hotel given by name); hotels Google has no price for are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "a4722f2e-4975-5823-95ec-8ac9e98a29d0",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your hotels in `hotels` (one per line: Google hotel ID, Google Hotels link, or name with city) and set `daysAhead`, `nights`, `currency` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Compare booking sites*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with a `Parity` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per hotel checked (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "63899210-8e9c-54c6-9881-093faf47f185",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "36799004-b13f-5033-ad1e-0bfa4bf157b7",
+      "name": "Every day 7:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "827e6558-7482-5333-a80d-4c278d5ebe80",
+              "name": "hotels",
+              "value": "Hyatt Regency Lisbon\nHotel Adlon Kempinski Berlin",
+              "type": "string"
+            },
+            {
+              "id": "a303275e-b6cd-531b-9256-b8d646785965",
+              "name": "daysAhead",
+              "value": 14,
+              "type": "number"
+            },
+            {
+              "id": "329a7bc2-9275-5831-a9fe-85d7e44dc1a4",
+              "name": "nights",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "0237f1e5-44bd-510e-9369-b956433e375b",
+              "name": "currency",
+              "value": "EUR",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "26c245e2-61e3-50ad-8e0d-5bb9171f0f8d",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-hotels-prices",
+        "customBody": "={{ JSON.stringify({ hotels: $json.hotels.split('\\n').map((h) => h.trim()).filter(Boolean), checkInDate: $now.plus({ days: $json.daysAhead }).toFormat('yyyy-MM-dd'), nights: $json.nights, currency: $json.currency, priceCalendarRange: 'month' }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "a21207e4-40fb-5351-948c-649d5526f4c0",
+      "name": "Compare booking sites",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per hotel: lowest price, official site price, gap and the sites cheaper than the official site.\nconst today = new Date().toISOString().slice(0, 10);\nreturn $input.all()\n  .map((i) => i.json)\n  .filter((h) => h.found !== false)\n  .map((h) => {\n    const official = h.officialSitePrice;\n    const cheaper = official == null ? [] : (h.sites ?? []).filter((s) => !s.officialSite && s.price < official);\n    return {\n      json: {\n        checkedOn: today,\n        hotel: h.name,\n        checkIn: h.checkIn,\n        currency: h.currency,\n        lowestPrice: h.lowestPrice,\n        lowestPriceSite: h.lowestPriceSite,\n        officialSitePrice: official,\n        officialVsLowestPercent: official && h.lowestPrice ? Math.round(((official - h.lowestPrice) / h.lowestPrice) * 1000) / 10 : null,\n        cheaperThanOfficial: cheaper.map((s) => `${s.site} ${s.price}`).join(', '),\n        sitesCount: h.sitesCount,\n        cheapestUpcomingNight: h.calendarLowestPriceCheckIn,\n        cheapestUpcomingPrice: h.calendarLowestPrice,\n        googleHotelsUrl: h.googleHotelsUrl,\n      },\n    };\n  });"
+      },
+      "id": "c73a5b18-ec53-5ce6-81d7-885df175b845",
+      "name": "One row per hotel",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Parity",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "43019784-360e-50c5-968e-93ede215f80d",
+      "name": "Append to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 7:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Compare booking sites",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compare booking sites": {
+      "main": [
+        [
+          {
+            "node": "One row per hotel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per hotel": {
+      "main": [
+        [
+          {
+            "node": "Append to sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
