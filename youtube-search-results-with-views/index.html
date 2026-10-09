@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube search results with views and duration as JSON: options compared | PlainRows</title><meta name="description" content="Which videos rank for a keyword, with views, duration and channel in the same row. What the YouTube Data API returns by default, and a pay-per-video tool, compa">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/youtube-search-results-with-views/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>YouTube search results with views and duration in one row</h1>
+<p class="lead">You want YouTube search results inside a script, a spreadsheet, n8n or an AI agent: which videos rank for a keyword,
+their views, age, duration and channel. Here is what the official API allows, and what PlainRows offers.</p>
+
+<h2>The official YouTube Data API and its limits</h2>
+<ul>
+<li><strong>Daily quota:</strong> on 2026-10-08 Google wrote that "Projects that enable the YouTube Data API have a default quota allocation of
+100 <code>search.list</code> calls, 100 <code>videos.insert</code> calls, and 10,000 units per day combined for all other endpoints".
+More quota goes through the "Quota extension request form for YouTube API Services"
+(<a href="https://developers.google.com/youtube/v3/getting-started">developers.google.com/youtube/v3/getting-started</a>).</li>
+<li><strong>Results per call:</strong> <code>search.list</code> accepts <code>maxResults</code> from 0 to 50, default 5
+(<a href="https://developers.google.com/youtube/v3/docs/search/list">developers.google.com/youtube/v3/docs/search/list</a>).
+With the default quota, that is at most 5,000 search results a day.</li>
+<li><strong>No views or duration in search results:</strong> a search returns the <code>snippet</code> part only (title, channel, description, date).
+View counts and durations need a second call to <code>videos.list</code> for the video IDs.</li>
+<li><strong>Setup:</strong> a Google Cloud project, the API enabled and an API key before the first call.</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us and no API key. The tool runs on Apify: the free Apify plan is enough to test it, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>YouTube search results for up to 1,000 queries per run, up to about 200 videos per query, in 20 countries: title, URL, views, upload age and approximate date,
+duration, channel name, ID and URL, Shorts and live flags, badges, position. YouTube filters for sort, upload date and duration.</td>
+<td><a href="../youtube-search-scraper/">YouTube Search Scraper API</a></td><td>$0.0015 per video returned; queries with no result, channels, playlists and repeated videos are free</td></tr>
+</table>
+<p>Example: tracking the top 50 videos for 20 keywords once a week is about 4,000 videos a month,
+about $6.00.</p>
+
+<h2>When the official API is the better choice</h2>
+<ul>
+<li>100 searches a day of up to 50 videos are enough for you: within its quota the official API is free.</li>
+<li>You need data only the API gives: full descriptions, tags, likes, comment counts, captions, or anything on your own channel.</li>
+<li>You need exact upload timestamps. PlainRows gives the age YouTube shows ("2 years ago") and an approximate date computed from it.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You run more searches than the default quota allows, or you do not want to set up a Google Cloud project.</li>
+<li>You want views, duration and channel in the same row as the search position, without a second API call.</li>
+<li>You want results as a viewer in a given country sees them, with Shorts and live streams flagged or filtered out.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP), with a hard cap: every run stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitor Google ads as JSON: official datasets and a per-ad tool compared | PlainRows</title><meta name="description" content="Google&#x27;s downloadable Ads Transparency datasets cover the EEA and Turkey. Get an advertiser&#x27;s Google ads in any country the Transparency Center covers as JSON, ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/competitor-google-ads-json/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Competitor Google ads as JSON: what the official datasets cover, and what PlainRows offers</h1>
+<p class="lead">You want a competitor's Google ads (text, image and video, with first and last shown dates) in a script, a spreadsheet,
+n8n or an AI agent, not by scrolling the Transparency Center website. Here is what Google offers for programmatic access, and what PlainRows offers.</p>
+
+<h2>What Google offers</h2>
+<p>From Google's <a href="https://storage.googleapis.com/ads-transparency-center/api-data/README.txt">Ads Transparency Center datasets README</a> on 2026-10-08:</p>
+<ul>
+<li>Two datasets, <code>creative_stats</code> and <code>removed_creative_stats</code>, free to download, and also queryable as the BigQuery public dataset
+<code>bigquery-public-data.google_ads_transparency_center</code>.</li>
+<li><code>creative_stats</code> covers ads served in the European Economic Area and Turkey; <code>removed_creative_stats</code> covers the European Economic Area.</li>
+<li>Fields include advertiser ID and names, creative ID and page URL, ad format, and per-region first shown, last shown and impression ranges.</li>
+<li>Both datasets fall under the Google Terms of Service and the Google Ads Transparency Center Additional Terms.</li>
+</ul>
+<p>So for ads shown in the EEA or Turkey, and if you are at ease with SQL and Google Cloud, the BigQuery dataset is the official route
+(queries are billed under <a href="https://cloud.google.com/bigquery/pricing">BigQuery pricing</a>). Ads shown in the United States, the United Kingdom
+or anywhere else are not in it: the website at adstransparency.google.com shows them, the datasets do not.</p>
+
+<h2>What PlainRows offers</h2>
+<p>The <a href="../google-ads-transparency/">Google Ads Transparency Scraper API</a>: enter domains (<code>nike.com</code>), advertiser names or advertiser IDs,
+pick a country (or all regions), a platform, a format and dates, and get one row per ad: advertiser, creative ID, format, preview image,
+first shown, last shown, days running and the Transparency Center link, as JSON, CSV or Excel, or straight into n8n, Make, Zapier or Google Sheets.
+With <strong>Only new ads</strong> turned on, a scheduled run returns only ads it has never delivered to you.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Google ads of any advertiser, in any country the Transparency Center covers, up to 120 ads per advertiser per run.</td>
+<td><a href="../google-ads-transparency/">Google Ads Transparency Scraper API</a></td>
+<td>$0.0008 per ad, plus $0.003 per advertiser searched</td></tr>
+</table>
+<p>Example: 1,000 ads costs about $0.8, plus $0.003
+for each advertiser searched. The tool runs on Apify: the free plan is enough to test it, the Starter plan ($19 per month with $19 of usage included,
+<a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<p>Ready-made workflow: <a href="../templates/new-competitor-google-ads-slack.json">new Google ads of a competitor to Slack (n8n)</a>.</p>
+
+<h2>When the BigQuery dataset is the better choice</h2>
+<ul>
+<li>You study ads shown in the EEA or Turkey across many advertisers at once (a whole market, not a list of competitors): SQL over the full dataset beats one search per advertiser.</li>
+<li>You need impression ranges per region or targeting information: the dataset has fields this tool does not return.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

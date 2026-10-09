@@ -1,6 +1,6 @@
 # Keyword Search Volume & Difficulty: Ahrefs Alternative (`plainrows/keyword-search-volume`)
 
-An Ahrefs and Semrush alternative without a subscription: Google search volume, CPC, competition, keyword difficulty, search intent and up to 8 years of monthly history for up to 10,000 keywords per run in 20 countries. You only pay for keywords that have data.
+An Ahrefs and Semrush alternative without a subscription: Google search volume, CPC, competition, keyword difficulty, intent and monthly history for up to 10,000 keywords per run, or keyword ideas from seed keywords, in 20 countries. You only pay for keywords with data.
 
 Store page and full documentation: https://apify.com/plainrows/keyword-search-volume
 
