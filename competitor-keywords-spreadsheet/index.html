@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitor keyword research: every keyword a site ranks for, as a spreadsheet | PlainRows</title><meta name="description" content="Export up to 1,000 Google keywords a competitor ranks for, one row per keyword with position, ranking URL, volume, CPC and difficulty. Pay per keyword, no SEO s">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/competitor-keywords-spreadsheet/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Every keyword a competitor ranks for, one row per keyword</h1>
+<p class="lead">You want the list of Google keywords a competitor gets traffic from, with the page that ranks for each one,
+in a spreadsheet you can sort and filter: to find content gaps, plan pages or brief a writer. Here is how to get it without an SEO suite.</p>
+
+<h2>What the usual tools give you</h2>
+<ul>
+<li>SEO suites show this report (often called "organic research" or "organic keywords") inside their interface.
+On 2026-10-09, Semrush's free tier allowed 10 reports per day, and its cheapest paid plan, "SEO", was listed at €112.52 per month billed annually
+(<a href="https://www.semrush.com/prices/">semrush.com/prices</a>, viewed from Europe).</li>
+<li>That is a good deal if you use the suite every day. It is a lot for a list of keywords you need once a month for a handful of competitors.</li>
+</ul>
+
+<h2>The same list as rows</h2>
+<p><a href="../domain-seo-overview/">Website Traffic Checker</a> takes a list of domains and, with <b>topKeywords</b> set up to 1,000,
+returns the keywords that bring each site the most Google organic traffic: <code>keyword</code>, <code>position</code>, ranking <code>url</code>,
+<code>estimatedTraffic</code>, <code>searchVolume</code>, <code>cpcUsd</code>, <code>keywordDifficulty</code> and <code>searchIntent</code>,
+plus the site's estimated organic traffic and keyword count. 20 countries.</p>
+<p>To get one row per keyword (CSV, Excel, Google Sheets), add <code>unwind=topKeywords</code> to the dataset export URL, for example
+<code>https://api.apify.com/v2/datasets/DATASET_ID/items?unwind=topKeywords&amp;format=csv</code>. Each row then carries its domain, so
+several competitors fit in one sheet.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Organic traffic and keyword counts of a site</td><td><a href="../domain-seo-overview/">Website Traffic Checker</a></td><td>$0.004 per domain with data</td></tr>
+<tr><td>Each ranking keyword with position, URL, volume, CPC, difficulty, intent</td><td>same run</td><td>$0.002 per keyword returned</td></tr>
+</table>
+<p>Example: 5 competitors with 500 keywords each cost about $5.00 for the keywords,
+plus $0.02 for the 5 domains. Domains with no data are free, and every run stops at the maximum cost you set.</p>
+
+<h2>When an SEO suite is the better choice</h2>
+<ul>
+<li>You need more than 1,000 keywords per site, position history over years, or the suite's own numbers. Our data comes from DataForSEO,
+so values differ from Semrush or Ahrefs, as they differ between any two SEO tools.</li>
+<li>You also use rank tracking, site audits and content tools every day.</li>
+</ul>
+
+<h2>When this is the better choice</h2>
+<ul>
+<li>You need the list now and then, for a few sites, and want it as rows rather than screens.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP) on a schedule, with one Apify token.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-09 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
