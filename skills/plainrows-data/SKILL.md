@@ -1,6 +1,6 @@
 ---
 name: plainrows-data
-description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Google Maps Businesses Scraper; ATS Job Postings (Greenhouse, Lever, Ashby); Google Ads Transparency Scraper; Amazon Product Search Scraper; Google Hotels Prices Scraper; Google News Scraper; YouTube Search Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per use.
+description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Google Maps Businesses Scraper; ATS Job Postings (Greenhouse, Lever, Ashby); Google Jobs Scraper; Google Ads Transparency Scraper; Amazon Product Search Scraper; Google Shopping Prices Scraper; Google Hotels Prices Scraper; Google News Scraper; YouTube Search Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per use.
 compatibility: Needs network access to api.apify.com and an APIFY_TOKEN environment variable (free Apify account).
 metadata:
   author: PlainRows
@@ -47,8 +47,10 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/domain-seo-overview` | Website Traffic Checker: Organic Traffic & Keywords | from $0.003 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
 | `plainrows/google-ads-transparency` | Google Ads Transparency Scraper: Competitor Ads Library | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
 | `plainrows/google-hotels-prices` | Google Hotels Prices Scraper: Hotel Rates & Booking Site Prices | from $0.0008 per hotel | [references/google-hotels-prices.md](references/google-hotels-prices.md) |
+| `plainrows/google-jobs-scraper` | Google Jobs Scraper: Listings, Salaries & Apply Links | from $0.0008 per job listing | [references/google-jobs-scraper.md](references/google-jobs-scraper.md) |
 | `plainrows/google-maps-businesses` | Google Maps Businesses Scraper: Leads, Phones & Ratings | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
+| `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
 | `plainrows/google-trends-explorer` | Google Trends Scraper API: Interest, Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
 | `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas, Volume & Difficulty | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-search-volume` | Keyword Search Volume & Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |

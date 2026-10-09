@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Jobs Scraper: Listings, Salaries &amp; Apply Links | PlainRows</title><meta name="description" content="Get Google Jobs listings for any job search and city, gathered from LinkedIn, Indeed, ZipRecruiter and company career sites: title, company, location, salary (m">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-jobs-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Jobs Scraper: Listings, Salaries &amp; Apply Links</h1>
+<p class="lead">Get Google Jobs listings for any job search and city, gathered from LinkedIn, Indeed, ZipRecruiter and company career sites: title, company, location, salary (min/max/period), job type, posting date, job board and apply link. 20 countries. Only-new-jobs mode for daily alerts. Pay only per job.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-jobs-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-jobs-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Job market and salary research: who is hiring for a role in a city, at which pay, on which job boards.</li><li>Recruiting and staffing leads: companies hiring right now for the roles you place, with the link to each job.</li><li>Job board and newsletter feeds: fresh jobs for a niche (remote, nursing, data...) every day; turn on Only new jobs to get and pay for each job once.</li><li>Competitor hiring watch: search a company name to follow the roles it opens.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Job listing</b><br><span>One Google Jobs listing returned with its details. Searches with no job, duplicates and input mistakes are free.</span></td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td><td>$0.0008</td></tr><tr><td><b>Page checked (only new results)</b><br><span>Only with onlyNewJobs: one page of up to 10 Google Jobs results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.</span></td><td>$0.0015</td><td>$0.0012</td><td>$0.0012</td><td>$0.0012</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-jobs-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;queries&quot;: [
+    &quot;data engineer in Austin, TX&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-jobs-scraper&quot;).call(run_input={&#x27;queries&#x27;: [&#x27;data engineer in Austin, TX&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-jobs-scraper</code>.</li>
+<li><a href="../templates/google-jobs-new-postings-sheets.json">Track new Google Jobs postings in Google Sheets every day with Apify</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-jobs-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-jobs-scraper">https://apify.com/plainrows/google-jobs-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

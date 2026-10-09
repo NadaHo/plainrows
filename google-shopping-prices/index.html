@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Shopping Prices Scraper: Products, Stores &amp; Deals | PlainRows</title><meta name="description" content="Get Google Shopping prices for any search or product: price, old price and discount, seller, rating, delivery, image, plus each store&#x27;s offer with domain, shipp">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-shopping-prices/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Shopping Prices Scraper: Products, Stores &amp; Deals</h1>
+<p class="lead">Get Google Shopping prices for any search or product: price, old price and discount, seller, rating, delivery, image, plus each store&#x27;s offer with domain, shipping and total price. 20 countries, no browser, no proxies. Pay only per result.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-shopping-prices">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-shopping-prices" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Price monitoring: track your products&#x27; and competitors&#x27; prices on Google Shopping every day, with discounts and old prices.</li><li>Price comparison across stores: who sells a product, at what total price including shipping, and who is in stock.</li><li>Product and market research: which brands, models and sellers show up for a category, at which price points and ratings.</li><li>Repricing and MAP checks: spot sellers below your minimum advertised price, by store domain.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Product offer</b><br><span>One Google Shopping product listing or one store offer returned with its price and details. Searches or product IDs with no result, and sponsored listings, are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-shopping-prices/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchQueries&quot;: [
+    &quot;sony wh-1000xm5&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-shopping-prices&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;sony wh-1000xm5&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-shopping-prices</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-shopping-prices</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-shopping-prices">https://apify.com/plainrows/google-shopping-prices</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

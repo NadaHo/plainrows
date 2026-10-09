@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SerpApi Google Jobs alternative: pay per job, no monthly plan | PlainRows</title><meta name="description" content="Google Jobs listings with company, location, parsed salary, posting date and apply link, billed per job returned instead of a monthly search plan.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/serpapi-google-jobs-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>A Google Jobs API you pay per job, not per month</h1>
+<p class="lead">You want Google Jobs listings in a script, a spreadsheet or an AI agent: title, company, location, salary, posting date and the link to apply.
+You do not necessarily want a monthly search plan for it.</p>
+
+<h2>What SerpApi charges for Google Jobs</h2>
+<ul>
+<li>One Google Jobs request returns up to 10 jobs; the next 10 need another request with <code>next_page_token</code>
+(<a href="https://serpapi.com/google-jobs-api">SerpApi Google Jobs API</a>).</li>
+<li>Plans on 2026-10-08: Free 250 searches per month, Starter $25 for 1,000 searches, Developer $75 for 5,000, Production $150 for 15,000
+(<a href="https://serpapi.com/pricing">serpapi.com/pricing</a>). Failed and cached searches are not counted.</li>
+<li>At 10 jobs per search, that is about $0.0025 per job on Starter, $0.0015 on Developer and $0.001 on Production, if you use the whole plan every month.</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us. The tool runs on Apify: the free Apify plan is enough to test it (2 searches, 20 jobs each per run), and the Starter plan
+($19 per month, with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes that limit.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price per job (Starter plan)</th></tr>
+<tr><td>Title, company, location, job type, salary text plus parsed min / max / period / currency, posting date, job board, apply link</td><td><a href="../google-jobs-scraper/">Google Jobs Scraper</a></td><td>$0.0012 per job returned</td></tr>
+</table>
+<p>Example: 5,000 jobs a month cost about $6.00. Searches that return no job are not billed,
+and there is no unused quota at the end of the month.</p>
+
+<h2>When SerpApi is the better choice</h2>
+<ul>
+<li>You only need a few hundred jobs a month: SerpApi's free plan (250 searches) covers it.</li>
+<li>You use your whole Production plan or larger every month: your cost per job is then at or below ours.</li>
+<li>You need SerpApi's other engines or its Google Jobs listing details endpoint in the same account.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>Your volume changes from month to month and you do not want to pay for unused searches.</li>
+<li>You want salaries as numbers (<code>salaryMin</code>, <code>salaryMax</code>, <code>salaryPeriod</code>, <code>salaryCurrency</code>) without writing a parser.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP) with the same Apify token as your other tools, and every run stops at the maximum cost you set.</li>
+</ul>
+<p>Neither tool returns the full job description: open the apply link for it, or use <a href="../ats-job-postings/">ATS Job Postings</a> for complete descriptions from company career pages.</p>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

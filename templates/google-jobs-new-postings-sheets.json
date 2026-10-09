@@ -1,0 +1,222 @@
+{
+  "name": "Track new Google Jobs postings in Google Sheets every day with Apify",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Track new Google Jobs postings in Google Sheets every day\n\n### Who's it for\nRecruiters, staffing agencies, job boards, career coaches and sales teams who sell to hiring companies (a new job posting is a buying signal).\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your job searches (e.g. `data engineer in Austin, TX`), the country and how many jobs per search.\n3. The **Google Jobs Scraper** Actor on Apify (`plainrows/google-jobs-scraper`) runs with **Only new jobs** on: it remembers the jobs it already delivered, so each run returns (and bills) only new postings, with title, company, location, salary (parsed min/max/period), posting date, the site it comes from (LinkedIn, Indeed, company career pages...) and the apply link.\n4. A Code node formats the new jobs (a job found by two searches is kept once) and they are appended to the `Jobs` tab.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Jobs` tab (headers are filled on the first run).\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `queries` (one search per line), `country` and `monitorName` in **Settings**. Use a new `monitorName` to start a fresh history.\n- Add a Slack or Gmail node after *Format new jobs* to get an alert for each new posting.\n- Filter on `salaryMin` or `company` in the Code node.\n\nPricing: pay per new job returned; searches with nothing new are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "0d531b25-2b7f-5b78-b863-97bff73964d3",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Spreadsheet with a tab named `Jobs` (it can be empty: headers are written on the first run).\n2. Connect Google Sheets in *Append new jobs* and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Search new Google Jobs*.\n4. In **Settings**, put one job search per line in `queries` (as you would type it in Google, with the city), the `country`, `maxJobsPerQuery` and a `monitorName`.\n\n**Cost:** pay per new job returned (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "3cd8a884-824b-592d-8d1e-ed33bbbe6c0e",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "6d87c4fd-6bfb-50b1-bd92-cfd14e1a6f25",
+      "name": "Every day 7:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5ecba77a-e7a5-5dd3-8253-b75bbb5e599f",
+              "name": "queries",
+              "value": "data engineer in Austin, TX\nproduct manager in New York, NY",
+              "type": "string"
+            },
+            {
+              "id": "bedd939e-a7a9-5b8b-b5e9-1fb4a8b6fa47",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "6961cb62-d963-5234-b7ed-cdbefe3cdcd8",
+              "name": "maxJobsPerQuery",
+              "value": 50,
+              "type": "number"
+            },
+            {
+              "id": "e86adf40-b539-5e3f-a15c-4c8a8319589c",
+              "name": "monitorName",
+              "value": "n8n-new-jobs",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "90eab424-12c2-5f81-bcbf-00a38b1ac2fc",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-jobs-scraper",
+        "customBody": "={{ JSON.stringify({ queries: $json.queries.split('\\n').map((q) => q.trim()).filter(Boolean), country: $json.country, maxJobsPerQuery: $json.maxJobsPerQuery, onlyNewJobs: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 2
+      },
+      "id": "cc4cbf6b-e0ee-5f9a-8ca3-cfc2032d5407",
+      "name": "Search new Google Jobs",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// The Actor already returns only jobs it never delivered (onlyNewJobs). Format them; a job found by two searches is kept once.\nconst seen = new Set();\nconst out = [];\nfor (const { json: j } of $input.all()) {\n  if (j.found === false) continue;\n  const key = [j.title, j.company, j.location].join('|').toLowerCase();\n  if (seen.has(key)) continue;\n  seen.add(key);\n  out.push({\n    json: {\n      jobId: j.jobId,\n      title: j.title,\n      company: j.company,\n      location: j.location,\n      employmentType: j.employmentType,\n      salary: j.salary,\n      salaryMin: j.salaryMin,\n      salaryMax: j.salaryMax,\n      salaryPeriod: j.salaryPeriod,\n      salaryCurrency: j.salaryCurrency,\n      postedAt: j.postedAt,\n      via: j.via,\n      applyUrl: j.applyUrl,\n      search: j.query,\n      firstSeen: new Date().toISOString().slice(0, 10),\n    },\n  });\n}\nreturn out;"
+      },
+      "id": "f4a7fa0a-91a6-5674-a540-23a0cdda7a61",
+      "name": "Format new jobs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Jobs",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "c294a913-cff0-5656-9cfc-08c3b0b35bd2",
+      "name": "Append new jobs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 7:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Search new Google Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search new Google Jobs": {
+      "main": [
+        [
+          {
+            "node": "Format new jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format new jobs": {
+      "main": [
+        [
+          {
+            "node": "Append new jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

@@ -13,6 +13,7 @@ Store page and full documentation: https://apify.com/plainrows/keyword-search-vo
 | `country` | string (20 codes, see the Store page) | "US" | Country whose Google search data you want. |
 | `languageCode` | string |  | Two-letter language code, e.g. "en" or "fr". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). Only languages offered by the data source for that country work;... |
 | `historyMonths` | integer | 12 | How many months of monthly search volumes to include per keyword, most recent first. 0 = none. Up to 96 months (data goes back to 2018 for most keywords). No extra cost. In ideas mode the data source returns 12 months... |
+| `includeAiSearchVolume` | boolean | false | Search volume mode only, from October 24, 2026: add aiSearchVolume (estimated monthly use of the keyword in AI tools and chat assistants) and its monthly history to each found keyword. Billed per keyword with a positive... |
 | `maxIdeasPerSeed` | integer | 50 | Ideas mode only: most related keyword ideas returned per seed keyword, most relevant first. An idea already returned for another seed is not returned or billed again. Ignored in search volume mode. |
 
 ## Example input

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitor prices on Google Shopping as JSON, store by store | PlainRows</title><meta name="description" content="Google&#x27;s own price benchmark is one average for your own products. For every store&#x27;s price, shipping and stock on any product, billed per offer.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-shopping-competitor-prices/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Competitor prices on Google Shopping, store by store</h1>
+<p class="lead">You sell products online, or you watch a brand's resellers, and want to know every day who sells what at which price:
+price monitoring, repricing, or minimum advertised price (MAP) checks.</p>
+
+<h2>What Google gives you</h2>
+<ul>
+<li>If you advertise in Google Merchant Center, its price competitiveness report gives a <b>benchmark price</b> for your own products:
+an average click-weighted price across all merchants who advertise the same product on Shopping ads, matched by GTIN, per country and per day
+(<a href="https://docs.cloud.google.com/bigquery/docs/merchant-center-price-competitiveness-schema">Merchant Center price competitiveness table</a>).</li>
+<li>That is one average number per product: it does not tell you which store is cheaper, its shipping cost or whether it is in stock,
+and it only covers products you sell yourself.</li>
+</ul>
+
+<h2>Every store's offer as one row</h2>
+<p><a href="../google-shopping-prices/">Google Shopping Prices</a> returns what anyone sees on Google Shopping:</p>
+<ul>
+<li>a <b>search</b> (<code>sony wh-1000xm5</code>): up to 120 listings with title, price, old price and discount, seller, rating, delivery and product ID;</li>
+<li>a <b>product ID</b>: Google's "compare prices" list, one row per store with <code>storeDomain</code>, <code>price</code>, <code>shippingPrice</code>,
+<code>totalPrice</code>, <code>availability</code>, store rating and the product link on the store's site.</li>
+</ul>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price per offer (Starter plan)</th></tr>
+<tr><td>One product listing or one store offer, 20 countries</td><td><a href="../google-shopping-prices/">Google Shopping Prices</a></td><td>$0.0015 per row returned</td></tr>
+</table>
+<p>Example: 50 products, 20 stores each, checked every day for a month (30,000 offers) cost about $45.00.
+Searches with no result, unknown product IDs and sponsored listings are free.</p>
+
+<h2>When the Merchant Center report is enough</h2>
+<ul>
+<li>You already advertise on Shopping and only want to know whether you are above or below the market average.</li>
+</ul>
+
+<h2>When you need the store-by-store list</h2>
+<ul>
+<li>You need to name the cheaper store, include shipping, or check stock (repricing, MAP checks on resellers).</li>
+<li>You watch products you do not sell, or a market you have not entered yet.</li>
+<li>You want it in Google Sheets, n8n, Make, Zapier or an AI agent (MCP) on a daily schedule, with a maximum cost per run.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-09 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

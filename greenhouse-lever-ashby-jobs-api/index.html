@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Greenhouse, Lever and Ashby job APIs in one JSON format | PlainRows</title><meta name="description" content="The public job board APIs of Greenhouse, Lever, Ashby and SmartRecruiters compared field by field, and when one normalized feed billed per job is simpler.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/greenhouse-lever-ashby-jobs-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Greenhouse, Lever and Ashby jobs in one JSON format</h1>
+<p class="lead">You want the open jobs of a list of companies: for a niche job board, hiring signals for sales, or a job alert.
+Most of these companies publish their jobs through an applicant tracking system (ATS) that has a free public API.
+The catch is that every ATS answers in its own format.</p>
+
+<h2>The public job board APIs, side by side</h2>
+<p>All four endpoints below answer without a key (checked on 2026-10-09), but the same job looks different in each:</p>
+<table>
+<tr><th>ATS</th><th>Public endpoint</th><th>Title / date fields</th><th>What to know</th></tr>
+<tr><td><a href="https://developers.greenhouse.io/job-board.html">Greenhouse</a></td><td><code>boards-api.greenhouse.io/v1/boards/&lt;board&gt;/jobs</code></td><td><code>title</code>, <code>first_published</code>, <code>updated_at</code></td><td>Department and description only with <code>?content=true</code>, pay ranges only with <code>&amp;pay_transparency=true</code>.</td></tr>
+<tr><td><a href="https://github.com/lever/postings-api">Lever</a></td><td><code>api.lever.co/v0/postings/&lt;site&gt;?mode=json</code></td><td><code>text</code>, <code>createdAt</code> (milliseconds)</td><td>Team, location and commitment under <code>categories</code>; EU boards live on <code>api.eu.lever.co</code>.</td></tr>
+<tr><td><a href="https://developers.ashbyhq.com/docs/public-job-posting-api">Ashby</a></td><td><code>api.ashbyhq.com/posting-api/job-board/&lt;name&gt;</code></td><td><code>title</code>, <code>publishedAt</code></td><td>Compensation only with <code>?includeCompensation=true</code>.</td></tr>
+<tr><td><a href="https://developers.smartrecruiters.com/docs/posting-api">SmartRecruiters</a></td><td><code>api.smartrecruiters.com/v1/companies/&lt;id&gt;/postings</code></td><td><code>name</code>, <code>releasedDate</code></td><td>Paged by 100; the description needs one more call per job.</td></tr>
+</table>
+<p>So a script that covers several ATS needs one parser per ATS, a way to find which ATS (and which board name) a company uses,
+and something to remember which jobs it has already seen.</p>
+
+<h2>One format for all of them</h2>
+<p><a href="../ats-job-postings/">ATS Job Postings</a> reads those same official endpoints (plus Recruitee and Workable) and returns one row per job in a single format:
+<code>title</code>, <code>department</code>, <code>team</code>, <code>locations</code>, <code>isRemote</code>, <code>employmentType</code>,
+<code>salaryMin</code> / <code>salaryMax</code> / <code>salaryCurrency</code> when the company publishes them, <code>postedAt</code> in UTC,
+<code>applyUrl</code> and the full description as plain text.</p>
+<ul>
+<li>Give careers page URLs or plain company names (<code>stripe</code>, <code>ramp</code>): the ATS is detected for you.</li>
+<li>Filter by title keywords, location, department, remote only or posting date for free: filtered-out jobs are not billed.</li>
+<li>With <b>Only new jobs</b> on a daily schedule, each run returns and bills only jobs it has never delivered.</li>
+</ul>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price per job (Starter plan)</th></tr>
+<tr><td>Every open job of each company, one format for six ATS</td><td><a href="../ats-job-postings/">ATS Job Postings</a></td><td>$0.0012 per job returned</td></tr>
+</table>
+<p>Example: 200 companies with 30 open jobs each, 6,000 jobs, cost about $7.20 for the first full pull;
+with Only new jobs, the daily runs after that only bill the new postings. Companies not found and boards without jobs are free.</p>
+
+<h2>When to call the ATS APIs yourself</h2>
+<ul>
+<li>All your companies use the same ATS and you already know their board names: one parser is little work, and the API is free.</li>
+<li>You need a field we do not keep, such as Greenhouse custom questions or Lever's raw lists.</li>
+</ul>
+
+<h2>When one normalized feed is simpler</h2>
+<ul>
+<li>Your list mixes Greenhouse, Lever, Ashby and others, or you only have company names.</li>
+<li>You want new jobs only, from n8n, Make, Zapier, Google Sheets or an AI agent (MCP), without hosting a database of seen jobs.</li>
+</ul>
+<p>Companies that publish jobs only on LinkedIn or Indeed are not in an ATS feed: <a href="../google-jobs-scraper/">Google Jobs Scraper</a> covers those by search.</p>
+<p>Competitor facts checked on 2026-10-09 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
