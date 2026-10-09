@@ -1,0 +1,219 @@
+{
+  "name": "Collect rising Google searches for your topics in Google Sheets every week",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Collect rising Google searches for your topics in Google Sheets every week\n\n### Who's it for\nContent marketers, SEO teams, newsletter writers and e-commerce managers who want to spot breakout searches around their topics before competitors.\n\n### How it works\n1. Every Monday the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your topics (one per line), the country and the period.\n3. The **Google Trends Scraper API** Actor on Apify (`plainrows/google-trends-explorer`) runs one Google Trends search per topic and returns related queries and topics, top and rising, as flat rows.\n4. A Code node keeps the rising queries and topics (with their growth in %, or \"Breakout\").\n5. One dated row per rising search is appended to the `Rising` tab.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Rising` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `topics`, `country` (a two-letter code or `WORLDWIDE`) and `timeRange` (`past_7_days`, `past_30_days`, `past_90_days`...) in **Settings**.\n- Send the list to Slack or email instead of Sheets.\n- Keep the top queries too by removing the `listType` filter in the Code node.\n\nPricing: one Google Trends search per topic per week; searches with no data are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "b81752c0-d98e-5649-9cea-d1d6525bb905",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Spreadsheet with a tab named `Rising` (headers are written on the first run).\n2. Connect Google Sheets and paste the spreadsheet URL in *Append rising searches*.\n3. Add your Apify credential (free account at apify.com) to *Google Trends related searches*.\n4. In **Settings**, put one topic per line in `topics`, and set `country` and `timeRange`.\n\n**Cost:** one Google Trends search per topic (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "35a87fe1-ca5b-5c44-ae16-8ad782d62d34",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "cca75960-dfe4-5f7a-b1fa-422f83f670f5",
+      "name": "Every Monday 7:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6059623f-5fdd-5647-9f39-16fb6c3989e3",
+              "name": "topics",
+              "value": "protein powder\nair fryer\nelectric bike",
+              "type": "string"
+            },
+            {
+              "id": "d3ccec81-2e14-5bd9-8c7b-bf509cd7c635",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "7204964d-4fef-538a-add1-4bb057f528e9",
+              "name": "timeRange",
+              "value": "past_30_days",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3a2f5b07-0987-5d4c-9f33-2d0e74cf237e",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-trends-explorer",
+        "customBody": "={{ JSON.stringify({ searchTerms: $json.topics.split('\\n').map((t) => t.trim()).filter(Boolean), country: $json.country, timeRange: $json.timeRange, includeRegions: false, includeRelated: true }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "506d6b1f-ba89-53ac-9c87-de189fffabcb",
+      "name": "Google Trends related searches",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Keep rising related queries and topics, one row each.\nconst today = new Date().toISOString().slice(0, 10);\nreturn $input.all()\n  .map((item) => item.json)\n  .filter((r) => r.found !== false && (r.rowType === 'related_query' || r.rowType === 'related_topic') && r.listType === 'rising')\n  .map((r) => ({\n    json: {\n      date: today,\n      topic: r.search,\n      kind: r.rowType === 'related_query' ? 'query' : 'topic',\n      risingSearch: r.relatedQuery ?? r.topicTitle,\n      growth: r.risingPercent == null ? 'Breakout' : `+${r.risingPercent}%`,\n      rank: r.rank,\n      country: r.geo,\n      googleTrends: r.trendsUrl,\n    },\n  }));"
+      },
+      "id": "977b9a0a-75c8-5b76-a43c-e99f99531aae",
+      "name": "Keep rising searches",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Rising",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "5ea7fa7f-7f83-5075-8be0-3e8bf646d095",
+      "name": "Append rising searches",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday 7:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Google Trends related searches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Trends related searches": {
+      "main": [
+        [
+          {
+            "node": "Keep rising searches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep rising searches": {
+      "main": [
+        [
+          {
+            "node": "Append rising searches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

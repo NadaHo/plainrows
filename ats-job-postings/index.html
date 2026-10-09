@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ATS Job Postings Scraper: Greenhouse, Lever, Ashby API | PlainRows</title><meta name="description" content="Get every open job from company career pages on Greenhouse, Lever, Ashby, Recruitee, Workable and SmartRecruiters: title, team, location, remote, salary when pu">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/ats-job-postings/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>ATS Job Postings Scraper: Greenhouse, Lever, Ashby API</h1>
+<p class="lead">Get every open job from company career pages on Greenhouse, Lever, Ashby, Recruitee, Workable and SmartRecruiters: title, team, location, remote, salary when published, apply link, clean description. Only-new-jobs mode for daily feeds. Official job-board APIs, pay per job.</p>
+<p><a class="btn" href="https://apify.com/plainrows/ats-job-postings">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/ats-job-postings" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Job boards and aggregators: keep a niche board (AI, climate, fintech, remote) filled with fresh jobs straight from the employers.</li><li>Sales and recruiting intelligence: which target accounts are hiring, for which teams, where — a strong buying signal for B2B sales and agencies.</li><li>Market and talent research: count openings per department, track hiring trends, compare published salary ranges across companies.</li><li>Job seekers and career tools: monitor a list of dream companies for new roles matching your keywords, locations or remote-only. With Only new jobs on, a scheduled run returns (and bills) only jobs it has never delivered.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets, Airtable or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Job</b><br><span>One open job returned with its details (title, department, locations, remote flag, employment type, salary when published, dates, apply link, description). Companies not found, boards without jobs and jobs removed by your filters are free.</span></td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td><td>$0.0008</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~ats-job-postings/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;companies&quot;: [
+    &quot;stripe&quot;,
+    &quot;https://jobs.lever.co/spotify&quot;,
+    &quot;https://jobs.ashbyhq.com/ramp&quot;
+  ],
+  &quot;maxJobsPerCompany&quot;: 20
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/ats-job-postings&quot;).call(run_input={&#x27;companies&#x27;: [&#x27;stripe&#x27;,
+               &#x27;https://jobs.lever.co/spotify&#x27;,
+               &#x27;https://jobs.ashbyhq.com/ramp&#x27;],
+ &#x27;maxJobsPerCompany&#x27;: 20})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/ats-job-postings</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/ats-job-postings</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/ats-job-postings">https://apify.com/plainrows/ats-job-postings</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hotel prices on every booking site, as JSON (rate parity check) | PlainRows</title><meta name="description" content="For a list of hotels, the price of every booking site Google lists for your dates, the hotel&#x27;s own website and a daily price calendar, billed per hotel.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/hotel-prices-every-booking-site/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Hotel prices on every booking site, as JSON</h1>
+<p class="lead">You manage or watch a few hotels and want to know, every day, what Booking.com, Expedia, Agoda and the hotel's own website
+charge for the same night: a rate parity check, competitor rate shopping, or the cheapest dates to book.</p>
+
+<h2>What you get per hotel</h2>
+<p>Give hotel names with their city (<code>Hyatt Regency Lisbon</code>), Google hotel IDs or Google Hotels links to
+<a href="../google-hotels-prices/">Google Hotels Prices</a> in its price comparison mode. Each hotel is one row:</p>
+<ul>
+<li><code>sites</code>: every booking site with its nightly price, cheapest first, the official site flagged, free cancellation date when shown;</li>
+<li><code>lowestPrice</code>, <code>lowestPriceSite</code>, <code>officialSitePrice</code>, <code>highestPrice</code>, <code>sitesCount</code>;</li>
+<li><code>priceCalendar</code>: the lowest price for each night from your check-in date, up to about 9-10 months ahead, and the cheapest night.</li>
+</ul>
+<p>Real example, checked on 2026-10-09 (Iberostar Selection Lisboa, 1 night on 2026-11-12, 2 adults, EUR): 32 booking sites from 105 to 185 EUR,
+official site 119 EUR, cheapest night of the next three months 94 EUR on 2026-11-30. Sponsored offers are removed: they repeat the same sites.</p>
+
+<h2>Price</h2>
+<table>
+<tr><th>Step</th><th>Price (Starter plan)</th></tr>
+<tr><td>One hotel compared: all booking sites + price calendar</td><td>$0.017</td></tr>
+<tr><td>Finding a hotel given by name (skipped for IDs and links)</td><td>$0.004</td></tr>
+</table>
+<p>Example: 20 hotels checked every day for a month (600 checks, by ID) cost about $10.20.
+A hotel Google has no price for is free. No subscription to us; the free Apify plan is enough to try it (3 hotels per run).</p>
+
+<h2>Other ways to get the same data</h2>
+<ul>
+<li><b>SerpApi Google Hotels API</b>: its <code>property_token</code> parameter returns property details including a <code>prices</code> list by source
+(<a href="https://serpapi.com/google-hotels-api">serpapi.com/google-hotels-api</a>). Plans on 2026-10-08: Starter $25 for 1,000 searches
+(<a href="https://serpapi.com/pricing">serpapi.com/pricing</a>), about $0.025 per request if you use the whole plan; its documentation does not say
+whether a property details request counts as a search. Better if you already pay for SerpApi and have unused searches.</li>
+<li><b>Scrapers that return one row per booking site and per date</b> (on the Apify Store, about $0.001 per row): handy when you want that flat layout,
+but a hotel with 30 sites over 30 dates is 900 rows.</li>
+</ul>
+<p>PlainRows fits when you want one row per hotel, a calendar included at no extra cost, and a run that stops at the maximum cost you set.</p>
+<p>Competitor facts checked on 2026-10-09 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

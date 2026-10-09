@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>pytrends alternative: Google Trends interest, regions and related queries in one call | PlainRows</title><meta name="description" content="pytrends is archived and SerpApi returns one Google Trends data type per search. Get interest over time, by region, related queries and topics as JSON in one ca">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/pytrends-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>After pytrends: Google Trends data in your code, options compared</h1>
+<p class="lead">You want Google Trends data inside a script, a spreadsheet, n8n or an AI agent: interest over time, interest by region,
+related queries and topics. Here is where the usual options stand, and what PlainRows offers.</p>
+
+<h2>The options and their limits</h2>
+<ul>
+<li><strong>Official Google Trends API:</strong> on 2026-10-08 it was still an alpha. Google writes that it is "accepting applications for alpha testers"
+and is "prioritizing developers that know what they want to do"; the data is a rolling window of the last 5 years
+(<a href="https://developers.google.com/search/apis/trends">developers.google.com/search/apis/trends</a>).</li>
+<li><strong>pytrends:</strong> the popular Python library was archived by its owner on April 17, 2025 and is read-only. Its README says
+"This is not an official or supported API" and that the rate limit "is not publicly known"
+(<a href="https://github.com/GeneralMills/pytrends">github.com/GeneralMills/pytrends</a>).</li>
+<li><strong>SerpApi Google Trends API:</strong> each request returns one data type (interest over time, by region, related topics or related queries),
+and related queries, related topics and interest by region accept a single keyword per search
+(<a href="https://serpapi.com/google-trends-api">serpapi.com/google-trends-api</a>). Plans start at $25 for 1,000 searches a month,
+with a free plan of 250 searches (<a href="https://serpapi.com/pricing">serpapi.com/pricing</a>). The full picture of one keyword therefore takes four searches.</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us. The tool runs on Apify: the free Apify plan is enough to test it, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Interest over time for up to 5 compared keywords, interest by region (countries, states or metro areas),
+related queries and related topics (top and rising), for web, YouTube, News, Images or Shopping search, any country or Worldwide</td>
+<td><a href="../google-trends-explorer/">Google Trends Scraper API</a></td><td>$0.005 per search, all of these rows included; searches with no data are free</td></tr>
+</table>
+<p>Example: tracking 100 keywords once a week, with regions and related queries, is 400 searches a month,
+about $2.00.</p>
+
+<h2>When another option is the better choice</h2>
+<ul>
+<li>You are accepted into the official Google Trends API alpha: consistently scaled data straight from Google.</li>
+<li>You already pay for a SerpApi plan with unused searches, or you only need a few searches a month (SerpApi's free plan).</li>
+<li>You need an answer in under a few seconds on every call. In Standard speed a PlainRows search waits in the data provider's queue,
+usually about a minute; Fast speed answers in about 10-30 seconds for an extra $0.01 per search.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You want interest over time, regions and related queries for a keyword in one call and one price.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP) and want flat rows, not nested chart JSON.</li>
+<li>You want a hard cap: every run stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-09.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
