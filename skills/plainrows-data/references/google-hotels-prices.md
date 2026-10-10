@@ -1,6 +1,6 @@
-# Google Hotels Prices Scraper: Hotel Rates & Booking Site Prices (`plainrows/google-hotels-prices`)
+# Google Hotels Prices Scraper: Price Comparison of Booking Sites (`plainrows/google-hotels-prices`)
 
-Google Hotels prices by city and dates (nightly rate, stars, rating, GPS, link), or every booking site's price for given hotels (Booking.com, Expedia, official site) with a daily price calendar. API-based, no browser or proxies. Pay per hotel.
+Google Hotels prices by city and dates (nightly hotel rates, stars, rating, GPS, link), or every booking site's price for given hotels (Booking.com, Expedia, official site) with a daily price calendar. API-based, no browser or proxies. Pay per hotel.
 
 Store page and full documentation: https://apify.com/plainrows/google-hotels-prices
 
@@ -11,6 +11,7 @@ Store page and full documentation: https://apify.com/plainrows/google-hotels-pri
 | `destinations` | array |  | Cities or areas to search, one per line, written as you would in Google Hotels: "Paris, France", "Lisbon, Portugal", "hotels near Times Square". Adding the country avoids ambiguity. Up to 500 per run. Leave empty when... |
 | `hotels` | array |  | Optional. Hotel names with their city ("Hyatt Regency Lisbon"), Google hotel IDs (the hotelId column of a search run) or Google Hotels links (google.com/travel/hotels/entity/...), one per line. When filled in, the Actor... |
 | `priceCalendarRange` | string: `month`, `three_months`, `six_months`, `year` | "three_months" | Price comparison mode only: how many days of nightly prices to return from the check-in date. Same price whatever the range. |
+| `speed` | string: `standard`, `fast` | "standard" | Price comparison mode only. Standard waits in the data provider's queue (about 10-20 seconds per hotel when measured, longer at busy times; a hotel still queued after 12 minutes is answered the fast way at no extra... |
 | `checkInDate` | string |  | YYYY-MM-DD. Leave empty for 30 days from today (handy for scheduled price tracking). |
 | `nights` | integer | 1 | Length of stay. Check-out = check-in + nights. |
 | `adults` | integer | 2 | Guests per room (Google prices change with the number of guests). |

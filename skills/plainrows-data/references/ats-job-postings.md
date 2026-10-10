@@ -1,6 +1,6 @@
-# ATS Job Postings Scraper: Greenhouse, Lever, Ashby API (`plainrows/ats-job-postings`)
+# ATS Jobs Scraper: Greenhouse, Lever, Ashby & SmartRecruiters (`plainrows/ats-job-postings`)
 
-Get every open job from company career pages on Greenhouse, Lever, Ashby, Recruitee, Workable and SmartRecruiters: title, team, location, remote, salary when published, apply link, clean description. Only-new-jobs mode for daily feeds. Official job-board APIs, pay per job.
+Get every open job posting from company career pages on Greenhouse, Lever, Ashby, Recruitee, Workable and SmartRecruiters: title, team, location, remote, salary when published, apply link, clean description. Only-new-jobs mode for daily feeds. Official job-board APIs, pay per job.
 
 Store page and full documentation: https://apify.com/plainrows/ats-job-postings
 

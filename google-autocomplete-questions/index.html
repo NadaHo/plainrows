@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Autocomplete &amp; People Also Ask Questions Scraper | PlainRows</title><meta name="description" content="Get Google autocomplete suggestions, People Also Ask questions and related searches for any keyword in 20 countries. Question, comparison and A-Z expansions for">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-autocomplete-questions/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Autocomplete &amp; People Also Ask Questions Scraper</h1>
+<p class="lead">Get Google autocomplete suggestions, People Also Ask questions and related searches for any keyword in 20 countries. Question, comparison and A-Z expansions for content ideas, FAQs and SEO. Fast API results, no browser, no proxies. Pay only per result.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-autocomplete-questions">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-autocomplete-questions" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Content ideas and FAQ sections: the questions Google shows in &quot;People also ask&quot; for your topic, ready to answer in your articles and FAQ pages.</li><li>Long-tail keyword research: autocomplete with A to Z and question expansions (the &quot;alphabet soup&quot; method), as clean JSON.</li><li>SEO briefs: one run gives the suggestions, the questions and the related searches around a topic.</li><li>Local and international markets: 20 countries, with question words localized for English, German, French, Spanish, Italian, Dutch, Portuguese, Polish, Swedish and Japanese.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets, an LLM content pipeline or an MCP client.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Suggestion</b><br><span>One row returned: a Google autocomplete suggestion, a People Also Ask question or a related search. Duplicates, suggestions without your seed words and seeds with no result are not billed.</span></td><td>$0.0007</td><td>$0.0005</td><td>$0.0004</td><td>$0.0003</td></tr><tr><td><b>Google lookup</b><br><span>Charged once per Google lookup sent to the data source: the seed, each expansion (&quot;how ...&quot;, &quot;... vs&quot;, &quot;... a&quot;) and each results page read for questions. The data source bills every lookup, even one that finds nothing new. Not charged when the lookup fails.</span></td><td>$0.0035</td><td>$0.0035</td><td>$0.0035</td><td>$0.0035</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-autocomplete-questions/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;seedKeywords&quot;: [
+    &quot;running shoes&quot;
+  ],
+  &quot;mode&quot;: &quot;both&quot;,
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;maxResultsPerSeed&quot;: 300
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-autocomplete-questions&quot;).call(run_input={&#x27;seedKeywords&#x27;: [&#x27;running shoes&#x27;],
+ &#x27;mode&#x27;: &#x27;both&#x27;,
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;maxResultsPerSeed&#x27;: 300})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-autocomplete-questions</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-autocomplete-questions</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-autocomplete-questions">https://apify.com/plainrows/google-autocomplete-questions</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-10.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

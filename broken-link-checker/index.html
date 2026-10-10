@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Broken Link Checker: 404s, Redirect Chains &amp; Sitemaps | PlainRows</title><meta name="description" content="Crawl any website and find broken links (404, 500, dead domains), redirect chains and sitemap problems, with the page and anchor text of each bad link. Checks i">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/broken-link-checker/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Broken Link Checker: 404s, Redirect Chains &amp; Sitemaps</h1>
+<p class="lead">Crawl any website and find broken links (404, 500, dead domains), redirect chains and sitemap problems, with the page and anchor text of each bad link. Checks internal, external, image, script and CSS links. Fast HTTP crawler, no browser. Pay only per page crawled.</p>
+<p><a class="btn" href="https://apify.com/plainrows/broken-link-checker">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/broken-link-checker" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>SEO audits: broken internal links, 404s, redirect chains and noindex pages before they cost you rankings and crawl budget.</li><li>Site migrations and redesigns: run it after a launch to catch links still pointing to old URLs (301 chains) or to pages that no longer exist.</li><li>Sitemap checks: find sitemap URLs that redirect, return errors, are noindex, or are not linked from any page (orphan pages).</li><li>Agencies and freelancers: audit client sites in bulk (up to 100 websites per run) and feed the results to Google Sheets or a report.</li><li>Monitoring: schedule a weekly run and get alerted when a new broken link appears.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Page</b><br><span>One HTML page of your website crawled, with every link on it checked (internal, external, images, scripts, stylesheets). Result rows, redirects, non-HTML files, broken internal URLs and the run summary are free.</span></td><td>$0.0015</td><td>$0.001</td><td>$0.0008</td><td>$0.0006</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~broken-link-checker/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;startUrls&quot;: [
+    {
+      &quot;url&quot;: &quot;https://the-internet.herokuapp.com/&quot;
+    }
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/broken-link-checker&quot;).call(run_input={&#x27;startUrls&#x27;: [{&#x27;url&#x27;: &#x27;https://the-internet.herokuapp.com/&#x27;}]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/broken-link-checker</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/broken-link-checker</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/broken-link-checker">https://apify.com/plainrows/broken-link-checker</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-10.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

@@ -1,6 +1,6 @@
 # Domain Authority Checker: Bulk Rank, Backlinks & Spam Score (`plainrows/domain-authority-checker`)
 
-Check domain authority for up to 10,000 domains per run: domain rank (0-100), spam score, backlinks, referring domains and nofollow counts in one row per domain. A Moz and Ahrefs alternative without a subscription, results in seconds. Pay only per domain with data.
+Check domain authority for up to 10,000 domains per run: domain rank (0-100), spam score, backlinks, referring domains and nofollow counts in one row per domain. A Moz DA and Ahrefs Domain Rating (DR) alternative, no subscription, results in seconds. Pay only per domain with data.
 
 Store page and full documentation: https://apify.com/plainrows/domain-authority-checker
 
