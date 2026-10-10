@@ -13,14 +13,16 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Ads Transparency Scraper: Competitor Ads Library](https://apify.com/plainrows/google-ads-transparency)
 - [Google Autocomplete & People Also Ask Questions Scraper](https://apify.com/plainrows/google-autocomplete-questions)
 - [Google Hotels Prices Scraper: Price Comparison of Booking Sites](https://apify.com/plainrows/google-hotels-prices)
+- [Google Images Scraper API: Image URLs, Sources & Filters](https://apify.com/plainrows/google-images-scraper)
 - [Google Jobs Scraper: Listings, Salaries & Apply Links](https://apify.com/plainrows/google-jobs-scraper)
-- [Google Maps Businesses Scraper: Leads, Phones & Ratings](https://apify.com/plainrows/google-maps-businesses)
+- [Google Maps Scraper: Business Leads, Phones & Ratings](https://apify.com/plainrows/google-maps-businesses)
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Google Shopping Prices Scraper: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
 - [Google Trends Scraper API: Interest, Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
 - [Keyword Research Tool: Keyword Ideas, Volume & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Search Volume & Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
+- [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
 
 Free n8n workflow templates are in [`templates/`](templates/).

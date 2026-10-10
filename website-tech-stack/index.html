@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Website Technology Checker: Tech Stack &amp; CMS Detector | PlainRows</title><meta name="description" content="Find the tech stack of any list of websites: CMS, ecommerce platform, analytics, tag managers, CDN, hosting, frameworks, payments, live chat and email provider,">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/website-tech-stack/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Website Technology Checker: Tech Stack &amp; CMS Detector</h1>
+<p class="lead">Find the tech stack of any list of websites: CMS, ecommerce platform, analytics, tag managers, CDN, hosting, frameworks, payments, live chat and email provider, with versions. Bulk domains in, one spreadsheet-ready row per site. Pay only per site analysed.</p>
+<p><a class="btn" href="https://apify.com/plainrows/website-tech-stack">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/website-tech-stack" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Lead generation and sales prospecting: find every Shopify, WooCommerce or Magento store in a list, or every company on HubSpot, Salesforce or Microsoft 365, with the e-mail, phone and LinkedIn page their homepage shows.</li><li>Agencies: qualify prospects by CMS (WordPress, Webflow, Wix, Squarespace), page builder or analytics setup before a pitch.</li><li>Competitive and market research: measure the market share of a CMS, a payment provider or a chat tool across thousands of sites.</li><li>SaaS go-to-market: build lists of sites using a competitor&#x27;s product (e.g. Intercom, Klaviyo, Optimizely).</li><li>Security and IT inventory: see which web servers, frameworks and versions your own sites expose.</li><li>Automations and AI agents: enrich a CRM or a Google Sheet with the tech stack of each account.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Website</b><br><span>One website whose homepage was loaded and analysed (technologies, versions, categories, title). Sites that cannot be loaded (no DNS, timeout, HTTP error, bot protection) are free.</span></td><td>$0.001</td><td>$0.0009</td><td>$0.0008</td><td>$0.0006</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~website-tech-stack/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;shopify.com&quot;,
+    &quot;wordpress.org&quot;,
+    &quot;nextjs.org&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/website-tech-stack&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;shopify.com&#x27;, &#x27;wordpress.org&#x27;, &#x27;nextjs.org&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/website-tech-stack</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/website-tech-stack</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/website-tech-stack">https://apify.com/plainrows/website-tech-stack</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-10.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

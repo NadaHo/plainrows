@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wappalyzer API alternative: bulk tech stack lookups billed per website | PlainRows</title><meta name="description" content="Wappalyzer&#x27;s API comes with plans from $250 a month. Detect the CMS, ecommerce platform, analytics, CDN and email provider of any list of websites, billed per w">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/wappalyzer-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Bulk tech stack lookups without a $250 subscription</h1>
+<p class="lead">You want to know what a list of websites is built with, inside a spreadsheet, a CRM, n8n or an AI agent:
+CMS, ecommerce platform, analytics, CDN, email provider. Here is where Wappalyzer's plans stand, and what PlainRows offers.</p>
+
+<h2>Wappalyzer plans</h2>
+<p>From <a href="https://www.wappalyzer.com/pricing/">wappalyzer.com/pricing</a> on 2026-10-08:</p>
+<ul>
+<li><strong>Free:</strong> 50 lookups and email verifications per month.</li>
+<li><strong>Pro:</strong> $250 per month for 5,000 lookups, API access included.</li>
+<li><strong>Business:</strong> $450 per month for 20,000 lookups and 20,000 API credits. API credits "expire after 60 days".</li>
+</ul>
+
+<h2>What PlainRows charges</h2>
+<p>No subscription to us. The tool runs on Apify: the free Apify plan is enough to test it, and the Starter plan ($19 per month,
+with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>Technologies found on the homepage of each website, matched against 7,600+ open-source fingerprints, with versions when shown:
+one column per category (CMS, ecommerce, analytics, tag managers, advertising, CRM, email, live chat, payments, CDN, hosting, frameworks...),
+plus title, meta description, language, server headers, and the e-mails, phone links and social profiles shown on the homepage. About 150 websites per minute in our tests.</td>
+<td><a href="../website-tech-stack/">Tech Stack Detector API</a></td><td>$0.0009 per website analysed; sites that are down, blocked or do not exist are free</td></tr>
+</table>
+<p>Example: 5,000 websites, the lookups included in Wappalyzer Pro, cost about $4.50.</p>
+
+<h2>When Wappalyzer is the better choice</h2>
+<ul>
+<li>You need technologies that only appear after JavaScript runs or on pages other than the homepage. PlainRows loads the homepage over HTTP, without a browser, so it can miss them.</li>
+<li>You want ready-made lead lists of all sites using a technology, company details and email verification in the same tool.</li>
+<li>You only check a few sites a month: the free plan's 50 lookups may be enough.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You already have a list of domains and want their stack in bulk, at a price per website rather than per month.</li>
+<li>You want one spreadsheet-ready row per site, with one column per category, to filter on <code>ecommerce = Shopify</code> in one click.</li>
+<li>You also want the e-mails, phone links and social profiles shown on each homepage, in the same row, at no extra cost.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an AI agent (MCP), with a hard cap: every run stops at the maximum cost you set.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-08 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-10.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

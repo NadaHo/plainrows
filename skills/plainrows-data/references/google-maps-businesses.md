@@ -1,4 +1,4 @@
-# Google Maps Businesses Scraper: Leads, Phones & Ratings (`plainrows/google-maps-businesses`)
+# Google Maps Scraper: Business Leads, Phones & Ratings (`plainrows/google-maps-businesses`)
 
 Extract businesses from Google Maps searches: name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Place ID. Fast API-based results in seconds, no browser. Pay only per place found.
 
