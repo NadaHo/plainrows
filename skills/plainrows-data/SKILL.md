@@ -1,6 +1,6 @@
 ---
 name: plainrows-data
-description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Broken Link Checker; Google Maps Scraper; Website Technology Checker; ATS Jobs Scraper (Greenhouse, Lever, Ashby, SmartRecruiters); Google Jobs Scraper; Google Ads Scraper (Transparency Center); Company Registry Lookup (SIRENE, LEI, Brreg); Public Tenders Search (EU TED & UK); Amazon Product Search Scraper; Google Shopping Prices Scraper; Google Hotels Prices Scraper; Google News Scraper; YouTube Search Scraper; Google Images Scraper; Website Screenshot API; App Store & Google Play Reviews Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per use.
+description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Broken Link Checker; AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); Google Maps Scraper; Website Technology Checker; ATS Jobs Scraper (Greenhouse, Lever, Ashby, SmartRecruiters); Google Jobs Scraper; Google Ads Scraper (Transparency Center); Company Registry Lookup (SIRENE, LEI, Brreg); Public Tenders Search (EU TED & UK); Amazon Product Search Scraper; Google Shopping Prices Scraper; Google Hotels Prices Scraper; Google News Scraper; YouTube Search Scraper; Google Images Scraper; Website Screenshot API; Google Maps Reviews Scraper; App Store & Google Play Reviews Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per use.
 compatibility: Needs network access to api.apify.com and an APIFY_TOKEN environment variable (free Apify account).
 metadata:
   author: PlainRows
@@ -40,6 +40,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 
 | Actor | What it returns | Price | Input reference |
 |---|---|---|---|
+| `plainrows/ai-search-brand-visibility` | AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/amazon-product-search` | Amazon Product Search Scraper: Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/app-reviews-scraper` | App Reviews Scraper: Google Play & App Store | from $0.0001 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Greenhouse, Lever, Ashby & SmartRecruiters | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
@@ -54,6 +55,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-images-scraper` | Google Images Scraper API: Image URLs, Sources & Filters | from $0.0006 per image | [references/google-images-scraper.md](references/google-images-scraper.md) |
 | `plainrows/google-jobs-scraper` | Google Jobs Scraper: Listings, Salaries & Apply Links | from $0.0008 per job listing | [references/google-jobs-scraper.md](references/google-jobs-scraper.md) |
 | `plainrows/google-maps-businesses` | Google Maps Scraper: Business Leads, Phones & Ratings | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
+| `plainrows/google-maps-reviews` | Google Maps Reviews Scraper | from $0.0002 per review | [references/google-maps-reviews.md](references/google-maps-reviews.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
 | `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
 | `plainrows/google-trends-explorer` | Google Trends Scraper API: Interest, Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |

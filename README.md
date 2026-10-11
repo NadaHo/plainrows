@@ -4,6 +4,7 @@ Pay-per-result data APIs for SEO, leads, prices and web data, running on Apify.
 
 Website: https://nadaho.github.io/plainrows/
 
+- [AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode](https://apify.com/plainrows/ai-search-brand-visibility)
 - [Amazon Product Search Scraper: Prices, ASINs & Ratings](https://apify.com/plainrows/amazon-product-search)
 - [App Reviews Scraper: Google Play & App Store](https://apify.com/plainrows/app-reviews-scraper)
 - [ATS Jobs Scraper: Greenhouse, Lever, Ashby & SmartRecruiters](https://apify.com/plainrows/ats-job-postings)
@@ -18,6 +19,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Images Scraper API: Image URLs, Sources & Filters](https://apify.com/plainrows/google-images-scraper)
 - [Google Jobs Scraper: Listings, Salaries & Apply Links](https://apify.com/plainrows/google-jobs-scraper)
 - [Google Maps Scraper: Business Leads, Phones & Ratings](https://apify.com/plainrows/google-maps-businesses)
+- [Google Maps Reviews Scraper](https://apify.com/plainrows/google-maps-reviews)
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Google Shopping Prices Scraper: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
 - [Google Trends Scraper API: Interest, Regions & Queries](https://apify.com/plainrows/google-trends-explorer)

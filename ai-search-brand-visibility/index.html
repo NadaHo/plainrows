@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Search Visibility Tracker: ChatGPT, Gemini &amp; Google AI Mode | PlainRows</title><meta name="description" content="Ask ChatGPT, Gemini and Google AI Mode the questions your customers ask and see if your brand is mentioned, your site cited, and which competitors show up. Answ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/ai-search-brand-visibility/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>AI Search Visibility Tracker: ChatGPT, Gemini &amp; Google AI Mode</h1>
+<p class="lead">Ask ChatGPT, Gemini and Google AI Mode the questions your customers ask and see if your brand is mentioned, your site cited, and which competitors show up. Answers, sources and fan-out queries as clean rows. API-based, no browser or accounts. Pay per answer, plus a small fee per question answered.</p>
+<p><a class="btn" href="https://apify.com/plainrows/ai-search-brand-visibility">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/ai-search-brand-visibility" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>AI search visibility (GEO / AEO): are you recommended when people ask &quot;best CRM for a small agency&quot; or &quot;is Acme reliable?&quot; — and in which position compared with your competitors?</li><li>Citation tracking: which pages do the engines cite for your topics, and is your site one of them? Spot the reviews and comparison sites you need to be on.</li><li>Competitor monitoring: who gets named instead of you, engine by engine, country by country.</li><li>Content planning: the fan-out queries show what ChatGPT searched for to answer; the cited pages show what content wins.</li><li>Weekly reports and alerts: schedule a run and send the table to Google Sheets, Looker Studio, Slack, n8n, Make or Zapier.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>AI answer</b><br><span>One answer from one AI engine to one of your questions, analysed for your brand, your site and your competitors. Failed engines and empty answers are not billed.</span></td><td>$0.02</td><td>$0.015</td><td>$0.012</td><td>$0.01</td></tr><tr><td><b>Question asked</b><br><span>Once per question that got at least one AI answer, whatever the number of engines asked: it pays for the engines asked, including those that came back empty. Questions with no answer are not billed.</span></td><td>$0.007</td><td>$0.007</td><td>$0.007</td><td>$0.007</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~ai-search-brand-visibility/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;prompts&quot;: [
+    &quot;best standing desk for small spaces&quot;,
+    &quot;best electric standing desk under $500&quot;
+  ],
+  &quot;brandNames&quot;: [
+    &quot;FlexiSpot&quot;
+  ],
+  &quot;brandDomain&quot;: &quot;flexispot.com&quot;,
+  &quot;competitors&quot;: [
+    &quot;Uplift&quot;,
+    &quot;Desky&quot;,
+    &quot;IKEA&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/ai-search-brand-visibility&quot;).call(run_input={&#x27;prompts&#x27;: [&#x27;best standing desk for small spaces&#x27;,
+             &#x27;best electric standing desk under $500&#x27;],
+ &#x27;brandNames&#x27;: [&#x27;FlexiSpot&#x27;],
+ &#x27;brandDomain&#x27;: &#x27;flexispot.com&#x27;,
+ &#x27;competitors&#x27;: [&#x27;Uplift&#x27;, &#x27;Desky&#x27;, &#x27;IKEA&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/ai-search-brand-visibility</code>.</li>
+<li><a href="../templates/ai-visibility-weekly-sheets.json">Track your brand in ChatGPT, Gemini and Google AI Mode answers weekly in Google Sheets</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/ai-search-brand-visibility</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/ai-search-brand-visibility">https://apify.com/plainrows/ai-search-brand-visibility</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-11.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

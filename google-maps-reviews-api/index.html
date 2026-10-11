@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Maps reviews API: all reviews, not just 5 | PlainRows</title><meta name="description" content="Every Google review of a list of places (rating, text, date, owner reply) as JSON or CSV, billed per review, without reviewer names.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-maps-reviews-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Maps reviews API: all the reviews, not just 5</h1>
+<p class="lead">You want the reviews of your locations, your competitors or a list of leads, for sentiment analysis, a review
+dashboard or to spot unanswered complaints. Google's own Places API stops at 5 reviews per place.</p>
+
+<h2>What you get per review</h2>
+<p>Give place IDs, CIDs, Google Maps links or "business name, city" to <a href="../google-maps-reviews/">Google Maps Reviews</a>.
+Each review is one row: star rating, text (and the original text when Google translated it), date, the owner's reply and its date,
+photos, review ID and link, plus the place's name, address, average rating and total number of reviews.
+Reviewer names and profile links are not collected. Places found with <a href="../google-maps-businesses/">Google Maps Scraper</a>
+can be passed as they are (their <code>placeId</code> column).</p>
+<p>Real example, checked on 2026-10-11: the 100 newest reviews of a New York pizzeria with 27,235 reviews, ready in about 20 seconds;
+55 of them had a text, the others were star ratings only.</p>
+
+<h2>Price</h2>
+<table>
+<tr><th>Step</th><th>Price (Starter plan)</th></tr>
+<tr><td>One review delivered</td><td>$0.0003</td></tr>
+</table>
+<p>Example: 1,000 reviews cost about $0.27 plus a small fee per block of reviews requested
+(see the Actor page). No subscription to us; the free Apify plan is enough to try it.</p>
+
+<h2>Other ways to get the same data</h2>
+<ul>
+<li><b>Google Places API (New)</b>: the <code>reviews</code> field of a place lists "a maximum of 5 reviews", sorted by relevance
+(<a href="https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places">Place reference</a>).
+Asking for it bills the Place Details Enterprise + Atmosphere SKU: $25 per 1,000 calls after 1,000 free calls a month
+(<a href="https://developers.google.com/maps/billing-and-pricing/pricing">pricing page</a>, updated 2026-10-08). Best if 5 reviews
+per place are enough and you already use Google Maps Platform.</li>
+<li><b>Google Business Profile API</b>: lists the reviews of the locations of your own Business Profile account
+(<code>accounts/{accountId}/locations/{locationId}/reviews</code>, <a href="https://developers.google.com/my-business/content/review-data">review data guide</a>),
+once Google has approved your access request, sent from an owner or manager e-mail of the profile
+(<a href="https://developers.google.com/my-business/content/prereqs">prerequisites</a>). Best for your own locations, and the way to reply to reviews.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-11 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-11.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

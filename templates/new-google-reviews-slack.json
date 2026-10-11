@@ -1,0 +1,206 @@
+{
+  "name": "Get a Slack alert for new negative Google reviews of your locations",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get a Slack alert for new negative Google reviews of your locations\n\n### Who's it for\nOwners, local marketing agencies and multi-location brands who want to answer unhappy customers fast, without checking each Google Maps listing by hand.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your places (Google Maps links, place IDs or \"business name, city\") and the highest star rating to alert on.\n3. The **Google Maps Reviews Scraper** Actor on Apify (`plainrows/google-maps-reviews`) runs with **Only new reviews** on: it remembers the reviews it already delivered, so each run returns only reviews posted since the last one.\n4. A Code node keeps the new reviews at or under your rating, groups them by place and builds one message with stars, text, date and a link to each review.\n5. The message is posted to Slack. No new low rating, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `places` (one per line), `maxStars` and `monitorName` in **Settings**. Use a new `monitorName` to start a fresh history.\n- Set `maxStars` to 5 to get every new review, not only the bad ones.\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets using the same fields.\n\nReviewer names are not collected. The first run reads the 20 newest reviews of each place and seeds the memory; later runs only pay for new reviews plus a small fee per block of 10 reviews checked.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "7ce49124-a67f-5201-a055-24fd87a5ef31",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your places in `places` (one per line: Google Maps link, place ID or \"business name, city\") and choose `maxStars` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new reviews*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run seeds the memory with the newest reviews.\n\n**Cost:** a small fee per block of 10 reviews checked plus a price per new review (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "1d39da46-7419-5756-9df0-55d88123bb17",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "48145ada-52ee-5b3c-8d3e-01e3aba7df99",
+      "name": "Every day 8:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4cea7746-baa7-5979-8b3c-f097f980dbfe",
+              "name": "places",
+              "value": "Joe's Pizza Broadway, New York\nShake Shack Madison Square Park, New York",
+              "type": "string"
+            },
+            {
+              "id": "26e4bb4c-231a-528a-88db-3f4835b6d98b",
+              "name": "maxStars",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "08fb1292-0568-505f-bc79-3a09433955c8",
+              "name": "monitorName",
+              "value": "n8n-new-google-reviews",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "29c291aa-99ba-53ec-967d-fc87d88f9996",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-maps-reviews",
+        "customBody": "={{ JSON.stringify({ places: $json.places.split('\\n').map((p) => p.trim()).filter(Boolean), maxReviewsPerPlace: 20, sortBy: 'newest', onlyNewReviews: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "6be3e120-f554-5802-b3d2-c0691e00c689",
+      "name": "Get new reviews",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing new reviews at or under maxStars, grouped by place. Nothing to report: no message.\nconst max = Number($('Settings').first().json.maxStars ?? 3);\nconst reviews = $input.all().map((i) => i.json).filter((r) => r.found !== false && r.rating !== null && r.rating <= max);\nif (reviews.length === 0) return [];\nconst byPlace = {};\nfor (const r of reviews) (byPlace[r.placeTitle ?? r.input] ??= []).push(r);\nconst stars = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);\nconst blocks = Object.entries(byPlace).map(([place, list]) => {\n  const lines = list.slice(0, 10).map((r) => `• ${stars(r.rating)} ${(r.text ?? '(no text)').slice(0, 200)} (${(r.reviewedAt ?? '').slice(0, 10)})${r.reviewUrl ? ` <${r.reviewUrl}|open>` : ''}`);\n  if (list.length > 10) lines.push(`…and ${list.length - 10} more`);\n  return `*${place}*: ${list.length} new review${list.length > 1 ? 's' : ''} at ${max} stars or less\\n${lines.join('\\n')}`;\n});\nreturn [{ json: { text: `:rotating_light: *New Google reviews to answer*\\n\\n${blocks.join('\\n\\n')}`, newReviews: reviews.length } }];"
+      },
+      "id": "38c0711e-b0f9-51d5-8dae-dc5d02b0529e",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "82a2a4b0-d61a-5bbf-a75d-24213b290300",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 8:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new reviews": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

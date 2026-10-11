@@ -1,0 +1,225 @@
+{
+  "name": "Track your brand in ChatGPT, Gemini and Google AI Mode answers weekly in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Track your brand in ChatGPT, Gemini and Google AI Mode answers weekly in Google Sheets\n\n### Who's it for\nMarketing teams, SEO and GEO consultants and founders who want to know, week after week, whether AI assistants recommend their brand for the questions their customers ask, and which competitors they name instead.\n\n### How it works\n1. Every Monday the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your questions (one per line), your brand, your website and your competitors.\n3. The **AI Search Visibility Tracker** Actor on Apify (`plainrows/ai-search-brand-visibility`) asks each question to ChatGPT, Gemini and Google AI Mode and checks each answer for your brand, your site and your competitors.\n4. A Code node turns each answer into one dated row: engine, mentioned or not, position against competitors, site cited or not, competitors named, top cited domains.\n5. The rows are appended to the `AI visibility` tab, so you can chart the trend.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with an `AI visibility` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `questions`, `brand`, `website` and `competitors` in **Settings**.\n- Keep only some engines by editing `engines` in the Apify node.\n- Post a Slack message when `brandMentioned` is false for a question that mattered last week.\n\nPricing: one AI answer per question and engine per week; failed engines and empty answers are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "0d1b5ead-91d4-59e2-87c9-591bef5b396f",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. In **Settings**, put your `questions` (one per line), your `brand`, your `website` and your `competitors` (comma-separated).\n2. Add your Apify credential (free account at apify.com) to *Ask the AI engines*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with an `AI visibility` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per AI answer (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "15137d92-b718-5147-a1fb-ddedc3d7fa3c",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "c3300b9e-1702-56ae-bcba-5bf30e8e24e3",
+      "name": "Every Monday",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4917db66-be75-5a35-aec4-67e5ee017619",
+              "name": "questions",
+              "value": "best CRM for a small agency\nbest CRM for freelancers",
+              "type": "string"
+            },
+            {
+              "id": "130a4999-0313-5148-a505-2aa94f100d31",
+              "name": "brand",
+              "value": "HubSpot",
+              "type": "string"
+            },
+            {
+              "id": "e6f8b850-9d85-5e8d-a914-f68950bbf8ef",
+              "name": "website",
+              "value": "hubspot.com",
+              "type": "string"
+            },
+            {
+              "id": "f5c5d32d-9e26-5542-9521-32089d591191",
+              "name": "competitors",
+              "value": "Pipedrive, Salesforce, Zoho",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8d0d8d2d-c4dc-5343-8216-135ec58d230c",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~ai-search-brand-visibility",
+        "customBody": "={{ JSON.stringify({ prompts: $json.questions.split('\\n').map((q) => q.trim()).filter(Boolean), brandNames: [$json.brand], brandDomain: $json.website, competitors: $json.competitors.split(',').map((c) => c.trim()).filter(Boolean), engines: ['chatgpt', 'gemini', 'google_ai_mode'], includeAnswerText: false }) }}",
+        "maxTotalChargeUsd": 2
+      },
+      "id": "ce39f42d-4a96-5b23-9fe1-3d0db192b8f0",
+      "name": "Ask the AI engines",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One dated row per AI answer: brand mentioned, position against competitors, site cited, competitors named.\nconst today = new Date().toISOString().slice(0, 10);\nreturn $input.all()\n  .map((i) => i.json)\n  .filter((r) => r.found !== false)\n  .map((r) => ({\n    json: {\n      week: today,\n      question: r.prompt,\n      engine: r.engine,\n      brandMentioned: r.brandMentioned,\n      brandMentionRank: r.brandMentionRank,\n      siteCited: r.brandDomainCited,\n      siteCitationRank: r.brandDomainCitationRank,\n      competitorsNamed: (r.competitorsMentioned ?? []).join(', '),\n      topCitedDomains: (r.citedDomains ?? []).slice(0, 5).join(', '),\n      model: r.model,\n    },\n  }));"
+      },
+      "id": "ce7f5a5f-f9ba-5838-9220-21bc26469b84",
+      "name": "One row per answer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "AI visibility",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "17912489-7584-5b44-940a-9c1e5a8e75b5",
+      "name": "Append to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Ask the AI engines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask the AI engines": {
+      "main": [
+        [
+          {
+            "node": "One row per answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per answer": {
+      "main": [
+        [
+          {
+            "node": "Append to sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
