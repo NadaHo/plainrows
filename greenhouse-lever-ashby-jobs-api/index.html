@@ -28,7 +28,7 @@ and something to remember which jobs it has already seen.</p>
 <code>salaryMin</code> / <code>salaryMax</code> / <code>salaryCurrency</code> when the company publishes them, <code>postedAt</code> in UTC,
 <code>applyUrl</code> and the full description as plain text.</p>
 <ul>
-<li>Give careers page URLs or plain company names (<code>stripe</code>, <code>ramp</code>): the ATS is detected for you (Workday: paste the careers page URL).</li>
+<li>Give careers page URLs, plain company names (<code>stripe</code>, <code>ramp</code>) or company websites (<code>sourcegraph.com</code>): the ATS is detected for you. For a website, the homepage and one careers page are read to find the job board link; a page that links several companies' boards is skipped, not guessed.</li>
 <li>Filter by title keywords, location, department, remote only or posting date for free: filtered-out jobs are not billed.</li>
 <li>With <b>Only new jobs</b> on a daily schedule, each run returns and bills only jobs it has never delivered.</li>
 </ul>
@@ -47,7 +47,7 @@ with Only new jobs, the daily runs after that only bill the new postings. Compan
 
 <h2>When one normalized feed is simpler</h2>
 <ul>
-<li>Your list mixes Greenhouse, Lever, Ashby, Workday and others, or you only have company names.</li>
+<li>Your list mixes Greenhouse, Lever, Ashby, Workday and others, or you only have company names or websites.</li>
 <li>You want new jobs only, from n8n, Make, Zapier, Google Sheets or an AI agent (MCP), without hosting a database of seen jobs.</li>
 </ul>
 <p>Companies that publish jobs only on LinkedIn or Indeed are not in an ATS feed: <a href="../google-jobs-scraper/">Google Jobs Scraper</a> covers those by search.</p>

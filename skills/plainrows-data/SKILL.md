@@ -43,7 +43,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/ai-search-brand-visibility` | AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/amazon-product-search` | Amazon Product Search Scraper: Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/app-reviews-scraper` | App Reviews Scraper: Google Play & App Store | from $0.0001 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
-| `plainrows/ats-job-postings` | ATS Jobs Scraper: Greenhouse, Lever, Ashby & SmartRecruiters | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
+| `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/backlink-checker` | Backlink Checker API: Backlinks, Referring Domains & Anchors | from $0.0012 per backlink | [references/backlink-checker.md](references/backlink-checker.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
 | `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |

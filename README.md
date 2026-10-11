@@ -7,7 +7,7 @@ Website: https://nadaho.github.io/plainrows/
 - [AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode](https://apify.com/plainrows/ai-search-brand-visibility)
 - [Amazon Product Search Scraper: Prices, ASINs & Ratings](https://apify.com/plainrows/amazon-product-search)
 - [App Reviews Scraper: Google Play & App Store](https://apify.com/plainrows/app-reviews-scraper)
-- [ATS Jobs Scraper: Greenhouse, Lever, Ashby & SmartRecruiters](https://apify.com/plainrows/ats-job-postings)
+- [ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby](https://apify.com/plainrows/ats-job-postings)
 - [Backlink Checker API: Backlinks, Referring Domains & Anchors](https://apify.com/plainrows/backlink-checker)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
 - [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
