@@ -1,6 +1,6 @@
 # Google Hotels Prices Scraper: Price Comparison of Booking Sites (`plainrows/google-hotels-prices`)
 
-Google Hotels prices by city and dates (nightly hotel rates, stars, rating, GPS, link), or every booking site's price for given hotels (Booking.com, Expedia, official site) with a daily price calendar. API-based, no browser or proxies. Pay per hotel.
+Hotel scraper and hotel price API for Google Hotels: nightly rates by city and dates (stars, rating, GPS, link), or every booking site's price for given hotels (Booking.com, Expedia, official site) with a daily price calendar. No browser or proxies. Pay per hotel.
 
 Store page and full documentation: https://apify.com/plainrows/google-hotels-prices
 

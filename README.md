@@ -5,9 +5,11 @@ Pay-per-result data APIs for SEO, leads, prices and web data, running on Apify.
 Website: https://nadaho.github.io/plainrows/
 
 - [Amazon Product Search Scraper: Prices, ASINs & Ratings](https://apify.com/plainrows/amazon-product-search)
+- [App Reviews Scraper: Google Play & App Store](https://apify.com/plainrows/app-reviews-scraper)
 - [ATS Jobs Scraper: Greenhouse, Lever, Ashby & SmartRecruiters](https://apify.com/plainrows/ats-job-postings)
 - [Backlink Checker API: Backlinks, Referring Domains & Anchors](https://apify.com/plainrows/backlink-checker)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
+- [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
 - [Domain Authority Checker: Bulk Rank, Backlinks & Spam Score](https://apify.com/plainrows/domain-authority-checker)
 - [Website Traffic Checker: Organic Traffic & Keywords](https://apify.com/plainrows/domain-seo-overview)
 - [Google Ads Transparency Scraper: Competitor Ads Library](https://apify.com/plainrows/google-ads-transparency)
@@ -21,6 +23,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Trends Scraper API: Interest, Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
 - [Keyword Research Tool: Keyword Ideas, Volume & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Search Volume & Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
+- [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
 - [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)

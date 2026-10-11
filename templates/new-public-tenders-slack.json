@@ -1,0 +1,212 @@
+{
+  "name": "Get a daily Slack alert for new public tenders in your sector (EU TED and UK)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get a daily Slack alert for new public tenders in your sector (EU TED and UK)\n\n### Who's it for\nBid managers, consultants, IT services firms, construction and facility companies, and anyone selling to the public sector who wants every new call for tenders in their sector, once, without a paid tender-alert service.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your CPV codes, optional keywords and buyer countries.\n3. The **Public Tenders Search** Actor on Apify (`plainrows/public-tenders-search`) searches EU TED, UK Find a Tender and UK Contracts Finder for notices still open for bids, with **Only new notices** on: it remembers the notices it already delivered, so each run returns only new ones.\n4. A Code node builds one message with title, buyer, country, value in EUR, deadline and the official link.\n5. The message is posted to Slack. No new tender, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `cpvCodes` (comma-separated, e.g. `72000000` for IT services, `79340000` for marketing), `keywords` (one per line, optional) and `countries` (comma-separated, empty = all) in **Settings**.\n- Use a new `monitorName` to start a fresh history.\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets using the same fields.\n\nYou pay only for new notices (see the Actor's Pricing tab); the node's *Maximum Cost per Run* caps every run.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "d65d2362-c0ad-530f-a29d-778eaf60e1f6",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. In **Settings**, set `cpvCodes` (comma-separated), optional `keywords` (one per line) and `countries` (comma-separated, empty = all).\n2. Add your Apify credential (free account at apify.com) to *Get new tenders*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists the open tenders of the last 3 days and seeds the memory.\n\n**Cost:** a price per new notice (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "2ab4ee4d-7594-5a08-9a29-00b5a19cc4bd",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "7242c724-3a0a-5b93-bbc9-7645816032a7",
+      "name": "Every day 8:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "72477f4b-e8d8-53eb-bed4-c26b4af660b5",
+              "name": "cpvCodes",
+              "value": "72000000",
+              "type": "string"
+            },
+            {
+              "id": "96f94579-10d9-5ca7-bddc-90eb7d6e0fe3",
+              "name": "keywords",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "35a6b4dd-5817-5309-9357-82568aa770f8",
+              "name": "countries",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "9b20c6cd-8a87-511d-89f0-b2e292da9fad",
+              "name": "monitorName",
+              "value": "n8n-new-tenders",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "987676e0-53b1-52c9-9acd-a04e6bfb50aa",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~public-tenders-search",
+        "customBody": "={{ JSON.stringify({ cpvCodes: $json.cpvCodes.split(',').map((c) => c.trim()).filter(Boolean), keywords: ($json.keywords || '').split('\\n').map((k) => k.trim()).filter(Boolean), countries: ($json.countries || '').split(',').map((c) => c.trim().toUpperCase()).filter(Boolean), publishedWithinDays: 3, openForBidsOnly: true, maxResults: 200, onlyNewNotices: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 2
+      },
+      "id": "f1cab4dd-83da-58ba-90e8-fe9fd0759d2f",
+      "name": "Get new tenders",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing the new tenders. No new tender: no message.\nconst notices = $input.all().map((i) => i.json).filter((n) => n.found !== false);\nif (notices.length === 0) return [];\nconst eur = (v) => (v == null ? 'value n/a' : `€${Math.round(v).toLocaleString('en-US')}`);\nconst lines = notices.slice(0, 30).map((n) => `• <${n.noticeUrl}|${(n.title ?? '').replace(/[<>|]/g, ' ').slice(0, 150)}>\\n   ${n.buyerName ?? 'buyer n/a'} (${n.buyerCountry ?? '?'}), ${eur(n.valueEur)}, deadline ${n.submissionDeadline ? n.submissionDeadline.slice(0, 10) : 'n/a'}`);\nif (notices.length > 30) lines.push(`…and ${notices.length - 30} more`);\nreturn [{ json: { text: `:classical_building: *${notices.length} new public tender${notices.length > 1 ? 's' : ''}*\\n\\n${lines.join('\\n')}`, newNotices: notices.length } }];"
+      },
+      "id": "4758a888-650c-5858-a093-ecb352ed0d18",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "3e9e967a-1808-5a0c-85bf-6a9c29e64ebc",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 8:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new tenders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new tenders": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

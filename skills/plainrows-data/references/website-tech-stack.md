@@ -1,6 +1,6 @@
 # Website Technology Checker: Tech Stack & CMS Detector (`plainrows/website-tech-stack`)
 
-Find the tech stack of any list of websites: CMS, ecommerce platform, analytics, tag managers, CDN, hosting, frameworks, payments, live chat and email provider, with versions. Bulk domains in, one spreadsheet-ready row per site. Pay only per site analysed.
+Wappalyzer & BuiltWith alternative: find the tech stack of any list of websites: CMS, ecommerce platform, analytics, tag managers, CDN, hosting, frameworks, payments, live chat and email provider, with versions. Bulk domains in, one spreadsheet-ready row per site. Pay only per site analysed.
 
 Store page and full documentation: https://apify.com/plainrows/website-tech-stack
 
