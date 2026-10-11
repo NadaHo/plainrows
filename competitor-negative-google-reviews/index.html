@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read your competitors&#x27; 1-star Google reviews in bulk | PlainRows</title><meta name="description" content="The worst Google Maps reviews of every competitor in your area, worst first, with text, date and owner reply, in one spreadsheet: what customers hate about them">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/competitor-negative-google-reviews/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Your competitors' 1-star reviews, all in one sheet</h1>
+<p class="lead">The fastest market research for a local business or an agency: what customers complain about at every competitor
+nearby. Late deliveries, rude staff, hidden fees: each complaint is a promise you can make in your ads and on your site. Here is how
+to collect them for a whole area in one run.</p>
+
+<h2>Step 1: list the competitors</h2>
+<p>Run <a href="../google-maps-businesses/">Google Maps Businesses Scraper</a> with a search like <code>dentist in Leeds</code>: it returns every
+place with its place ID, rating and number of reviews. Keep the ones you compete with.</p>
+
+<h2>Step 2: their worst reviews first</h2>
+<p>Paste their place IDs (or "business name, city", or Google Maps links) in <a href="../google-maps-reviews/">Google Maps Reviews</a>
+with <code>sortBy</code> set to <code>lowest_rating</code> and, for example, 50 reviews per place. Each review is one row: stars, text
+(and the original text when Google translated it), date, the owner's reply and its date, plus the place's name, address and
+average rating. Reviewer names and profiles are not collected.</p>
+<p>Then group the texts by theme in a spreadsheet, or give them to an LLM with a prompt like "list the 10 most frequent complaints
+with one quote each".</p>
+
+<h2>What it costs</h2>
+<p>$0.0003 per review delivered plus $0.0011 per block of
+10 reviews requested (Apify Starter plan). 20 competitors with 50 reviews each: about $0.27
+for the reviews plus $0.11 for the blocks. Each run stops at the maximum cost you set.</p>
+
+<h2>Keep watching</h2>
+<p>Turn on <code>onlyNewReviews</code> and schedule a weekly run with <code>sortBy: newest</code>: you get only the reviews posted since the
+last run, for your own locations and your competitors'.</p>
+
+<h2>Good to know</h2>
+<ul>
+<li>Use what you learn to improve your offer and your messages; quoting or naming competitors' customers in public is another matter.</li>
+<li>Review texts are delivered as written: they may themselves mention names.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-11 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-11.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
