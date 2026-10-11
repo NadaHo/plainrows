@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Find businesses without a website: web design leads from Google Maps | PlainRows</title><meta name="description" content="List local businesses on Google Maps that have no website but do have a phone number, by trade and city, as CSV or JSON. Filtered places are free.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/businesses-without-website-leads/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Find local businesses without a website</h1>
+<p class="lead">You sell websites, local SEO or Google Business Profile work. Your best prospects are businesses that customers find
+on Google Maps but that have no website to send them to. Here is how to get that list for any trade and city, with a phone number to call.</p>
+
+<h2>The list in one run</h2>
+<p>In <a href="../google-maps-businesses/">Google Maps Businesses Scraper</a>, type the searches you would type in Google Maps,
+one per line, and set two filters:</p>
+<ul>
+<li><code>searchQueries</code>: <code>plumber in Leeds</code>, <code>hair salon in Leeds</code>, <code>restaurant in Leeds</code>…
+(up to about 700 places per search; split a big city into districts or postcodes to go further);</li>
+<li><code>website</code>: <code>without</code> (keeps only places that list no website);</li>
+<li><code>requirePhone</code>: <code>true</code> (drops places you could not call).</li>
+</ul>
+<p>Each row gives the business name, category, address, phone, rating, number of reviews, opening hours, GPS coordinates,
+Place ID and Google Maps link. Download it as CSV or Excel, or send it to Google Sheets or your CRM.</p>
+
+<h2>What it costs</h2>
+<p>$0.0015 per place delivered (Apify Starter plan). <strong>Places removed by the
+<code>website</code>, <code>requirePhone</code> or <code>minRating</code> filters are not billed</strong>: you pay for the leads you keep,
+not for the businesses that already have a site. Each run stops at the maximum cost you set.</p>
+<p>For comparison, the most used Google Maps scraper on Apify (<a href="https://apify.com/compass/crawler-google-places">compass/crawler-google-places</a>)
+charges $0.003 per place on the Starter plan plus a "Filter applied" add-on of $0.001 per place (prices read on 2026-10-11).</p>
+
+<h2>Make the list better</h2>
+<ul>
+<li>Sort by number of reviews: a business with 80 reviews and no website gets traffic it cannot convert, an easy pitch.</li>
+<li>Low rating and no website: pitch reputation management together with the site.</li>
+<li><code>isClaimed</code> is false: the owner never claimed the Google listing, so offer the Google Business Profile setup as well.</li>
+<li>Run the same searches every month: new businesses appear on Google Maps before they have a website.</li>
+</ul>
+
+<h2>Good to know</h2>
+<ul>
+<li>"No website" means no website on the Google Maps listing. Some of these businesses have a Facebook page or a site they never added: check before you call.</li>
+<li>The data comes from Google Maps listings through a commercial data API: no browser, no proxies, results in seconds.</li>
+<li>Calling or e-mailing businesses is subject to the rules of your country (for example GDPR and PECR in the UK and EU, TCPA in the US).</li>
+</ul>
+<p>Competitor facts checked on 2026-10-11 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-11.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
