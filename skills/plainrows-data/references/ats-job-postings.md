@@ -9,7 +9,7 @@ Store page and full documentation: https://apify.com/plainrows/ats-job-postings
 | Field | Type | Default | What it does |
 |---|---|---|---|
 | `companies` (required) | array |  | One company per line. Paste the job board URL (https://boards.greenhouse.io/airbnb, https://jobs.lever.co/spotify, https://jobs.ashbyhq.com/ramp, https://acme.recruitee.com, https://apply.workable.com/acme,... |
-| `ats` | string: `auto`, `greenhouse`, `lever`, `ashby`, `recruitee`, `workable`, `smartrecruiters` | "auto" | Where to look up plain company names. URLs always use their own ATS. Workable is never auto-detected: paste its URL or pick it here. |
+| `ats` | string: `auto`, `greenhouse`, `lever`, `ashby`, `recruitee`, `workable`, `smartrecruiters`, `workday` | "auto" | Where to look up plain company names. URLs always use their own ATS. Workable is never auto-detected: paste its URL or pick it here. Workday is only reached through careers page URLs (names are refused). |
 | `maxJobsPerCompany` | integer | 500 | Most recent jobs first. Each job returned is billed; see Pricing. |
 | `titleKeywords` | array |  | Keep jobs whose title has one of these words, e.g. "engineer", "product manager". Matches word starts, ignores case and accents. Filtered jobs are free. |
 | `excludeTitleKeywords` | array |  | Drop jobs whose title has one of these words, e.g. "intern", "senior". |
