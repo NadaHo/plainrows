@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Public tender alerts for your sector: EU and UK in one daily feed | PlainRows</title><meta name="description" content="Every new call for tenders in your CPV codes and countries from TED, UK Find a Tender and Contracts Finder, still open for bids, in one sheet or Slack channel, ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/tender-alerts-by-sector/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Public tender alerts for your sector, from the EU and the UK in one feed</h1>
+<p class="lead">You sell to public buyers: IT services, cleaning, construction, consulting. New calls for tenders appear every day on
+TED for the EU and on two UK platforms, each with its own search and e-mail alerts. Here is how to get them in one daily list, filtered
+for your sector and still open for bids.</p>
+
+<h2>Set it up once</h2>
+<p>In <a href="../public-tenders-search/">Public Tenders Search</a>:</p>
+<ul>
+<li><code>cpvCodes</code>: the CPV codes of your trade (for example 72000000 for IT services, 90910000 for cleaning), or <code>keywords</code>;</li>
+<li><code>countries</code>: the buyer countries you can serve;</li>
+<li><code>noticeTypes</code>: contract notices (open tenders), and prior information notices if you want to see projects months before the tender;</li>
+<li><code>openForBidsOnly</code>: drop notices whose deadline has passed; <code>minValueEur</code> to skip small contracts;</li>
+<li><code>onlyNewNotices</code> with an Apify schedule (daily): each run returns only notices not delivered before, so you get and pay for each one once.</li>
+</ul>
+<p>Each notice is one row: title, buyer and country, CPV codes with English labels, estimated value (also converted to EUR), deadline,
+procedure, number of lots, documents link and the official notice page. A notice published on both UK platforms comes once.
+Send it to Google Sheets, Slack or your CRM with n8n, Make or Zapier.</p>
+
+<h2>What it costs</h2>
+<p>$0.0025 per notice returned (Apify Starter plan), plus a start fee per run (see the Actor's Pricing tab). A daily alert
+that finds 10 new notices costs about $0.025 a day before the start fee. Each run stops at the maximum cost you set.</p>
+
+<h2>Also useful</h2>
+<ul>
+<li>Contract awards list the <strong>winners</strong> and values: who wins in your market, and which companies just got funded work
+(subcontracting and supplier leads). Look them up in official registers (France, Norway, Finland, Czechia and the worldwide LEI index) with <a href="../company-registry-lookup/">Company Registry Lookup</a>.</li>
+</ul>
+
+<h2>Good to know</h2>
+<ul>
+<li>TED, Find a Tender and Contracts Finder each offer free e-mail alerts on their own site. This tool is for one combined, filtered feed
+in your own tools, with data you can sort and analyse.</li>
+<li>Data comes from the official open APIs of the three platforms. Always read the official notice before bidding.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-11 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-11.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
