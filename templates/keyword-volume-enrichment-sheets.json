@@ -139,7 +139,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// One row per keyword; the 12-month history becomes a compact text cell.\nreturn $input.all().map(({ json: k }) => ({\n  json: {\n    keyword: k.keyword,\n    found: k.found,\n    searchVolume: k.searchVolume ?? null,\n    cpcUsd: k.cpcUsd ?? null,\n    competition: k.competitionLevel ?? null,\n    keywordDifficulty: k.keywordDifficulty ?? null,\n    searchIntent: k.searchIntent ?? null,\n    trendYearlyPct: k.trendYearlyPct ?? null,\n    last12Months: (k.monthlySearches || []).map((m) => `${m.month}: ${m.searchVolume}`).join(' | '),\n    country: k.country,\n    checkedAt: k.observedAt,\n  },\n}));"
+        "jsCode": "// One row per keyword; the 12-month history becomes a compact text cell.\nreturn $input.all().map(({ json: k }) => ({\n  json: {\n    keyword: k.keyword,\n    found: k.found,\n    searchVolume: k.searchVolume ?? null,\n    cpcUsd: k.cpcUsd ?? null,\n    competition: k.competitionLevel ?? null,\n    keywordDifficulty: k.keywordDifficulty ?? null,\n    searchIntent: k.searchIntent ?? null,\n    trendYearlyPct: k.trendYearlyPct ?? null,\n    serpFeatures: k.serpFeatures ?? null,\n    last12Months: (k.monthlySearches || []).map((m) => `${m.month}: ${m.searchVolume}`).join(' | '),\n    country: k.country,\n    checkedAt: k.observedAt,\n  },\n}));"
       },
       "id": "35fb0fe8-3b61-5214-a76a-0f9df7eb1fd0",
       "name": "Format rows",
