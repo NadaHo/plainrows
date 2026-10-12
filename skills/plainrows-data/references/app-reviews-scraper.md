@@ -1,4 +1,4 @@
-# App Reviews Scraper: Google Play & App Store (`plainrows/app-reviews-scraper`)
+# App Store Reviews & Google Play Reviews Scraper (`plainrows/app-reviews-scraper`)
 
 Get Google Play and App Store reviews in one run: stars, title, text, date, app version and developer reply, for any app and country. No reviewer names. Mix both stores in one list. Only-new-reviews mode for daily alerts. Pay per review.
 

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Maps Rank Tracker: Geo-Grid Local SEO | PlainRows</title><meta name="description" content="See where a business ranks on Google Maps at every point of a grid around it (3x3 to 9x9) for up to 5 keywords: rank per point, top 3 competitors, average rank ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-maps-rank-tracker/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Maps Rank Tracker: Geo-Grid Local SEO</h1>
+<p class="lead">See where a business ranks on Google Maps at every point of a grid around it (3x3 to 9x9) for up to 5 keywords: rank per point, top 3 competitors, average rank and share of local voice. Pay per grid point, no subscription.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-maps-rank-tracker">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-maps-rank-tracker" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Local SEO agencies: monthly geo-grid reports for each client, at cost per point, scheduled and sent to a spreadsheet or a dashboard.</li><li>Business owners: see the streets where you disappear from the map pack, and who takes your place there.</li><li>Before / after: measure the effect of a Google Business Profile change, new reviews or a new category on the same grid.</li><li>Competitor research: the competitor ranked first at the most points, with its rating and review count.</li><li>AI agents (MCP): &quot;how visible is this dentist in its neighbourhood?&quot; answered with numbers.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Grid point checked</b><br><span>One grid point searched on Google Maps for one keyword: the business&#x27;s rank there (or not ranked) and the top 3 places. Charged only when Google Maps returned places. The business lookup, the summary per keyword, a business not found, points with no place and unreadable answers are free.</span></td><td>$0.01</td><td>$0.008</td><td>$0.007</td><td>$0.006</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-maps-rank-tracker/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;business&quot;: &quot;Monmouth Coffee Company, Borough, London&quot;,
+  &quot;keywords&quot;: [
+    &quot;coffee shop&quot;
+  ],
+  &quot;gridSize&quot;: &quot;5&quot;,
+  &quot;country&quot;: &quot;GB&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-maps-rank-tracker&quot;).call(run_input={&#x27;business&#x27;: &#x27;Monmouth Coffee Company, Borough, London&#x27;,
+ &#x27;keywords&#x27;: [&#x27;coffee shop&#x27;],
+ &#x27;gridSize&#x27;: &#x27;5&#x27;,
+ &#x27;country&#x27;: &#x27;GB&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-maps-rank-tracker</code>.</li>
+<li><a href="../templates/google-maps-rank-grid-weekly-sheets.json">Track a business&#x27;s Google Maps rank on a geo-grid every week in Google Sheets</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-maps-rank-tracker</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-maps-rank-tracker">https://apify.com/plainrows/google-maps-rank-tracker</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-12.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

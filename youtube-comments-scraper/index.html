@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Comments Scraper: Video Comments Export | PlainRows</title><meta name="description" content="Export YouTube comments of any video: text, likes, reply count, date and the video&#x27;s title and comment count. Paste video links, Shorts links or IDs. Top and re">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/youtube-comments-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>YouTube Comments Scraper: Video Comments Export</h1>
+<p class="lead">Export YouTube comments of any video: text, likes, reply count, date and the video&#x27;s title and comment count. Paste video links, Shorts links or IDs. Top and recent comments, up to 700 per video. No author names. Only-new-comments mode for daily checks. Pay per comment.</p>
+<p><a class="btn" href="https://apify.com/plainrows/youtube-comments-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/youtube-comments-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Sentiment analysis and AI summaries: feed clean comment text to an LLM, a BI tool or an AI agent (MCP) to see what viewers like, ask and complain about.</li><li>Product and brand research: read the comments under product reviews, launches and ads, yours or your competitors&#x27;.</li><li>Creators and social media teams: turn on Only new comments, schedule a daily run and get the new comments on your videos, never the same one twice, in Slack or a spreadsheet.</li><li>Content ideas: collect the questions viewers ask under the top videos of your niche.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Comment</b><br><span>One YouTube comment returned with its text, likes, reply count and date, plus the video&#x27;s title and comment count. Videos with no comment, duplicates and input mistakes are free.</span></td><td>$0.0003</td><td>$0.0003</td><td>$0.0002</td><td>$0.0002</td></tr><tr><td><b>Block of 20 comments requested</b><br><span>YouTube comments are fetched in blocks of 20 per video (100 comments = 5 blocks). Charged for each block requested once YouTube has answered, even when the video has fewer comments than requested or is not found, at about what the data source charges us. Not charged when YouTube does not answer.</span></td><td>$0.001</td><td>$0.001</td><td>$0.001</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~youtube-comments-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;videos&quot;: [
+    &quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;
+  ],
+  &quot;maxCommentsPerVideo&quot;: 100
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/youtube-comments-scraper&quot;).call(run_input={&#x27;videos&#x27;: [&#x27;https://www.youtube.com/watch?v=dQw4w9WgXcQ&#x27;],
+ &#x27;maxCommentsPerVideo&#x27;: 100})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/youtube-comments-scraper</code>.</li>
+<li><a href="../templates/new-youtube-comments-slack.json">Get new YouTube comments on your videos in Slack every day</a> (n8n workflow JSON)</li>
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/youtube-comments-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/youtube-comments-scraper">https://apify.com/plainrows/youtube-comments-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-12.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

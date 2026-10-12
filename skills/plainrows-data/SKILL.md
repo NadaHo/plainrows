@@ -1,6 +1,6 @@
 ---
 name: plainrows-data
-description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Broken Link Checker; AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); Google Maps Scraper; Website Technology Checker; ATS Jobs Scraper (Workday, Greenhouse, Lever, Ashby); Google Jobs Scraper; Google Ads Scraper (Transparency Center); Company Registry Lookup (SIRENE, LEI, Brreg); Public Tenders Search (EU TED & UK); Amazon Product Search Scraper; Google Shopping Prices Scraper; Google Hotels Prices Scraper; Google News Scraper; YouTube Search Scraper; Google Images Scraper; Website Screenshot API; Google Maps Reviews Scraper; App Store & Google Play Reviews Scraper. Use when a task needs SEO metrics, business leads or search data and the user has (or can create) an Apify API token. Pay per use.
+description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Broken Link Checker; AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); Google Maps Rank Tracker (Geo-Grid Local SEO); Google Maps Scraper; Website Technology Checker; ATS Jobs Scraper (Workday, Greenhouse, Lever, Ashby); Google Jobs Scraper; Google Ads Scraper (Transparency Center); Company Registry Lookup (SIRENE, LEI, Brreg); Public Tenders Search (EU TED & UK); Amazon Product Search Scraper; Google Shopping Prices Scraper; Google Hotels Prices Scraper; Tripadvisor Reviews Scraper; Google News Scraper; YouTube Search Scraper; YouTube Comments Scraper; Google Images Scraper; Website Screenshot API; Google Maps Reviews Scraper; App Store & Google Play Reviews Scraper. Use when a task needs SEO metrics, business...
 compatibility: Needs network access to api.apify.com and an APIFY_TOKEN environment variable (free Apify account).
 metadata:
   author: PlainRows
@@ -42,19 +42,20 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 |---|---|---|---|
 | `plainrows/ai-search-brand-visibility` | AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/amazon-product-search` | Amazon Product Search Scraper: Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
-| `plainrows/app-reviews-scraper` | App Reviews Scraper: Google Play & App Store | from $0.0001 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
+| `plainrows/app-reviews-scraper` | App Store Reviews & Google Play Reviews Scraper | from $0.0001 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/backlink-checker` | Backlink Checker API: Backlinks, Referring Domains & Anchors | from $0.0012 per backlink | [references/backlink-checker.md](references/backlink-checker.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
 | `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
 | `plainrows/domain-authority-checker` | Domain Authority Checker: Bulk Rank, Backlinks & Spam Score | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
 | `plainrows/domain-seo-overview` | Website Traffic Checker: Organic Traffic & Keywords | from $0.003 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
-| `plainrows/google-ads-transparency` | Google Ads Transparency Scraper: Competitor Ads Library | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
+| `plainrows/google-ads-transparency` | Google Ads Scraper: Google Ads Transparency Center | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
 | `plainrows/google-autocomplete-questions` | Google Autocomplete & People Also Ask Questions Scraper | from $0.0003 per suggestion | [references/google-autocomplete-questions.md](references/google-autocomplete-questions.md) |
 | `plainrows/google-hotels-prices` | Google Hotels Prices Scraper: Price Comparison of Booking Sites | from $0.0008 per hotel | [references/google-hotels-prices.md](references/google-hotels-prices.md) |
 | `plainrows/google-images-scraper` | Google Images Scraper API: Image URLs, Sources & Filters | from $0.0006 per image | [references/google-images-scraper.md](references/google-images-scraper.md) |
 | `plainrows/google-jobs-scraper` | Google Jobs Scraper: Listings, Salaries & Apply Links | from $0.0008 per job listing | [references/google-jobs-scraper.md](references/google-jobs-scraper.md) |
 | `plainrows/google-maps-businesses` | Google Maps Scraper: Business Leads, Phones & Ratings | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
+| `plainrows/google-maps-rank-tracker` | Google Maps Rank Tracker: Geo-Grid Local SEO | from $0.006 per grid point checked | [references/google-maps-rank-tracker.md](references/google-maps-rank-tracker.md) |
 | `plainrows/google-maps-reviews` | Google Maps Reviews Scraper | from $0.0002 per review | [references/google-maps-reviews.md](references/google-maps-reviews.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
 | `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
@@ -62,8 +63,10 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas, Volume & Difficulty | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-search-volume` | Keyword Search Volume & Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
 | `plainrows/public-tenders-search` | Public Tenders Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
+| `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/website-screenshot` | Website Screenshot API: Full Page, Mobile & Bulk Capture | from $0.0018 per screenshot | [references/website-screenshot.md](references/website-screenshot.md) |
 | `plainrows/website-tech-stack` | Website Technology Checker: Tech Stack & CMS Detector | from $0.0006 per website | [references/website-tech-stack.md](references/website-tech-stack.md) |
+| `plainrows/youtube-comments-scraper` | YouTube Comments Scraper: Video Comments Export | from $0.0002 per comment | [references/youtube-comments-scraper.md](references/youtube-comments-scraper.md) |
 | `plainrows/youtube-search-scraper` | YouTube Search Scraper: Videos, Views & Channels by Keyword | from $0.001 per video | [references/youtube-search-scraper.md](references/youtube-search-scraper.md) |
 
 Other ways to use the same tools: MCP server `https://mcp.apify.com?tools=plainrows/<slug>`, n8n, Make and Zapier (Apify integration).

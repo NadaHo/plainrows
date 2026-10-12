@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Local Falcon alternative without a subscription: geo-grid rank tracking per point | PlainRows</title><meta name="description" content="Google Maps geo-grid rank tracking billed per grid point, no monthly plan or expiring credits. Compared with Local Falcon and geo-grid tools on Apify.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/local-falcon-alternative-pay-per-point/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Geo-grid rank tracking without a subscription</h1>
+<p class="lead">You want to see where a business ranks on Google Maps street by street: a grid of points around it, the rank at each
+point, and who takes the top 3 where it disappears. Local Falcon made the format popular. Here is what it costs there, on Apify,
+and with PlainRows.</p>
+
+<h2>Prices compared</h2>
+<p>Read on 2026-10-11:</p>
+<ul>
+<li><strong>Local Falcon</strong> (<a href="https://www.localfalcon.com/pricing">localfalcon.com/pricing</a>): monthly plans from $24.99 for 7,500 credits
+to $199.99 for 63,150 credits; one credit = one grid point, so a 5x5 scan uses 25 credits. If you use all your credits every month,
+that is about $0.0033 per point on the Starter plan: cheaper than us at volume.</li>
+<li><strong>Geo-grid Actors on Apify</strong>: <a href="https://apify.com/crashlattice57/geo-grid-rank-tracker">crashlattice57/geo-grid-rank-tracker</a>
+$0.02 to $0.014 per point; <a href="https://apify.com/vasram/google-maps-rank-tracker">vasram/google-maps-rank-tracker</a> $0.60 per 5x5 scan ($0.024 per point).</li>
+<li><strong>PlainRows</strong> <a href="../google-maps-rank-tracker/">Google Maps Rank Tracker</a>: $0.008 per point
+on the Apify Starter plan, nothing per month to us. A 5x5 grid for one keyword: $0.2, plus $0.002 per run (Actor start).</li>
+</ul>
+
+<h2>What you get</h2>
+<p>Give the business (name and city, Google Maps link, place ID or CID), up to 5 keywords, a 3x3 to 9x9 grid and the spacing between points.
+For every point and keyword: the business's rank, whether it is in the top 3, and the first 3 places with rating and number of reviews.
+Then one free summary per keyword: average rank, share of local voice (% of points in the top 3), points where it ranks, the competitor
+ranked first most often, and the rank grid ready for a heatmap. The business is matched by place ID or CID, never by name; sponsored pins
+are not counted.</p>
+<p>Points where Google Maps returns no place, a business not found and the summary rows are free. A run never goes above the maximum cost you
+set: keywords whose full grid does not fit in it are left out whole, before any search. Points are searched from the business
+outwards. A run can still stop part-way through a grid if the data source fails, or if too many searches return no place at all
+(a grid that reaches out to sea, for example); the points not searched are not charged.</p>
+
+<h2>When Local Falcon is the better choice</h2>
+<ul>
+<li>You scan thousands of points every month: its credits cost less per point than any pay-per-point tool.</li>
+<li>You want ready-made heatmap reports for clients, with no setup.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You scan now and then (a few grids a month, a before/after test): no plan to keep, no credits that expire.</li>
+<li>You want the raw data in your own sheet, dashboard or CRM, from n8n, Make, Zapier, an API call or an AI agent (MCP).</li>
+<li>You track competitors too: the top 3 at each point comes with every row, and
+<a href="../google-maps-businesses/">Google Maps Businesses Scraper</a> gives the place IDs of a whole category in a city.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-11 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-12.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

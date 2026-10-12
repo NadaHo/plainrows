@@ -1,4 +1,4 @@
-# Google Ads Transparency Scraper: Competitor Ads Library (`plainrows/google-ads-transparency`)
+# Google Ads Scraper: Google Ads Transparency Center (`plainrows/google-ads-transparency`)
 
 Get every Google ad a competitor runs, from a domain, brand name or advertiser ID: creative ID, format, preview image, first and last shown dates, days running. Filter by country, platform, format and dates. Only-new-ads mode for scheduled alerts. Pay only per ad found.
 

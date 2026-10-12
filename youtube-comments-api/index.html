@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube comments API without a Google Cloud project | PlainRows</title><meta name="description" content="Top and recent YouTube comments of a list of videos (text, likes, reply count, date) as JSON or CSV, billed per comment, without author names.">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/youtube-comments-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>YouTube comments as rows, without a Google Cloud project</h1>
+<p class="lead">You want to know what viewers say under your videos, a competitor's launch or a product review: for sentiment
+analysis, an AI summary or a daily list of questions to answer. You do not want to set up an API project and write paging code.</p>
+
+<h2>What you get per comment</h2>
+<p>Give YouTube links (watch, youtu.be, Shorts) or video IDs to <a href="../youtube-comments-scraper/">YouTube Comments Scraper</a>.
+Each comment is one row: text, likes, number of replies, date, plus the video's ID, title, link and total comment count.
+You get the top and recent comments, up to 700 per video; replies themselves are not included, and comment authors' names and
+channel links are not collected. Videos found with <a href="../youtube-search-scraper/">YouTube Search Scraper</a> can be passed
+as they are (their <code>url</code> or <code>videoId</code> column). With <b>Only new comments</b> and a daily schedule, each run
+returns only comments it has not delivered before.</p>
+<p>Real example, checked on 2026-10-11: 100 comments of a sourdough baking video with 3,254 comments, ready in about 20 seconds.</p>
+
+<h2>Price</h2>
+<table>
+<tr><th>Step</th><th>Price (Starter plan)</th></tr>
+<tr><td>One comment delivered</td><td>$0.0003</td></tr>
+<tr><td>One block of 20 comments requested</td><td>$0.001</td></tr>
+</table>
+<p>Example: 1,000 comments cost about $0.27 plus the blocks requested.
+No subscription to us; the free Apify plan is enough to try it.</p>
+
+<h2>Other ways to get the same data</h2>
+<ul>
+<li><b>YouTube Data API v3</b>: <code>commentThreads.list</code> returns up to 100 comment threads per call, with replies, for
+"a quota cost of 1 unit" per call (<a href="https://developers.google.com/youtube/v3/docs/commentThreads/list">reference</a>);
+projects get 10,000 units a day by default (<a href="https://developers.google.com/youtube/v3/getting-started">getting started</a>).
+It is free and gives every comment, but you need a Google Cloud project, credentials and your own paging code; videos with
+comments turned off answer with a <code>commentsDisabled</code> error. Best if you code and need all comments or the replies.</li>
+<li><b>YouTube Studio</b>: shows the comments of your own channel, to read and reply by hand. Best for a few videos of your own.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-11 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-12.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

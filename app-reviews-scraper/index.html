@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>App Reviews Scraper: Google Play &amp; App Store | PlainRows</title><meta name="description" content="Get Google Play and App Store reviews in one run: stars, title, text, date, app version and developer reply, for any app and country. No reviewer names. Mix bot">
+<title>App Store Reviews &amp; Google Play Reviews Scraper | PlainRows</title><meta name="description" content="Get Google Play and App Store reviews in one run: stars, title, text, date, app version and developer reply, for any app and country. No reviewer names. Mix bot">
 <link rel="canonical" href="https://nadaho.github.io/plainrows/app-reviews-scraper/"><link rel="stylesheet" href="../style.css">
 </head><body><header><a class="brand" href="../">PlainRows</a></header>
 <main>
-<h1>App Reviews Scraper: Google Play &amp; App Store</h1>
+<h1>App Store Reviews &amp; Google Play Reviews Scraper</h1>
 <p class="lead">Get Google Play and App Store reviews in one run: stars, title, text, date, app version and developer reply, for any app and country. No reviewer names. Mix both stores in one list. Only-new-reviews mode for daily alerts. Pay per review.</p>
 <p><a class="btn" href="https://apify.com/plainrows/app-reviews-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/app-reviews-scraper" alt="Actor status"></p>
-<h2>Typical uses</h2><ul><li>Product feedback and bug triage: read what users say about the latest version, sorted newest first, with the version each review was written for.</li><li>Competitor research: compare your app&#x27;s ratings and complaints with competitors&#x27;, on both stores.</li><li>Review monitoring: turn on Only new reviews, schedule a daily run and alert your team in Slack or a spreadsheet: you get (and pay for) each new review once.</li><li>Sentiment analysis and AI summaries: feed clean review text to an LLM, a BI tool or an AI agent (MCP).</li><li>Customer support follow-up: see which reviews already have a developer reply.</li></ul>
+<h2>Typical uses</h2><ul><li>Product feedback and bug triage: read what users say about the latest version, sorted newest first, with the version each review was written for.</li><li>Competitor research: compare your app&#x27;s ratings and complaints with competitors&#x27;, on both stores.</li><li>Review monitoring: turn on Only new reviews, schedule a daily run and alert your team in Slack or a spreadsheet: you never get (or pay for) the same review twice.</li><li>Sentiment analysis and AI summaries: feed clean review text to an LLM, a BI tool or an AI agent (MCP).</li><li>Customer support follow-up: see which reviews already have a developer reply.</li></ul>
 <h2>Pricing</h2>
 <p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
 <table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Review</b><br><span>One app review returned with its stars, text, date, version and developer reply. Apps with no review, duplicates and input mistakes are free.</span></td><td>$0.0001</td><td>$0.0001</td><td>$0.0001</td><td>$0.0001</td></tr><tr><td><b>Block of reviews requested</b><br><span>The stores&#x27; data is fetched in blocks: up to 150 Google Play reviews or 25 App Store reviews per block, per app and country (100 reviews = 1 block on Google Play, 4 blocks on the App Store). Charged for each block requested once the store has answered, even when the app has fewer reviews than requested or none, at about what the data source charges us. Not charged when the store does not answer.</span></td><td>$0.0012</td><td>$0.0012</td><td>$0.0012</td><td>$0.0012</td></tr></table>
@@ -40,6 +40,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/app-reviews-scraper">https://apify.com/plainrows/app-reviews-scraper</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-11.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-12.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>

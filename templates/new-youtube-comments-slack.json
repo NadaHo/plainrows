@@ -1,0 +1,206 @@
+{
+  "name": "Get new YouTube comments on your videos in Slack every day",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get new YouTube comments on your videos in Slack every day\n\n### Who's it for\nYouTubers, social media managers and brand teams who want to read and answer new comments on their videos (or watch what viewers say under a competitor's launch) without opening YouTube Studio video by video.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your videos (YouTube links or IDs, Shorts included) and an optional word filter, for example `?` to see only questions.\n3. The **YouTube Comments Scraper** Actor on Apify (`plainrows/youtube-comments-scraper`) runs with **Only new comments** on: it remembers the comments it already delivered, so each run returns only comments it has not seen before.\n4. A Code node keeps the comments that match your filter, groups them by video, sorts them by likes and builds one message with text, likes, replies and date.\n5. The message is posted to Slack. No new comment, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `videos` (one per line), `filter` and `monitorName` in **Settings**. Leave `filter` empty to get every new comment; use a new `monitorName` to start a fresh history.\n- Raise `maxCommentsPerVideo` in the Apify node for busy videos (up to 700 top and recent comments per video).\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets, or send the text to an LLM node for a daily summary.\n\nComment authors are not collected. Each check pays a small fee per block of 20 comments requested plus a price per new comment.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "bbf4836e-54aa-5177-8f3d-d5c1b9cc384d",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your videos in `videos` (one per line: YouTube link or video ID) and, if you want, a word in `filter` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new comments*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run seeds the memory with the current comments.\n\n**Cost:** a small fee per block of 20 comments requested plus a price per new comment (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "70aaa280-64ca-51cf-b681-dc6e11037112",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "8bd4ed26-2ddf-5f82-9653-f37b655d413a",
+      "name": "Every day 9:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9cac3ded-5dec-55ca-a213-5322031de336",
+              "name": "videos",
+              "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              "type": "string"
+            },
+            {
+              "id": "32e37dc1-2860-548d-9ec9-44deea8c268d",
+              "name": "filter",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "8ee9c95f-679e-54c5-9415-7c4871f2e063",
+              "name": "monitorName",
+              "value": "n8n-new-youtube-comments",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "420ebf41-19c1-5128-a624-b1f9b1b1e649",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~youtube-comments-scraper",
+        "customBody": "={{ JSON.stringify({ videos: $json.videos.split('\\n').map((v) => v.trim()).filter(Boolean), maxCommentsPerVideo: 100, onlyNewComments: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "842100eb-f866-5822-9946-a32e43a1d15a",
+      "name": "Get new comments",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing new comments that match the filter, grouped by video, most liked first. Nothing: no message.\nconst filter = String($('Settings').first().json.filter ?? '').trim().toLowerCase();\nconst comments = $input.all().map((i) => i.json).filter((c) => c.found !== false && c.text && (!filter || c.text.toLowerCase().includes(filter)));\nif (comments.length === 0) return [];\nconst byVideo = {};\nfor (const c of comments) (byVideo[c.videoId] ??= []).push(c);\nconst blocks = Object.values(byVideo).map((list) => {\n  list.sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0));\n  const lines = list.slice(0, 15).map((c) => `• ${c.text.replace(/\\s+/g, ' ').slice(0, 220)} (:+1: ${c.likes ?? 0}, :speech_balloon: ${c.replyCount ?? 0}, ${c.publishedText ?? (c.publishedAt ?? '').slice(0, 10)})`);\n  if (list.length > 15) lines.push(`…and ${list.length - 15} more`);\n  return `*<${list[0].videoUrl}|${(list[0].videoTitle ?? list[0].videoId).replace(/[<>|]/g, ' ')}>*: ${list.length} new comment${list.length > 1 ? 's' : ''}\\n${lines.join('\\n')}`;\n});\nreturn [{ json: { text: `:tv: *New YouTube comments*${filter ? ` containing \"${filter}\"` : ''}\\n\\n${blocks.join('\\n\\n')}`, newComments: comments.length } }];"
+      },
+      "id": "530cb8aa-92f6-51f4-a72b-d6fd46fc284c",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "4b2051c9-a3db-57c1-b4b9-61f492288672",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 9:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new comments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new comments": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
