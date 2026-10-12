@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Which of your keywords show a Google AI Overview? (bulk check) | PlainRows</title><meta name="description" content="Check thousands of keywords at once for AI Overviews and other Google SERP features, with search volume, CPC and difficulty in the same row, billed per keyword ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/keywords-with-ai-overviews/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Which of your keywords show a Google AI Overview?</h1>
+<p class="lead">If a keyword shows an AI Overview, fewer people click the organic results. Before you plan content or report on lost traffic,
+you need to know which keywords on your list have one. Checking them one by one in Google is slow. Scraping a live results page
+for every keyword costs a search each. Here is a bulk check that comes in the same row as the search volume.</p>
+
+<h2>One row per keyword, SERP features included</h2>
+<p>Paste up to 10,000 keywords in <a href="../keyword-search-volume/">Keyword Search Volume, CPC &amp; Difficulty</a> and choose one of
+94 countries. Each keyword comes back with:</p>
+<ul>
+<li><code>serpFeatures</code>: the result types Google showed for that keyword, for example <code>ai_overview, organic, people_also_ask,
+popular_products, video, local_pack</code>;</li>
+<li><code>serpUpdatedAt</code>: the date of that results-page snapshot, so you can tell recent snapshots from old ones;</li>
+<li>monthly search volume, CPC, competition, keyword difficulty, search intent and 12 months of history.</li>
+</ul>
+<p>Filter on <code>serpFeatures</code> contains <code>ai_overview</code>, sort by search volume, and you have the list of keywords where
+an AI Overview sits above your result.</p>
+
+<h2>What we saw on 760 US keywords (2026-10-13)</h2>
+<p>We ran 760 product keywords such as "best air fryer", "standing desk review" and "yoga mat for beginners". 566 had a results-page
+snapshot. <strong>253 of them (45 %) showed an AI Overview.</strong> AI Overviews were more common on informational keywords (65 %) and
+commercial ones like "best …" and "… review" (60 %) than on transactional ones like "… for sale" and "… deals" (30 %). Snapshot
+dates varied: 269 were from July to October 2026, and the rest were older.</p>
+
+<h2>What it costs</h2>
+<p>$0.008 per keyword found (Apify Starter plan). SERP features are included in that price.
+Keywords with no data are returned with <code>found: false</code> and are not billed. 1,000 keywords that all have data:
+$8.00. Each run stops at the maximum cost you set.</p>
+
+<h2>Need the AI answer itself?</h2>
+<p>This check tells you <em>whether</em> an AI Overview appears. If you want to know what the AI answers say and which sites they cite or
+mention, use <a href="../ai-search-brand-visibility/">AI Search Brand Visibility</a>. It asks ChatGPT, Gemini and Google AI Mode your
+questions and reports whether your brand and your domain appear.</p>
+
+<h2>Good to know</h2>
+<ul>
+<li>SERP features come from the latest snapshot in a keyword database, not from a live search made during your run. Check
+<code>serpUpdatedAt</code>. For a live check of a few keywords, a SERP scraper is the right tool.</li>
+<li>AI Overviews change often for the same keyword. Treat a single snapshot as "this keyword can show an AI Overview", not as a
+guarantee.</li>
+<li>Some keywords have volume data but no results-page snapshot. For those, <code>serpFeatures</code> is empty.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-13 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-12.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
