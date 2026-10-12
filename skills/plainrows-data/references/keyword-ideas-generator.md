@@ -10,8 +10,8 @@ Store page and full documentation: https://apify.com/plainrows/keyword-ideas-gen
 |---|---|---|---|
 | `seedKeywords` (required) | array |  | One topic per line, e.g. "coffee maker" or "crm for small business". Each seed is expanded into its own list of ideas. Up to 100 seeds per run, max 80 characters and 10 words each. |
 | `mode` | string: `suggestions`, `related`, `ideas` | "suggestions" | Suggestions = phrases that contain your seed ("best coffee maker with grinder"). Related = Google's "related searches", followed a few levels deep. Ideas = keywords from the same product or topic category, even without... |
-| `country` | string (20 codes, see the Store page) | "US" | Country whose Google search volumes and CPC you want. |
-| `languageCode` | string |  | Two-letter language code, e.g. "en" or "fr". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). |
+| `country` | string (94 codes, see the Store page) | "US" | Country whose Google search volumes and CPC you want. |
+| `languageCode` | string |  | Language code, e.g. "en", "fr" or "zh-TW". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). |
 | `maxIdeasPerSeed` | integer | 100 | 10 to 1,000. Each idea returned is billed; see Pricing. An idea already returned for an earlier seed is not repeated. |
 | `depth` | integer | 2 | How many levels of Google related searches to follow: 1 = up to about 8 ideas, 2 = about 70, 3 = about 580, 4 = about 4,700. Deeper levels drift further from the seed. Used only with the Related source. |
 | `sortBy` | string: `volume`, `difficulty`, `cpc`, `relevance` | "volume" | Also decides which ideas you get when a seed has more than your maximum. |
