@@ -1,6 +1,6 @@
 # Google Jobs Scraper: Listings, Salaries & Apply Links (`plainrows/google-jobs-scraper`)
 
-Get Google Jobs listings for any job search and city, gathered from LinkedIn, Indeed, ZipRecruiter and company career sites: title, company, location, salary (min/max/period), job type, posting date, job board and apply link. 20 countries. Only-new-jobs mode for daily alerts. Pay only per job.
+Get Google Jobs listings for any job search and city, gathered from LinkedIn, Indeed, ZipRecruiter and company career sites: title, company, location, salary (min/max/period), job type, posting date, job board and apply link. 20 countries. Only-new-jobs mode for daily alerts. Pay per job.
 
 Store page and full documentation: https://apify.com/plainrows/google-jobs-scraper
 

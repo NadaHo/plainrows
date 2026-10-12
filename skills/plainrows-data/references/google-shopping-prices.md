@@ -1,6 +1,6 @@
 # Google Shopping Prices Scraper: Products, Stores & Deals (`plainrows/google-shopping-prices`)
 
-Get Google Shopping prices for any search or product: price, old price and discount, seller, rating, delivery, image, plus each store's offer with domain, shipping and total price. 20 countries, no browser, no proxies. Pay only per result.
+Get Google Shopping prices for any search or product: price, old price and discount, seller, rating, delivery, image, plus each store's offer with domain, shipping and total price. 20 countries, no browser, no proxies. Pay per result, plus small run and page fees from October 25, 2026.
 
 Store page and full documentation: https://apify.com/plainrows/google-shopping-prices
 
