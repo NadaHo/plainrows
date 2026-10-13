@@ -51,7 +51,7 @@
               "id": "eca2987b-91b9-5fba-ad57-6978d0662501",
               "name": "onlyWithEmail",
               "value": false,
-              "type": "number"
+              "type": "boolean"
             }
           ]
         },
