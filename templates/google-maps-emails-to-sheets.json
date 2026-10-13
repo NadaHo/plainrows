@@ -1,0 +1,249 @@
+{
+  "name": "Find Google Maps business leads with e-mails and save them to Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Find Google Maps business leads with e-mails and save them to Google Sheets\n\n### Who's it for\nAgencies, freelancers and sales teams who need local businesses they can actually e-mail: cold outreach, partnerships, local marketing offers.\n\n### How it works\n1. A form asks what you would type in Google Maps (one search per line, e.g. `dentist in Austin, TX`), the country and how many places you want.\n2. The Apify node runs the **Google Maps Email Extractor** Actor (`plainrows/google-maps-email-extractor`). It finds the places on Google Maps (name, category, address, phone, website, rating) and reads each place's website for the e-mails, phone links and Facebook, Instagram and LinkedIn pages it publishes.\n3. A Code node keeps one clean row per place.\n4. Each place is appended as a row to your Google Sheet.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Add a Filter node to keep only rows with an `email`.\n- Replace Google Sheets with Airtable, HubSpot or your CRM.\n- Follow the anti-spam rules of your country (CAN-SPAM, GDPR) before e-mailing anyone.\n\nPricing: pay per place returned and per website where contacts were found, plus a small start fee per run; websites with nothing found are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "57f77b22-06f6-53cb-a085-b94e32f85684",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup (5 min)\n1. **Apify**: create a free account at apify.com, then add your Apify credential to the *Run Google Maps Email Extractor* node.\n2. **Google Sheets**: connect your account, paste your spreadsheet URL in *Append leads to Google Sheets* and create a tab named `Leads` (headers are filled automatically).\n3. Open the form URL from the trigger node and run a search.\n\n**Cost:** pay per place returned, plus per website where contacts were found, plus a small start fee per run (see the Actor's Pricing tab). The node caps each run with *Maximum Cost per Run*.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "5ece2bdd-4bdb-5941-bde3-72ff82850a09",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Google Maps leads with e-mails",
+        "formDescription": "One search per line, as you would type it in Google Maps.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Search queries",
+              "fieldType": "textarea",
+              "placeholder": "dentist in Austin, TX\nplumber in Austin, TX",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Country",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "US"
+                  },
+                  {
+                    "option": "GB"
+                  },
+                  {
+                    "option": "CA"
+                  },
+                  {
+                    "option": "AU"
+                  },
+                  {
+                    "option": "IE"
+                  },
+                  {
+                    "option": "IN"
+                  },
+                  {
+                    "option": "DE"
+                  },
+                  {
+                    "option": "AT"
+                  },
+                  {
+                    "option": "CH"
+                  },
+                  {
+                    "option": "FR"
+                  },
+                  {
+                    "option": "BE"
+                  },
+                  {
+                    "option": "ES"
+                  },
+                  {
+                    "option": "MX"
+                  },
+                  {
+                    "option": "IT"
+                  },
+                  {
+                    "option": "NL"
+                  },
+                  {
+                    "option": "PT"
+                  },
+                  {
+                    "option": "BR"
+                  },
+                  {
+                    "option": "PL"
+                  },
+                  {
+                    "option": "SE"
+                  },
+                  {
+                    "option": "JP"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Max places per query",
+              "fieldType": "number",
+              "placeholder": "50"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9774579b-5b65-5fdb-ba57-3bf243d50cff",
+      "name": "Lead search form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-maps-email-extractor",
+        "customBody": "={{ JSON.stringify({\n  searchQueries: $json['Search queries'].split('\\n').map((q) => q.trim()).filter(Boolean),\n  country: $json['Country'],\n  maxPlacesPerQuery: Number($json['Max places per query']) || 50,\n  contactDetails: true,\n  website: 'with'\n}) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "88ce1c82-3e82-57d5-ac09-799a6af8927a",
+      "name": "Run Google Maps Email Extractor",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        240,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per place, with the e-mails and social profiles found on its website.\nreturn $input.all()\n  .filter((item) => item.json.found !== false)\n  .map(({ json: p }) => ({\n    json: {\n      name: p.name,\n      category: p.category,\n      email: p.email ?? null,\n      allEmails: (p.emails || []).join(', '),\n      phone: p.phone,\n      website: p.website,\n      facebook: p.facebookUrl ?? null,\n      instagram: p.instagramUrl ?? null,\n      linkedin: p.linkedinUrl ?? null,\n      address: p.address,\n      city: p.city,\n      rating: p.rating,\n      reviewsCount: p.reviewsCount,\n      contactStatus: p.contactStatus ?? null,\n      googleMapsUrl: p.googleMapsUrl,\n      searchQuery: p.searchQuery,\n    },\n  }));"
+      },
+      "id": "fa9eaa0d-535f-5dc8-ad78-77c1e73060e6",
+      "name": "Keep places with contacts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "4c1c7421-cbf2-5057-8291-24f03f381337",
+      "name": "Append leads to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lead search form": {
+      "main": [
+        [
+          {
+            "node": "Run Google Maps Email Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Google Maps Email Extractor": {
+      "main": [
+        [
+          {
+            "node": "Keep places with contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep places with contacts": {
+      "main": [
+        [
+          {
+            "node": "Append leads to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
