@@ -25,6 +25,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Google Shopping Prices Scraper: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
 - [Google Trends Scraper API: Interest, Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
+- [Greenhouse Jobs Scraper: Any Greenhouse Job Board](https://apify.com/plainrows/greenhouse-jobs-scraper)
 - [Keyword Research Tool: Keyword Ideas, Volume & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Search Volume & Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
