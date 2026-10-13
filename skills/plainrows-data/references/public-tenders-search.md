@@ -43,3 +43,4 @@ Store page and full documentation: https://apify.com/plainrows/public-tenders-se
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Notice**: $0.003 / $0.0025 / $0.002 / $0.0015. One procurement notice returned (contract notice, award, prior information) with buyer, CPV codes, values, deadline, winners and official link. Keywords without results, notices removed by your filters and duplicates found on several platforms are free.
+- **Actor Start**: $0.012 / $0.012 / $0.012 / $0.012. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

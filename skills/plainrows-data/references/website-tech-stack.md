@@ -26,3 +26,4 @@ Store page and full documentation: https://apify.com/plainrows/website-tech-stac
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Website**: $0.001 / $0.0009 / $0.0008 / $0.0006. One website whose homepage was loaded and analysed (technologies, versions, categories, title). Sites that cannot be loaded (no DNS, timeout, HTTP error, bot protection) are free.
+- **Actor Start**: $0.0005 / $0.0005 / $0.0005 / $0.0005. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

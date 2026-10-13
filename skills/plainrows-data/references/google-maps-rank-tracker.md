@@ -35,3 +35,4 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-rank-
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Grid point checked**: $0.01 / $0.008 / $0.007 / $0.006. One grid point searched on Google Maps for one keyword: the business's rank there (or not ranked) and the top 3 places. Charged only when Google Maps returned places. The business lookup, the summary per keyword, a business not found, points with no place and unreadable answers are free.
+- **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

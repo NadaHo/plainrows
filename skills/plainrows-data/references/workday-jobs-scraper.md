@@ -37,3 +37,4 @@ Store page and full documentation: https://apify.com/plainrows/workday-jobs-scra
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Job**: $0.0015 / $0.0012 / $0.001 / $0.0008. One open job returned with its details (title, department, locations, remote flag, employment type, salary when published, dates, apply link, description). Companies not found, boards without jobs and jobs removed by your filters are free.
+- **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

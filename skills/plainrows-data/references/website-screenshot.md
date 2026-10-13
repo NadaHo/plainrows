@@ -44,3 +44,4 @@ Store page and full documentation: https://apify.com/plainrows/website-screensho
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Screenshot**: $0.003 / $0.0025 / $0.002 / $0.0018. One page captured and saved (viewport or full page, image plus PDF if requested), with HTTP status, title and final URL. Failed URLs, HTTP error pages, blank pages and invalid URLs are free.
+- **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

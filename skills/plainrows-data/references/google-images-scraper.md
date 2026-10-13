@@ -34,3 +34,4 @@ Store page and full documentation: https://apify.com/plainrows/google-images-scr
 
 - **Image**: $0.0012 / $0.001 / $0.0008 / $0.0006. One Google Images result returned: original image URL, thumbnail, title, source page and domain, position. Queries with no result and duplicate images are free.
 - **Search with images**: $0.0022 / $0.0022 / $0.0022 / $0.0022. Charged once per search that returns at least one image (the data source charges a whole results page, even for one image). Searches with no image are free.
+- **Actor Start**: $0.001 / $0.001 / $0.001 / $0.001. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).
