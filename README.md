@@ -28,6 +28,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Keyword Search Volume & Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Tripadvisor Reviews Scraper](https://apify.com/plainrows/tripadvisor-reviews)
+- [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
 - [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)
 - [YouTube Comments Scraper: Video Comments Export](https://apify.com/plainrows/youtube-comments-scraper)

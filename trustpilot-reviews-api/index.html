@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trustpilot reviews API: new reviews of any company, per review | PlainRows</title><meta name="description" content="Recent Trustpilot reviews of your company or your competitors (stars, title, text, date, verified flag, company reply) as JSON or CSV, billed per review, withou">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/trustpilot-reviews-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Trustpilot reviews API: new reviews of any company, billed per review</h1>
+<p class="lead">You want the latest Trustpilot reviews of your company, or of your competitors, in a sheet, a Slack channel or an AI
+summary. Trustpilot's own business APIs are built for a company managing its own reviews (invitations, replies, widgets), and its
+database of reviews is sold separately as Data Solutions (<a href="https://developers.trustpilot.com/">Trustpilot developer site</a>).</p>
+
+<h2>What you get per review</h2>
+<p>Paste company domains or Trustpilot links in <a href="../trustpilot-reviews/">Trustpilot Reviews Scraper</a>. Each review is one row:
+stars, title, text, language, date, verified flag and the company's reply, plus the company's name, average rating and total number
+of reviews. Reviewer names and profiles are not collected.</p>
+
+<h2>New reviews only, every day</h2>
+<p>Turn on <code>onlyNewReviews</code> and schedule the run daily: each run returns only reviews not delivered before, so you can answer
+unhappy customers fast and pay for each review once.</p>
+
+<h2>What it costs</h2>
+<p>$0.0003 per review delivered, plus $0.0022 per block of
+20 reviews requested (Apify Starter plan), plus a start fee per run (see the Actor's Pricing tab). A company with no review still pays the blocks requested (5 for the default 100 reviews); duplicates and malformed inputs are free, and each run stops at the
+maximum cost you set.</p>
+
+<h2>Also on Google and Tripadvisor</h2>
+<p>Track the same company on <a href="../google-maps-reviews/">Google Maps Reviews</a> and, for hotels and restaurants,
+<a href="../tripadvisor-reviews/">Tripadvisor Reviews</a>: the rows have the same shape, so all platforms fit in one sheet.</p>
+
+<h2>Good to know</h2>
+<ul>
+<li>Up to 200 of the most recent (or most relevant) reviews per company per run: made for monitoring, not for exporting a full history.</li>
+<li>Review and reply texts are delivered as written: they may themselves mention names.</li>
+<li>Blocks of 20 are charged for each company Trustpilot answers, even when it has fewer reviews than requested: ask for 20 or 40
+reviews per company for a daily check.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-12 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-13.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

@@ -1,0 +1,206 @@
+{
+  "name": "Get a Slack alert for new negative Trustpilot reviews of your company",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get a Slack alert for new negative Trustpilot reviews of your company\n\n### Who's it for\nE-commerce, SaaS and service companies, and the agencies that manage their reputation, who want to answer unhappy customers on Trustpilot fast without checking the page by hand.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your companies (domains as shown on Trustpilot, or Trustpilot review links) and the highest star rating to alert on.\n3. The **Trustpilot Reviews Scraper** Actor on Apify (`plainrows/trustpilot-reviews`) runs with **Only new reviews** on: it remembers the reviews it already delivered, so each run returns only reviews posted since the last one.\n4. A Code node keeps the new reviews at or under your rating, groups them by company and builds one message with stars, title, text, date and a link to each review.\n5. The message is posted to Slack. No new low rating, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `companies` (one per line), `maxStars` and `monitorName` in **Settings**. Use a new `monitorName` to start a fresh history.\n- Add competitors' domains to watch their unhappy customers too.\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets using the same fields.\n\nReviewer names are not collected. The first run reads the 20 newest reviews of each company and seeds the memory; later runs only pay for new reviews plus a small fee per block of 20 reviews checked.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "f570def9-5d31-5d6c-8930-553937ff2c5d",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your companies in `companies` (one per line: domain as on Trustpilot, e.g. www.example.com, or a Trustpilot review link) and choose `maxStars` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new reviews*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run seeds the memory with the newest reviews.\n\n**Cost:** a small fee per block of 20 reviews checked plus a price per new review (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "770b2a21-5414-5fe7-ae5b-30f81c7a0813",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "4ca5d566-e7a8-569c-96c3-fa0b15b6a5ee",
+      "name": "Every day 8:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e617918f-a890-5603-b84e-f5f235494443",
+              "name": "companies",
+              "value": "www.booking.com",
+              "type": "string"
+            },
+            {
+              "id": "61fff67e-3e7f-552f-a59d-70aaca952f3f",
+              "name": "maxStars",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "1265ac97-9c5f-5529-872b-522502abf419",
+              "name": "monitorName",
+              "value": "n8n-new-trustpilot-reviews",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d67168cd-2ade-5774-bc96-fe1b9addafb1",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~trustpilot-reviews",
+        "customBody": "={{ JSON.stringify({ companies: $json.companies.split('\\n').map((c) => c.trim()).filter(Boolean), maxReviewsPerCompany: 20, sortBy: 'recency', onlyNewReviews: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "1a7d8b22-11c3-5a97-abfd-c0d14e3d8198",
+      "name": "Get new reviews",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing new Trustpilot reviews at or under maxStars, grouped by company. Nothing to report: no message.\nconst max = Number($('Settings').first().json.maxStars ?? 3);\nconst reviews = $input.all().map((i) => i.json).filter((r) => r.found !== false && r.rating !== null && r.rating !== undefined && r.rating <= max);\nif (reviews.length === 0) return [];\nconst byCompany = {};\nfor (const r of reviews) (byCompany[r.companyName ?? r.input] ??= []).push(r);\nconst stars = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);\nconst blocks = Object.entries(byCompany).map(([company, list]) => {\n  const lines = list.slice(0, 10).map((r) => `• ${stars(r.rating)} *${(r.title ?? '').slice(0, 80)}* ${(r.text ?? '(no text)').slice(0, 200)} (${(r.publishedAt ?? '').slice(0, 10)})${r.reviewUrl ? ` <${r.reviewUrl}|open>` : ''}`);\n  if (list.length > 10) lines.push(`…and ${list.length - 10} more`);\n  return `*${company}*: ${list.length} new review${list.length > 1 ? 's' : ''} at ${max} stars or less\\n${lines.join('\\n')}`;\n});\nreturn [{ json: { text: `:rotating_light: *New Trustpilot reviews to answer*\\n\\n${blocks.join('\\n\\n')}`, newReviews: reviews.length } }];"
+      },
+      "id": "d859b7f2-e2b1-537e-acc2-d1615b9a4f06",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "e5814836-4b11-5ad2-9d44-f0ce78fcce45",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 8:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new reviews": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
