@@ -30,6 +30,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Tripadvisor Reviews Scraper](https://apify.com/plainrows/tripadvisor-reviews)
 - [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)
+- [Website Email Extractor: Emails, Phones & Socials from URLs](https://apify.com/plainrows/website-email-extractor)
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
 - [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)
 - [Workday Jobs Scraper: Any myworkdayjobs Careers Site](https://apify.com/plainrows/workday-jobs-scraper)
