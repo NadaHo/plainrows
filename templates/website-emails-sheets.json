@@ -1,0 +1,259 @@
+{
+  "name": "Find the e-mails and social profiles of a Google Sheets list of websites",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Find the e-mails and social profiles of a Google Sheets list of websites\n\n### Who's it for\nSales teams, agencies and freelancers who have a list of company websites (CRM export, directory, trade-show list) and need a way to contact each one.\n\n### How it works\n1. Reads every website from the `Websites` tab (column `website`, a domain or any URL of the site).\n2. A Code node sends them in one batch to the **Website Email Extractor** Actor on Apify (`plainrows/website-email-extractor`).\n3. The Actor reads each homepage, and up to two contact or legal pages when the homepage shows no e-mail, and returns the e-mails, phone numbers and Facebook, Instagram, LinkedIn and X profiles published there. robots.txt is respected; sites that object to solicitation return nothing.\n4. One row per website is written to the `Contacts` tab.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Websites` tab and a `Contacts` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Set `onlyWithEmail` to `true` in **Settings** to keep (and pay for) only websites with an e-mail.\n- Write to HubSpot, Airtable or your CRM instead of Google Sheets.\n- Follow the anti-spam rules of your country (CAN-SPAM, GDPR) before e-mailing anyone.\n\nPricing: pay per website where contacts were found, plus a small start fee per run; websites with nothing found are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "c3f8fbfb-73b8-5bc5-9e17-ecb94ebe08ba",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Create a spreadsheet with two tabs: `Websites` (header `website` in A1, one domain or URL per row) and `Contacts` (empty).\n2. Connect Google Sheets in both Sheets nodes and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Find contacts*.\n4. Set `onlyWithEmail` in **Settings** to `true` if you only want (and pay for) websites with an e-mail.\n\nRun it manually, or replace the trigger with a Schedule Trigger.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "fede075f-4cce-56e4-a396-faf875e7896b",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "dbe0aabd-eaff-51c0-bb40-45d6a22ca2d5",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eca2987b-91b9-5fba-ad57-6978d0662501",
+              "name": "onlyWithEmail",
+              "value": false,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bff55c85-3c86-55a5-94d4-3a64208231e3",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Websites",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "632163fd-f81e-5381-82df-757c4d0ee689",
+      "name": "Read websites",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect the websites of column \"website\" into one list (one Actor run for the whole sheet).\nconst domains = $input.all()\n  .map((item) => String(item.json.website ?? '').trim())\n  .filter(Boolean);\nif (domains.length === 0) throw new Error('No website found: add a column named \"website\" to the Websites tab.');\nreturn [{ json: { domains } }];"
+      },
+      "id": "8c3e1444-aafa-552c-a1ad-ff9a3667e616",
+      "name": "Collect websites",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~website-email-extractor",
+        "customBody": "={{ JSON.stringify({ domains: $json.domains, onlyWithEmail: $('Settings').first().json.onlyWithEmail }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "2a7ae306-f18a-5040-a2d3-55c005f61986",
+      "name": "Find contacts",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per website: e-mails, phones and social profiles as readable cells.\nreturn $input.all().map(({ json: w }) => ({\n  json: {\n    website: w.domain,\n    email: w.email ?? null,\n    allEmails: (w.emails || []).join(', '),\n    phones: (w.phones || []).join(', '),\n    facebook: w.facebookUrl ?? null,\n    instagram: w.instagramUrl ?? null,\n    linkedin: w.linkedinUrl ?? null,\n    x: w.xUrl ?? null,\n    status: w.status,\n    checkedAt: w.observedAt,\n  },\n}));"
+      },
+      "id": "68842cca-da9a-589c-bd08-eb90e991b938",
+      "name": "Format rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Contacts",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "0c90daf5-b2f6-5f62-ab20-c0071c0421ed",
+      "name": "Write contacts",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Read websites",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read websites": {
+      "main": [
+        [
+          {
+            "node": "Collect websites",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect websites": {
+      "main": [
+        [
+          {
+            "node": "Find contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find contacts": {
+      "main": [
+        [
+          {
+            "node": "Format rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format rows": {
+      "main": [
+        [
+          {
+            "node": "Write contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
