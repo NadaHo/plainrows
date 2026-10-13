@@ -31,6 +31,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
 - [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)
+- [Workday Jobs Scraper: Any myworkdayjobs Careers Site](https://apify.com/plainrows/workday-jobs-scraper)
 - [YouTube Comments Scraper: Video Comments Export](https://apify.com/plainrows/youtube-comments-scraper)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
 
