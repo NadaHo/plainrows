@@ -18,7 +18,7 @@
     },
     {
       "parameters": {
-        "content": "### Setup\n1. Put your searches in `searches` (one per line) and set `country` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new articles*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists today's articles and seeds the memory.\n\n**Cost:** a price per new article (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "content": "### Setup\n1. Put your searches in `searches` (one per line) and set `country` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new articles*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists today's articles and seeds the memory.\n\n**Cost:** a price per new article plus, from October 23, 2026, a small fee per page of results checked (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
         "height": 320,
         "width": 420,
         "color": 7

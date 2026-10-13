@@ -1,6 +1,6 @@
 # Amazon Product Search Scraper: Prices, ASINs & Ratings (`plainrows/amazon-product-search`)
 
-Search Amazon by keyword in 15 marketplaces and get every product: ASIN, title, price, rating, reviews count, Best Seller and Amazon's Choice badges, bought last month, image and rank. Fast API results, no browser. Pay only per product found.
+Search Amazon by keyword in 15 marketplaces and get every product: ASIN, title, price, rating, reviews count, Best Seller and Amazon's Choice badges, bought last month, image and rank. Fast API results, no browser. Pay per product found, plus a small fee per 100 results from October 25, 2026.
 
 Store page and full documentation: https://apify.com/plainrows/amazon-product-search
 

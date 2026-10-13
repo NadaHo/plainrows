@@ -18,7 +18,7 @@
     },
     {
       "parameters": {
-        "content": "### Setup\n1. In **Settings**, set `cpvCodes` (comma-separated), optional `keywords` (one per line) and `countries` (comma-separated, empty = all).\n2. Add your Apify credential (free account at apify.com) to *Get new tenders*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists the open tenders of the last 3 days and seeds the memory.\n\n**Cost:** a price per new notice (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "content": "### Setup\n1. In **Settings**, set `cpvCodes` (comma-separated), optional `keywords` (one per line) and `countries` (comma-separated, empty = all).\n2. Add your Apify credential (free account at apify.com) to *Get new tenders*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists the open tenders of the last 3 days and seeds the memory.\n\n**Cost:** a price per new notice plus a start fee per run (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
         "height": 340,
         "width": 420,
         "color": 7

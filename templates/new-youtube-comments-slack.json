@@ -18,7 +18,7 @@
     },
     {
       "parameters": {
-        "content": "### Setup\n1. Put your videos in `videos` (one per line: YouTube link or video ID) and, if you want, a word in `filter` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new comments*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run seeds the memory with the current comments.\n\n**Cost:** a small fee per block of 20 comments requested plus a price per new comment (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "content": "### Setup\n1. Put your videos in `videos` (one per line: YouTube link or video ID) and, if you want, a word in `filter` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Get new comments*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run seeds the memory with the current comments.\n\n**Cost:** a small fee per block of 20 comments requested plus a price per new comment and a start fee per run (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
         "height": 340,
         "width": 420,
         "color": 7

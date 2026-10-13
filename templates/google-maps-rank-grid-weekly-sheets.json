@@ -18,7 +18,7 @@
     },
     {
       "parameters": {
-        "content": "### Setup\n1. In **Settings**, put the `business` (name and city, Google Maps link or place ID), the `keywords` (one per line, without the city), `gridSize` and `gridSpacingKm`.\n2. Add your Apify credential (free account at apify.com) to *Scan the grid*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with a `Local rank` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per grid point and keyword (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "content": "### Setup\n1. In **Settings**, put the `business` (name and city, Google Maps link or place ID), the `keywords` (one per line, without the city), `gridSize` and `gridSpacingKm`.\n2. Add your Apify credential (free account at apify.com) to *Scan the grid*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with a `Local rank` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per grid point and keyword plus a start fee per run (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
         "height": 340,
         "width": 420,
         "color": 7
