@@ -1,6 +1,6 @@
 # Google Images Scraper API: Image URLs, Sources & Filters (`plainrows/google-images-scraper`)
 
-Get Google Images results as clean data: original image URL, thumbnail, title, source page and domain, position. Filter by size, color, type, file type, date and usage rights, 20 countries. Fast API, no browser. Pay only per image found.
+Get Google Images results as clean data: original image URL, thumbnail, title, source page and domain, position. Filter by size, color, type, file type, date and usage rights, 20 countries. Fast API, no browser. Pay per image found, plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/google-images-scraper
 

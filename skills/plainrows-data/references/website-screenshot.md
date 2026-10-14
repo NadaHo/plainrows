@@ -1,6 +1,6 @@
 # Website Screenshot API: Full Page, Mobile & Bulk Capture (`plainrows/website-screenshot`)
 
-Take website screenshots in bulk: full page or viewport, desktop, tablet or mobile size, PNG, JPEG, WebP or PDF, dark mode, cookie banners hidden. Get a public image link, HTTP status and page title for each URL. Pay only per successful screenshot.
+Take website screenshots in bulk: full page or viewport, desktop, tablet or mobile size, PNG, JPEG, WebP or PDF, dark mode, cookie banners hidden. Get a public image link, HTTP status and page title for each URL. Pay per successful screenshot, plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/website-screenshot
 
