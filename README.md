@@ -28,6 +28,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Greenhouse Jobs Scraper: Any Greenhouse Job Board](https://apify.com/plainrows/greenhouse-jobs-scraper)
 - [Keyword Research Tool: Keyword Ideas, Volume & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Search Volume & Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
+- [Lever Jobs Scraper: Any Lever Job Board](https://apify.com/plainrows/lever-jobs-scraper)
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Tripadvisor Reviews Scraper](https://apify.com/plainrows/tripadvisor-reviews)
 - [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)

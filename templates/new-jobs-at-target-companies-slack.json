@@ -1,0 +1,206 @@
+{
+  "name": "Get a daily Slack alert when your target companies post new jobs",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Get a daily Slack alert when your target companies post new jobs (Greenhouse, Lever, Ashby, Workday…)\n\n### Who's it for\nB2B sales teams, agencies and recruiters who use hiring as a buying signal: when a target account opens new roles in a team you sell to, you want to know the same day.\n\n### How it works\n1. Every morning the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your target companies (career page URL, job board URL or website, one per line) and optional title keywords.\n3. The **ATS Jobs Scraper** Actor on Apify (`plainrows/ats-job-postings`) reads each company's public job board (Greenhouse, Lever, Ashby, Workday, Recruitee, Workable, SmartRecruiters) with **Only new jobs** on: it remembers the jobs it already delivered, so each run returns only new ones.\n4. A Code node builds one message per run: company, job title, team, location and the link.\n5. The message is posted to Slack. No new job, no message.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Slack workspace and the Slack credential in n8n.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `companies` (one per line) and `titleKeywords` (comma-separated, e.g. `sales, marketing`; empty = every job) in **Settings**.\n- Use a new `monitorName` to start a fresh history.\n- Replace Slack with Gmail, Microsoft Teams or Google Sheets using the same fields.\n\nYou pay per new job delivered plus a small start fee per run (see the Actor's Pricing tab); companies not found and jobs removed by your filters are free, and the node's *Maximum Cost per Run* caps every run.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "2a95a327-7faf-5018-8ae5-ab0ec33f267d",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. In **Settings**, put your `companies` (career page, job board URL or website, one per line) and optional `titleKeywords` (comma-separated).\n2. Add your Apify credential (free account at apify.com) to *Get new jobs*.\n3. Connect Slack and pick the channel in *Post to Slack*.\n4. Run once by hand: the first run lists the open jobs and seeds the memory.\n\n**Cost:** a price per new job plus a start fee per run (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "ade6110f-9889-56b6-9ad9-8b17e68131d7",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "06190c40-e1e2-519f-a9f3-5a1dc80a0366",
+      "name": "Every day 8:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8df60147-b21e-5add-ba63-53db07e13d2e",
+              "name": "companies",
+              "value": "https://boards.greenhouse.io/figma\nhttps://jobs.lever.co/spotify\nhttps://jobs.ashbyhq.com/ramp",
+              "type": "string"
+            },
+            {
+              "id": "8c152d54-7ffb-52d3-a16f-116474205744",
+              "name": "titleKeywords",
+              "value": "sales, marketing",
+              "type": "string"
+            },
+            {
+              "id": "1a376e32-4b22-5031-a102-797b66e9cd59",
+              "name": "monitorName",
+              "value": "n8n-target-company-jobs",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "99ae512f-ccfc-538b-b126-838a4f56c579",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~ats-job-postings",
+        "customBody": "={{ JSON.stringify({ companies: $json.companies.split('\\n').map((c) => c.trim()).filter(Boolean), titleKeywords: ($json.titleKeywords || '').split(',').map((k) => k.trim()).filter(Boolean), maxJobsPerCompany: 100, includeDescription: false, onlyNewJobs: true, monitorName: $json.monitorName }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "4737255d-db26-5263-be7f-b1e932f8331f",
+      "name": "Get new jobs",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message listing the new jobs, grouped by company. No new job: no message.\nconst jobs = $input.all().map((i) => i.json).filter((j) => j.found !== false);\nif (jobs.length === 0) return [];\nconst byCompany = {};\nfor (const j of jobs) (byCompany[j.company] ??= []).push(j);\nconst clean = (t) => (t ?? '').replace(/[<>|]/g, ' ').slice(0, 120);\nconst blocks = Object.entries(byCompany).slice(0, 20).map(([company, list]) => {\n  const lines = list.slice(0, 10).map((j) => `• <${j.jobUrl}|${clean(j.title)}>${j.department ? ` (${clean(j.department)})` : ''}, ${clean(j.location) || 'location n/a'}`);\n  if (list.length > 10) lines.push(`…and ${list.length - 10} more`);\n  return `*${clean(company)}*: ${list.length} new job${list.length > 1 ? 's' : ''}\\n${lines.join('\\n')}`;\n});\nreturn [{ json: { text: `:briefcase: *New jobs at your target companies*\\n\\n${blocks.join('\\n\\n')}`, newJobs: jobs.length } }];"
+      },
+      "id": "a994410b-7d8b-5bef-98a8-e7d744fe7d05",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "ae5221a9-fee6-5b93-8696-ad15c2f8dc77",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every day 8:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get new jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get new jobs": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
