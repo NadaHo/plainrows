@@ -40,7 +40,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 
 | Actor | What it returns | Price | Input reference |
 |---|---|---|---|
-| `plainrows/ai-search-brand-visibility` | AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
+| `plainrows/ai-search-brand-visibility` | AI Visibility Tracker: ChatGPT Visibility & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/amazon-product-search` | Amazon Product Scraper: Search, Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/app-reviews-scraper` | App Store Reviews & Google Play Reviews Scraper | from $0.00005 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/app-store-reviews-scraper` | App Store Reviews Scraper: iOS Ratings, Titles & Text | from $0.00005 per review | [references/app-store-reviews-scraper.md](references/app-store-reviews-scraper.md) |
@@ -67,9 +67,9 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-play-reviews-scraper` | Google Play Reviews Scraper: Ratings, Text & Replies | from $0.00005 per review | [references/google-play-reviews-scraper.md](references/google-play-reviews-scraper.md) |
 | `plainrows/google-reviews-scraper` | Google Reviews Scraper: Ratings, Text & Owner Replies | from $0.0002 per review | [references/google-reviews-scraper.md](references/google-reviews-scraper.md) |
 | `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
-| `plainrows/google-trends-explorer` | Google Trends Scraper API: Interest, Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
+| `plainrows/google-trends-explorer` | Google Trends Scraper & Google Trends API: Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
 | `plainrows/greenhouse-jobs-scraper` | Greenhouse Jobs Scraper: Any Greenhouse Job Board | from $0.0008 per job | [references/greenhouse-jobs-scraper.md](references/greenhouse-jobs-scraper.md) |
-| `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas, Volume & Difficulty | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
+| `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas & Related Keywords | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-planner-alternative` | Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
 | `plainrows/keyword-search-volume` | Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |

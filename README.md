@@ -4,7 +4,7 @@ Pay-per-result data APIs for SEO, leads, prices and web data, running on Apify.
 
 Website: https://nadaho.github.io/plainrows/
 
-- [AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode](https://apify.com/plainrows/ai-search-brand-visibility)
+- [AI Visibility Tracker: ChatGPT Visibility & Google AI Mode](https://apify.com/plainrows/ai-search-brand-visibility)
 - [Amazon Product Scraper: Search, Prices, ASINs & Ratings](https://apify.com/plainrows/amazon-product-search)
 - [App Store Reviews & Google Play Reviews Scraper](https://apify.com/plainrows/app-reviews-scraper)
 - [App Store Reviews Scraper: iOS Ratings, Titles & Text](https://apify.com/plainrows/app-store-reviews-scraper)
@@ -31,9 +31,9 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Play Reviews Scraper: Ratings, Text & Replies](https://apify.com/plainrows/google-play-reviews-scraper)
 - [Google Reviews Scraper: Ratings, Text & Owner Replies](https://apify.com/plainrows/google-reviews-scraper)
 - [Google Shopping Prices Scraper: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
-- [Google Trends Scraper API: Interest, Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
+- [Google Trends Scraper & Google Trends API: Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
 - [Greenhouse Jobs Scraper: Any Greenhouse Job Board](https://apify.com/plainrows/greenhouse-jobs-scraper)
-- [Keyword Research Tool: Keyword Ideas, Volume & Difficulty](https://apify.com/plainrows/keyword-ideas-generator)
+- [Keyword Research Tool: Keyword Ideas & Related Keywords](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Planner Alternative: Bulk Search Volume & CPC](https://apify.com/plainrows/keyword-planner-alternative)
 - [Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
 - [Lever Jobs Scraper: Any Lever Job Board](https://apify.com/plainrows/lever-jobs-scraper)

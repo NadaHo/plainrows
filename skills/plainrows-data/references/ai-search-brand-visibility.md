@@ -1,4 +1,4 @@
-# AI Search Visibility Tracker: ChatGPT, Gemini & Google AI Mode (`plainrows/ai-search-brand-visibility`)
+# AI Visibility Tracker: ChatGPT Visibility & Google AI Mode (`plainrows/ai-search-brand-visibility`)
 
 Ask ChatGPT, Gemini and Google AI Mode the questions your customers ask and see if your brand is mentioned, your site cited, and which competitors show up. Answers, sources and fan-out queries as clean rows. API-based, no browser or accounts. Pay per answer, plus a small fee per question answered.
 

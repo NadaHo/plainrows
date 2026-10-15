@@ -1,4 +1,4 @@
-# Google Trends Scraper API: Interest, Regions & Queries (`plainrows/google-trends-explorer`)
+# Google Trends Scraper & Google Trends API: Regions & Queries (`plainrows/google-trends-explorer`)
 
 Google Trends data as clean rows: interest over time for up to 5 compared keywords, interest by region, related queries and topics (top and rising). Any country, region or worldwide; web, YouTube, news, images and shopping search. No proxies, no CAPTCHAs. Pay per search (fast mode costs extra).
 
