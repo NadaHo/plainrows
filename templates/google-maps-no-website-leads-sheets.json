@@ -1,0 +1,268 @@
+{
+  "name": "Find local businesses without a website (web design leads) and save them to Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Find local businesses without a website (web design leads) and save them to Google Sheets\n\n### Who's it for\nWeb design agencies, freelancers, website builders and local marketing agencies who sell websites to small businesses and need a call list of the ones that still have none.\n\n### How it works\n1. A form asks what you would type in Google Maps (one search per line, e.g. `hair salon in Odessa, TX`), the country, how many places to read, a minimum rating and whether a phone number is required.\n2. The Apify node runs the **Google Maps Businesses Without Website** Actor (`plainrows/google-maps-no-website-leads`). It reads the places of each search on Google Maps and keeps only those that list no website, with name, category, address, phone, rating, reviews count, opening hours and Google Maps link.\n3. A Code node keeps one clean row per business.\n4. Each business is appended as a row to your Google Sheet, ready for cold calls.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Search small towns and specific trades (`roofer in Abilene, TX`): big-city searches return mostly businesses that already have a site.\n- Raise the minimum rating to call only active, well-reviewed businesses.\n- Replace Google Sheets with Airtable, HubSpot or your CRM, or add a Slack message with the day's count.\n\nPricing: pay per business returned (no website), plus a small start fee per run; places that have a website are removed for free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "c658d84a-0ad6-58c2-9939-d0910685fa2f",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup (5 min)\n1. **Apify**: create a free account at apify.com, then add your Apify credential to the *Find businesses without a website* node.\n2. **Google Sheets**: connect your account, paste your spreadsheet URL in *Append leads to Google Sheets* and create a tab named `Leads` (headers are filled automatically).\n3. Open the form URL from the trigger node and run a search.\n\n**Cost:** pay per business returned plus a small start fee per run (see the Actor's Pricing tab); places with a website are free. The node caps each run with *Maximum Cost per Run*.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "22c2512a-9383-52a7-905e-1dafbf95f4fd",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Businesses without a website",
+        "formDescription": "One search per line, as you would type it in Google Maps. Small towns and specific trades give the most leads.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Search queries",
+              "fieldType": "textarea",
+              "placeholder": "hair salon in Odessa, TX\nroofer in Abilene, TX",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Country",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "US"
+                  },
+                  {
+                    "option": "GB"
+                  },
+                  {
+                    "option": "CA"
+                  },
+                  {
+                    "option": "AU"
+                  },
+                  {
+                    "option": "IE"
+                  },
+                  {
+                    "option": "IN"
+                  },
+                  {
+                    "option": "DE"
+                  },
+                  {
+                    "option": "AT"
+                  },
+                  {
+                    "option": "CH"
+                  },
+                  {
+                    "option": "FR"
+                  },
+                  {
+                    "option": "BE"
+                  },
+                  {
+                    "option": "ES"
+                  },
+                  {
+                    "option": "MX"
+                  },
+                  {
+                    "option": "IT"
+                  },
+                  {
+                    "option": "NL"
+                  },
+                  {
+                    "option": "PT"
+                  },
+                  {
+                    "option": "BR"
+                  },
+                  {
+                    "option": "PL"
+                  },
+                  {
+                    "option": "SE"
+                  },
+                  {
+                    "option": "JP"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Places to read per search",
+              "fieldType": "number",
+              "placeholder": "100"
+            },
+            {
+              "fieldLabel": "Minimum rating",
+              "fieldType": "number",
+              "placeholder": "0"
+            },
+            {
+              "fieldLabel": "Phone number required",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Yes"
+                  },
+                  {
+                    "option": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6364a962-2c36-5710-85cb-00cc3ea2f35f",
+      "name": "Lead search form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-maps-no-website-leads",
+        "customBody": "={{ JSON.stringify({\n  searchQueries: $json['Search queries'].split('\\n').map((q) => q.trim()).filter(Boolean),\n  country: $json['Country'],\n  maxPlacesPerQuery: Number($json['Places to read per search']) || 100,\n  minRating: Number($json['Minimum rating']) || 0,\n  website: 'without',\n  requirePhone: $json['Phone number required'] !== 'No'\n}) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "dad1c514-bc79-5c10-aaca-07d6f3b29108",
+      "name": "Find businesses without a website",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        240,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Keep found places and turn nested fields into readable cells for Google Sheets.\nconst days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];\nreturn $input.all()\n  .filter((item) => item.json.found !== false)\n  .map(({ json: p }) => ({\n    json: {\n      name: p.name,\n      category: p.category,\n      address: p.address,\n      city: p.city,\n      postalCode: p.postalCode,\n      phone: p.phone,\n      website: p.website,\n      rating: p.rating,\n      reviewsCount: p.reviewsCount,\n      isClaimed: p.isClaimed,\n      openingHours: p.openingHours\n        ? days.map((d) => `${d.slice(0, 3)} ${(p.openingHours[d] || []).join(', ') || 'closed'}`).join(' | ')\n        : null,\n      latitude: p.latitude,\n      longitude: p.longitude,\n      googleMapsUrl: p.googleMapsUrl,\n      searchQuery: p.searchQuery,\n      scrapedAt: p.observedAt,\n    },\n  }));"
+      },
+      "id": "a86f16ba-fb2d-5ef5-bff4-e1171dbc3dad",
+      "name": "Clean places for Sheets",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "05504461-526c-5c05-92ca-1b370b4896b8",
+      "name": "Append leads to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lead search form": {
+      "main": [
+        [
+          {
+            "node": "Find businesses without a website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find businesses without a website": {
+      "main": [
+        [
+          {
+            "node": "Clean places for Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean places for Sheets": {
+      "main": [
+        [
+          {
+            "node": "Append leads to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
