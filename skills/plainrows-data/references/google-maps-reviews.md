@@ -1,6 +1,6 @@
 # Google Maps Reviews Scraper (`plainrows/google-maps-reviews`)
 
-Get Google Maps reviews of any place: stars, text, date, translation, photos, owner reply and the place's rating. Paste Maps links, place IDs, CIDs or names. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review.
+Get Google Maps reviews of any place: stars, text, date, translation, photos, owner reply and the place's rating. Paste Maps links, place IDs, CIDs or names. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-reviews
 
@@ -30,6 +30,6 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-revie
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Review**: $0.0003 / $0.0003 / $0.0002 / $0.0002. One Google Maps review returned with its stars, text, date, translation, photos and owner reply. Places with no review, duplicates and input mistakes are free.
+- **Review**: $0.0003 / $0.00027 / $0.00024 / $0.0002. One Google Maps review returned with its stars, text, date, translation, photos and owner reply. Places with no review, duplicates and input mistakes are free.
 - **Block of 10 reviews requested**: $0.0011 / $0.0011 / $0.0011 / $0.0011. Google Maps reviews are fetched in blocks of 10 per place (100 reviews = 10 blocks). Charged for each block requested once Google has answered, even when the place has fewer reviews than requested or is not found, at about what the data source charges us. Not charged when Google does not answer.
 - **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

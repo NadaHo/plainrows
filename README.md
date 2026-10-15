@@ -22,6 +22,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Jobs Scraper: Listings, Salaries & Apply Links](https://apify.com/plainrows/google-jobs-scraper)
 - [Google Maps Scraper: Business Leads, Phones & Ratings](https://apify.com/plainrows/google-maps-businesses)
 - [Google Maps Email Extractor: Business Leads with Emails](https://apify.com/plainrows/google-maps-email-extractor)
+- [Google Maps Businesses Without Website: Web Design Leads](https://apify.com/plainrows/google-maps-no-website-leads)
 - [Google Maps Rank Tracker: Geo-Grid Local SEO](https://apify.com/plainrows/google-maps-rank-tracker)
 - [Google Maps Reviews Scraper](https://apify.com/plainrows/google-maps-reviews)
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)

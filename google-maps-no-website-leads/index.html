@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Maps Businesses Without Website: Web Design Leads | PlainRows</title><meta name="description" content="Find local businesses with no website on Google Maps: name, phone, address, rating, reviews count, category and opening hours. Leads for web design agencies and">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-maps-no-website-leads/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Maps Businesses Without Website: Web Design Leads</h1>
+<p class="lead">Find local businesses with no website on Google Maps: name, phone, address, rating, reviews count, category and opening hours. Leads for web design agencies and website sellers. Any city or country. Pay per business found plus a small start fee; filtered places are free.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-maps-no-website-leads">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-maps-no-website-leads" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Web design agencies and freelancers: businesses by trade and city with no website, with their phone and address, to pitch a site.</li><li>Website builders and local marketing offers: size a market (how many plumbers in a city have no site) and build call lists.</li><li>Sales teams: phone-first prospect lists, filtered by rating so you call businesses that are active and well reviewed.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets, HubSpot or an MCP client with structured JSON.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Place</b><br><span>One Google Maps business returned with its details (address, phone, website, rating, hours, coordinates). Queries with no result and places removed by your filters are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr><tr><td><b>Contact details found</b><br><span>Optional (contactDetails): e-mails, phone links and social profiles found on the website of one place. Places without a website, sites that cannot be loaded, sites with nothing found and sites that object to solicitation are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.003</td><td>$0.003</td><td>$0.003</td><td>$0.003</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-maps-no-website-leads/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchQueries&quot;: [
+    &quot;hair salon in Odessa, TX&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;maxPlacesPerQuery&quot;: 20,
+  &quot;website&quot;: &quot;without&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-maps-no-website-leads&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;hair salon in Odessa, TX&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;maxPlacesPerQuery&#x27;: 20,
+ &#x27;website&#x27;: &#x27;without&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-maps-no-website-leads</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-maps-no-website-leads</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-maps-no-website-leads">https://apify.com/plainrows/google-maps-no-website-leads</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-15.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

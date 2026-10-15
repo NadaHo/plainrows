@@ -1,6 +1,6 @@
 # YouTube Comments Scraper: Video Comments Export (`plainrows/youtube-comments-scraper`)
 
-Export YouTube comments of any video: text, likes, reply count, date and the video's title and comment count. Paste video links, Shorts links or IDs. Top and recent comments, up to 700 per video. No author names. Only-new-comments mode for daily checks. Pay per comment.
+Export YouTube comments of any video: text, likes, reply count, date and the video's title and comment count. Paste video links, Shorts links or IDs. Top and recent comments, up to 700 per video. No author names. Only-new-comments mode. Pay per comment plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/youtube-comments-scraper
 
@@ -26,6 +26,6 @@ Store page and full documentation: https://apify.com/plainrows/youtube-comments-
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Comment**: $0.0003 / $0.0003 / $0.0002 / $0.0002. One YouTube comment returned with its text, likes, reply count and date, plus the video's title and comment count. Videos with no comment, duplicates and input mistakes are free.
+- **Comment**: $0.0003 / $0.00027 / $0.00024 / $0.0002. One YouTube comment returned with its text, likes, reply count and date, plus the video's title and comment count. Videos with no comment, duplicates and input mistakes are free.
 - **Block of 20 comments requested**: $0.001 / $0.001 / $0.001 / $0.001. YouTube comments are fetched in blocks of 20 per video (100 comments = 5 blocks). Charged for each block requested once YouTube has answered, even when the video has fewer comments than requested or is not found, at about what the data source charges us. Not charged when YouTube does not answer.
 - **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

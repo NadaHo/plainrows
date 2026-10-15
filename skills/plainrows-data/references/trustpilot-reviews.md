@@ -30,6 +30,6 @@ Store page and full documentation: https://apify.com/plainrows/trustpilot-review
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Review**: $0.0003 / $0.0003 / $0.0002 / $0.0002. One Trustpilot review returned with its stars, title, text, date, language, verified flag and company reply. Duplicates and input mistakes are never charged.
+- **Review**: $0.0003 / $0.00027 / $0.00024 / $0.0002. One Trustpilot review returned with its stars, title, text, date, language, verified flag and company reply. Duplicates and input mistakes are never charged.
 - **Block of 20 reviews requested**: $0.0022 / $0.0022 / $0.0022 / $0.0022. Trustpilot reviews are fetched in blocks of 20 per company (100 reviews = 5 blocks), at high priority so runs finish in about a minute. Charged for each block requested once Trustpilot has answered, even when the company has fewer reviews than requested, none matching your filters, no new review, or is not found: the data source bills them. Not charged when Trustpilot does not answer.
 - **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

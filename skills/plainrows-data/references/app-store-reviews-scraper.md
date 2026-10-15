@@ -30,6 +30,6 @@ Store page and full documentation: https://apify.com/plainrows/app-store-reviews
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Review**: $0.0001 / $0.0001 / $0.0001 / $0.0001. One app review returned with its stars, text, date, version and developer reply. Apps with no review, duplicates and input mistakes are free.
+- **Review**: $0.0001 / $0.00008 / $0.00006 / $0.00005. One app review returned with its stars, text, date, version and developer reply. Apps with no review, duplicates and input mistakes are free.
 - **Block of reviews requested**: $0.0012 / $0.0012 / $0.0012 / $0.0012. The stores' data is fetched in blocks: up to 150 Google Play reviews or 25 App Store reviews per block, per app and country (100 reviews = 1 block on Google Play, 4 blocks on the App Store). Charged for each block requested once the store has answered, even when the app has fewer reviews than requested or none, at about what the data source charges us. Not charged when the store does not answer.
 - **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).
