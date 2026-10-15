@@ -13,6 +13,7 @@ Store page and full documentation: https://apify.com/plainrows/google-hotels-scr
 | `priceCalendarRange` | string: `month`, `three_months`, `six_months`, `year` | "three_months" | Price comparison mode only: how many days of nightly prices to return from the check-in date. Same price whatever the range. |
 | `speed` | string: `standard`, `fast` | "standard" | Price comparison mode only. Standard waits in the data provider's queue (about 10-20 seconds per hotel when measured, longer at busy times; a hotel still queued after 12 minutes is answered the fast way at no extra... |
 | `checkInDate` | string |  | YYYY-MM-DD. Leave empty for 30 days from today (handy for scheduled price tracking). |
+| `checkInDates` | array |  | Only with "Hotels to compare". Check-in dates written YYYY-MM-DD, one per line (e.g. 2026-12-18): each hotel is checked for each date, with "nights" nights each, one row per hotel and date. Replaces "Check-in date" when... |
 | `nights` | integer | 1 | Length of stay. Check-out = check-in + nights. |
 | `adults` | integer | 2 | Guests per room (Google prices change with the number of guests). |
 | `currency` | string | "USD" | Three-letter currency code for prices, e.g. USD, EUR, GBP, CHF. |

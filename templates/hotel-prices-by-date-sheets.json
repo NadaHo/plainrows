@@ -1,0 +1,225 @@
+{
+  "name": "Track a hotel's prices on every booking site over several dates in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Track a hotel's prices on every booking site over several dates in Google Sheets\n\n### Who's it for\nHotel revenue managers, travel agencies and travellers who want to see, week after week, how a hotel's price moves across the coming dates on Booking.com, Expedia, Agoda, the official site and the other sites Google lists.\n\n### How it works\n1. Every Monday the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your hotels (one per line: Google hotel IDs, Google Hotels links, or names with their city), the days ahead to check (e.g. `7,14,21,28`), the number of nights and the currency.\n3. The **Google Hotels Scraper** Actor on Apify (`plainrows/google-hotels-scraper`) runs in price comparison mode with one check-in date per value: for each hotel and date it returns the price of every booking site Google lists, the official site's price and the lowest price.\n4. A Code node turns each hotel and date into one row: lowest price and site, official site price, highest price, number of sites, and the prices of Booking.com, Expedia, Hotels.com, Agoda and Trip.com.\n5. The rows are appended to the `Prices by date` tab, so you can chart each date's price over the weeks.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Prices by date` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `hotels`, `daysAhead`, `nights` and `currency` in **Settings** (up to 31 dates per run). Use hotel IDs or links rather than names: a name costs one extra lookup per run, whatever the number of dates.\n- Change the `watched` list in the Code node to follow other booking sites.\n- Run it every day instead of weekly by changing the trigger.\n\nPricing: one hotel check per hotel and check-in date (plus one lookup for each hotel given by name); dates Google has no price for are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "f1af9179-00c9-5888-9d71-467951b5d5b8",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Put your hotels in `hotels` (one per line: Google hotel ID, Google Hotels link, or name with city) and set `daysAhead` (comma-separated, e.g. `7,14,21,28`), `nights` and `currency` in **Settings**.\n2. Add your Apify credential (free account at apify.com) to *Check every date*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with a `Prices by date` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per hotel and check-in date checked (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "f1187956-47ba-5b76-b97f-4294bcfb3b99",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "8a7722fb-2719-5c9a-b150-30b8aa9e4e79",
+      "name": "Every Monday 7:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1595359-9a34-535b-ab95-6808c7dcd672",
+              "name": "hotels",
+              "value": "Hyatt Regency Lisbon\nHotel Adlon Kempinski Berlin",
+              "type": "string"
+            },
+            {
+              "id": "8696ad54-04bb-5f8b-8c9b-be5040b8aaaf",
+              "name": "daysAhead",
+              "value": "7,14,21,28",
+              "type": "string"
+            },
+            {
+              "id": "d8d8e59e-bab9-5c08-bc2d-5dbd5959f458",
+              "name": "nights",
+              "value": 2,
+              "type": "number"
+            },
+            {
+              "id": "7f240557-0758-5b5f-8cc6-58a4f47d485b",
+              "name": "currency",
+              "value": "EUR",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "273fcfdd-d9ad-5316-979f-49f874a7ba10",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-hotels-scraper",
+        "customBody": "={{ JSON.stringify({ hotels: $json.hotels.split('\\n').map((h) => h.trim()).filter(Boolean), checkInDates: String($json.daysAhead).split(',').map((d) => $now.plus({ days: Number(d.trim()) }).toFormat('yyyy-MM-dd')), nights: $json.nights, currency: $json.currency }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "9770beaa-8064-5f65-bc85-ea24a623cae5",
+      "name": "Check every date",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per hotel and check-in date: lowest price and site, official site price, and the main booking sites' prices.\nconst today = new Date().toISOString().slice(0, 10);\nconst watched = ['Booking.com', 'Expedia', 'Hotels.com', 'Agoda', 'Trip.com'];\nreturn $input.all()\n  .map((i) => i.json)\n  .filter((h) => h.found !== false)\n  .map((h) => {\n    // Site names vary a little (\"Expedia.com\"): matched on how they start.\n    const price = (name) => (h.sites ?? []).find((s) => String(s.site ?? '').toLowerCase().startsWith(name.toLowerCase()))?.price ?? null;\n    const row = {\n      checkedOn: today,\n      hotel: h.name,\n      checkIn: h.checkIn,\n      checkOut: h.checkOut,\n      currency: h.currency,\n      lowestPrice: h.lowestPrice,\n      lowestPriceSite: h.lowestPriceSite,\n      officialSitePrice: h.officialSitePrice,\n      highestPrice: h.highestPrice,\n      sitesCount: h.sitesCount,\n    };\n    for (const name of watched) row[name] = price(name);\n    return { json: row };\n  });"
+      },
+      "id": "2fa3000b-a388-5fae-bb25-6968f54d8534",
+      "name": "One row per hotel and date",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Prices by date",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "565fb436-93fc-5ce4-8bc8-143603096240",
+      "name": "Append to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday 7:00": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Check every date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check every date": {
+      "main": [
+        [
+          {
+            "node": "One row per hotel and date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per hotel and date": {
+      "main": [
+        [
+          {
+            "node": "Append to sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
