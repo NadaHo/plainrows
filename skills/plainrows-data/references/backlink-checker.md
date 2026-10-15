@@ -1,6 +1,6 @@
 # Backlink Checker API: Backlinks, Referring Domains & Anchors (`plainrows/backlink-checker`)
 
-Check the backlinks of any domain or URL: source page, anchor text, dofollow, domain rank, spam score, first and last seen. Or list its referring domains with link counts. Up to 10,000 rows per target, no Ahrefs or Semrush subscription. Pay only per result.
+An Ahrefs and Semrush backlink checker alternative, no subscription: backlinks of any domain or URL (anchor, dofollow, domain rank, spam score, first/last seen) or its referring domains. From $1.20 per 1,000 backlinks (Business plan; $2 on Starter) plus $0.035 per target.
 
 Store page and full documentation: https://apify.com/plainrows/backlink-checker
 

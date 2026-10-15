@@ -1,6 +1,6 @@
 # Google Maps Rank Tracker: Geo-Grid Local SEO (`plainrows/google-maps-rank-tracker`)
 
-See where a business ranks on Google Maps at every point of a grid around it (3x3 to 9x9) for up to 5 keywords: rank per point, top 3 competitors, average rank and share of local voice. Pay per grid point, no subscription.
+See where a business ranks on Google Maps at every point of a grid around it (3x3 to 9x9) for up to 5 keywords: rank per point, top 3 competitors, average rank and share of local voice. A Local Falcon and BrightLocal alternative: pay per grid point plus a small start fee, no subscription.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-rank-tracker
 

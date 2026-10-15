@@ -1,6 +1,6 @@
 # Greenhouse Jobs Scraper: Any Greenhouse Job Board (`plainrows/greenhouse-jobs-scraper`)
 
-Get every open job from any Greenhouse job board (boards.greenhouse.io, job-boards.greenhouse.io): title, department, locations, remote flag, salary when published, posted date, apply link and full description. Paste the board URL, its name or the company website. Pay per job.
+Get every open job from any Greenhouse job board (boards.greenhouse.io, job-boards.greenhouse.io): title, department, locations, remote flag, salary when published, posted date, apply link and full description. Paste the board URL, its name or the company website. Pay per job plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/greenhouse-jobs-scraper
 

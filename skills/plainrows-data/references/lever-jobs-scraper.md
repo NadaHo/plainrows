@@ -1,6 +1,6 @@
 # Lever Jobs Scraper: Any Lever Job Board (`plainrows/lever-jobs-scraper`)
 
-Get every open job from any Lever job board (jobs.lever.co): title, department, team, locations, country, remote/hybrid/onsite, employment type, salary range when published, posted date, apply link and full description. Paste the board URL or its name. Pay per job.
+Get every open job from any Lever job board (jobs.lever.co): title, department, team, locations, country, remote/hybrid/onsite, employment type, salary range when published, posted date, apply link and full description. Paste the board URL or its name. Pay per job plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/lever-jobs-scraper
 

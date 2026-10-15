@@ -1,6 +1,6 @@
 # Website Traffic Checker: Organic Traffic & Keywords (`plainrows/domain-seo-overview`)
 
-Estimated Google organic traffic, ranking keyword counts and up to 1,000 ranking keywords per website for competitor keyword research, in 94 countries. A Semrush and Ahrefs alternative without a subscription, no scraping. Pay per domain and keyword with data, plus $0.012/run from October 25, 2026.
+Estimated Google organic traffic, ranking keyword counts and up to 1,000 ranking keywords per website, in 94 countries. A Semrush, Ahrefs, SpyFu and Similarweb alternative for organic traffic and competitor keywords. Pay per domain and keyword with data, plus $0.012/run from October 25, 2026.
 
 Store page and full documentation: https://apify.com/plainrows/domain-seo-overview
 

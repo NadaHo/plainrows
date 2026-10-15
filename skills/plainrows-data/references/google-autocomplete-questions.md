@@ -1,6 +1,6 @@
 # Google Autocomplete & People Also Ask Questions Scraper (`plainrows/google-autocomplete-questions`)
 
-Get Google autocomplete suggestions, People Also Ask questions and related searches for any keyword in 20 countries. Question, comparison and A-Z expansions for content ideas, FAQs and SEO. Fast API results, no browser, no proxies. Pay only per result.
+Get Google autocomplete suggestions, People Also Ask questions and related searches for any keyword in 20 countries. Question, comparison and A-Z expansions for content ideas, FAQs and SEO. An AnswerThePublic alternative, no browser. Pay per result plus a small fee per search.
 
 Store page and full documentation: https://apify.com/plainrows/google-autocomplete-questions
 

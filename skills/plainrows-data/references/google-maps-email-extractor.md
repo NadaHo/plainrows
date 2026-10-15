@@ -1,6 +1,6 @@
 # Google Maps Email Extractor: Business Leads with Emails (`plainrows/google-maps-email-extractor`)
 
-Find local businesses on Google Maps and get the e-mails, phone links and social profiles (Facebook, Instagram, LinkedIn) published on their websites, with name, address, phone, website, rating and category. Any city or country. Pay per place, plus per website where contacts are found.
+Find local businesses on Google Maps and get the e-mails, phone links and social profiles (Facebook, Instagram, LinkedIn) published on their websites, with name, address, phone, website, rating and category. Any city or country. Pay per place, per website with contacts found, and a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-email-extractor
 

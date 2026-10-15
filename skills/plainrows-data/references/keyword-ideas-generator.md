@@ -1,6 +1,6 @@
 # Keyword Research Tool: Keyword Ideas, Volume & Difficulty (`plainrows/keyword-ideas-generator`)
 
-Turn seed keywords into up to 1,000 keyword ideas each: long-tail suggestions, Google related searches or same-topic ideas, with search volume, CPC, keyword difficulty, intent and 12-month trend. 94 countries. Pay per idea returned plus a small fee per seed.
+Turn seed keywords into up to 1,000 keyword ideas each: long-tail suggestions, Google related searches or same-topic ideas, with search volume, CPC, keyword difficulty, intent and 12-month trend. 94 countries. An Ubersuggest alternative. Pay per idea returned plus a small fee per seed.
 
 Store page and full documentation: https://apify.com/plainrows/keyword-ideas-generator
 

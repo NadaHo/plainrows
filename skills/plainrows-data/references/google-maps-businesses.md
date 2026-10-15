@@ -1,6 +1,6 @@
 # Google Maps Scraper: Business Leads, Phones & Ratings (`plainrows/google-maps-businesses`)
 
-Extract businesses from Google Maps searches: name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Place ID. Fast API-based results in seconds, no browser. Pay only per place found.
+An Outscraper alternative, no subscription: extract businesses from Google Maps searches with name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Place ID. Fast API-based results in seconds, no browser. Pay per place found.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-businesses
 
