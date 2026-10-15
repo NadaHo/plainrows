@@ -101,7 +101,7 @@
         "resource": "Actors",
         "operation": "Run actor and get dataset",
         "actorId": "plainrows~google-hotels-scraper",
-        "customBody": "={{ JSON.stringify({ hotels: $json.hotels.split('\\n').map((h) => h.trim()).filter(Boolean), checkInDates: String($json.daysAhead).split(',').map((d) => $now.plus({ days: Number(d.trim()) }).toFormat('yyyy-MM-dd')), nights: $json.nights, currency: $json.currency }) }}",
+        "customBody": "={{ JSON.stringify({ hotels: $json.hotels.split('\\n').map((h) => h.trim()).filter(Boolean), checkInDates: String($json.daysAhead).split(',').map((d) => '+' + d.trim()).filter((d) => d !== '+'), nights: $json.nights, currency: $json.currency }) }}",
         "maxTotalChargeUsd": 1
       },
       "id": "9770beaa-8064-5f65-bc85-ea24a623cae5",

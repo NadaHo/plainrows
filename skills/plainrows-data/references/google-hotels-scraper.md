@@ -13,7 +13,7 @@ Store page and full documentation: https://apify.com/plainrows/google-hotels-scr
 | `priceCalendarRange` | string: `month`, `three_months`, `six_months`, `year` | "three_months" | Price comparison mode only: how many days of nightly prices to return from the check-in date. Same price whatever the range. |
 | `speed` | string: `standard`, `fast` | "standard" | Price comparison mode only. Standard waits in the data provider's queue (about 10-20 seconds per hotel when measured, longer at busy times; a hotel still queued after 12 minutes is answered the fast way at no extra... |
 | `checkInDate` | string |  | YYYY-MM-DD. Leave empty for 30 days from today (handy for scheduled price tracking). |
-| `checkInDates` | array |  | Only with "Hotels to compare". Check-in dates written YYYY-MM-DD, one per line (e.g. 2026-12-18): each hotel is checked for each date, with "nights" nights each, one row per hotel and date. Replaces "Check-in date" when... |
+| `checkInDates` | array |  | Only with "Hotels to compare". Check-in dates written YYYY-MM-DD, one per line (e.g. 2026-12-18), or +N for N days after the run (e.g. +7, +14: a scheduled run then always checks the coming weeks): each hotel is checked... |
 | `nights` | integer | 1 | Length of stay. Check-out = check-in + nights. |
 | `adults` | integer | 2 | Guests per room (Google prices change with the number of guests). |
 | `currency` | string | "USD" | Three-letter currency code for prices, e.g. USD, EUR, GBP, CHF. |
@@ -45,5 +45,5 @@ Store page and full documentation: https://apify.com/plainrows/google-hotels-scr
 
 - **Hotel**: $0.0012 / $0.001 / $0.0009 / $0.0008. One hotel with its Google Hotels nightly price for your dates, class, rating, reviews count, coordinates, photo and link. Hotels without a price, removed rentals and duplicates are free.
 - **Results page**: $0.006 / $0.006 / $0.006 / $0.006. One Google Hotels results page fetched (about 20 hotels), charged once Google Hotels has answered at the data provider's cost. A 20-hotel search uses 1 page, 100 hotels use 5.
-- **Hotel price check**: $0.008 / $0.007 / $0.006 / $0.005. One hotel checked in price comparison mode: the price of every booking site Google lists for your dates (official site included) and a daily price calendar for the coming months. Charged once per hotel, after the data provider has answered; a hotel with no price for your dates nor in its calendar is free.
-- **Fast mode**: $0.01 / $0.01 / $0.01 / $0.01. Only with speed: fast in price comparison mode: one per hotel compared, on top of the hotel price check, for an answer in seconds instead of waiting in the data provider's queue.
+- **Hotel price check**: $0.008 / $0.007 / $0.006 / $0.005. One hotel checked for one check-in date in price comparison mode: the price of every booking site Google lists for that stay (official site included) and a daily price calendar for the coming months. Charged once per hotel and check-in date, after the data provider has answered; a hotel-date with no price nor in its calendar is free.
+- **Fast mode**: $0.01 / $0.01 / $0.01 / $0.01. Only with speed: fast in price comparison mode: one per hotel and check-in date compared, on top of the hotel price check, for an answer in seconds instead of waiting in the data provider's queue.
