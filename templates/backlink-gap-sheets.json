@@ -1,0 +1,266 @@
+{
+  "name": "Find backlink gap opportunities: sites linking to your competitors but not to you, in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Find backlink gap opportunities: sites that link to your competitors but not to you, in Google Sheets\n\n### Who's it for\nSEO consultants, link builders and site owners who want a link-building prospect list without an Ahrefs or Semrush seat. A site that already links to two or three of your competitors is the warmest outreach target you can find.\n\n### How it works\n1. Run the workflow by hand (or put a Schedule Trigger in front of it).\n2. The **Settings** node holds your domain, your competitors and a few filters.\n3. The **Backlink Checker** Actor on Apify (`plainrows/backlink-checker`) lists the referring domains of your site (first call), then of all your competitors in one run (second call): linking domain, rank it passes, backlinks, dofollow links, spam score, first seen.\n4. A Code node removes every domain that already links to you, keeps those that link to at least `minCompetitors` competitors, and ranks them: most competitors first, then strongest.\n5. Each prospect is appended to the `Link gap` tab with the competitors it links to.\n\n### Requirements\n- An Apify account and its API token (the free Apify plan limits each run to 2 domains and 20 rows: use a paid plan for real lists).\n- A Google Sheets account and a spreadsheet with a tab named `Link gap`.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Change `yourDomain`, `competitors` (comma-separated), `minCompetitors`, `minRankPassed` and `maxSpamScore` in **Settings**.\n- `yourDomainsLimit` is how many of your own referring domains are read (strongest first): a domain beyond it can show up as a false gap, so raise it for big sites. `competitorDomainsLimit` is the list read for each competitor.\n\n**Cost:** a price per referring domain row plus a fee per domain checked (see the Actor's Pricing tab), e.g. your site at 1,000 rows and 3 competitors at 300 rows each is 1,900 rows and 4 lookups. Each Apify node caps its run with *Maximum Cost per Run*.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "03105b87-ab28-5c54-9f8d-9ed7072a0e1a",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\\n1. Spreadsheet with a tab named `Link gap` (headers are written on the first run).\\n2. Connect Google Sheets in *Append prospects* and paste the spreadsheet URL.\\n3. Add your Apify credential to both Apify nodes.\\n4. In **Settings**, put `yourDomain` and `competitors` (comma-separated).\\n\\n**Cost:** a price per referring domain row plus a fee per domain checked (see the Actor's Pricing tab); each Apify node caps its run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "0a84aadd-a700-5173-abad-52906d025d43",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6dac1b00-415d-52f6-9feb-15c17e178ea7",
+      "name": "Run workflow",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8914cb6-245d-54ef-a832-6c8addace32e",
+              "name": "yourDomain",
+              "value": "example.com",
+              "type": "string"
+            },
+            {
+              "id": "c45361df-69af-5847-a8b8-3923fd478a4a",
+              "name": "competitors",
+              "value": "competitor-one.com, competitor-two.com, competitor-three.com",
+              "type": "string"
+            },
+            {
+              "id": "2c625f0d-3528-50dd-a183-d267786270ea",
+              "name": "minCompetitors",
+              "value": 2,
+              "type": "number"
+            },
+            {
+              "id": "78a89960-bcd0-557e-a2de-fc0340421e60",
+              "name": "minRankPassed",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "4d2c3604-230c-5cc5-96dd-d12662255c3f",
+              "name": "maxSpamScore",
+              "value": 30,
+              "type": "number"
+            },
+            {
+              "id": "fc7a349e-08aa-579e-be74-56792e4763a3",
+              "name": "yourDomainsLimit",
+              "value": 1000,
+              "type": "number"
+            },
+            {
+              "id": "57a28bc9-4a2a-5684-8c2c-42881f0132a4",
+              "name": "competitorDomainsLimit",
+              "value": 300,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ea8255b6-7eca-59cb-be6d-6ec7c232c36c",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~backlink-checker",
+        "customBody": "={{ JSON.stringify({ targets: [$json.yourDomain], mode: 'referringDomains', sortBy: 'rank', maxResultsPerTarget: $json.yourDomainsLimit }) }}",
+        "maxTotalChargeUsd": 3
+      },
+      "id": "b4c58c1a-e0a3-59b1-8371-6769d78de55d",
+      "name": "Your referring domains",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~backlink-checker",
+        "customBody": "={{ JSON.stringify({ targets: $('Settings').first().json.competitors.split(',').map((d) => d.trim()).filter(Boolean), mode: 'referringDomains', sortBy: 'rank', maxResultsPerTarget: $('Settings').first().json.competitorDomainsLimit }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "c1f6c49e-5eb4-56fd-a67e-907863a54c9a",
+      "name": "Competitors' referring domains",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Domains that link to competitors but not to you, most competitors first.\nconst s = $('Settings').first().json;\nconst norm = (d) => String(d || '').trim().toLowerCase().replace(/^https?:\\/\\//, '').replace(/^www\\./, '').replace(/\\/.*$/, '');\nconst own = norm(s.yourDomain);\nconst minComp = Math.max(1, Number(s.minCompetitors) || 1);\nconst minRank = Number(s.minRankPassed) || 0;\nconst maxSpam = s.maxSpamScore === '' || s.maxSpamScore == null ? 100 : Number(s.maxSpamScore);\nconst yours = new Set($('Your referring domains').all().map((i) => i.json)\n  .filter((r) => r.found !== false && r.referringDomain).map((r) => norm(r.referringDomain)));\nconst gap = new Map();\nfor (const { json: r } of $input.all()) {\n  if (r.found === false || !r.referringDomain || r.isLost) continue;\n  const d = norm(r.referringDomain);\n  if (d === own || yours.has(d) || (r.spamScore ?? 0) > maxSpam) continue;\n  const e = gap.get(d) ?? { competitors: new Set(), rank: 0, backlinks: 0, dofollow: 0 };\n  e.competitors.add(norm(r.target));\n  e.rank = Math.max(e.rank, r.rankPassed ?? 0);\n  e.backlinks += r.backlinks ?? 0;\n  e.dofollow += r.dofollowBacklinks ?? 0;\n  gap.set(d, e);\n}\nconst date = new Date().toISOString().slice(0, 10);\nreturn [...gap.entries()]\n  .filter(([, e]) => e.competitors.size >= minComp && e.rank >= minRank)\n  .sort(([, a], [, b]) => b.competitors.size - a.competitors.size || b.rank - a.rank)\n  .map(([d, e]) => ({ json: {\n    date, referringDomain: d, linksToCompetitors: e.competitors.size, competitors: [...e.competitors].join(', '),\n    bestRankPassed: e.rank, backlinksToCompetitors: e.backlinks, dofollowBacklinks: e.dofollow,\n    yourDomain: own, yourDomainsRead: yours.size,\n  } }));"
+      },
+      "id": "77bb7229-54fd-528d-8781-24fbf8694a50",
+      "name": "Keep the gap",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Link gap",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "42e3e5de-7b5b-50d7-80a9-979d404d6203",
+      "name": "Append prospects",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Run workflow": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Your referring domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Your referring domains": {
+      "main": [
+        [
+          {
+            "node": "Competitors' referring domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitors' referring domains": {
+      "main": [
+        [
+          {
+            "node": "Keep the gap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep the gap": {
+      "main": [
+        [
+          {
+            "node": "Append prospects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
