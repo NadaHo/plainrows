@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Hotels Scraper: Prices, Ratings &amp; Booking Sites | PlainRows</title><meta name="description" content="Google Hotels scraper for any city and dates: hotel name, nightly price, stay total, stars, guest rating, reviews, GPS and link, up to 140 hotels per search; or">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-hotels-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Hotels Scraper: Prices, Ratings &amp; Booking Sites</h1>
+<p class="lead">Google Hotels scraper for any city and dates: hotel name, nightly price, stay total, stars, guest rating, reviews, GPS and link, up to 140 hotels per search; or every booking site&#x27;s price for given hotels with a daily calendar. No browser or proxies. Pay per hotel plus a small fee per results page.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-hotels-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-hotels-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Hotel price tracking: schedule a daily run on your city and dates and follow the price of each hotel (`hotelId` is stable).</li><li>Revenue management and rate shopping: see where your hotel&#x27;s price sits against every competitor of the same class.</li><li>Travel apps and AI agents: give an assistant live hotel prices for &quot;3 nights in Lisbon next month for 2 adults&quot;.</li><li>Market research and price indexes: average nightly price by city, star class or date, cheapest hotel per city (`sortBy: lowest_price`).</li><li>Automations: send the results to Google Sheets, Airtable, a database or Slack with n8n, Make or Zapier.</li></ul>
+<h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/google-hotels-scraper/examples/google-hotels-scraper-luxury-hotels-london-spa">5-star hotels in London with a spa, by price</a>: List 5-star London hotels that have a spa, cheapest first, with nightly price, total price, rating and reviews. Change the city, stars or amenities to build any hotel shortlist.</li></ul>
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Hotel</b><br><span>One hotel with its Google Hotels nightly price for your dates, class, rating, reviews count, coordinates, photo and link. Hotels without a price, removed rentals and duplicates are free.</span></td><td>$0.0012</td><td>$0.001</td><td>$0.0009</td><td>$0.0008</td></tr><tr><td><b>Results page</b><br><span>One Google Hotels results page fetched (about 20 hotels), charged once Google Hotels has answered at the data provider&#x27;s cost. A 20-hotel search uses 1 page, 100 hotels use 5.</span></td><td>$0.006</td><td>$0.006</td><td>$0.006</td><td>$0.006</td></tr><tr><td><b>Hotel price check</b><br><span>One hotel checked in price comparison mode: the price of every booking site Google lists for your dates (official site included) and a daily price calendar for the coming months. Charged once per hotel, after the data provider has answered; a hotel with no price for your dates nor in its calendar is free.</span></td><td>$0.008</td><td>$0.007</td><td>$0.006</td><td>$0.005</td></tr><tr><td><b>Fast mode</b><br><span>Only with speed: fast in price comparison mode: one per hotel compared, on top of the hotel price check, for an answer in seconds instead of waiting in the data provider&#x27;s queue.</span></td><td>$0.01</td><td>$0.01</td><td>$0.01</td><td>$0.01</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-hotels-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;destinations&quot;: [
+    &quot;Paris, France&quot;
+  ],
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-hotels-scraper&quot;).call(run_input={&#x27;destinations&#x27;: [&#x27;Paris, France&#x27;], &#x27;currency&#x27;: &#x27;USD&#x27;, &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-hotels-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-hotels-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-hotels-scraper">https://apify.com/plainrows/google-hotels-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-15.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
