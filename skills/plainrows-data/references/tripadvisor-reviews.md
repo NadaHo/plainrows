@@ -1,4 +1,4 @@
-# Tripadvisor Reviews Scraper (`plainrows/tripadvisor-reviews`)
+# Tripadvisor Reviews Scraper API: Hotels & Restaurants (`plainrows/tripadvisor-reviews`)
 
 Get Tripadvisor reviews of hotels, restaurants and attractions: stars, title, text, visit date, photos, management response and the place rating. Paste Tripadvisor links. No reviewer names. Only-new-reviews mode for alerts. Pay per review plus small fetch and start fees.
 

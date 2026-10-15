@@ -1,4 +1,4 @@
-# Keyword Search Volume & Difficulty: Ahrefs Alternative (`plainrows/keyword-search-volume`)
+# Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative (`plainrows/keyword-search-volume`)
 
 Keyword research tool and Keyword Planner, Ahrefs or Semrush alternative, no subscription: Google Ads search volume, CPC, competition, keyword difficulty, intent and monthly history for up to 10,000 keywords per run, or keyword ideas from seeds, in 94 countries. You only pay for keywords with data.
 
