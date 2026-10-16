@@ -41,6 +41,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Kijiji Scraper: Canada Listings, Prices & Cars](https://apify.com/plainrows/kijiji-scraper)
 - [Kleinanzeigen Scraper: Listings, Prices & Locations](https://apify.com/plainrows/kleinanzeigen-scraper)
 - [Lever Jobs Scraper: Any Lever Job Board](https://apify.com/plainrows/lever-jobs-scraper)
+- [Marktplaats Scraper: Dutch Listings & Prices](https://apify.com/plainrows/marktplaats-scraper)
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Tripadvisor Reviews Scraper API: Hotels & Restaurants](https://apify.com/plainrows/tripadvisor-reviews)
 - [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)
