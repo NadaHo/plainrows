@@ -19,7 +19,7 @@
   -H &#x27;Content-Type: application/json&#x27; \
   -d &#x27;{
   &quot;seedKeywords&quot;: [
-    &quot;running shoes&quot;
+    &quot;marathon training&quot;
   ],
   &quot;mode&quot;: &quot;both&quot;,
   &quot;country&quot;: &quot;US&quot;,
@@ -28,7 +28,7 @@
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/google-autocomplete-questions&quot;).call(run_input={&#x27;seedKeywords&#x27;: [&#x27;running shoes&#x27;],
+run = client.actor(&quot;plainrows/google-autocomplete-questions&quot;).call(run_input={&#x27;seedKeywords&#x27;: [&#x27;marathon training&#x27;],
  &#x27;mode&#x27;: &#x27;both&#x27;,
  &#x27;country&#x27;: &#x27;US&#x27;,
  &#x27;maxResultsPerSeed&#x27;: 300})
@@ -43,6 +43,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-autocomplete-questions">https://apify.com/plainrows/google-autocomplete-questions</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-15.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-16.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>

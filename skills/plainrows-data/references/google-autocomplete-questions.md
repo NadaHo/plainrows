@@ -26,7 +26,7 @@ Store page and full documentation: https://apify.com/plainrows/google-autocomple
 ```json
 {
   "seedKeywords": [
-    "running shoes"
+    "marathon training"
   ],
   "mode": "both",
   "country": "US",

@@ -1,6 +1,6 @@
 # Contact Details Scraper: Emails, Phones & Social Profiles (`plainrows/contact-details-scraper`)
 
-Get the contact details of any list of websites: e-mails, phone numbers and social media links (LinkedIn, Facebook, Instagram, X, YouTube, TikTok) from the homepage and its contact pages. No browser, robots.txt respected. Pay per website where contacts are found, plus a small start fee.
+Get the contact details of any list of websites: e-mails, phone numbers and social media links (LinkedIn, Facebook, Instagram, X, YouTube, TikTok) from the homepage, contact and Impressum pages. No browser, robots.txt respected. Pay per website where contacts are found, plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/contact-details-scraper
 
