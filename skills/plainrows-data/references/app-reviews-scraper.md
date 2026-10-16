@@ -1,6 +1,6 @@
 # App Store Reviews & Google Play Reviews Scraper (`plainrows/app-reviews-scraper`)
 
-Get Google Play and App Store reviews in one run: stars, title, text, date, app version and developer reply, for any app and country. No reviewer names. Mix both stores in one list. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
+Get Google Play and App Store reviews in one run: stars, title, text, date, app version and developer reply, for any app and country. No reviewer names. Both stores in one list. Only-new-reviews mode for daily alerts. An AppFollow or Appbot alternative. Pay per review plus small fees.
 
 Store page and full documentation: https://apify.com/plainrows/app-reviews-scraper
 

@@ -5,11 +5,13 @@ Pay-per-result data APIs for SEO, leads, prices and web data, running on Apify.
 Website: https://nadaho.github.io/plainrows/
 
 - [AI Visibility Tracker: ChatGPT Visibility & Google AI Mode](https://apify.com/plainrows/ai-search-brand-visibility)
+- [AliExpress Scraper: Products, Prices, Orders & Ratings](https://apify.com/plainrows/aliexpress-scraper)
 - [Amazon Product Scraper: Search, Prices, ASINs & Ratings](https://apify.com/plainrows/amazon-product-search)
 - [App Store Reviews & Google Play Reviews Scraper](https://apify.com/plainrows/app-reviews-scraper)
 - [App Store Reviews Scraper: iOS Ratings, Titles & Text](https://apify.com/plainrows/app-store-reviews-scraper)
 - [Ashby Jobs Scraper: Any Ashby Job Board](https://apify.com/plainrows/ashby-jobs-scraper)
 - [ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby](https://apify.com/plainrows/ats-job-postings)
+- [AutoScout24 Scraper: Car Listings, Prices & Mileage](https://apify.com/plainrows/autoscout24-scraper)
 - [Backlink Checker API: Backlinks, Referring Domains & Anchors](https://apify.com/plainrows/backlink-checker)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
 - [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
@@ -36,6 +38,8 @@ Website: https://nadaho.github.io/plainrows/
 - [Keyword Research Tool: Keyword Ideas & Related Keywords](https://apify.com/plainrows/keyword-ideas-generator)
 - [Keyword Planner Alternative: Bulk Search Volume & CPC](https://apify.com/plainrows/keyword-planner-alternative)
 - [Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative](https://apify.com/plainrows/keyword-search-volume)
+- [Kijiji Scraper: Canada Listings, Prices & Cars](https://apify.com/plainrows/kijiji-scraper)
+- [Kleinanzeigen Scraper: Listings, Prices & Locations](https://apify.com/plainrows/kleinanzeigen-scraper)
 - [Lever Jobs Scraper: Any Lever Job Board](https://apify.com/plainrows/lever-jobs-scraper)
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Tripadvisor Reviews Scraper API: Hotels & Restaurants](https://apify.com/plainrows/tripadvisor-reviews)
