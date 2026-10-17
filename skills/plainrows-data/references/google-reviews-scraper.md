@@ -1,6 +1,6 @@
 # Google Reviews Scraper: Ratings, Text & Owner Replies (`plainrows/google-reviews-scraper`)
 
-Scrape Google reviews of any business: stars, review text, date, translation, photos, owner reply and the business's rating. Paste Google Maps links, place IDs, CIDs or "business name, city". No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
+Google reviews scraper and Google reviews API for any business: stars, text, date, translation, photos, owner reply and the business's rating. Paste Google Maps links, place IDs, CIDs or "business name, city". No reviewer names. Only-new-reviews mode. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/google-reviews-scraper
 

@@ -1,6 +1,6 @@
 # AutoScout24 Scraper: Car Listings, Prices & Mileage (`plainrows/autoscout24-scraper`)
 
-Paste AutoScout24 search URLs or a make and model, get every car listing: price, price rating, mileage, first registration, fuel, gearbox, power, city, dealer. 8 countries. No login, no browser. Pay per listing.
+Unofficial AutoScout24 API: paste AutoScout24 search URLs or a make and model, get every car listing: price, price rating, mileage, first registration, fuel, gearbox, power, city, dealer. 8 countries. No login, no browser. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/autoscout24-scraper
 

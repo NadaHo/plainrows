@@ -1,6 +1,6 @@
 # YouTube Comments Scraper: Video Comments Export (`plainrows/youtube-comments-scraper`)
 
-Export YouTube comments of any video: text, likes, reply count, date and the video's title and comment count. Paste video links, Shorts links or IDs. Top and recent comments, up to 700 per video. No author names. Only-new-comments mode. Pay per comment plus small fetch and start fees.
+YouTube comments API and comment downloader: export the comments of any video with text, likes, reply count, date, video title and comment count. Paste video links, Shorts links or IDs. Top and recent comments, up to 700 per video. No author names. Pay per comment plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/youtube-comments-scraper
 

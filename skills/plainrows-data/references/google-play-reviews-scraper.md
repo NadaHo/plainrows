@@ -1,6 +1,6 @@
 # Google Play Reviews Scraper: Ratings, Text & Replies (`plainrows/google-play-reviews-scraper`)
 
-Scrape Google Play reviews of any Android app: stars, review text, date, app version, thumbs-up count and developer reply, in 20 countries. Paste a package name or Play Store link. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
+A Google Play reviews API for any Android app: stars, review text, date, app version, thumbs-up count and developer reply, in 20 countries. Paste a package name or Play Store link. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/google-play-reviews-scraper
 

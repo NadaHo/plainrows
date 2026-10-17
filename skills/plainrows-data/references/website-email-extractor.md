@@ -1,6 +1,6 @@
 # Website Email Extractor: Emails, Phones & Socials from URLs (`plainrows/website-email-extractor`)
 
-Paste a list of websites, get the e-mails, phone links and social profiles each one publishes (homepage, then its contact or Impressum pages). A Hunter.io alternative for published e-mails: no browser, robots.txt respected. Pay per website where contacts are found, plus a small start fee per run.
+Bulk email extractor and website email extractor: paste a list of websites, get the e-mails, phones and social profiles each one publishes (homepage, then contact or Impressum pages). A Hunter.io alternative, no browser, robots.txt respected. Pay per website with contacts found plus a start fee.
 
 Store page and full documentation: https://apify.com/plainrows/website-email-extractor
 

@@ -1,6 +1,6 @@
 # Workday Jobs Scraper: Any myworkdayjobs Careers Site (`plainrows/workday-jobs-scraper`)
 
-Get every open job from any Workday careers site (myworkdayjobs.com, myworkdaysite.com): title, locations, country, remote flag, posted date, employment type, apply link and full description. Paste the careers page URL or the company website. Only-new-jobs mode. Pay per job plus a small start fee.
+Get every open job from any Workday careers site (myworkdayjobs.com, myworkdaysite.com) through the public Workday API: title, locations, country, remote flag, posted date, employment type, apply link, full description. Paste the careers URL or company website. Pay per job plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/workday-jobs-scraper
 

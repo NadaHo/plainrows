@@ -1,6 +1,6 @@
 # YouTube Search Scraper: Videos, Views & Channels by Keyword (`plainrows/youtube-search-scraper`)
 
-Get YouTube search results for any keyword: video title, URL, views, upload date, duration, channel, badges and position. Filters for date, length, Shorts and live. Only-new-videos mode for scheduled alerts. A YouTube Data API alternative: no API key, no quota. Pay per video found.
+YouTube search scraper, YouTube rank tracker and YouTube keyword research tool: video title, URL, views, upload date, duration, channel and position for any keyword. Date, length, Shorts and live filters; only-new-videos alerts. A YouTube Data API alternative: no API key, no quota. Pay per video.
 
 Store page and full documentation: https://apify.com/plainrows/youtube-search-scraper
 
