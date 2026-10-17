@@ -1,6 +1,6 @@
 # Trustpilot Reviews Scraper: New Reviews & Replies (`plainrows/trustpilot-reviews`)
 
-Get Trustpilot reviews of any company: stars, title, text, date, language, verified flag and the company reply, plus the company's TrustScore and review count. Paste domains or Trustpilot links. No reviewer names. Only-new-reviews mode for alerts. Pay per review plus small fetch and start fees.
+Trustpilot reviews scraper and unofficial Trustpilot API: reviews of any company with stars, title, text, date, language, verified flag and company reply, plus TrustScore and review count. Paste domains. No reviewer names. Only-new mode for alerts. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/trustpilot-reviews
 

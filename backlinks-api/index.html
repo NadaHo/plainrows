@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backlinks API: backlinks and referring domains as JSON, pay per row | PlainRows</title><meta name="description" content="Backlinks or referring domains of any domain or URL by API, with anchor, dofollow, domain rank, spam score and first seen date. No SEO suite subscription: bille">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/backlinks-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>A backlinks API you pay per row</h1>
+<p class="lead">You want the backlinks of a domain or a page in a script, a spreadsheet, n8n or an AI agent: linking URL, anchor text,
+dofollow or nofollow, authority of the linking site. Most backlink APIs come bundled with an SEO suite subscription and an API unit budget.
+Here is a route billed per row returned.</p>
+
+<h2>What the API returns</h2>
+<p>One call to <a href="../backlink-checker/">Bulk Backlink Checker API</a> on Apify takes up to 1,000 targets (a domain covers the whole site,
+a URL with a path covers that page only) and returns, in one of two modes:</p>
+<ul>
+<li><strong>Backlinks</strong>: one row per link, with <code>sourceUrl</code>, <code>anchor</code>, <code>dofollow</code>,
+<code>sourceDomainRank</code> and <code>sourcePageRank</code> (0 to 100), <code>spamScore</code>, <code>firstSeen</code> and <code>lastSeen</code>,
+and flags for new, lost and broken links.</li>
+<li><strong>Referring domains</strong>: one row per linking domain, with the rank it passes, its backlink counts (dofollow and nofollow),
+spam score and first seen date.</li>
+</ul>
+<p>Up to 10,000 rows per target, sorted by rank or by newest, with filters for dofollow only and one link per domain.
+Every row also carries <code>totalAvailable</code>: how many backlinks or referring domains exist for the target, before your row limit.
+The data comes from a live commercial backlink index, read through its API: no login, no scraping of an SEO tool's website.</p>
+
+<h2>What it costs</h2>
+<table>
+<tr><th>Fee</th><th>Starter plan</th><th>Business plan</th></tr>
+<tr><td>Per backlink or referring domain returned</td><td>$0.002</td><td>$0.0012</td></tr>
+<tr><td>Per target looked up (and per extra block of 1,000 rows beyond the first 1,000)</td><td>$0.035</td><td>$0.035</td></tr>
+</table>
+<p>Example: the top 100 backlinks of 10 competitors cost about $2.00 for the rows
+plus $0.35 for the 10 lookups on the Starter plan
+($19 per month with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>); the free Apify plan is enough to test it.
+Every fee is on the Actor's Pricing tab.</p>
+
+<h2>Typical calls</h2>
+<ul>
+<li><strong>Backlink gap</strong>: referring domains of your site and of three competitors, then keep the domains that link to them but not to you
+(<a href="../templates/backlink-gap-sheets.json">ready-made n8n workflow to Google Sheets</a>).</li>
+<li><strong>New links each week</strong>: sort by newest on a schedule and send the new rows to a sheet or Slack.</li>
+<li><strong>Audit before outreach</strong>: dofollow only, one link per domain, sorted by rank, to see which sites are worth contacting.</li>
+</ul>
+
+<h2>When a suite subscription is the better choice</h2>
+<ul>
+<li>You also use the suite's dashboards, rank tracking and site audits every day: the API often comes with the plan you already pay for.
+Compare the details on our <a href="../ahrefs-api-alternative/">Ahrefs API</a> and <a href="../moz-api-alternative/">Moz API</a> pages.</li>
+<li>You need historical backlink graphs going back years, which this API does not return.</li>
+</ul>
+
+<h2>When a pay-per-row API is the better choice</h2>
+<ul>
+<li>You check backlinks a few times a month, for a client audit or a link building campaign, and do not want a monthly plan for it.</li>
+<li>You run it from n8n, Make, Zapier, Google Sheets or an MCP client and want JSON rows you can filter, not a dashboard export.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-17 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-17.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

@@ -79,8 +79,11 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/kleinanzeigen-scraper` | Kleinanzeigen Scraper: Listings, Prices & Locations | from $0.0007 per listing | [references/kleinanzeigen-scraper.md](references/kleinanzeigen-scraper.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |
 | `plainrows/marktplaats-scraper` | Marktplaats Scraper: Dutch Listings & Prices | from $0.0005 per listing | [references/marktplaats-scraper.md](references/marktplaats-scraper.md) |
+| `plainrows/otodom-scraper` | Otodom Scraper: Poland Property Listings & Prices | from $0.0007 per listing | [references/otodom-scraper.md](references/otodom-scraper.md) |
+| `plainrows/otomoto-scraper` | Otomoto Scraper: Polish Car Listings & Prices | from $0.0004 per listing | [references/otomoto-scraper.md](references/otomoto-scraper.md) |
 | `plainrows/propertyfinder-scraper` | Property Finder Scraper: UAE Property Listings | from $0.0005 per listing | [references/propertyfinder-scraper.md](references/propertyfinder-scraper.md) |
 | `plainrows/public-tenders-search` | Public Tenders Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
+| `plainrows/redfin-scraper` | Redfin Scraper: US Homes for Sale, Prices & Details | from $0.00035 per listing | [references/redfin-scraper.md](references/redfin-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
