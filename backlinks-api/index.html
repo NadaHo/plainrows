@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Backlinks API: backlinks and referring domains as JSON, pay per row | PlainRows</title><meta name="description" content="Backlinks or referring domains of any domain or URL by API, with anchor, dofollow, domain rank, spam score and first seen date. No SEO suite subscription: bille">
+<title>Backlinks API: backlinks and referring domains as JSON, pay per row | PlainRows</title><meta name="description" content="Backlinks, referring domains or anchor texts of any domain or URL by API, with anchor, dofollow, domain rank, spam score and first seen date. No SEO suite subsc">
 <link rel="canonical" href="https://nadaho.github.io/plainrows/backlinks-api/"><link rel="stylesheet" href="../style.css">
 </head><body><header><a class="brand" href="../">PlainRows</a></header>
 <main>
@@ -11,13 +11,15 @@ Here is a route billed per row returned.</p>
 
 <h2>What the API returns</h2>
 <p>One call to <a href="../backlink-checker/">Bulk Backlink Checker API</a> on Apify takes up to 1,000 targets (a domain covers the whole site,
-a URL with a path covers that page only) and returns, in one of two modes:</p>
+a URL with a path covers that page only) and returns, in one of three modes:</p>
 <ul>
 <li><strong>Backlinks</strong>: one row per link, with <code>sourceUrl</code>, <code>anchor</code>, <code>dofollow</code>,
 <code>sourceDomainRank</code> and <code>sourcePageRank</code> (0 to 100), <code>spamScore</code>, <code>firstSeen</code> and <code>lastSeen</code>,
 and flags for new, lost and broken links.</li>
 <li><strong>Referring domains</strong>: one row per linking domain, with the rank it passes, its backlink counts (dofollow and nofollow),
 spam score and first seen date.</li>
+<li><strong>Anchor texts</strong>: one row per anchor used in links to the target, with how many backlinks and referring domains use it
+(dofollow domains apart), to audit an anchor profile or spot spammy anchors.</li>
 </ul>
 <p>Up to 10,000 rows per target, sorted by rank or by newest, with filters for dofollow only and one link per domain.
 Every row also carries <code>totalAvailable</code>: how many backlinks or referring domains exist for the target, before your row limit.
@@ -26,7 +28,7 @@ The data comes from a live commercial backlink index, read through its API: no l
 <h2>What it costs</h2>
 <table>
 <tr><th>Fee</th><th>Starter plan</th><th>Business plan</th></tr>
-<tr><td>Per backlink or referring domain returned</td><td>$0.002</td><td>$0.0012</td></tr>
+<tr><td>Per backlink, referring domain or anchor text returned</td><td>$0.002</td><td>$0.0012</td></tr>
 <tr><td>Per target looked up (and per extra block of 1,000 rows beyond the first 1,000)</td><td>$0.035</td><td>$0.035</td></tr>
 </table>
 <p>Example: the top 100 backlinks of 10 competitors cost about $2.00 for the rows
