@@ -50,7 +50,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/ashby-jobs-scraper` | Ashby Jobs Scraper: Any Ashby Job Board | from $0.0008 per job | [references/ashby-jobs-scraper.md](references/ashby-jobs-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/autoscout24-scraper` | AutoScout24 Scraper: Car Listings, Prices & Mileage | from $0.0004 per listing | [references/autoscout24-scraper.md](references/autoscout24-scraper.md) |
-| `plainrows/backlink-checker` | Bulk Backlink Checker API: Backlinks & Referring Domains | from $0.0012 per backlink | [references/backlink-checker.md](references/backlink-checker.md) |
+| `plainrows/backlink-checker` | Bulk Backlink Checker: Referring Domains & Anchor Text API | from $0.0012 per backlink | [references/backlink-checker.md](references/backlink-checker.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
 | `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |

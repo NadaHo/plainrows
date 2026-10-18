@@ -14,7 +14,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Ashby Jobs Scraper: Any Ashby Job Board](https://apify.com/plainrows/ashby-jobs-scraper)
 - [ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby](https://apify.com/plainrows/ats-job-postings)
 - [AutoScout24 Scraper: Car Listings, Prices & Mileage](https://apify.com/plainrows/autoscout24-scraper)
-- [Bulk Backlink Checker API: Backlinks & Referring Domains](https://apify.com/plainrows/backlink-checker)
+- [Bulk Backlink Checker: Referring Domains & Anchor Text API](https://apify.com/plainrows/backlink-checker)
 - [Blocket Scraper: Sweden Marketplace Listings](https://apify.com/plainrows/blocket-scraper)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
 - [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)

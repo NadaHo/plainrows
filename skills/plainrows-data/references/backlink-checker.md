@@ -1,4 +1,4 @@
-# Bulk Backlink Checker API: Backlinks & Referring Domains (`plainrows/backlink-checker`)
+# Bulk Backlink Checker: Referring Domains & Anchor Text API (`plainrows/backlink-checker`)
 
 Ahrefs/Semrush backlink checker alternative, no subscription: backlink profile of any domain or URL (backlinks or referring domains, anchor, dofollow, domain rank, spam score) for audits and competitor backlink gap. From $1.20 per 1,000 backlinks (Business; $2 on Starter) plus $0.035 per target.
 
