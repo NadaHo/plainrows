@@ -8,7 +8,7 @@ Store page and full documentation: https://apify.com/plainrows/amazon-reviews-sc
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `products` (required) | array |  | One product per line: an ASIN (e.g. B07FZ8S74R) or a product URL copied from amazon.com (/dp/, /gp/product/ or /product-reviews/ links). amazon.com only. Up to 500 products per run; duplicates are removed. Each product... |
+| `products` (required) | array |  | One product per line: an ASIN (e.g. 0593139135) or a product URL copied from amazon.com (/dp/, /gp/product/ or /product-reviews/ links). amazon.com only. Up to 500 products per run; duplicates are removed. Each product... |
 | `minRating` | integer | 1 | Keep only reviews rated at least this many stars (1 to 5). Filtered-out reviews are not charged; the product page fee still is. |
 | `maxRating` | integer | 5 | Keep only reviews rated at most this many stars, e.g. 2 for critical reviews only. |
 | `onlyNewReviews` | boolean | false | Return (and charge) only reviews that earlier runs with this option have not delivered yet. Useful on a schedule. The product page fee is still charged for each page read with reviews. |
@@ -19,7 +19,7 @@ Store page and full documentation: https://apify.com/plainrows/amazon-reviews-sc
 ```json
 {
   "products": [
-    "B07FZ8S74R",
+    "0593139135",
     "https://www.amazon.com/dp/B0BSHF7WHW"
   ]
 }

@@ -1,0 +1,207 @@
+{
+  "name": "Export the keywords your competitors buy on Google Ads to Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Export the keywords your competitors buy on Google Ads, with their ad text, to Google Sheets\n\n### Who's it for\nPPC managers, agencies and founders who want to see which search terms competitors pay for, what their ads say and where they send the clicks, without a SpyFu or Semrush seat.\n\n### How it works\n1. The **Settings** node holds the competitor domains, the country and how many ad keywords per site you want (up to 1,000).\n2. The **Domain SEO Overview** Actor on Apify (`plainrows/domain-seo-overview`) is called with `keywordType: \"paid\"`: for each site it returns the keywords it advertises on, with ad position, landing page, ad title and ad text, search volume and CPC, plus the site's estimated monthly ad spend.\n3. A Code node turns them into one row per keyword.\n4. The rows are appended to the `Ads keywords` tab with today's date.\n\n### Requirements\n- An Apify account (free plan available: 2 domains and 10 keywords per site) and its API token.\n- A Google Sheets account and a spreadsheet with an `Ads keywords` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Raise `topKeywords` for deeper lists; billing is per domain with data plus per keyword returned, and the node caps each run with *Maximum Cost per Run*.\n- Sites that run no Google Ads return no keywords (only their traffic row is billed).\n- Replace the Manual Trigger with a Schedule Trigger for a weekly snapshot of competitors' ads.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "07bbc606-643b-52f5-9440-510ee42865ad",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Spreadsheet with a tab named `Ads keywords` (it can be empty: headers are written on the first run).\n2. Connect Google Sheets in *Append ad keywords* and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Get Google Ads keywords*.\n4. In **Settings**, list the `domains` (comma-separated), the `country` (US, GB, DE, FR...) and `topKeywords` per site (up to 1000).",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "1fc2549d-f8f6-5d9c-aea4-45b62b12a811",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7b6072f1-838d-572c-85b7-ffe96917c1ae",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e7d79294-8153-54e1-ab39-83fe1ac337e5",
+              "name": "domains",
+              "value": "semrush.com, nike.com",
+              "type": "string"
+            },
+            {
+              "id": "a014f237-6950-58a0-b397-dccfee49a658",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "382af3f2-72ab-5f76-84cb-c22ded4f7a0f",
+              "name": "topKeywords",
+              "value": 100,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c8eb43d0-d4fb-52ee-aa85-7cc29ab3d569",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~domain-seo-overview",
+        "customBody": "={{ JSON.stringify({ domains: $json.domains.split(',').map((d) => d.trim()).filter(Boolean), country: $json.country, topKeywords: $json.topKeywords, keywordType: 'paid' }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "2d33d472-dbca-5863-833c-33b717a97d4c",
+      "name": "Get Google Ads keywords",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per Google Ads keyword (the Actor nests them in topKeywords). Sites without data or without ads are skipped.\nconst date = new Date().toISOString().slice(0, 10);\nconst out = [];\nfor (const { json: d } of $input.all()) {\n  if (d.found === false) continue;\n  for (const k of d.topKeywords || []) {\n    out.push({ json: {\n      date, domain: d.domain, keyword: k.keyword, adPosition: k.position, landingPage: k.url,\n      adTitle: k.adTitle ?? null, adText: k.adDescription ?? null,\n      estimatedClicks: k.estimatedTraffic == null ? null : Math.round(k.estimatedTraffic),\n      searchVolume: k.searchVolume ?? null, cpcUsd: k.cpcUsd ?? null,\n      siteMonthlyAdSpendUsd: d.paidTrafficCostUsd ?? null, country: d.country,\n    } });\n  }\n}\nreturn out;"
+      },
+      "id": "c56a185c-2599-5dd1-9d2b-797ff4e88f0e",
+      "name": "One row per ad keyword",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Ads keywords",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "d7b1eeb6-2de2-5052-9d2a-63e5c5bf7bf1",
+      "name": "Append ad keywords",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Get Google Ads keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Google Ads keywords": {
+      "main": [
+        [
+          {
+            "node": "One row per ad keyword",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per ad keyword": {
+      "main": [
+        [
+          {
+            "node": "Append ad keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

@@ -20,14 +20,14 @@
   -H &#x27;Content-Type: application/json&#x27; \
   -d &#x27;{
   &quot;products&quot;: [
-    &quot;B07FZ8S74R&quot;,
+    &quot;0593139135&quot;,
     &quot;https://www.amazon.com/dp/B0BSHF7WHW&quot;
   ]
 }&#x27;</pre>
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/amazon-reviews-scraper&quot;).call(run_input={&#x27;products&#x27;: [&#x27;B07FZ8S74R&#x27;, &#x27;https://www.amazon.com/dp/B0BSHF7WHW&#x27;]})
+run = client.actor(&quot;plainrows/amazon-reviews-scraper&quot;).call(run_input={&#x27;products&#x27;: [&#x27;0593139135&#x27;, &#x27;https://www.amazon.com/dp/B0BSHF7WHW&#x27;]})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
     print(row)</pre>
 <h2>Use it in automations and AI agents</h2>
