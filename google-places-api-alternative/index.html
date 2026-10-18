@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Places API alternative: pricing and limits compared | PlainRows</title><meta name="description" content="Google Places API (New) Text Search pricing, the 60-results limit and the caching rule, compared with a Google Maps business export billed per place. When each ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-places-api-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Places API pricing, and an alternative billed per place</h1>
+<p class="lead">You want local businesses from Google Maps in a script, a spreadsheet, n8n or an AI agent: name, address, phone, website,
+rating and opening hours. The official route is the Google Places API. Here is what it costs and what it limits, read from Google's
+documentation on 2026-10-18, and when a per-place export on Apify is the simpler choice.</p>
+
+<h2>Google Places API (New): what a business search costs</h2>
+<p>Text Search (New) is billed per request, by SKU, and the SKU depends on the fields you ask for
+(<a href="https://developers.google.com/maps/documentation/places/web-service/text-search">Text Search documentation</a>,
+<a href="https://developers.google.com/maps/billing-and-pricing/pricing">pricing page</a>):</p>
+<table>
+<tr><th>SKU</th><th>Triggered by</th><th>Free calls per month</th><th>Price per 1,000 calls (first tier)</th></tr>
+<tr><td>Text Search Pro</td><td>name, address, location, types</td><td>5,000</td><td>$32.00</td></tr>
+<tr><td>Text Search Enterprise</td><td>phone number, website, rating, number of ratings, opening hours</td><td>1,000</td><td>$35.00</td></tr>
+<tr><td>Text Search Enterprise + Atmosphere</td><td>reviews and other atmosphere fields</td><td>1,000</td><td>$40.00</td></tr>
+</table>
+<p>One request returns at most 20 places, and Google states that Text Search (New) <strong>returns a maximum of 60 results across all pages</strong>
+for one search. To list every plumber in a large city you split the area into many small searches and remove the duplicates yourself.</p>
+<p>The Places API policies also say: "You must not pre-fetch, cache, or store Places API content beyond the allowed exceptions";
+the place ID is the exception you may store indefinitely
+(<a href="https://developers.google.com/maps/documentation/places/web-service/policies">Places API policies</a>).
+A lead list kept in a CRM is storage: read those terms before you build one on the API.</p>
+
+<h2>The alternative: one row per business, billed per place</h2>
+<p><a href="../google-maps-businesses/">Google Maps Businesses Scraper</a> on Apify takes what you would type in Google Maps
+("plumber in Austin, TX", "dentiste Paris 75011") and returns one row per business: name, categories, full address, coordinates, phone,
+website, rating, number of reviews, rating distribution, opening hours, price level, claimed status, place ID and Google Maps URL.
+It reads Google Maps search results through a commercial search data API, so you need no Google Cloud project and no billing account with Google.</p>
+<ul>
+<li>Up to about 700 places per search instead of 60, in any country, with an optional point and zoom level.</li>
+<li>Filters that cost nothing: minimum rating, with or without a website, phone required. Places removed by a filter are not billed,
+and neither is a search that finds nothing.</li>
+<li>Export to CSV, JSON or Excel, or call it from n8n, Make, Zapier or an MCP client.</li>
+</ul>
+<table>
+<tr><th>Fee</th><th>Starter plan</th><th>Business plan</th></tr>
+<tr><td>Per place returned</td><td>$0.0015</td><td>$0.001</td></tr>
+</table>
+<p>Example: 1,000 businesses with phone, website and rating cost about $1.50 on the Starter plan
+($19 per month with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>); the free Apify plan is enough to test it.
+Every fee is on the Actor's Pricing tab.</p>
+
+<h2>When the Google Places API is the better choice</h2>
+<ul>
+<li>You show places on a Google Map inside your own app, with autocomplete and live details: that is what the API is built for.</li>
+<li>Your volume fits in the free monthly calls: 1,000 Enterprise calls of 20 places each can be enough for a small project,
+if 60 results per search are enough for you.</li>
+<li>You need Google's own attribution and an SLA under the Google Maps Platform terms.</li>
+</ul>
+
+<h2>When a per-place export is the better choice</h2>
+<ul>
+<li>You build lead lists, market maps or competitor lists and want more than 60 businesses per search, in a file you keep.</li>
+<li>You want filters that are free (minimum rating, with or without a website, phone required), and to pay only for the places you keep.</li>
+<li>You do not want to set up a Google Cloud project, API keys and a billing account for a one-off export.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-18 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-18.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
