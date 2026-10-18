@@ -72,6 +72,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
 | `plainrows/google-trends-explorer` | Google Trends Scraper & Google Trends API: Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
 | `plainrows/greenhouse-jobs-scraper` | Greenhouse Jobs Scraper: Any Greenhouse Job Board | from $0.0008 per job | [references/greenhouse-jobs-scraper.md](references/greenhouse-jobs-scraper.md) |
+| `plainrows/imovirtual-scraper` | Imovirtual Scraper: Portugal Property Listings & Prices | from $0.0004 per listing | [references/imovirtual-scraper.md](references/imovirtual-scraper.md) |
 | `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas & Related Keywords | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-planner-alternative` | Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
 | `plainrows/keyword-search-volume` | Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
@@ -84,6 +85,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/propertyfinder-scraper` | Property Finder Scraper: UAE Property Listings | from $0.0005 per listing | [references/propertyfinder-scraper.md](references/propertyfinder-scraper.md) |
 | `plainrows/public-tenders-search` | Public Tenders Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
 | `plainrows/redfin-scraper` | Redfin Scraper: US Homes for Sale, Prices & Details | from $0.00035 per listing | [references/redfin-scraper.md](references/redfin-scraper.md) |
+| `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
