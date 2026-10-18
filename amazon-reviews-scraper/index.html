@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon Reviews Scraper: Ratings, Text &amp; Dates | PlainRows</title><meta name="description" content="Paste amazon.com ASINs or product URLs, get the top customer reviews shown on each product page: rating, title, text, date, country, verified purchase, helpful ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/amazon-reviews-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Amazon Reviews Scraper: Ratings, Text &amp; Dates</h1>
+<p class="lead">Paste amazon.com ASINs or product URLs, get the top customer reviews shown on each product page: rating, title, text, date, country, verified purchase, helpful votes. No login. Pay per review plus small product and start fees.</p>
+<p><a class="btn" href="https://apify.com/plainrows/amazon-reviews-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/amazon-reviews-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Product research for Amazon sellers, FBA and dropshipping: what buyers like and complain about, before you source a product.</li><li>Competitor watch: schedule a run with &quot;Only new reviews&quot; and get each new top review of your competitors&#x27; products.</li><li>Critical reviews only: set the rating range to 1-2 stars to collect complaints for product improvement.</li><li>Sentiment analysis and AI: clean review text for an LLM, Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Review</b><br><span>One customer review returned with its details (rating, title, text, date, country, verified purchase, helpful votes). Reviews filtered out by your rating range, already delivered (only new reviews) or unreadable are not charged.</span></td><td>$0.0006</td><td>$0.00055</td><td>$0.0005</td><td>$0.00045</td></tr><tr><td><b>Product page read</b><br><span>Charged once per product page read that shows at least one review (it pays the residential proxy traffic of the page, about 1.5 MB, up to 2 reads). Blocked, missing or unreadable pages and products without reviews in the page are free.</span></td><td>$0.008</td><td>$0.008</td><td>$0.008</td><td>$0.008</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~amazon-reviews-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;products&quot;: [
+    &quot;B07FZ8S74R&quot;,
+    &quot;https://www.amazon.com/dp/B0BSHF7WHW&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/amazon-reviews-scraper&quot;).call(run_input={&#x27;products&#x27;: [&#x27;B07FZ8S74R&#x27;, &#x27;https://www.amazon.com/dp/B0BSHF7WHW&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/amazon-reviews-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/amazon-reviews-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/amazon-reviews-scraper">https://apify.com/plainrows/amazon-reviews-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-18.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
