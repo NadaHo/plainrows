@@ -24,6 +24,9 @@ plus the site's estimated organic traffic and keyword count. 94 countries.</p>
 <p>To get one row per keyword (CSV, Excel, Google Sheets), add <code>unwind=topKeywords</code> to the dataset export URL, for example
 <code>https://api.apify.com/v2/datasets/DATASET_ID/items?unwind=topKeywords&amp;format=csv</code>. Each row then carries its domain, so
 several competitors fit in one sheet.</p>
+<p>To keep only the keywords worth a look, set <b>minSearchVolume</b> (e.g. 100 searches a month), <b>maxPosition</b> (e.g. 10 for the first page)
+and <b>excludeKeywords</b> (e.g. the competitor's brand, for non-branded keywords only): the data source applies the filters, so keywords left out are
+neither returned nor billed. With <b>keywordType</b> set to <code>paid</code>, the same run lists the keywords the site buys on Google Ads, with the ad text.</p>
 <table>
 <tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
 <tr><td>Organic traffic and keyword counts of a site</td><td><a href="../domain-seo-overview/">Website Traffic Checker</a></td><td>$0.004 per domain with data</td></tr>
