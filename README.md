@@ -20,7 +20,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
 - [Contact Details Scraper: Emails, Phones & Social Profiles](https://apify.com/plainrows/contact-details-scraper)
 - [Domain Authority Checker: Bulk Rank, Backlinks & Spam Score](https://apify.com/plainrows/domain-authority-checker)
-- [Website Traffic Checker: Organic Traffic, Semrush Alternative](https://apify.com/plainrows/domain-seo-overview)
+- [Competitor Keywords & Organic Traffic: Semrush Alternative](https://apify.com/plainrows/domain-seo-overview)
 - [FINN.no Scraper: Norway Marketplace Listings](https://apify.com/plainrows/finn-scraper)
 - [Google Ads Scraper: Google Ads Transparency Center](https://apify.com/plainrows/google-ads-transparency)
 - [Google Autocomplete & People Also Ask Questions Scraper](https://apify.com/plainrows/google-autocomplete-questions)

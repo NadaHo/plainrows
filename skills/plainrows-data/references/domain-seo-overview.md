@@ -1,4 +1,4 @@
-# Website Traffic Checker: Organic Traffic, Semrush Alternative (`plainrows/domain-seo-overview`)
+# Competitor Keywords & Organic Traffic: Semrush Alternative (`plainrows/domain-seo-overview`)
 
 SEO competitor analysis and bulk website traffic checker: organic traffic estimate, ranking keyword counts and up to 1,000 competitor keywords per site, in 94 countries. A Semrush, Ahrefs, SpyFu and Similarweb alternative. Pay per domain and keyword found, plus $0.012/run from October 25, 2026.
 

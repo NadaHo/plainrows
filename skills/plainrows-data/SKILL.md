@@ -56,7 +56,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
 | `plainrows/domain-authority-checker` | Domain Authority Checker: Bulk Rank, Backlinks & Spam Score | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
-| `plainrows/domain-seo-overview` | Website Traffic Checker: Organic Traffic, Semrush Alternative | from $0.003 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
+| `plainrows/domain-seo-overview` | Competitor Keywords & Organic Traffic: Semrush Alternative | from $0.003 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
 | `plainrows/finn-scraper` | FINN.no Scraper: Norway Marketplace Listings | from $0.0004 per listing | [references/finn-scraper.md](references/finn-scraper.md) |
 | `plainrows/google-ads-transparency` | Google Ads Scraper: Google Ads Transparency Center | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
 | `plainrows/google-autocomplete-questions` | Google Autocomplete & People Also Ask Questions Scraper | from $0.0003 per suggestion | [references/google-autocomplete-questions.md](references/google-autocomplete-questions.md) |
