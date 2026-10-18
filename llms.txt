@@ -93,6 +93,7 @@ All tools share one Apify API token. How to call them: https://nadaho.github.io/
 - [Semrush API alternative: keyword volume, domain traffic and backlinks, pay per result](https://nadaho.github.io/plainrows/semrush-api-alternative/)
 - [SerpApi Google Jobs alternative: pay per job, no monthly plan](https://nadaho.github.io/plainrows/serpapi-google-jobs-alternative/)
 - [Similarweb API alternative for Google search traffic, pay per domain](https://nadaho.github.io/plainrows/similarweb-api-alternative/)
+- [SpyFu alternative: competitor Google Ads and SEO keywords, pay per domain](https://nadaho.github.io/plainrows/spyfu-alternative/)
 - [Public tender alerts for your sector: EU and UK in one daily feed](https://nadaho.github.io/plainrows/tender-alerts-by-sector/)
 - [Tripadvisor reviews API: all reviews, not just 5](https://nadaho.github.io/plainrows/tripadvisor-reviews-api/)
 - [Trustpilot reviews API: new reviews of any company, per review](https://nadaho.github.io/plainrows/trustpilot-reviews-api/)

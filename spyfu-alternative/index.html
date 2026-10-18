@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpyFu alternative: competitor Google Ads and SEO keywords, pay per domain | PlainRows</title><meta name="description" content="SpyFu is a monthly subscription. Get the keywords a competitor buys on Google Ads (with the ad text and estimated ad spend) and the keywords it ranks for, for a">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/spyfu-alternative/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>A SpyFu alternative for competitor keywords, without a subscription</h1>
+<p class="lead">You want to know which keywords a competitor pays for on Google Ads, what its ads say, and which keywords bring it organic traffic,
+for a few domains or a few hundred, inside a spreadsheet, n8n or an AI agent. SpyFu is the classic tool for that. Here is how it is sold,
+what PlainRows returns instead, and when each one fits.</p>
+
+<h2>How SpyFu is sold</h2>
+<p>From <a href="https://www.spyfu.com/pricing">spyfu.com/pricing</a> on 2026-10-19:</p>
+<ul>
+<li>Basic: $39 per month ($29 per month billed annually), 10k-row search results and exports, no API access.</li>
+<li>Pro + AI: $59 the first month, then $119 per month ($89 per month billed annually), with API access and $40 of API credits included.</li>
+<li>Team / Agency: $249 per month ($187 per month billed annually), 5 users, $100 of API credits included.</li>
+</ul>
+
+<h2>What PlainRows returns and charges</h2>
+<p>No plan to keep paying. <a href="../domain-seo-overview/">Website Traffic Checker (Domain SEO Overview)</a> runs on Apify: the free Apify plan is enough to test it,
+the Starter plan ($19 per month with $19 of usage included, <a href="https://apify.com/pricing">apify.com/pricing</a>) removes the free-plan limits.</p>
+<table>
+<tr><th>Data</th><th>Tool</th><th>Price (Starter plan)</th></tr>
+<tr><td>For each domain: estimated Google organic and paid traffic, number of organic and paid keywords, in 94 countries</td>
+<td><a href="../domain-seo-overview/">Website Traffic Checker</a></td>
+<td>$0.004 per domain with data</td></tr>
+<tr><td>With <code>keywordType: "paid"</code>: the keywords the domain shows Google Ads for, with ad position, landing page, ad title, ad text, search volume and CPC, plus its estimated monthly ad spend</td>
+<td><a href="../domain-seo-overview/">Website Traffic Checker</a></td>
+<td>$0.002 per keyword</td></tr>
+<tr><td>With <code>keywordType: "organic"</code> (default): the keywords that bring the domain the most organic traffic, with position, URL, volume, CPC and difficulty</td>
+<td><a href="../domain-seo-overview/">Website Traffic Checker</a></td>
+<td>$0.002 per keyword</td></tr>
+</table>
+<p>Example: 50 competitors with up to 100 paid keywords each cost at most 50 domains plus 5,000 keywords; domains without ads come back with their traffic data only.
+From October 25, 2026, each run also costs $0.012 to start and a domain with data costs $0.005 on the Starter plan. Domains with no data, duplicates and input mistakes are free,
+and a run never spends more than the maximum cost you set.</p>
+
+<h2>When SpyFu is the better choice</h2>
+<ul>
+<li>You want a full interface: ad history over 10+ years, keyword grouping, rank tracking projects, reports and pre-built Google Ads campaigns.</li>
+<li>You research competitors every day: at that volume a flat subscription can cost less than paying per result.</li>
+</ul>
+
+<h2>When PlainRows is the better choice</h2>
+<ul>
+<li>You check competitors now and then, or a list of domains in bulk, and want to pay only for the rows you get.</li>
+<li>You want the data as JSON or CSV in n8n, Make, Zapier, Google Sheets or an AI agent (MCP), without a separate API plan.</li>
+</ul>
+<p>Competitor facts checked on 2026-10-19 from the linked pages; prices change, check them before you decide.</p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-18.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
