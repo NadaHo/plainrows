@@ -1,6 +1,6 @@
 # Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative (`plainrows/keyword-search-volume`)
 
-Bulk keyword search volume checker and search volume finder, a keyword research tool and Keyword Planner, Ahrefs or Semrush alternative: Google Ads search volume, CPC, competition, keyword difficulty, intent and monthly history for up to 10,000 keywords per run, in 94 countries. Pay only for data.
+Bulk keyword search volume checker and search volume finder, a keyword research tool and SEO MCP tool, Keyword Planner, Ahrefs or Semrush alternative: Google Ads search volume, CPC, competition, keyword difficulty, intent and history for 10,000 keywords per run, 94 countries. Pay only for data.
 
 Store page and full documentation: https://apify.com/plainrows/keyword-search-volume
 
