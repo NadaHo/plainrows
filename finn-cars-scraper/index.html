@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FINN.no Car Scraper: Norway Used Car Listings | PlainRows</title><meta name="description" content="Type a keyword or paste finn.no car search URLs, get every car: make, model, year, mileage, fuel, gearbox, price, city, private or dealer, dealer name, photos. ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/finn-cars-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>FINN.no Car Scraper: Norway Used Car Listings</h1>
+<p class="lead">Type a keyword or paste finn.no car search URLs, get every car: make, model, year, mileage, fuel, gearbox, price, city, private or dealer, dealer name, photos. No login. Pay per car plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/finn-cars-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/finn-cars-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Car dealers and importers: track Norwegian used-car prices by make, model, year and mileage (Norway is the largest used EV market in Europe).</li><li>Price monitoring: schedule a daily run on your saved search and spot new or underpriced cars.</li><li>Market research: share of dealers vs private sellers, mileage and price curves per model, EV range on offer.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Car listing</b><br><span>One FINN car listing returned with its details (make, model, year, mileage, fuel, gearbox, price, city, private or dealer, photos, date). Searches without listings, blocked or unreadable pages, other sections of the site, cards without year, make or price, listings already returned by another search of the run and input mistakes are free.</span></td><td>$0.0008</td><td>$0.0007</td><td>$0.0006</td><td>$0.0006</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~finn-cars-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searches&quot;: [
+    &quot;tesla model y&quot;,
+    &quot;https://www.finn.no/mobility/search/car?variant=0.818&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 50
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/finn-cars-scraper&quot;).call(run_input={&#x27;searches&#x27;: [&#x27;tesla model y&#x27;,
+              &#x27;https://www.finn.no/mobility/search/car?variant=0.818&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 50})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/finn-cars-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/finn-cars-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/finn-cars-scraper">https://apify.com/plainrows/finn-cars-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-19.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

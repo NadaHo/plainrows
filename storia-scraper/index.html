@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Storia Scraper: Romania Property Listings &amp; Prices | PlainRows</title><meta name="description" content="Paste storia.ro search URLs, get every property listing: price, price per m², area, rooms, floor, county, city, sector, agency or private owner, date. Flats, ho">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/storia-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Storia Scraper: Romania Property Listings &amp; Prices</h1>
+<p class="lead">Paste storia.ro search URLs, get every property listing: price, price per m², area, rooms, floor, county, city, sector, agency or private owner, date. Flats, houses, land, buy or rent. No login. Pay per listing plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/storia-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/storia-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Investors and analysts: asking prices per m² by city and sector, every week (schedule a run).</li><li>Agencies: new private-owner listings in your area, competing agencies&#x27; stock.</li><li>Rental market research: rents by sector in Bucharest, Cluj-Napoca, Iasi, Timisoara, Constanta…</li><li>Developers: new developments and their prices.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Listing</b><br><span>One storia.ro property listing returned with its details (title, price, price per m², area, rooms, floor, county, city, sector, agency or private owner, date). Searches without listings, blocked or unreadable pages, listings already returned by another search of the run and input mistakes are free.</span></td><td>$0.00055</td><td>$0.0005</td><td>$0.00045</td><td>$0.0004</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~storia-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searches&quot;: [
+    &quot;https://www.storia.ro/ro/rezultate/vanzare/apartament/bucuresti&quot;,
+    &quot;https://www.storia.ro/ro/rezultate/inchiriere/apartament/cluj/cluj--napoca&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 36
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/storia-scraper&quot;).call(run_input={&#x27;searches&#x27;: [&#x27;https://www.storia.ro/ro/rezultate/vanzare/apartament/bucuresti&#x27;,
+              &#x27;https://www.storia.ro/ro/rezultate/inchiriere/apartament/cluj/cluj--napoca&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 36})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/storia-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/storia-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/storia-scraper">https://apify.com/plainrows/storia-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-19.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
