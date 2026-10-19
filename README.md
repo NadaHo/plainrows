@@ -21,6 +21,7 @@ Website: https://nadaho.github.io/plainrows/
 - [coches.net Scraper: Spain Car Listings, Prices & Mileage](https://apify.com/plainrows/coches-net-scraper)
 - [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
 - [Contact Details Scraper: Emails, Phones & Social Profiles](https://apify.com/plainrows/contact-details-scraper)
+- [DBA Scraper: Denmark Marketplace Listings](https://apify.com/plainrows/dba-scraper)
 - [Domain Authority Checker: Bulk Rank, Backlinks & Spam Score](https://apify.com/plainrows/domain-authority-checker)
 - [Competitor Keywords & Organic Traffic: Semrush Alternative](https://apify.com/plainrows/domain-seo-overview)
 - [FINN.no Car Scraper: Norway Used Car Listings](https://apify.com/plainrows/finn-cars-scraper)
