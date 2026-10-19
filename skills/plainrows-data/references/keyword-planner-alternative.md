@@ -1,6 +1,6 @@
 # Keyword Planner Alternative: Bulk Search Volume & CPC (`plainrows/keyword-planner-alternative`)
 
-A Google Keyword Planner alternative for Google Ads keyword research, no Ads account: exact search volume, CPC, bid range, competition, difficulty, intent and monthly history for up to 10,000 keywords per run, or ideas from seeds, 94 countries. Bulk price: $0.001 per keyword with data + a start fee.
+A Google Keyword Planner alternative and Keyword Planner MCP tool for Google Ads keyword research, no Ads account: exact search volume, CPC, bid range, competition, difficulty, intent and monthly history for 10,000 keywords a run, 94 countries. Bulk price: $0.001 per keyword with data + a start fee.
 
 Store page and full documentation: https://apify.com/plainrows/keyword-planner-alternative
 

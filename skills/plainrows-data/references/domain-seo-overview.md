@@ -1,6 +1,6 @@
 # Competitor Keywords & Organic Traffic: Semrush Alternative (`plainrows/domain-seo-overview`)
 
-SEO competitor analysis and bulk website traffic checker: organic traffic estimate, ranking keyword counts and up to 1,000 competitor keywords per site, in 94 countries. A Semrush, Ahrefs, SpyFu and Similarweb alternative. Pay per domain and keyword found, plus $0.012/run from October 25, 2026.
+SEO competitor analysis and bulk website traffic checker, also a Semrush MCP tool: organic traffic, ranking keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu and Similarweb alternative. Pay per domain and keyword found, + $0.012/run from October 25, 2026.
 
 Store page and full documentation: https://apify.com/plainrows/domain-seo-overview
 
