@@ -10,8 +10,8 @@ Store page and full documentation: https://apify.com/plainrows/domain-authority-
 |---|---|---|---|
 | `domains` (required) | array |  | Domains to check, one per line: "example.com", "blog.example.com" or a full URL (it is reduced to its domain; "www." is removed). Duplicates are removed. Up to 10,000 domains per run, checked in batches of 1,000. |
 | `includeSpamScore` | boolean | true | Add the spam score (0-100). Each metric group adds one batch lookup per 1,000 domains; see Pricing. |
-| `includeBacklinks` | boolean | true | Add the total number of live backlinks. Adds one batch lookup per 1,000 domains. |
-| `includeReferringDomains` | boolean | true | Add referring domains, referring main domains and their nofollow counts. Adds one batch lookup per 1,000 domains. |
+| `includeBacklinks` | boolean | false | Add the total number of live backlinks (off by default). Adds one batch lookup per 1,000 domains. |
+| `includeReferringDomains` | boolean | false | Add referring domains, referring main domains and their nofollow counts (off by default). Adds one batch lookup per 1,000 domains. |
 
 ## Example input
 

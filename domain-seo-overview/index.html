@@ -20,15 +20,14 @@
   -H &#x27;Content-Type: application/json&#x27; \
   -d &#x27;{
   &quot;domains&quot;: [
-    &quot;apify.com&quot;,
-    &quot;moz.com&quot;
+    &quot;apify.com&quot;
   ],
   &quot;country&quot;: &quot;US&quot;
 }&#x27;</pre>
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/domain-seo-overview&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;apify.com&#x27;, &#x27;moz.com&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+run = client.actor(&quot;plainrows/domain-seo-overview&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;apify.com&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
     print(row)</pre>
 <h2>Use it in automations and AI agents</h2>
@@ -40,6 +39,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/domain-seo-overview">https://apify.com/plainrows/domain-seo-overview</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-18.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-19.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>

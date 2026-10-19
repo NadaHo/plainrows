@@ -21,7 +21,7 @@
   -d &#x27;{
   &quot;companies&quot;: [
     &quot;https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite&quot;,
-    &quot;https://salesforce.wd12.myworkdayjobs.com/External_Career_Site&quot;,
+    &quot;https://workday.wd5.myworkdayjobs.com/Workday&quot;,
     &quot;https://adobe.wd5.myworkdayjobs.com/external_experienced&quot;
   ],
   &quot;maxJobsPerCompany&quot;: 20
@@ -30,7 +30,7 @@
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
 run = client.actor(&quot;plainrows/workday-jobs-scraper&quot;).call(run_input={&#x27;companies&#x27;: [&#x27;https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite&#x27;,
-               &#x27;https://salesforce.wd12.myworkdayjobs.com/External_Career_Site&#x27;,
+               &#x27;https://workday.wd5.myworkdayjobs.com/Workday&#x27;,
                &#x27;https://adobe.wd5.myworkdayjobs.com/external_experienced&#x27;],
  &#x27;maxJobsPerCompany&#x27;: 20})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
@@ -44,6 +44,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/workday-jobs-scraper">https://apify.com/plainrows/workday-jobs-scraper</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-18.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-19.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>

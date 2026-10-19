@@ -27,7 +27,7 @@ Store page and full documentation: https://apify.com/plainrows/workday-jobs-scra
 {
   "companies": [
     "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
-    "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site",
+    "https://workday.wd5.myworkdayjobs.com/Workday",
     "https://adobe.wd5.myworkdayjobs.com/external_experienced"
   ],
   "maxJobsPerCompany": 20

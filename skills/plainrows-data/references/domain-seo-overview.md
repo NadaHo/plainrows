@@ -22,8 +22,7 @@ Store page and full documentation: https://apify.com/plainrows/domain-seo-overvi
 ```json
 {
   "domains": [
-    "apify.com",
-    "moz.com"
+    "apify.com"
   ],
   "country": "US"
 }
