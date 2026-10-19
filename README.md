@@ -4,6 +4,7 @@ Pay-per-result data APIs for SEO, leads, prices and web data, running on Apify.
 
 Website: https://nadaho.github.io/plainrows/
 
+- [2dehands Scraper: Belgian Listings & Prices](https://apify.com/plainrows/2dehands-scraper)
 - [AI Visibility Tracker: ChatGPT Visibility & Google AI Mode](https://apify.com/plainrows/ai-search-brand-visibility)
 - [AliExpress Scraper: Products, Prices, Orders & Ratings](https://apify.com/plainrows/aliexpress-scraper)
 - [Amazon Best Sellers Scraper: Ranks, Prices & Ratings](https://apify.com/plainrows/amazon-bestsellers-scraper)
@@ -17,6 +18,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Bulk Backlink Checker: Referring Domains & Anchor Text API](https://apify.com/plainrows/backlink-checker)
 - [Blocket Scraper: Sweden Marketplace Listings](https://apify.com/plainrows/blocket-scraper)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
+- [coches.net Scraper: Spain Car Listings, Prices & Mileage](https://apify.com/plainrows/coches-net-scraper)
 - [Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
 - [Contact Details Scraper: Emails, Phones & Social Profiles](https://apify.com/plainrows/contact-details-scraper)
 - [Domain Authority Checker: Bulk Rank, Backlinks & Spam Score](https://apify.com/plainrows/domain-authority-checker)

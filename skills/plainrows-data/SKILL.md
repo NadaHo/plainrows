@@ -40,6 +40,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 
 | Actor | What it returns | Price | Input reference |
 |---|---|---|---|
+| `plainrows/2dehands-scraper` | 2dehands Scraper: Belgian Listings & Prices | from $0.0005 per listing | [references/2dehands-scraper.md](references/2dehands-scraper.md) |
 | `plainrows/ai-search-brand-visibility` | AI Visibility Tracker: ChatGPT Visibility & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/aliexpress-scraper` | AliExpress Scraper: Products, Prices, Orders & Ratings | from $0.001 per product | [references/aliexpress-scraper.md](references/aliexpress-scraper.md) |
 | `plainrows/amazon-bestsellers-scraper` | Amazon Best Sellers Scraper: Ranks, Prices & Ratings | from $0.0008 per product | [references/amazon-bestsellers-scraper.md](references/amazon-bestsellers-scraper.md) |
@@ -53,6 +54,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/backlink-checker` | Bulk Backlink Checker: Referring Domains & Anchor Text API | from $0.0012 per backlink | [references/backlink-checker.md](references/backlink-checker.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
+| `plainrows/coches-net-scraper` | coches.net Scraper: Spain Car Listings, Prices & Mileage | from $0.0004 per listing | [references/coches-net-scraper.md](references/coches-net-scraper.md) |
 | `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
 | `plainrows/domain-authority-checker` | Domain Authority Checker: Bulk Rank, Backlinks & Spam Score | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
