@@ -1,6 +1,6 @@
 # Bulk Backlink Checker: Referring Domains & Anchor Text API (`plainrows/backlink-checker`)
 
-Backlink checker, backlink API and MCP tool, an Ahrefs/Semrush alternative: backlink profile of a domain or URL (backlinks, referring domains, anchors, dofollow, rank, spam score) for backlink analysis, backlink audit and competitor backlink gap. $1.20-$3 per 1,000 backlinks by plan + $0.035/target.
+Backlink checker, backlinks API and MCP tool, an Ahrefs/Semrush alternative. Input: domains/URLs. Output: backlink profile, one row per backlink (anchor, dofollow, spam score) or referring domain, for backlink analysis, backlink audit, competitor backlink gap. $0.035/target + $1.20+/1,000 rows.
 
 Store page and full documentation: https://apify.com/plainrows/backlink-checker
 

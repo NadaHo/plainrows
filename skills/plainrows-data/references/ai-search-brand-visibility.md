@@ -1,6 +1,6 @@
 # AI Visibility Tracker: ChatGPT Visibility & Google AI Mode (`plainrows/ai-search-brand-visibility`)
 
-AI search & brand visibility tracker for ChatGPT, LLM visibility and GEO MCP tool: ask ChatGPT, Gemini and Google AI Mode customer questions, see if your brand is mentioned, your site cited, which rivals show up. Answers, sources, fan-out queries. Pay per answer, plus a fee per question answered.
+AI search & brand visibility tracker for ChatGPT, LLM visibility and GEO MCP tool: ask ChatGPT, Gemini, Perplexity, Google AI Mode customer questions, see if your brand is named, your site cited, which rivals appear. Answers, sources, fan-out queries. Pay per answer + a fee per question answered.
 
 Store page and full documentation: https://apify.com/plainrows/ai-search-brand-visibility
 
@@ -13,7 +13,7 @@ Store page and full documentation: https://apify.com/plainrows/ai-search-brand-v
 | `brandDomain` | string |  | Your domain (acme.com): tells whether the answer cites or links your site, and at which position. Subdomains count; a path is ignored. Gemini mostly cites Google pages, so it rarely shows your site as cited. |
 | `competitors` | array |  | Competitor names to look for in the answers (up to 10). |
 | `competitorDomains` | array |  | Competitor domains to look for in the cited sources (up to 10). |
-| `engines` | array | ["chatgpt", "gemini", "google_ai_mode"] | Which engines to ask. Each answer is billed once. |
+| `engines` | array | ["chatgpt", "gemini", "google_ai_mode"] | Which engines to ask. Each answer is billed once. Perplexity is optional: add it to also ask Perplexity (Sonar API with web search). |
 | `country` | string (20 codes, see the Store page) | "US" | Where the question is asked from. |
 | `languageCode` | string |  | Two-letter language code, e.g. "en" or "fr". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). |
 | `includeAnswerText` | boolean | true | Adds the answer as Markdown (answerText). Turn off for lighter rows. |

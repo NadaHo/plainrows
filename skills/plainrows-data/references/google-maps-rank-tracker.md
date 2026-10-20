@@ -1,6 +1,6 @@
 # Google Maps Rank Tracker: Geo-Grid Local SEO (`plainrows/google-maps-rank-tracker`)
 
-Local rank tracker and local SEO MCP tool: see where a business ranks on Google Maps at each point of a grid (3x3 to 9x9) for up to 5 keywords: rank per point, top 3 competitors, average rank, share of local voice. Local Falcon and BrightLocal alternative: pay per grid point plus a small start fee.
+Google Maps rank tracker, geo grid local rank tracker and local SEO MCP tool: a business's rank on Google Maps at each point of a 3x3 to 9x9 grid for up to 5 keywords: rank per point, top 3 competitors, average rank, share of voice. Local Falcon, BrightLocal alternative. Pay per point + start fee.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-rank-tracker
 
