@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yellow Pages Australia Scraper: Business Leads &amp; Phones | PlainRows</title><meta name="description" content="Paste yellowpages.com.au search URLs or a category and a city, get every business: name, phone, website, categories, address, suburb, state, postcode, rating, y">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/yellowpages-au-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Yellow Pages Australia Scraper: Business Leads &amp; Phones</h1>
+<p class="lead">Paste yellowpages.com.au search URLs or a category and a city, get every business: name, phone, website, categories, address, suburb, state, postcode, rating, years in business. No login. Pay per business plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/yellowpages-au-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/yellowpages-au-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Lead generation and cold outreach: lists of tradies, clinics, shops or agencies in a city, with phone and website.</li><li>Local SEO and agencies: find businesses without a website, or with few reviews, in a suburb.</li><li>Market research: how many plumbers, dentists or cafes Yellow Pages lists in each city, and how they are rated.</li><li>CRM enrichment: match your accounts to their Yellow Pages profile, phone and categories.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Business</b><br><span>One yellowpages.com.au business returned with name, phone and profile link (plus website, categories, address, rating when shown). Searches without businesses, blocked or unreadable pages, businesses without phone, businesses already returned by another search of the run and input mistakes are free.</span></td><td>$0.0025</td><td>$0.0022</td><td>$0.002</td><td>$0.0018</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~yellowpages-au-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchUrls&quot;: [
+    &quot;https://www.yellowpages.com.au/sydney-nsw/plumbers&quot;
+  ],
+  &quot;categories&quot;: [
+    &quot;electricians&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;Melbourne VIC&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 60
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/yellowpages-au-scraper&quot;).call(run_input={&#x27;searchUrls&#x27;: [&#x27;https://www.yellowpages.com.au/sydney-nsw/plumbers&#x27;],
+ &#x27;categories&#x27;: [&#x27;electricians&#x27;],
+ &#x27;locations&#x27;: [&#x27;Melbourne VIC&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 60})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/yellowpages-au-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/yellowpages-au-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/yellowpages-au-scraper">https://apify.com/plainrows/yellowpages-au-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-20.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

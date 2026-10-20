@@ -56,6 +56,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Property Finder Scraper: UAE Property Listings](https://apify.com/plainrows/propertyfinder-scraper)
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Redfin Scraper: US Homes for Sale, Prices & Details](https://apify.com/plainrows/redfin-scraper)
+- [Reed.co.uk Jobs Scraper: UK Job Ads & Salaries](https://apify.com/plainrows/reed-jobs-scraper)
 - [Standvirtual Scraper: Portugal Car Listings & Prices](https://apify.com/plainrows/standvirtual-scraper)
 - [Storia Scraper: Romania Property Listings & Prices](https://apify.com/plainrows/storia-scraper)
 - [Tripadvisor Reviews Scraper API: Hotels & Restaurants](https://apify.com/plainrows/tripadvisor-reviews)
@@ -64,6 +65,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
 - [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)
 - [Workday Jobs Scraper: Any myworkdayjobs Careers Site](https://apify.com/plainrows/workday-jobs-scraper)
+- [Yellow Pages Australia Scraper: Business Leads & Phones](https://apify.com/plainrows/yellowpages-au-scraper)
 - [YouTube Comments Scraper: Video Comments Export](https://apify.com/plainrows/youtube-comments-scraper)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
 

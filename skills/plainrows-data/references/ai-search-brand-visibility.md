@@ -1,6 +1,6 @@
 # AI Visibility Tracker: ChatGPT Visibility & Google AI Mode (`plainrows/ai-search-brand-visibility`)
 
-Ask ChatGPT, Gemini and Google AI Mode the questions your customers ask and see if your brand is mentioned, your site cited, and which competitors show up. Answers, sources and fan-out queries as clean rows. API-based, no browser or accounts. Pay per answer, plus a small fee per question answered.
+AI search visibility tracker, LLM visibility and GEO MCP tool: ask ChatGPT, Gemini and Google AI Mode your customers' questions and see if your brand is mentioned, your site cited, which competitors show up. Answers, sources, fan-out queries as rows. Pay per answer, plus a fee per question answered.
 
 Store page and full documentation: https://apify.com/plainrows/ai-search-brand-visibility
 
