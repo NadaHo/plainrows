@@ -16,6 +16,7 @@ Website: https://nadaho.github.io/plainrows/
 - [ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby](https://apify.com/plainrows/ats-job-postings)
 - [AutoScout24 Scraper: Car Listings, Prices & Mileage](https://apify.com/plainrows/autoscout24-scraper)
 - [Bulk Backlink Checker: Referring Domains & Anchor Text API](https://apify.com/plainrows/backlink-checker)
+- [Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC](https://apify.com/plainrows/bing-keyword-search-volume)
 - [Blocket Scraper: Sweden Marketplace Listings](https://apify.com/plainrows/blocket-scraper)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
 - [coches.net Scraper: Spain Car Listings, Prices & Mileage](https://apify.com/plainrows/coches-net-scraper)
@@ -57,6 +58,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Public Tenders Search: EU TED & UK Procurement API](https://apify.com/plainrows/public-tenders-search)
 - [Redfin Scraper: US Homes for Sale, Prices & Details](https://apify.com/plainrows/redfin-scraper)
 - [Reed.co.uk Jobs Scraper: UK Job Ads & Salaries](https://apify.com/plainrows/reed-jobs-scraper)
+- [SEO Competitors & Keyword Gap Finder](https://apify.com/plainrows/seo-competitors-keyword-gap)
 - [Standvirtual Scraper: Portugal Car Listings & Prices](https://apify.com/plainrows/standvirtual-scraper)
 - [Storia Scraper: Romania Property Listings & Prices](https://apify.com/plainrows/storia-scraper)
 - [Tripadvisor Reviews Scraper API: Hotels & Restaurants](https://apify.com/plainrows/tripadvisor-reviews)
@@ -67,6 +69,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Workday Jobs Scraper: Any myworkdayjobs Careers Site](https://apify.com/plainrows/workday-jobs-scraper)
 - [Yellow Pages Australia Scraper: Business Leads & Phones](https://apify.com/plainrows/yellowpages-au-scraper)
 - [YouTube Comments Scraper: Video Comments Export](https://apify.com/plainrows/youtube-comments-scraper)
+- [YouTube Search API: Videos, Views & Channels as JSON](https://apify.com/plainrows/youtube-search-api)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
 
 Free n8n workflow templates are in [`templates/`](templates/).

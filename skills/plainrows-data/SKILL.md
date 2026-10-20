@@ -1,6 +1,6 @@
 ---
 name: plainrows-data
-description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Planner Alternative (Bulk Search Volume & CPC); Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Website Organic Traffic & Top Keywords; Bulk Domain Authority Checker; Backlink Checker; Broken Link Checker; AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); Google Maps Rank Tracker (Geo-Grid Local SEO); Google Maps Scraper; Google Maps Email Extractor; Google Maps Businesses Without Website; Yellow Pages Australia Scraper; Website Technology Checker; Website Email Extractor; Contact Details Scraper (Emails, Phones, Socials); ATS Jobs Scraper (Workday, Greenhouse, Lever, Ashby); Workday Jobs Scraper; Greenhouse Jobs Scraper; Lever Jobs Scraper; Ashby Jobs Scraper; Google Jobs Scraper; Reed.co.uk Jobs Scraper (UK); Google Ads Scraper (Transparency Center); Company Registry Lookup (SIRENE, LEI, Brreg); Public Tenders Search (EU TED & UK);...
+description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Planner Alternative (Bulk Search Volume & CPC); Bing Keyword Search Volume & CPC; Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Website Organic Traffic & Top Keywords; SEO Competitors & Keyword Gap Finder; Bulk Domain Authority Checker; Backlink Checker; Broken Link Checker; AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); Google Maps Rank Tracker (Geo-Grid Local SEO); Google Maps Scraper; Google Maps Email Extractor; Google Maps Businesses Without Website; Yellow Pages Australia Scraper; Website Technology Checker; Website Email Extractor; Contact Details Scraper (Emails, Phones, Socials); ATS Jobs Scraper (Workday, Greenhouse, Lever, Ashby); Workday Jobs Scraper; Greenhouse Jobs Scraper; Lever Jobs Scraper; Ashby Jobs Scraper; Google Jobs Scraper; Reed.co.uk Jobs Scraper (UK); Google Ads Scraper (Transparency Center); Company Registry...
 compatibility: Needs network access to api.apify.com and an APIFY_TOKEN environment variable (free Apify account).
 metadata:
   author: PlainRows
@@ -51,7 +51,8 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/ashby-jobs-scraper` | Ashby Jobs Scraper: Any Ashby Job Board | from $0.0008 per job | [references/ashby-jobs-scraper.md](references/ashby-jobs-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/autoscout24-scraper` | AutoScout24 Scraper: Car Listings, Prices & Mileage | from $0.0004 per listing | [references/autoscout24-scraper.md](references/autoscout24-scraper.md) |
-| `plainrows/backlink-checker` | Bulk Backlink Checker: Referring Domains & Anchor Text API | from $0.0012 per backlink | [references/backlink-checker.md](references/backlink-checker.md) |
+| `plainrows/backlink-checker` | Bulk Backlink Checker: Referring Domains & Anchor Text API | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
+| `plainrows/bing-keyword-search-volume` | Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC | from $0.0001 per keyword | [references/bing-keyword-search-volume.md](references/bing-keyword-search-volume.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
 | `plainrows/coches-net-scraper` | coches.net Scraper: Spain Car Listings, Prices & Mileage | from $0.0004 per listing | [references/coches-net-scraper.md](references/coches-net-scraper.md) |
@@ -93,6 +94,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/public-tenders-search` | Public Tenders Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
 | `plainrows/redfin-scraper` | Redfin Scraper: US Homes for Sale, Prices & Details | from $0.00035 per listing | [references/redfin-scraper.md](references/redfin-scraper.md) |
 | `plainrows/reed-jobs-scraper` | Reed.co.uk Jobs Scraper: UK Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
+| `plainrows/seo-competitors-keyword-gap` | SEO Competitors & Keyword Gap Finder | from $0.0016 per competitor or gap keyword | [references/seo-competitors-keyword-gap.md](references/seo-competitors-keyword-gap.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
@@ -103,6 +105,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/workday-jobs-scraper` | Workday Jobs Scraper: Any myworkdayjobs Careers Site | from $0.0008 per job | [references/workday-jobs-scraper.md](references/workday-jobs-scraper.md) |
 | `plainrows/yellowpages-au-scraper` | Yellow Pages Australia Scraper: Business Leads & Phones | from $0.0018 per business | [references/yellowpages-au-scraper.md](references/yellowpages-au-scraper.md) |
 | `plainrows/youtube-comments-scraper` | YouTube Comments Scraper: Video Comments Export | from $0.0002 per comment | [references/youtube-comments-scraper.md](references/youtube-comments-scraper.md) |
+| `plainrows/youtube-search-api` | YouTube Search API: Videos, Views & Channels as JSON | from $0.001 per video | [references/youtube-search-api.md](references/youtube-search-api.md) |
 | `plainrows/youtube-search-scraper` | YouTube Search Scraper: Videos, Views & Channels by Keyword | from $0.001 per video | [references/youtube-search-scraper.md](references/youtube-search-scraper.md) |
 
 Other ways to use the same tools: MCP server `https://mcp.apify.com?tools=plainrows/<slug>`, n8n, Make and Zapier (Apify integration).

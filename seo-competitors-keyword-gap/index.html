@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO Competitors &amp; Keyword Gap Finder | PlainRows</title><meta name="description" content="Find the organic Google competitors of any website and the keywords they rank for that it misses (keyword gap): shared keywords, positions, traffic, volume, CPC">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/seo-competitors-keyword-gap/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>SEO Competitors &amp; Keyword Gap Finder</h1>
+<p class="lead">Find the organic Google competitors of any website and the keywords they rank for that it misses (keyword gap): shared keywords, positions, traffic, volume, CPC, difficulty. 94 countries. Semrush and Ahrefs alternative. $0.002 per competitor or keyword, plus a $0.012 fee per domain with results.</p>
+<p><a class="btn" href="https://apify.com/plainrows/seo-competitors-keyword-gap">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/seo-competitors-keyword-gap" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Competitor research: the 10 (up to 100) organic competitors of your site or a client&#x27;s, with shared keywords, average position and traffic.</li><li>Content planning: the keywords your top competitors get traffic from and you don&#x27;t rank for at all, best traffic first.</li><li>SEO audits and agency pitches for many prospects in one run (up to 100 domains).</li><li>Feed spreadsheets, n8n / Make workflows or AI agents with clean JSON, one row per competitor or keyword.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Competitor or gap keyword</b><br><span>One organic competitor (shared keywords, average position, traffic) or one gap keyword (a keyword a competitor ranks for and your domain does not, with volume, CPC, difficulty and the competitor&#x27;s URL). Domains without data are never charged.</span></td><td>$0.002</td><td>$0.002</td><td>$0.0018</td><td>$0.0016</td></tr><tr><td><b>Domain analysed</b><br><span>One domain for which competitors were found, charged once per domain at about what the data source charges us for the lookup. Domains without data are free.</span></td><td>$0.012</td><td>$0.012</td><td>$0.012</td><td>$0.012</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~seo-competitors-keyword-gap/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;plausible.io&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/seo-competitors-keyword-gap&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;plausible.io&#x27;], &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/seo-competitors-keyword-gap</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/seo-competitors-keyword-gap</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/seo-competitors-keyword-gap">https://apify.com/plainrows/seo-competitors-keyword-gap</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-20.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

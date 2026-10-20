@@ -1,6 +1,6 @@
 # Bulk Backlink Checker: Referring Domains & Anchor Text API (`plainrows/backlink-checker`)
 
-Ahrefs/Semrush backlink checker alternative, backlink API and MCP tool: backlink profile of a domain or URL (backlinks, referring domains, anchors, dofollow, rank, spam score) for backlink analysis and competitor backlink gap. From $1.20 per 1,000 backlinks (Business; $2 on Starter) + $0.035/target.
+Backlink checker, backlink API and MCP tool, an Ahrefs/Semrush alternative: backlink profile of a domain or URL (backlinks, referring domains, anchors, dofollow, rank, spam score) for backlink analysis, backlink audit and competitor backlink gap. $1.20-$3 per 1,000 backlinks by plan + $0.035/target.
 
 Store page and full documentation: https://apify.com/plainrows/backlink-checker
 
@@ -30,5 +30,5 @@ Store page and full documentation: https://apify.com/plainrows/backlink-checker
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Backlink**: $0.003 / $0.002 / $0.0016 / $0.0012. One row returned: a backlink (linking page, anchor, dofollow, ranks, spam score, dates) or a referring domain (rank, backlink counts, dates). Targets with no backlink found get a free row.
-- **Target lookup**: $0.035 / $0.035 / $0.035 / $0.035. One lookup in the backlink index: charged once per domain or URL checked, plus once per extra block of 1,000 rows when you ask for more than 1,000 rows per target. Not charged when the lookup fails.
+- **Backlink or referring domain**: $0.003 / $0.002 / $0.0016 / $0.0012. One row returned: a backlink (linking page, anchor, dofollow, ranks, spam score, dates), a referring domain (rank, backlink counts, dates) or an anchor text (backlink and domain counts). Targets with no backlink found get a free row.
+- **Domain or URL checked**: $0.035 / $0.035 / $0.035 / $0.035. One lookup in the backlink index: charged once per domain or URL checked, plus once per extra block of 1,000 rows when you ask for more than 1,000 rows per target. Not charged when the lookup fails.

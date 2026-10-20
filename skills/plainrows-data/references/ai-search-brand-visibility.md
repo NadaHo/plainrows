@@ -1,6 +1,6 @@
 # AI Visibility Tracker: ChatGPT Visibility & Google AI Mode (`plainrows/ai-search-brand-visibility`)
 
-AI search visibility tracker, LLM visibility and GEO MCP tool: ask ChatGPT, Gemini and Google AI Mode your customers' questions and see if your brand is mentioned, your site cited, which competitors show up. Answers, sources, fan-out queries as rows. Pay per answer, plus a fee per question answered.
+AI search & brand visibility tracker for ChatGPT, LLM visibility and GEO MCP tool: ask ChatGPT, Gemini and Google AI Mode customer questions, see if your brand is mentioned, your site cited, which rivals show up. Answers, sources, fan-out queries. Pay per answer, plus a fee per question answered.
 
 Store page and full documentation: https://apify.com/plainrows/ai-search-brand-visibility
 
@@ -42,4 +42,4 @@ Store page and full documentation: https://apify.com/plainrows/ai-search-brand-v
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **AI answer**: $0.02 / $0.015 / $0.012 / $0.01. One answer from one AI engine to one of your questions, analysed for your brand, your site and your competitors. Failed engines and empty answers are not billed.
-- **Question asked**: $0.007 / $0.007 / $0.007 / $0.007. Once per question that got at least one AI answer, whatever the number of engines asked: it pays for the engines asked, including those that came back empty. Questions with no answer are not billed.
+- **Question answered**: $0.007 / $0.007 / $0.007 / $0.007. Flat fee per question that got at least one AI answer, whatever the number of engines asked (it covers engines that came back empty). Questions with no answer at all are free.

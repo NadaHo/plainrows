@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Search API: Videos, Views &amp; Channels as JSON | PlainRows</title><meta name="description" content="YouTube Search API: search results as JSON for any keyword, with video title, URL, views, channel, duration, upload date and position. Date, length, Shorts and ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/youtube-search-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>YouTube Search API: Videos, Views &amp; Channels as JSON</h1>
+<p class="lead">YouTube Search API: search results as JSON for any keyword, with video title, URL, views, channel, duration, upload date and position. Date, length, Shorts and live filters. No API key, no quota. Pay per video plus a small start fee; only-new-videos mode adds a fee per 20 results checked.</p>
+<p><a class="btn" href="https://apify.com/plainrows/youtube-search-api">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/youtube-search-api" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Search YouTube from your app or backend: send keywords, get videos with views, channel, duration and date as JSON, without the default quota of the official API (about 100 searches a day).</li><li>YouTube SEO and rank tracking: schedule the same queries daily or weekly and track the `position` of your videos and your competitors&#x27;.</li><li>Monitoring new videos: turn on Only new videos and schedule the run to get (and pay for) each new upload about a brand, product or topic once.</li><li>Influencer and channel discovery: find the channels that publish on a topic, with their channel ID and URL.</li><li>Datasets for analysis and AI agents: titles, descriptions, durations and view counts as JSON for spreadsheets, BI tools or LLM pipelines.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Video</b><br><span>One YouTube video from the search results, with title, URL, views, upload date, duration, channel and badges. Queries with no result, channels, playlists, repeated videos and videos removed by your filters are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr><tr><td><b>Page checked (only new results)</b><br><span>Only with onlyNewVideos: one block of 20 YouTube results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.</span></td><td>$0.0025</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.003</td><td>$0.003</td><td>$0.003</td><td>$0.003</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~youtube-search-api/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchQueries&quot;: [
+    &quot;how to make sourdough bread&quot;
+  ],
+  &quot;maxResultsPerQuery&quot;: 20,
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/youtube-search-api&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;how to make sourdough bread&#x27;],
+ &#x27;maxResultsPerQuery&#x27;: 20,
+ &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/youtube-search-api</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/youtube-search-api</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/youtube-search-api">https://apify.com/plainrows/youtube-search-api</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-20.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
