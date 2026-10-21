@@ -64,6 +64,7 @@ Website: https://nadaho.github.io/plainrows/
 - [SEO Competitors & Keyword Gap Finder](https://apify.com/plainrows/seo-competitors-keyword-gap)
 - [Standvirtual Scraper: Portugal Car Listings & Prices](https://apify.com/plainrows/standvirtual-scraper)
 - [Storia Scraper: Romania Property Listings & Prices](https://apify.com/plainrows/storia-scraper)
+- [Tori.fi Scraper: Finland Marketplace Listings](https://apify.com/plainrows/tori-scraper)
 - [Tripadvisor Reviews Scraper API: Hotels & Restaurants](https://apify.com/plainrows/tripadvisor-reviews)
 - [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)
 - [Website Email Extractor: Emails, Phones & Socials from URLs](https://apify.com/plainrows/website-email-extractor)

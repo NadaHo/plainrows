@@ -100,6 +100,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/seo-competitors-keyword-gap` | SEO Competitors & Keyword Gap Finder | from $0.0016 per competitor or gap keyword | [references/seo-competitors-keyword-gap.md](references/seo-competitors-keyword-gap.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
+| `plainrows/tori-scraper` | Tori.fi Scraper: Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
