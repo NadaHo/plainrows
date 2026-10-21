@@ -27,7 +27,7 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-rank-
   "keywords": [
     "coffee shop"
   ],
-  "gridSize": "5",
+  "gridSize": "3",
   "country": "GB"
 }
 ```

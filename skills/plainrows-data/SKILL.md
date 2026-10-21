@@ -45,12 +45,14 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/aliexpress-scraper` | AliExpress Scraper: Products, Prices, Orders & Ratings | from $0.001 per product | [references/aliexpress-scraper.md](references/aliexpress-scraper.md) |
 | `plainrows/amazon-product-search` | Amazon Product Scraper: Search, Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/amazon-reviews-scraper` | Amazon Reviews Scraper: Ratings, Text & Dates | from $0.00045 per review | [references/amazon-reviews-scraper.md](references/amazon-reviews-scraper.md) |
+| `plainrows/app-details-scraper` | App Store & Google Play App Details Scraper | from $0.001 per app | [references/app-details-scraper.md](references/app-details-scraper.md) |
 | `plainrows/app-reviews-scraper` | App Store Reviews & Google Play Reviews Scraper | from $0.00005 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/app-store-reviews-scraper` | App Store Reviews Scraper: iOS Ratings, Titles & Text | from $0.00005 per review | [references/app-store-reviews-scraper.md](references/app-store-reviews-scraper.md) |
 | `plainrows/arbeitsagentur-jobs-scraper` | Arbeitsagentur Jobs Scraper: Bundesagentur für Arbeit API | from $0.0006 per job | [references/arbeitsagentur-jobs-scraper.md](references/arbeitsagentur-jobs-scraper.md) |
 | `plainrows/ashby-jobs-scraper` | Ashby Jobs Scraper: Any Ashby Job Board | from $0.0008 per job | [references/ashby-jobs-scraper.md](references/ashby-jobs-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/autoscout24-scraper` | AutoScout24 Scraper: Car Listings, Prices & Mileage | from $0.0004 per listing | [references/autoscout24-scraper.md](references/autoscout24-scraper.md) |
+| `plainrows/autovit-scraper` | Autovit Scraper: Romania Car Listings & Prices | from $0.0004 per listing | [references/autovit-scraper.md](references/autovit-scraper.md) |
 | `plainrows/backlink-checker` | Bulk Backlink Checker: Referring Domains & Anchor Text API | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
 | `plainrows/bing-keyword-search-volume` | Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC | from $0.0001 per keyword | [references/bing-keyword-search-volume.md](references/bing-keyword-search-volume.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |

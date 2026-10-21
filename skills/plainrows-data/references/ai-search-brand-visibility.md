@@ -23,8 +23,7 @@ Store page and full documentation: https://apify.com/plainrows/ai-search-brand-v
 ```json
 {
   "prompts": [
-    "best standing desk for small spaces",
-    "best electric standing desk under $500"
+    "best standing desk for small spaces"
   ],
   "brandNames": [
     "FlexiSpot"

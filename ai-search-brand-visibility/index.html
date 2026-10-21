@@ -20,8 +20,7 @@
   -H &#x27;Content-Type: application/json&#x27; \
   -d &#x27;{
   &quot;prompts&quot;: [
-    &quot;best standing desk for small spaces&quot;,
-    &quot;best electric standing desk under $500&quot;
+    &quot;best standing desk for small spaces&quot;
   ],
   &quot;brandNames&quot;: [
     &quot;FlexiSpot&quot;
@@ -37,8 +36,7 @@
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/ai-search-brand-visibility&quot;).call(run_input={&#x27;prompts&#x27;: [&#x27;best standing desk for small spaces&#x27;,
-             &#x27;best electric standing desk under $500&#x27;],
+run = client.actor(&quot;plainrows/ai-search-brand-visibility&quot;).call(run_input={&#x27;prompts&#x27;: [&#x27;best standing desk for small spaces&#x27;],
  &#x27;brandNames&#x27;: [&#x27;FlexiSpot&#x27;],
  &#x27;brandDomain&#x27;: &#x27;flexispot.com&#x27;,
  &#x27;competitors&#x27;: [&#x27;Uplift&#x27;, &#x27;Desky&#x27;, &#x27;IKEA&#x27;],

@@ -23,7 +23,7 @@
   &quot;keywords&quot;: [
     &quot;coffee shop&quot;
   ],
-  &quot;gridSize&quot;: &quot;5&quot;,
+  &quot;gridSize&quot;: &quot;3&quot;,
   &quot;country&quot;: &quot;GB&quot;
 }&#x27;</pre>
 <pre>from apify_client import ApifyClient
@@ -31,7 +31,7 @@
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
 run = client.actor(&quot;plainrows/google-maps-rank-tracker&quot;).call(run_input={&#x27;business&#x27;: &#x27;Monmouth Coffee Company, Borough, London&#x27;,
  &#x27;keywords&#x27;: [&#x27;coffee shop&#x27;],
- &#x27;gridSize&#x27;: &#x27;5&#x27;,
+ &#x27;gridSize&#x27;: &#x27;3&#x27;,
  &#x27;country&#x27;: &#x27;GB&#x27;})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
     print(row)</pre>

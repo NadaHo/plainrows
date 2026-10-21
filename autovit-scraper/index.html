@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autovit Scraper: Romania Car Listings &amp; Prices | PlainRows</title><meta name="description" content="Type a make and model or paste autovit.ro search URLs, get every car listing: price, price evaluation, year, mileage, fuel, engine, power, city, county, dealer ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/autovit-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Autovit Scraper: Romania Car Listings &amp; Prices</h1>
+<p class="lead">Type a make and model or paste autovit.ro search URLs, get every car listing: price, price evaluation, year, mileage, fuel, engine, power, city, county, dealer or private. No login. Pay per listing plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/autovit-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/autovit-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Car dealers and importers: find cars priced below the market (`priceEvaluation: BELOW`) in Romania, every morning (schedule a run).</li><li>Price monitoring and valuation: Romanian market prices of a model by year, mileage and fuel.</li><li>Import and export: compare Romanian prices with Germany, Poland or Portugal (see our AutoScout24, Otomoto and Standvirtual scrapers).</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Listing</b><br><span>One Autovit car listing returned with its details (title, price, price evaluation, year, mileage, fuel, engine, power, location, dealer or private). Searches without listings, unknown makes, blocked or unreadable pages, listings already returned by another search of the run and input mistakes are free.</span></td><td>$0.0005</td><td>$0.00045</td><td>$0.0004</td><td>$0.0004</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~autovit-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searches&quot;: [
+    &quot;dacia duster&quot;,
+    &quot;https://www.autovit.ro/autoturisme/volkswagen/golf?search%5Bfilter_float_year%3Afrom%5D=2018&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 32
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/autovit-scraper&quot;).call(run_input={&#x27;searches&#x27;: [&#x27;dacia duster&#x27;,
+              &#x27;https://www.autovit.ro/autoturisme/volkswagen/golf?search%5Bfilter_float_year%3Afrom%5D=2018&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 32})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/autovit-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/autovit-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/autovit-scraper">https://apify.com/plainrows/autovit-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-21.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
