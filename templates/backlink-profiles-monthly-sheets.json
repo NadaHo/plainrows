@@ -1,0 +1,211 @@
+{
+  "name": "Track the backlink profiles of your site and your competitors every month in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Track the backlink profiles of your site and your competitors every month in Google Sheets\n\n### Who's it for\nSEO consultants, agencies and site owners who report link growth to a client or watch competitors, without an Ahrefs or Semrush seat.\n\n### How it works\n1. On the 1st of every month, the **Settings** node gives your domain and your competitors.\n2. The **Backlink Checker** Actor on Apify (`plainrows/backlink-checker`) runs in `summary` mode: one row per domain with domain rank, total and dofollow backlinks, referring domains, root domains, spam score and broken backlinks.\n3. A Code node adds the month and the top link countries, and flags your own domain.\n4. One row per domain is appended to the `Backlink profiles` tab: a month-by-month history you can chart.\n\n### Requirements\n- An Apify account and its API token (the free Apify plan limits each run to 2 domains: use a paid plan for more).\n- A Google Sheets account and a spreadsheet with a tab named `Backlink profiles`.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Change `yourDomain` and `competitors` (comma-separated, up to 1,000 domains or URLs) in **Settings**; a URL with a path tracks that page only.\n- Change the schedule (weekly works too) or send the rows to Airtable or a database instead of Sheets.\n\n**Cost:** in summary mode each domain is one lookup fee plus one row (see the Actor's Pricing tab), e.g. you and 4 competitors = 5 lookups and 5 rows a month. The Apify node caps its run with *Maximum Cost per Run*.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "aa42921f-64b2-5135-be1a-61ed62d3dc12",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\\n1. Spreadsheet with a tab named `Backlink profiles` (headers are written on the first run).\\n2. Connect Google Sheets in *Append profiles* and paste the spreadsheet URL.\\n3. Add your Apify credential to the Apify node.\\n4. In **Settings**, put `yourDomain` and `competitors` (comma-separated).\\n\\n**Cost:** one lookup fee and one row per domain (see the Actor's Pricing tab); the Apify node caps its run with *Maximum Cost per Run*.",
+        "height": 320,
+        "width": 420,
+        "color": 7
+      },
+      "id": "faa1cf72-c1d4-502f-9698-bc0fd0fcdec8",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": 1,
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "a58ce6bc-8267-5d14-8e2c-721f2e0b9ec5",
+      "name": "1st of every month",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3c70f191-5f38-56d5-ad1d-994ee2581ee2",
+              "name": "yourDomain",
+              "value": "example.com",
+              "type": "string"
+            },
+            {
+              "id": "a1b5c33a-857a-5cd4-ad79-afdc52f6e7f6",
+              "name": "competitors",
+              "value": "competitor-one.com, competitor-two.com, competitor-three.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3fbde07b-a92d-5a2c-9b85-135adc6b97de",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~backlink-checker",
+        "customBody": "={{ JSON.stringify({ targets: [$json.yourDomain, ...$json.competitors.split(',').map((d) => d.trim()).filter(Boolean)], mode: 'summary' }) }}",
+        "maxTotalChargeUsd": 2
+      },
+      "id": "00c07221-89d2-5803-99b7-07b554965e77",
+      "name": "Backlink summaries",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per domain and month, flat columns for Sheets.\nconst s = $('Settings').first().json;\nconst norm = (d) => String(d || '').trim().toLowerCase().replace(/^https?:\\/\\//, '').replace(/^www\\./, '').replace(/\\/$/, '');\nconst own = norm(s.yourDomain);\nconst month = new Date().toISOString().slice(0, 7);\nconst top = (o) => Object.entries(o || {}).slice(0, 3).map(([k, v]) => `${k} ${v}`).join(', ');\nreturn $input.all().map(({ json: r }) => ({ json: {\n  month, domain: r.target, yourSite: norm(r.target) === own, found: r.found !== false,\n  domainRank: r.domainRank ?? null, backlinks: r.backlinks ?? 0, dofollowBacklinks: r.dofollowBacklinks ?? 0,\n  referringDomains: r.referringDomains ?? 0, dofollowReferringDomains: r.dofollowReferringDomains ?? 0,\n  rootDomains: r.referringMainDomains ?? 0, spamScore: r.spamScore ?? null, brokenBacklinks: r.brokenBacklinks ?? 0,\n  topLinkCountries: top(r.topLinkCountries),\n} }));"
+      },
+      "id": "f34242ab-707d-5d69-865c-d73cecf56105",
+      "name": "Build rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Backlink profiles",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "5af6fdef-9389-5f0f-b67d-6e44fdc814ed",
+      "name": "Append profiles",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "1st of every month": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Backlink summaries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Backlink summaries": {
+      "main": [
+        [
+          {
+            "node": "Build rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build rows": {
+      "main": [
+        [
+          {
+            "node": "Append profiles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
