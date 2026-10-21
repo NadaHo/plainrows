@@ -1,6 +1,6 @@
 # Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC (`plainrows/bing-keyword-search-volume`)
 
-Bing keyword search volume, Bing keyword research and MCP tool: Bing Ads search volume, CPC, competition, 12-month history for up to 10,000 keywords per run (batches of 1,000). US, UK, Canada, Australia, Germany, France. Pay $0.0001 per keyword with data, plus $0.15 per batch and a small start fee.
+Bing keyword search volume and Bing keyword research tool: Bing Ads search volume, CPC, competition, 12-month history for up to 10,000 keywords per run (batches of 1,000). US, UK, Canada, Australia, Germany, France. Pay $0.0001 per keyword with data, plus $0.15 per batch and a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/bing-keyword-search-volume
 
@@ -13,6 +13,7 @@ Store page and full documentation: https://apify.com/plainrows/bing-keyword-sear
 | `languageCode` | string: `en`, `fr`, `de` |  | Language of the searches. Bing keyword data exists in English, French and German only. Empty = the country's usual language (English, or German for DE/AT/CH, French for FR/BE). |
 | `device` | string: `all`, `desktop`, `mobile`, `tablet` | "all" | Volumes for all devices or one device type. |
 | `includeSearchPartners` | boolean | false | Off: Bing, AOL and Yahoo searches. On: also Microsoft's syndicated search partner sites. |
+| `speed` | string: `standard`, `live` | "live" | Live (default) gets the data in seconds. Standard sends the same request through the data provider's queue: same data and same price for you, but each batch of up to 1,000 keywords usually takes a few minutes (a batch... |
 
 ## Example input
 

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arbeitsagentur Jobs Scraper: Bundesagentur für Arbeit API | PlainRows</title><meta name="description" content="German jobs from the official Arbeitsagentur Jobbörse API by keyword + place: title, company, address, occupation, full/part-time, remote, salary when given, da">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/arbeitsagentur-jobs-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Arbeitsagentur Jobs Scraper: Bundesagentur für Arbeit API</h1>
+<p class="lead">German jobs from the official Arbeitsagentur Jobbörse API by keyword + place: title, company, address, occupation, full/part-time, remote, salary when given, dates, link. No login. Pay per job ($0.0009 or less) plus a $0.001 start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/arbeitsagentur-jobs-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/arbeitsagentur-jobs-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>German job market research: how many data, nursing, logistics or engineering jobs are open in Berlin, Munich or Hamburg, with which salary and working time.</li><li>Recruitment agencies and sales teams: which German companies are hiring, for what, where (lead lists with company and work address).</li><li>Job boards and alerts: feed new German jobs into your own site, Slack, Google Sheets or an AI agent every day (`publishedWithinDays: 1`).</li><li>Salary and remote analysis: share of ads with a salary range, of part-time or home-office jobs in your field.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Job</b><br><span>One job ad from the Arbeitsagentur Jobbörse returned with reference number, title, company and link (plus address, occupation, working time, remote, salary and dates when given). Searches without jobs, refused or unreadable answers, ads without a company or reference, jobs already returned by another search of the run and input mistakes are free.</span></td><td>$0.0009</td><td>$0.0008</td><td>$0.0007</td><td>$0.0006</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.001</td><td>$0.001</td><td>$0.001</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~arbeitsagentur-jobs-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;keywords&quot;: [
+    &quot;Data Engineer&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;Berlin&quot;
+  ],
+  &quot;maxJobsPerSearch&quot;: 150
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/arbeitsagentur-jobs-scraper&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;Data Engineer&#x27;],
+ &#x27;locations&#x27;: [&#x27;Berlin&#x27;],
+ &#x27;maxJobsPerSearch&#x27;: 150})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/arbeitsagentur-jobs-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/arbeitsagentur-jobs-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/arbeitsagentur-jobs-scraper">https://apify.com/plainrows/arbeitsagentur-jobs-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-21.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
