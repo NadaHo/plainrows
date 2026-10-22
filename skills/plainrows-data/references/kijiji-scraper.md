@@ -1,6 +1,6 @@
 # Kijiji Scraper: Canada Listings, Prices & Cars (`plainrows/kijiji-scraper`)
 
-Paste kijiji.ca search URLs or keywords, get every listing: title, price, city, province, date, image, attributes (mileage, bedrooms…), car price rating, dealer or owner. No login, no browser. Pay per listing plus a small start fee per run.
+Canada classifieds scraper and MCP tool: paste kijiji.ca search URLs or keywords, get every listing: title, price, city, province, date, image, attributes (mileage, bedrooms…), car price rating, dealer or owner. No login, no browser. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/kijiji-scraper
 

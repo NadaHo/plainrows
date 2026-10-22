@@ -1,6 +1,6 @@
 # Blocket Scraper: Sweden Marketplace Listings (`plainrows/blocket-scraper`)
 
-Type a keyword or paste blocket.se "for sale" search URLs, get every listing: title, price, city, coordinates, private or business seller, brand, shipping, photos, date. No login. Pay per listing plus a small start fee per run.
+Sweden marketplace scraper and MCP tool: type a keyword or paste blocket.se "for sale" search URLs, get every listing: title, price, city, coordinates, private or business seller, brand, shipping, photos, date. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/blocket-scraper
 

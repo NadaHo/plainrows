@@ -1,6 +1,6 @@
 # coches.net Scraper: Spain Car Listings, Prices & Mileage (`plainrows/coches-net-scraper`)
 
-Paste coches.net search URLs or a make and model, get every used car listing in Spain: price, market average price, year, mileage, fuel, power, province, dealer. No login, no browser. Pay per listing plus a small start fee per run.
+Spain used cars scraper and MCP tool: paste coches.net search URLs or a make and model, get every used car listing in Spain: price, market average price, year, mileage, fuel, power, province, dealer. No login, no browser. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/coches-net-scraper
 

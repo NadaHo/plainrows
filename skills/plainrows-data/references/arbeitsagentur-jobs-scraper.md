@@ -1,6 +1,6 @@
 # Arbeitsagentur Jobs Scraper: Bundesagentur für Arbeit API (`plainrows/arbeitsagentur-jobs-scraper`)
 
-German jobs from the official Arbeitsagentur Jobbörse API by keyword + place: title, company, address, occupation, full/part-time, remote, salary when given, dates, link. No login. Pay per job ($0.0009 or less) plus a $0.001 start fee per run.
+Germany jobs scraper and MCP tool: German jobs from the official Arbeitsagentur Jobbörse API by keyword + place: title, company, address, occupation, full/part-time, remote, salary when given, dates, link. No login. Pay per job ($0.0009 or less) plus a $0.001 start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/arbeitsagentur-jobs-scraper
 

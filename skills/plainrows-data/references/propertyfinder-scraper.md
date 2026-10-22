@@ -1,6 +1,6 @@
 # Property Finder Scraper: UAE Property Listings (`plainrows/propertyfinder-scraper`)
 
-Paste propertyfinder.ae search URLs, get every property listing in Dubai, Abu Dhabi and the UAE: price, type, bedrooms, size, location, coordinates, brokerage, listed date. Sale or rent. No login. Pay per listing plus a small start fee per run.
+Dubai real estate scraper and MCP tool: paste propertyfinder.ae search URLs, get every property listing in Dubai, Abu Dhabi and the UAE: price, type, bedrooms, size, location, coordinates, brokerage, listed date. Sale or rent. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/propertyfinder-scraper
 

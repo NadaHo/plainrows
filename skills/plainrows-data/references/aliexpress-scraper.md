@@ -1,6 +1,6 @@
 # AliExpress Scraper: Products, Prices, Orders & Ratings (`plainrows/aliexpress-scraper`)
 
-Paste AliExpress search URLs or keywords, get every product: title, price in USD, original price, discount, rating, orders sold, ship-from country, image, ad or not. No login, no browser. Pay per product, plus a small start fee per run.
+AliExpress scraper and MCP tool: paste AliExpress search URLs or keywords, get every product: title, price in USD, original price, discount, rating, orders sold, ship-from country, image, ad or not. No login, no browser. Pay per product, plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/aliexpress-scraper
 

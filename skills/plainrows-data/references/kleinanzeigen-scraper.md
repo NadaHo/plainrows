@@ -1,6 +1,6 @@
 # Kleinanzeigen Scraper: Listings, Prices & Locations (`plainrows/kleinanzeigen-scraper`)
 
-Paste kleinanzeigen.de search URLs or keywords, get every listing: title, price, VB, postcode, city, date, image, shipping, private or business seller. No login, no browser. Pay per listing, plus a small start fee per run.
+Germany classifieds scraper and MCP tool: paste kleinanzeigen.de search URLs or keywords, get every listing: title, price, VB, postcode, city, date, image, shipping, private or business seller. No login, no browser. Pay per listing, plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/kleinanzeigen-scraper
 

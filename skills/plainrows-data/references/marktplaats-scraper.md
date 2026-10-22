@@ -1,6 +1,6 @@
 # Marktplaats Scraper: Dutch Listings & Prices (`plainrows/marktplaats-scraper`)
 
-Paste marktplaats.nl search URLs or keywords, get every listing: title, price, price type, city, date, image, condition, delivery, business seller name. No login, no browser. Pay per listing plus a small start fee per run.
+Netherlands marketplace scraper and MCP tool: paste marktplaats.nl search URLs or keywords, get every listing: title, price, price type, city, date, image, condition, delivery, business seller name. No login, no browser. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/marktplaats-scraper
 

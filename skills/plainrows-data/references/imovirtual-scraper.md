@@ -1,6 +1,6 @@
 # Imovirtual Scraper: Portugal Property Listings & Prices (`plainrows/imovirtual-scraper`)
 
-Paste imovirtual.com search URLs, get every property listing: price, price per m², area, rooms, floor, district, municipality, parish, agency or private owner, date. Flats, houses, land, buy or rent. No login. Pay per listing plus a small start fee per run.
+Portugal real estate scraper and MCP tool: paste imovirtual.com search URLs, get every property listing: price, price per m², area, rooms, floor, district, municipality, parish, agency or private owner, date. Flats, houses, land, buy or rent. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/imovirtual-scraper
 

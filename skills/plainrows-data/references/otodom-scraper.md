@@ -1,6 +1,6 @@
 # Otodom Scraper: Poland Property Listings & Prices (`plainrows/otodom-scraper`)
 
-Paste otodom.pl search URLs, get every property listing: price, price per m², rent, area, rooms, floor, city, district, agency or private owner, date. Flats, houses, plots, sale or rent. No login. Pay per listing plus a small start fee per run.
+Poland real estate scraper and MCP tool: paste otodom.pl search URLs, get every property listing: price, price per m², rent, area, rooms, floor, city, district, agency or private owner, date. Flats, houses, plots, sale or rent. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/otodom-scraper
 

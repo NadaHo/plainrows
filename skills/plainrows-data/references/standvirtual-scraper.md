@@ -1,6 +1,6 @@
 # Standvirtual Scraper: Portugal Car Listings & Prices (`plainrows/standvirtual-scraper`)
 
-Type a make and model or paste standvirtual.com search URLs, get every car listing: price, price evaluation, year, mileage, fuel, gearbox, power, city, district, dealer or private. No login. Pay per listing plus a small start fee per run.
+Portugal used cars scraper and MCP tool: type a make and model or paste standvirtual.com search URLs, get every car listing: price, price evaluation, year, mileage, fuel, gearbox, power, city, district, dealer or private. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/standvirtual-scraper
 

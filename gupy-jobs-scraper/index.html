@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gupy Jobs Scraper: Brazil Job Ads from portal.gupy.io | PlainRows</title><meta name="description" content="Gupy scraper and MCP tool for Brazil jobs: paste portal.gupy.io search URLs or keywords + state, get each job: title, company, city, state, remote/hybrid, contr">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/gupy-jobs-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Gupy Jobs Scraper: Brazil Job Ads from portal.gupy.io</h1>
+<p class="lead">Gupy scraper and MCP tool for Brazil jobs: paste portal.gupy.io search URLs or keywords + state, get each job: title, company, city, state, remote/hybrid, contract type, dates, description, link. No login. Pay per job ($0.0012 or less) + $0.001 start fee.</p>
+<p><a class="btn" href="https://apify.com/plainrows/gupy-jobs-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/gupy-jobs-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Brazilian job market research: how many sales, data or nursing jobs are open in São Paulo, Paraná or remote, and under which contract (CLT or PJ).</li><li>Recruitment agencies and sales teams: which Brazilian companies are hiring, for what, where.</li><li>Job boards and alerts: feed new Gupy jobs into your own site, Slack, Google Sheets or an AI agent every day.</li><li>Remote work analysis: share of remote and hybrid jobs in your field.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Job</b><br><span>One Gupy job returned with title, company, link and city/state (or remote), plus contract type, work model, dates and description. Searches without jobs, blocked or unreadable pages, jobs without a company, jobs already returned by another search of the run and input mistakes are free.</span></td><td>$0.0012</td><td>$0.0011</td><td>$0.001</td><td>$0.0009</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.001</td><td>$0.001</td><td>$0.001</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~gupy-jobs-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchUrls&quot;: [
+    &quot;https://portal.gupy.io/job-search/term=vendas&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;analista de dados&quot;
+  ],
+  &quot;states&quot;: [
+    &quot;SP&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 24
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/gupy-jobs-scraper&quot;).call(run_input={&#x27;searchUrls&#x27;: [&#x27;https://portal.gupy.io/job-search/term=vendas&#x27;],
+ &#x27;keywords&#x27;: [&#x27;analista de dados&#x27;],
+ &#x27;states&#x27;: [&#x27;SP&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 24})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/gupy-jobs-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/gupy-jobs-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/gupy-jobs-scraper">https://apify.com/plainrows/gupy-jobs-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-22.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

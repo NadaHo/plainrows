@@ -1,6 +1,6 @@
 # DBA Scraper: Denmark Marketplace Listings (`plainrows/dba-scraper`)
 
-Type a keyword or paste dba.dk "for sale" search URLs, get every listing: title, price, city, coordinates, private or business seller, brand, shipping, photos, date. No login. Pay per listing plus a small start fee per run.
+Denmark marketplace scraper and MCP tool: type a keyword or paste dba.dk "for sale" search URLs, get every listing: title, price, city, coordinates, private or business seller, brand, shipping, photos, date. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/dba-scraper
 

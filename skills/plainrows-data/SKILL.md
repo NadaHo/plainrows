@@ -45,7 +45,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/aliexpress-scraper` | AliExpress Scraper: Products, Prices, Orders & Ratings | from $0.001 per product | [references/aliexpress-scraper.md](references/aliexpress-scraper.md) |
 | `plainrows/amazon-product-search` | Amazon Product Scraper: Search, Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/amazon-reviews-scraper` | Amazon Reviews Scraper: Ratings, Text & Dates | from $0.00045 per review | [references/amazon-reviews-scraper.md](references/amazon-reviews-scraper.md) |
-| `plainrows/app-details-scraper` | App Store & Google Play App Details Scraper | from $0.001 per app | [references/app-details-scraper.md](references/app-details-scraper.md) |
+| `plainrows/app-details-scraper` | App Store Scraper & Google Play Scraper: App Details | from $0.001 per app | [references/app-details-scraper.md](references/app-details-scraper.md) |
 | `plainrows/app-reviews-scraper` | App Store Reviews & Google Play Reviews Scraper | from $0.00005 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/app-store-reviews-scraper` | App Store Reviews Scraper: iOS Ratings, Titles & Text | from $0.00005 per review | [references/app-store-reviews-scraper.md](references/app-store-reviews-scraper.md) |
 | `plainrows/arbeitsagentur-jobs-scraper` | Arbeitsagentur Jobs Scraper: Bundesagentur für Arbeit API | from $0.0006 per job | [references/arbeitsagentur-jobs-scraper.md](references/arbeitsagentur-jobs-scraper.md) |
@@ -82,6 +82,8 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
 | `plainrows/google-trends-explorer` | Google Trends Scraper & Google Trends API: Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
 | `plainrows/greenhouse-jobs-scraper` | Greenhouse Jobs Scraper: Any Greenhouse Job Board | from $0.0008 per job | [references/greenhouse-jobs-scraper.md](references/greenhouse-jobs-scraper.md) |
+| `plainrows/gupy-jobs-scraper` | Gupy Jobs Scraper: Brazil Job Ads from portal.gupy.io | from $0.0009 per job | [references/gupy-jobs-scraper.md](references/gupy-jobs-scraper.md) |
+| `plainrows/immoweb-scraper` | Immoweb Scraper: Belgium Property Listings & Prices | from $0.0004 per listing | [references/immoweb-scraper.md](references/immoweb-scraper.md) |
 | `plainrows/imovirtual-scraper` | Imovirtual Scraper: Portugal Property Listings & Prices | from $0.0004 per listing | [references/imovirtual-scraper.md](references/imovirtual-scraper.md) |
 | `plainrows/jobs-ch-scraper` | jobs.ch & jobup.ch Jobs Scraper: Swiss Job Ads | from $0.0009 per job | [references/jobs-ch-scraper.md](references/jobs-ch-scraper.md) |
 | `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas & Related Keywords | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |

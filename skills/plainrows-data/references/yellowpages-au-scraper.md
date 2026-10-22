@@ -1,6 +1,6 @@
 # Yellow Pages Australia Scraper: Business Leads & Phones (`plainrows/yellowpages-au-scraper`)
 
-Paste yellowpages.com.au search URLs or a category and a city, get every business: name, phone, website, categories, address, suburb, state, postcode, rating, years in business. No login. Pay per business plus a small start fee per run.
+Australia business directory scraper and MCP tool: paste yellowpages.com.au search URLs or a category and a city, get every business: name, phone, website, categories, address, suburb, state, postcode, rating, years in business. No login. Pay per business plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/yellowpages-au-scraper
 

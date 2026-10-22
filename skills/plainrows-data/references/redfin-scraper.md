@@ -1,6 +1,6 @@
 # Redfin Scraper: US Homes for Sale, Prices & Details (`plainrows/redfin-scraper`)
 
-Paste Redfin search URLs (city, ZIP code, neighborhood, county, with filters), get every home for sale: address, coordinates, price, beds, baths, sqft, lot, year built, HOA, days on market, photo. No login. Pay per listing plus a small start fee per run.
+US real estate scraper and MCP tool: paste Redfin search URLs (city, ZIP code, neighborhood, county, with filters), get every home for sale: address, coordinates, price, beds, baths, sqft, lot, year built, HOA, days on market, photo. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/redfin-scraper
 

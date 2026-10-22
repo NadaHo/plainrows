@@ -1,6 +1,6 @@
 # Otomoto Scraper: Polish Car Listings & Prices (`plainrows/otomoto-scraper`)
 
-Type a make and model or paste otomoto.pl search URLs, get every car listing: price, price evaluation, year, mileage, fuel, gearbox, power, city, region, dealer or private. No login. Pay per listing plus a small start fee per run.
+Poland used cars scraper and MCP tool: type a make and model or paste otomoto.pl search URLs, get every car listing: price, price evaluation, year, mileage, fuel, gearbox, power, city, region, dealer or private. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/otomoto-scraper
 

@@ -1,6 +1,6 @@
 # Storia Scraper: Romania Property Listings & Prices (`plainrows/storia-scraper`)
 
-Paste storia.ro search URLs, get every property listing: price, price per m², area, rooms, floor, county, city, sector, agency or private owner, date. Flats, houses, land, buy or rent. No login. Pay per listing plus a small start fee per run.
+Romania real estate scraper and MCP tool: paste storia.ro search URLs, get every property listing: price, price per m², area, rooms, floor, county, city, sector, agency or private owner, date. Flats, houses, land, buy or rent. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/storia-scraper
 

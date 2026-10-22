@@ -1,6 +1,6 @@
 # Reed.co.uk Jobs Scraper: UK Job Ads & Salaries (`plainrows/reed-jobs-scraper`)
 
-Paste reed.co.uk search URLs or keywords + a UK city, get each job ad: title, employer, location, salary (min/max/period), contract type, remote/hybrid, posting date, snippet, link. No login. Pay per job ($0.0008 or less) plus a $0.002 start fee per run.
+UK jobs scraper and MCP tool: paste reed.co.uk search URLs or keywords + a UK city, get each job ad: title, employer, location, salary (min/max/period), contract type, remote/hybrid, posting date, snippet, link. No login. Pay per job ($0.0008 or less) plus a $0.002 start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/reed-jobs-scraper
 

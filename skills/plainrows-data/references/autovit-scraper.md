@@ -1,6 +1,6 @@
 # Autovit Scraper: Romania Car Listings & Prices (`plainrows/autovit-scraper`)
 
-Type a make and model or paste autovit.ro search URLs, get every car listing: price, price evaluation, year, mileage, fuel, engine, power, city, county, dealer or private. No login. Pay per listing plus a small start fee per run.
+Romania used cars scraper and MCP tool: type a make and model or paste autovit.ro search URLs, get every car listing: price, price evaluation, year, mileage, fuel, engine, power, city, county, dealer or private. No login. Pay per listing plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/autovit-scraper
 
