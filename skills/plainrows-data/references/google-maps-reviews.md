@@ -1,6 +1,6 @@
 # Google Maps Reviews Scraper (`plainrows/google-maps-reviews`)
 
-Get Google Maps reviews of any place: stars, text, date, translation, photos, owner reply and the place's rating. Paste Maps links, place IDs, CIDs or names. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
+Google Maps reviews scraper and MCP tool: stars, text, date, translation, photos, owner reply and the place's rating for any place. Paste Maps links, place IDs, CIDs or names. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-reviews
 

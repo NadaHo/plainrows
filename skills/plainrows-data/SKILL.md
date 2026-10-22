@@ -44,7 +44,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/ai-search-brand-visibility` | AI Visibility Tracker: ChatGPT Visibility & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/aliexpress-scraper` | AliExpress Scraper: Products, Prices, Orders & Ratings | from $0.001 per product | [references/aliexpress-scraper.md](references/aliexpress-scraper.md) |
 | `plainrows/amazon-product-search` | Amazon Product Scraper: Search, Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
-| `plainrows/amazon-reviews-scraper` | Amazon Reviews Scraper: Ratings, Text & Dates | from $0.00045 per review | [references/amazon-reviews-scraper.md](references/amazon-reviews-scraper.md) |
 | `plainrows/app-details-scraper` | App Store Scraper & Google Play Scraper: App Details | from $0.001 per app | [references/app-details-scraper.md](references/app-details-scraper.md) |
 | `plainrows/app-reviews-scraper` | App Store Reviews & Google Play Reviews Scraper | from $0.00005 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/app-store-reviews-scraper` | App Store Reviews Scraper: iOS Ratings, Titles & Text | from $0.00005 per review | [references/app-store-reviews-scraper.md](references/app-store-reviews-scraper.md) |
@@ -57,6 +56,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/bing-keyword-search-volume` | Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC | from $0.0001 per keyword | [references/bing-keyword-search-volume.md](references/bing-keyword-search-volume.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
+| `plainrows/catho-jobs-scraper` | Catho Jobs Scraper: Brazil Job Ads from catho.com.br | from $0.0009 per job | [references/catho-jobs-scraper.md](references/catho-jobs-scraper.md) |
 | `plainrows/coches-net-scraper` | coches.net Scraper: Spain Car Listings, Prices & Mileage | from $0.0004 per listing | [references/coches-net-scraper.md](references/coches-net-scraper.md) |
 | `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
@@ -86,6 +86,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/immoweb-scraper` | Immoweb Scraper: Belgium Property Listings & Prices | from $0.0004 per listing | [references/immoweb-scraper.md](references/immoweb-scraper.md) |
 | `plainrows/imovirtual-scraper` | Imovirtual Scraper: Portugal Property Listings & Prices | from $0.0004 per listing | [references/imovirtual-scraper.md](references/imovirtual-scraper.md) |
 | `plainrows/jobs-ch-scraper` | jobs.ch & jobup.ch Jobs Scraper: Swiss Job Ads | from $0.0009 per job | [references/jobs-ch-scraper.md](references/jobs-ch-scraper.md) |
+| `plainrows/jobs-cz-scraper` | Jobs.cz Scraper: Czech Job Listings & Salaries | from $0.0009 per job | [references/jobs-cz-scraper.md](references/jobs-cz-scraper.md) |
 | `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas & Related Keywords | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-planner-alternative` | Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
 | `plainrows/keyword-search-volume` | Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |

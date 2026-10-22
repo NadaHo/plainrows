@@ -1,6 +1,6 @@
 # Tripadvisor Reviews Scraper API: Hotels & Restaurants (`plainrows/tripadvisor-reviews`)
 
-Get Tripadvisor reviews of hotels, restaurants and attractions: stars, title, text, visit date, photos, management response and the place rating. Paste Tripadvisor links. No reviewer names. Only-new-reviews mode for alerts. Pay per review plus small fetch and start fees.
+Tripadvisor reviews scraper and MCP tool: reviews of hotels, restaurants and attractions with stars, title, text, visit date, photos, management response and the place rating. Paste Tripadvisor links. No reviewer names. Only-new mode for alerts. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/tripadvisor-reviews
 
