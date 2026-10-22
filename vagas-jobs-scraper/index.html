@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vagas.com.br Scraper: Brazil Jobs from Vagas | PlainRows</title><meta name="description" content="Vagas scraper and MCP tool for Brazil jobs: paste vagas.com.br search URLs or keywords + city, get each job: title, company, level, openings, city, state, remot">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/vagas-jobs-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Vagas.com.br Scraper: Brazil Jobs from Vagas</h1>
+<p class="lead">Vagas scraper and MCP tool for Brazil jobs: paste vagas.com.br search URLs or keywords + city, get each job: title, company, level, openings, city, state, remote, excerpt, date, link. No login. Pay per job ($0.0012 or less) + $0.001 start fee.</p>
+<p><a class="btn" href="https://apify.com/plainrows/vagas-jobs-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/vagas-jobs-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Brazilian job market research: how many sales, data or nursing jobs are open in São Paulo or Curitiba, at which level, and how many are remote.</li><li>Recruitment agencies and sales teams: which Brazilian companies are hiring, for what, where.</li><li>Job boards and alerts: feed new Vagas.com.br jobs into your own site, Slack, Google Sheets or an AI agent every day.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Job</b><br><span>One Vagas.com.br job returned with title, company (null when the site hides it), location and link, plus level, openings, excerpt and date. Searches without jobs, blocked or unreadable pages, jobs repeated on a later page or by another search of the run and input mistakes are free.</span></td><td>$0.0012</td><td>$0.0011</td><td>$0.001</td><td>$0.0009</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.001</td><td>$0.001</td><td>$0.001</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~vagas-jobs-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchUrls&quot;: [
+    &quot;https://www.vagas.com.br/vagas-de-vendedor&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;analista de dados&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;S\u00e3o Paulo&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 20
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/vagas-jobs-scraper&quot;).call(run_input={&#x27;searchUrls&#x27;: [&#x27;https://www.vagas.com.br/vagas-de-vendedor&#x27;],
+ &#x27;keywords&#x27;: [&#x27;analista de dados&#x27;],
+ &#x27;locations&#x27;: [&#x27;São Paulo&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 20})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/vagas-jobs-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/vagas-jobs-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/vagas-jobs-scraper">https://apify.com/plainrows/vagas-jobs-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-22.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

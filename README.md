@@ -70,6 +70,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Tori.fi Scraper: Finland Marketplace Listings](https://apify.com/plainrows/tori-scraper)
 - [Tripadvisor Reviews Scraper API: Hotels & Restaurants](https://apify.com/plainrows/tripadvisor-reviews)
 - [Trustpilot Reviews Scraper: New Reviews & Replies](https://apify.com/plainrows/trustpilot-reviews)
+- [Vagas.com.br Scraper: Brazil Jobs from Vagas](https://apify.com/plainrows/vagas-jobs-scraper)
 - [Website Email Extractor: Emails, Phones & Socials from URLs](https://apify.com/plainrows/website-email-extractor)
 - [Website Screenshot API: Full Page, Mobile & Bulk Capture](https://apify.com/plainrows/website-screenshot)
 - [Website Technology Checker: Tech Stack & CMS Detector](https://apify.com/plainrows/website-tech-stack)

@@ -106,6 +106,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/tori-scraper` | Tori.fi Scraper: Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
+| `plainrows/vagas-jobs-scraper` | Vagas.com.br Scraper: Brazil Jobs from Vagas | from $0.0009 per job | [references/vagas-jobs-scraper.md](references/vagas-jobs-scraper.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
 | `plainrows/website-screenshot` | Website Screenshot API: Full Page, Mobile & Bulk Capture | from $0.0018 per screenshot | [references/website-screenshot.md](references/website-screenshot.md) |
 | `plainrows/website-tech-stack` | Website Technology Checker: Tech Stack & CMS Detector | from $0.0006 per website | [references/website-tech-stack.md](references/website-tech-stack.md) |
