@@ -1,6 +1,6 @@
 # Public Tenders Search: EU TED & UK Procurement API (`plainrows/public-tenders-search`)
 
-Find public tenders, government contracts, notices and award winners from EU TED (Tenders Electronic Daily), UK Find a Tender and Contracts Finder at once: keywords, CPV, countries, value in EUR, deadlines, winners, official links. Only-new-notices mode. Pay per notice plus a start fee per run.
+Public tenders search and MCP tool: government contracts, notices and award winners from EU TED (Tenders Electronic Daily), UK Find a Tender and Contracts Finder: keywords, CPV, countries, value in EUR, deadlines, winners. Only-new-notices mode. Pay per notice plus a start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/public-tenders-search
 

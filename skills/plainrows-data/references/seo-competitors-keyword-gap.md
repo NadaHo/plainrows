@@ -1,6 +1,6 @@
 # SEO Competitors & Keyword Gap Finder (`plainrows/seo-competitors-keyword-gap`)
 
-Find the organic Google competitors of any website and the keywords they rank for that it misses (keyword gap): shared keywords, positions, traffic, volume, CPC, difficulty. 94 countries. Semrush and Ahrefs alternative. $0.002 per competitor or keyword, plus a $0.012 fee per domain with results.
+Keyword gap tool and MCP tool: the organic Google competitors of any website and the keywords they rank for that it misses: shared keywords, positions, traffic, volume, CPC, difficulty. 94 countries. Semrush alternative. $0.002 per competitor or keyword, plus a $0.012 fee per domain with results.
 
 Store page and full documentation: https://apify.com/plainrows/seo-competitors-keyword-gap
 

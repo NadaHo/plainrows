@@ -1,6 +1,6 @@
 # Broken Link Checker: 404s, Redirect Chains & Sitemaps (`plainrows/broken-link-checker`)
 
-Crawl any website and find broken links (404, 500, dead domains), redirect chains and sitemap problems, with the page and anchor text of each bad link. Checks internal, external, image, script and CSS links. Fast HTTP crawler, no browser. Pay only per page crawled.
+Broken link checker and MCP tool: crawl any website and find broken links (404, 500, dead domains), redirect chains and sitemap problems, with the page and anchor text of each bad link. Checks internal, external, image, script and CSS links. Fast HTTP crawler, no browser. Pay only per page crawled.
 
 Store page and full documentation: https://apify.com/plainrows/broken-link-checker
 

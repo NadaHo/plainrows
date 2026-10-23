@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backlink API: Referring Domains &amp; Backlinks Data | PlainRows</title><meta name="description" content="Backlink API and MCP tool for AI agents: backlinks, referring domains or anchor texts of any domain or URL as JSON (anchor, dofollow, domain rank, spam score, d">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/backlink-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Backlink API: Referring Domains &amp; Backlinks Data</h1>
+<p class="lead">Backlink API and MCP tool for AI agents: backlinks, referring domains or anchor texts of any domain or URL as JSON (anchor, dofollow, domain rank, spam score, dates). Referring domains checker for link audits. From $1.20 per 1,000 backlinks (Business; $2 on Starter) + $0.035/target.</p>
+<p><a class="btn" href="https://apify.com/plainrows/backlink-api">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/backlink-api" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Competitor backlink research: see which sites link to a competitor, with which anchor, and which links pass authority (dofollow).</li><li>Referring domains check: list the domains that link to a site, with their backlink counts and the rank they pass, strongest first.</li><li>Link building prospecting and backlink gap: list the referring domains of competing sites, then keep the ones that link to competitors but not to you ([free n8n template](https://nadaho.github.io/plainrows/templates/backlink-gap-sheets.json)).</li><li>Backlink audits: spot spammy, broken, lost or nofollow links pointing to your site.</li><li>New link monitoring: sort by newest to see links found recently; schedule the run weekly.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Backlink or referring domain</b><br><span>One row returned: a backlink (linking page, anchor, dofollow, ranks, spam score, dates), a referring domain (rank, backlink counts, dates) or an anchor text (backlink and domain counts). Targets with no backlink found get a free row.</span></td><td>$0.003</td><td>$0.002</td><td>$0.0016</td><td>$0.0012</td></tr><tr><td><b>Domain or URL checked</b><br><span>One lookup in the backlink index: charged once per domain or URL checked, plus once per extra block of 1,000 rows when you ask for more than 1,000 rows per target. Not charged when the lookup fails.</span></td><td>$0.035</td><td>$0.035</td><td>$0.035</td><td>$0.035</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~backlink-api/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;targets&quot;: [
+    &quot;backlinko.com&quot;
+  ],
+  &quot;maxResultsPerTarget&quot;: 100
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/backlink-api&quot;).call(run_input={&#x27;targets&#x27;: [&#x27;backlinko.com&#x27;], &#x27;maxResultsPerTarget&#x27;: 100})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/backlink-api</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/backlink-api</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/backlink-api">https://apify.com/plainrows/backlink-api</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-23.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

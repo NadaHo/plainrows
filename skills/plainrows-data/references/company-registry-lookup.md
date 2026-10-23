@@ -1,6 +1,6 @@
 # Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data (`plainrows/company-registry-lookup`)
 
-Look up companies in official registers by name, registration number, VAT number or LEI: France SIRENE, Norway Brreg, Finland PRH, Czech ARES and the global LEI index. Legal form, status, address, industry, employees, LEI. No API key, no personal data. Pay only per company found.
+Company registry lookup and MCP tool: find companies in official registers by name, registration number, VAT number or LEI: France SIRENE, Norway Brreg, Finland PRH, Czech ARES and global LEI. Legal form, status, address, industry, employees, LEI. No personal data. Pay only per company found.
 
 Store page and full documentation: https://apify.com/plainrows/company-registry-lookup
 

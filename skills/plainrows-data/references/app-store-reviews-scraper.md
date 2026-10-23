@@ -1,6 +1,6 @@
 # App Store Reviews Scraper: iOS Ratings, Titles & Text (`plainrows/app-store-reviews-scraper`)
 
-Scrape Apple App Store reviews of any iPhone or iPad app: stars, review title, text, date and app version, in 20 countries (up to 500 per app and country). Paste an App Store ID or link. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
+App Store reviews scraper and MCP tool: Apple App Store reviews of any iPhone or iPad app: stars, review title, text, date and app version, in 20 countries. Paste an App Store ID or link. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
 
 Store page and full documentation: https://apify.com/plainrows/app-store-reviews-scraper
 

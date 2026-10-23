@@ -1,6 +1,6 @@
 # Ashby Jobs Scraper: Any Ashby Job Board (`plainrows/ashby-jobs-scraper`)
 
-Get every open job from any Ashby job board (jobs.ashbyhq.com): title, department, team, locations, country, remote/hybrid/onsite, employment type, salary range when published, posted date, apply link and full description. Paste the board URL or its name. Pay per job plus a small start fee.
+Ashby jobs scraper and MCP tool: every open job from any Ashby board (jobs.ashbyhq.com): title, department, team, locations, country, remote/hybrid/onsite, salary when published, posted date, apply link and description. Paste the board URL or its name. Pay per job plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/ashby-jobs-scraper
 

@@ -1,6 +1,6 @@
 # App Store Scraper & Google Play Scraper: App Details (`plainrows/app-details-scraper`)
 
-App Store scraper and Google Play scraper for app details: paste app URLs or IDs, get one row per app: title, developer, category, rating, rating count, installs, price, version, update date, content rating, icon. No login. Pay per app found plus a small start fee per run.
+App Store scraper, Google Play scraper and MCP tool for app details: paste app URLs or IDs, get one row per app: title, developer, category, rating, rating count, installs, price, version, update date, content rating, icon. No login. Pay per app found plus a small start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/app-details-scraper
 

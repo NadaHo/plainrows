@@ -1,6 +1,6 @@
 # Google Trends Scraper & Google Trends API: Regions & Queries (`plainrows/google-trends-explorer`)
 
-Google Trends data as clean rows: interest over time for up to 5 compared keywords, interest by region, related queries and topics (top and rising). Any country, region or worldwide; web, YouTube, news, images and shopping search. No proxies, no CAPTCHAs. Pay per search (fast mode costs extra).
+Google Trends scraper, API and MCP tool: interest over time for up to 5 compared keywords, interest by region, related queries and topics (top and rising). Any country, region or worldwide; web, YouTube, news, images and shopping search. No proxies. Pay per search (fast mode costs extra).
 
 Store page and full documentation: https://apify.com/plainrows/google-trends-explorer
 

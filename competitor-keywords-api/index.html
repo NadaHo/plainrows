@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitor Keywords API: Ranked Keywords of Any Domain | PlainRows</title><meta name="description" content="Competitor keywords finder and MCP tool: every keyword a domain ranks for on Google (ranked keywords, domain keywords) with position, ranking URL, volume, CPC, ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/competitor-keywords-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Competitor Keywords API: Ranked Keywords of Any Domain</h1>
+<p class="lead">Competitor keywords finder and MCP tool: every keyword a domain ranks for on Google (ranked keywords, domain keywords) with position, ranking URL, volume, CPC, difficulty and intent, plus organic traffic. Bulk domains, 94 countries. From $0.002 per keyword, plus per-domain and $0.012 start fees.</p>
+<p><a class="btn" href="https://apify.com/plainrows/competitor-keywords-api">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/competitor-keywords-api" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Find the keywords a competitor ranks for, and on which page, to plan your own content.</li><li>Keyword gap by hand: export the ranked keywords of 3 competitors and keep those you don&#x27;t rank for.</li><li>Spot a site&#x27;s best traffic keywords and quick wins (positions 4-20 with high volume, using `maxPosition` and `minSearchVolume`).</li><li>Check the domain keywords of prospects, partners or acquisition targets in bulk.</li><li>Track ranking keywords over time by scheduling runs.</li><li>Give AI agents (MCP) a competitor keywords tool: one call returns the keywords of a domain with their metrics.</li><li>Need the Google Ads keywords instead? Set `keywordType` to `paid` (same price).</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Domain</b><br><span>One domain returned with data: estimated organic and paid Google traffic and keyword counts. Domains without data, duplicates and invalid entries are never charged.</span></td><td>$0.006</td><td>$0.005</td><td>$0.0045</td><td>$0.004</td></tr><tr><td><b>Top keyword</b><br><span>One top traffic keyword returned for a domain (position, URL, estimated traffic, volume, CPC, difficulty, intent). Only charged when you ask for top keywords (topKeywords &gt; 0).</span></td><td>$0.003</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.012</td><td>$0.012</td><td>$0.012</td><td>$0.012</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~competitor-keywords-api/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;backlinko.com&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;topKeywords&quot;: 50
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/competitor-keywords-api&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;backlinko.com&#x27;], &#x27;country&#x27;: &#x27;US&#x27;, &#x27;topKeywords&#x27;: 50})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/competitor-keywords-api</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/competitor-keywords-api</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/competitor-keywords-api">https://apify.com/plainrows/competitor-keywords-api</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-23.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

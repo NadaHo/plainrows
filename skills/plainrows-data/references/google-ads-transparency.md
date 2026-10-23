@@ -1,6 +1,6 @@
 # Google Ads Scraper: Google Ads Transparency Center (`plainrows/google-ads-transparency`)
 
-Get every Google ad a competitor runs (Google Ads library, Transparency Center) from a domain, brand or advertiser ID: creative ID, format, preview image, first and last shown dates, days running. Filters: country, platform, format, dates. Only-new-ads alerts. Pay per ad plus a fee per advertiser.
+Google Ads scraper and MCP tool: every Google ad a competitor runs (Transparency Center) from a domain, brand or advertiser ID: creative ID, format, preview image, first and last shown, days running. Filters: country, platform, format, dates. New-ads alerts. Pay per ad plus a fee per advertiser.
 
 Store page and full documentation: https://apify.com/plainrows/google-ads-transparency
 

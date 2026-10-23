@@ -1,6 +1,6 @@
 # Google Hotels Scraper: Prices, Ratings & Booking Sites (`plainrows/google-hotels-scraper`)
 
-Google Hotels scraper for any city and dates: hotel name, nightly price, stay total, stars, guest rating, reviews, GPS and link, up to 140 hotels per search; or every booking site's price for given hotels with a daily calendar. No browser or proxies. Pay per hotel plus a small fee per results page.
+Google Hotels scraper and MCP tool for any city and dates: hotel name, nightly price, stay total, stars, rating, reviews, GPS, link, 140 hotels per search, or every booking site's price for given hotels with a daily calendar. No browser or proxies. Pay per hotel plus a small fee per results page.
 
 Store page and full documentation: https://apify.com/plainrows/google-hotels-scraper
 

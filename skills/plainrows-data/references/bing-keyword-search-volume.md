@@ -1,6 +1,6 @@
 # Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC (`plainrows/bing-keyword-search-volume`)
 
-Bing keyword search volume and Bing keyword research tool: Bing Ads search volume, CPC, competition, 12-month history for up to 10,000 keywords per run (batches of 1,000). US, UK, Canada, Australia, Germany, France. Pay $0.0001 per keyword with data, plus $0.15 per batch and a small start fee.
+Bing keyword search volume API and MCP tool: Bing Ads search volume, CPC, competition, 12-month history for up to 10,000 keywords per run (batches of 1,000). US, UK, Canada, Australia, Germany, France. Pay $0.0001 per keyword with data, plus $0.15 per batch and a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/bing-keyword-search-volume
 

@@ -1,6 +1,6 @@
 # Greenhouse Jobs Scraper: Any Greenhouse Job Board (`plainrows/greenhouse-jobs-scraper`)
 
-Get every open job from any Greenhouse job board through the public Greenhouse API: title, department, locations, remote flag, salary when published, posted date, apply link and full description. Paste the board URL, its name or the company website. Pay per job plus a small start fee.
+Greenhouse jobs scraper and MCP tool: every open job from any Greenhouse board via its public API: title, department, locations, remote, salary when published, posted date, apply link and description. Paste the board URL, its name or the company website. Pay per job plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/greenhouse-jobs-scraper
 

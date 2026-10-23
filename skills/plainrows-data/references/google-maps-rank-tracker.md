@@ -1,4 +1,4 @@
-# Google Maps Rank Tracker: Geo-Grid Local SEO (`plainrows/google-maps-rank-tracker`)
+# Local Falcon Alternative: Google Maps Rank Tracker & Local SEO (`plainrows/google-maps-rank-tracker`)
 
 Google Maps rank tracker, geo grid local rank tracker and local SEO MCP tool: a business's rank on Google Maps at each point of a 3x3 to 9x9 grid for up to 5 keywords: rank per point, top 3 competitors, average rank, share of voice. Local Falcon, BrightLocal alternative. Pay per point + start fee.
 
