@@ -1,6 +1,6 @@
 # Google News Scraper API: Articles, Sources & Dates (`plainrows/google-news-scraper`)
 
-Google News API to monitor brands and topics: title, URL, publisher, snippet, publication time and position for every article, in 20 countries. Time filter, sort by date, only-new-articles mode for scheduled alerts (no duplicates). A NewsAPI and Google Alerts alternative. Pay per article found.
+Google News API to monitor brands and topics: title, URL, publisher, snippet, publication time and position of every article, 20 countries. Time filter, sort by date, only-new mode for alerts. A NewsAPI and Google Alerts alternative. Pay per article, plus a fee per page checked in only-new mode.
 
 Store page and full documentation: https://apify.com/plainrows/google-news-scraper
 

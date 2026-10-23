@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Trends Keyword Discovery: Rising &amp; Related Keywords | PlainRows</title><meta name="description" content="Google Trends keyword discovery and MCP tool: find new keywords from rising and top related queries and topics for any seed keyword, with growth %, plus interes">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-trends-keyword-discovery/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Trends Keyword Discovery: Rising &amp; Related Keywords</h1>
+<p class="lead">Google Trends keyword discovery and MCP tool: find new keywords from rising and top related queries and topics for any seed keyword, with growth %, plus interest over time. Any country, web, YouTube or Shopping search. No proxies. $0.006 per search + $0.002 per run start; fast mode extra.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-trends-keyword-discovery">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-trends-keyword-discovery" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Keyword discovery for SEO and content: rising queries around a topic before they show up in keyword tools, for articles, videos and landing pages.</li><li>Trend spotting: which products, brands or questions are breaking out right now, by country and by search type (web, YouTube, Shopping).</li><li>Keyword research seeds: feed the rising and top queries to [Keyword Search Volume](https://apify.com/plainrows/keyword-search-volume) to get monthly volume, CPC and difficulty.</li><li>Ads and e-commerce: new search terms to add to campaigns, seasonal demand to plan stock and budgets.</li><li>Automations and AI agents: a daily or weekly list of rising keywords to Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Google Trends search</b><br><span>One Google Trends search (1 to 5 keywords compared) with all its rows: interest over time, interest by region, related queries and topics. Searches with no data are free.</span></td><td>$0.006</td><td>$0.0055</td><td>$0.005</td><td>$0.005</td></tr><tr><td><b>Fast mode</b><br><span>Extra fee per Google Trends search with data when you choose Speed = Fast (answer in about 10-30 seconds). Not charged in Standard mode.</span></td><td>$0.01</td><td>$0.01</td><td>$0.01</td><td>$0.01</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-trends-keyword-discovery/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searchTerms&quot;: [
+    &quot;coffee&quot;,
+    &quot;ai agents&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;timeRange&quot;: &quot;past_12_months&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-trends-keyword-discovery&quot;).call(run_input={&#x27;searchTerms&#x27;: [&#x27;coffee&#x27;, &#x27;ai agents&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;timeRange&#x27;: &#x27;past_12_months&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-trends-keyword-discovery</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-trends-keyword-discovery</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-trends-keyword-discovery">https://apify.com/plainrows/google-trends-keyword-discovery</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-23.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

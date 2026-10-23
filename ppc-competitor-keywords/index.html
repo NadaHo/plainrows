@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpyFu Alternative: PPC Keywords &amp; Competitor Google Ads | PlainRows</title><meta name="description" content="PPC competitor research and MCP tool: the keywords any website buys on Google Ads, with ad position, landing page, ad title and text, CPC, volume and estimated ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/ppc-competitor-keywords/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>SpyFu Alternative: PPC Keywords &amp; Competitor Google Ads</h1>
+<p class="lead">PPC competitor research and MCP tool: the keywords any website buys on Google Ads, with ad position, landing page, ad title and text, CPC, volume and estimated monthly ad spend. Bulk domains, 94 countries, organic keywords too. Pay per domain and keyword found, plus a $0.012 start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/ppc-competitor-keywords">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/ppc-competitor-keywords" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>See which keywords a competitor pays for on Google Ads, what its ads say and which landing pages they send to.</li><li>Estimate a competitor&#x27;s Google Ads budget (`paidTrafficCostUsd`) and paid traffic, for one site or hundreds in one run.</li><li>Find keywords worth bidding on: the terms your competitors advertise on, with volume and CPC, as a spreadsheet with one row per keyword.</li><li>Qualify leads by their ad spend: agencies can spot businesses that already advertise on Google.</li><li>Track competitors&#x27; ads over time by scheduling runs; feed n8n / Make workflows, dashboards or AI agents with clean JSON.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Domain</b><br><span>One domain returned with data: estimated organic and paid Google traffic and keyword counts. Domains without data, duplicates and invalid entries are never charged.</span></td><td>$0.006</td><td>$0.005</td><td>$0.0045</td><td>$0.004</td></tr><tr><td><b>Top keyword</b><br><span>One keyword returned for a domain: its Google Ads keyword with ad position, landing page, ad title and text (keywordType paid), or its organic keyword. Only charged when you ask for top keywords (topKeywords &gt; 0).</span></td><td>$0.003</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.012</td><td>$0.012</td><td>$0.012</td><td>$0.012</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~ppc-competitor-keywords/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;semrush.com&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;keywordType&quot;: &quot;paid&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/ppc-competitor-keywords&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;semrush.com&#x27;], &#x27;country&#x27;: &#x27;US&#x27;, &#x27;keywordType&#x27;: &#x27;paid&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/ppc-competitor-keywords</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/ppc-competitor-keywords</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/ppc-competitor-keywords">https://apify.com/plainrows/ppc-competitor-keywords</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-23.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

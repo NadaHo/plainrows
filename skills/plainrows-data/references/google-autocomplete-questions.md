@@ -1,4 +1,4 @@
-# Google Autocomplete & People Also Ask Questions Scraper (`plainrows/google-autocomplete-questions`)
+# People Also Ask Scraper & Google Autocomplete Keywords (`plainrows/google-autocomplete-questions`)
 
 Google autocomplete and People Also Ask scraper and MCP tool: keyword suggestions, PAA questions and related searches, 20 countries. Question, comparison and A-Z expansions for long tail keywords, content ideas and FAQs. An AnswerThePublic alternative. Pay per result plus a small fee per search.
 
