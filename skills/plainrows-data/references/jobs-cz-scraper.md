@@ -1,4 +1,4 @@
-# Jobs.cz Scraper: Czech Job Listings & Salaries (`plainrows/jobs-cz-scraper`)
+# Czech Jobs Scraper: Jobs.cz Job Listings & Salaries (`plainrows/jobs-cz-scraper`)
 
 Jobs.cz scraper and MCP tool for Czech jobs: paste jobs.cz search URLs or keywords + a Czech place, get each job ad with title, company, place, salary range in CZK, remote work and link. No login. Pay per job ($0.0012 or less) plus a $0.001 start fee per run.
 

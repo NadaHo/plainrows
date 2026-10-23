@@ -41,13 +41,13 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | Actor | What it returns | Price | Input reference |
 |---|---|---|---|
 | `plainrows/2dehands-scraper` | 2dehands Scraper: Belgian Listings & Prices | from $0.0005 per listing | [references/2dehands-scraper.md](references/2dehands-scraper.md) |
-| `plainrows/ai-search-brand-visibility` | AI Visibility Tracker: ChatGPT Visibility & Google AI Mode | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
+| `plainrows/ai-search-brand-visibility` | AI Visibility Tracker: ChatGPT Visibility & LLM Visibility | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
 | `plainrows/aliexpress-scraper` | AliExpress Scraper: Products, Prices, Orders & Ratings | from $0.001 per product | [references/aliexpress-scraper.md](references/aliexpress-scraper.md) |
 | `plainrows/amazon-product-search` | Amazon Product Scraper: Search, Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/app-details-scraper` | App Store Scraper & Google Play Scraper: App Details | from $0.001 per app | [references/app-details-scraper.md](references/app-details-scraper.md) |
 | `plainrows/app-reviews-scraper` | App Store Reviews & Google Play Reviews Scraper | from $0.00005 per review | [references/app-reviews-scraper.md](references/app-reviews-scraper.md) |
 | `plainrows/app-store-reviews-scraper` | App Store Reviews Scraper: iOS Ratings, Titles & Text | from $0.00005 per review | [references/app-store-reviews-scraper.md](references/app-store-reviews-scraper.md) |
-| `plainrows/arbeitsagentur-jobs-scraper` | Arbeitsagentur Jobs Scraper: Bundesagentur für Arbeit API | from $0.0006 per job | [references/arbeitsagentur-jobs-scraper.md](references/arbeitsagentur-jobs-scraper.md) |
+| `plainrows/arbeitsagentur-jobs-scraper` | Germany Jobs Scraper: Arbeitsagentur API, Bundesagentur Jobs | from $0.0006 per job | [references/arbeitsagentur-jobs-scraper.md](references/arbeitsagentur-jobs-scraper.md) |
 | `plainrows/ashby-jobs-scraper` | Ashby Jobs Scraper: Any Ashby Job Board | from $0.0008 per job | [references/ashby-jobs-scraper.md](references/ashby-jobs-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/autoscout24-scraper` | AutoScout24 Scraper: Car Listings, Prices & Mileage | from $0.0004 per listing | [references/autoscout24-scraper.md](references/autoscout24-scraper.md) |
@@ -71,7 +71,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-hotels-scraper` | Google Hotels Scraper: Prices, Ratings & Booking Sites | from $0.0008 per hotel | [references/google-hotels-scraper.md](references/google-hotels-scraper.md) |
 | `plainrows/google-images-scraper` | Google Images Scraper API: Image URLs, Sources & Filters | from $0.0006 per image | [references/google-images-scraper.md](references/google-images-scraper.md) |
 | `plainrows/google-jobs-scraper` | Google Jobs Scraper: Listings, Salaries & Apply Links | from $0.0008 per job listing | [references/google-jobs-scraper.md](references/google-jobs-scraper.md) |
-| `plainrows/google-maps-businesses` | Google Maps Scraper: Business Leads, Phones & Ratings | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
+| `plainrows/google-maps-businesses` | Google Maps Scraper: Business Leads, Emails & Phones | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
 | `plainrows/google-maps-email-extractor` | Google Maps Email Extractor: Business Leads with Emails | from $0.001 per place | [references/google-maps-email-extractor.md](references/google-maps-email-extractor.md) |
 | `plainrows/google-maps-no-website-leads` | Google Maps Businesses Without Website: Web Design Leads | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
 | `plainrows/google-maps-rank-tracker` | Google Maps Rank Tracker: Geo-Grid Local SEO | from $0.006 per grid point checked | [references/google-maps-rank-tracker.md](references/google-maps-rank-tracker.md) |
@@ -85,11 +85,11 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/gupy-jobs-scraper` | Gupy Jobs Scraper: Brazil Job Ads from portal.gupy.io | from $0.0009 per job | [references/gupy-jobs-scraper.md](references/gupy-jobs-scraper.md) |
 | `plainrows/immoweb-scraper` | Immoweb Scraper: Belgium Property Listings & Prices | from $0.0004 per listing | [references/immoweb-scraper.md](references/immoweb-scraper.md) |
 | `plainrows/imovirtual-scraper` | Imovirtual Scraper: Portugal Property Listings & Prices | from $0.0004 per listing | [references/imovirtual-scraper.md](references/imovirtual-scraper.md) |
-| `plainrows/jobs-ch-scraper` | jobs.ch & jobup.ch Jobs Scraper: Swiss Job Ads | from $0.0009 per job | [references/jobs-ch-scraper.md](references/jobs-ch-scraper.md) |
-| `plainrows/jobs-cz-scraper` | Jobs.cz Scraper: Czech Job Listings & Salaries | from $0.0009 per job | [references/jobs-cz-scraper.md](references/jobs-cz-scraper.md) |
+| `plainrows/jobs-ch-scraper` | Switzerland Jobs Scraper: jobs.ch & jobup.ch Swiss Job Ads | from $0.0009 per job | [references/jobs-ch-scraper.md](references/jobs-ch-scraper.md) |
+| `plainrows/jobs-cz-scraper` | Czech Jobs Scraper: Jobs.cz Job Listings & Salaries | from $0.0009 per job | [references/jobs-cz-scraper.md](references/jobs-cz-scraper.md) |
 | `plainrows/keyword-ideas-generator` | Keyword Research Tool: Keyword Ideas & Related Keywords | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-planner-alternative` | Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
-| `plainrows/keyword-search-volume` | Keyword Search Volume & Keyword Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
+| `plainrows/keyword-search-volume` | Keyword Search Volume API & Difficulty: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
 | `plainrows/kijiji-scraper` | Kijiji Scraper: Canada Listings, Prices & Cars | from $0.0005 per listing | [references/kijiji-scraper.md](references/kijiji-scraper.md) |
 | `plainrows/kleinanzeigen-scraper` | Kleinanzeigen Scraper: Listings, Prices & Locations | from $0.0007 per listing | [references/kleinanzeigen-scraper.md](references/kleinanzeigen-scraper.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |
@@ -99,14 +99,14 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/propertyfinder-scraper` | Property Finder Scraper: UAE Property Listings | from $0.0005 per listing | [references/propertyfinder-scraper.md](references/propertyfinder-scraper.md) |
 | `plainrows/public-tenders-search` | Public Tenders Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
 | `plainrows/redfin-scraper` | Redfin Scraper: US Homes for Sale, Prices & Details | from $0.00035 per listing | [references/redfin-scraper.md](references/redfin-scraper.md) |
-| `plainrows/reed-jobs-scraper` | Reed.co.uk Jobs Scraper: UK Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
+| `plainrows/reed-jobs-scraper` | UK Jobs Scraper: Reed.co.uk Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
 | `plainrows/seo-competitors-keyword-gap` | SEO Competitors & Keyword Gap Finder | from $0.0016 per competitor or gap keyword | [references/seo-competitors-keyword-gap.md](references/seo-competitors-keyword-gap.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
 | `plainrows/tori-scraper` | Tori.fi Scraper: Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
-| `plainrows/vagas-jobs-scraper` | Vagas.com.br Scraper: Brazil Jobs from Vagas | from $0.0009 per job | [references/vagas-jobs-scraper.md](references/vagas-jobs-scraper.md) |
+| `plainrows/vagas-jobs-scraper` | Brazil Jobs Scraper: Vagas.com.br Job Ads | from $0.0009 per job | [references/vagas-jobs-scraper.md](references/vagas-jobs-scraper.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
 | `plainrows/website-screenshot` | Website Screenshot API: Full Page, Mobile & Bulk Capture | from $0.0018 per screenshot | [references/website-screenshot.md](references/website-screenshot.md) |
 | `plainrows/website-tech-stack` | Website Technology Checker: Tech Stack & CMS Detector | from $0.0006 per website | [references/website-tech-stack.md](references/website-tech-stack.md) |

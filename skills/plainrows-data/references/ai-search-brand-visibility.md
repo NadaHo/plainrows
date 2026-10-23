@@ -1,4 +1,4 @@
-# AI Visibility Tracker: ChatGPT Visibility & Google AI Mode (`plainrows/ai-search-brand-visibility`)
+# AI Visibility Tracker: ChatGPT Visibility & LLM Visibility (`plainrows/ai-search-brand-visibility`)
 
 AI search & brand visibility tracker for ChatGPT, LLM visibility and GEO MCP tool: ask ChatGPT, Gemini, Perplexity, Google AI Mode customer questions, see if your brand is named, your site cited, which rivals appear. Answers, sources, fan-out queries. Pay per answer + a fee per question answered.
 

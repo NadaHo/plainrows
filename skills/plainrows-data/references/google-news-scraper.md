@@ -33,3 +33,4 @@ Store page and full documentation: https://apify.com/plainrows/google-news-scrap
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Article**: $0.002 / $0.0016 / $0.0013 / $0.0009. One Google News article returned with its title, URL, publisher, snippet, publication time and position. Queries with no result, duplicates and input mistakes are free.
+- **Page checked (only new results)**: $0.0025 / $0.002 / $0.002 / $0.002. Only with onlyNewArticles: one page of up to 10 Google News results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.

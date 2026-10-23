@@ -1,4 +1,4 @@
-# Vagas.com.br Scraper: Brazil Jobs from Vagas (`plainrows/vagas-jobs-scraper`)
+# Brazil Jobs Scraper: Vagas.com.br Job Ads (`plainrows/vagas-jobs-scraper`)
 
 Vagas scraper and MCP tool for Brazil jobs: paste vagas.com.br search URLs or keywords + city, get each job: title, company, level, openings, city, state, remote, excerpt, date, link. No login. Pay per job ($0.0012 or less) + $0.001 start fee.
 

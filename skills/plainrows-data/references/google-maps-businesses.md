@@ -1,6 +1,6 @@
-# Google Maps Scraper: Business Leads, Phones & Ratings (`plainrows/google-maps-businesses`)
+# Google Maps Scraper: Business Leads, Emails & Phones (`plainrows/google-maps-businesses`)
 
-An Outscraper alternative, no subscription: extract businesses from Google Maps searches with name, category, address, phone, website, rating, reviews count, opening hours, coordinates and Place ID. Fast API-based results in seconds, no browser. Pay per place found.
+An Outscraper alternative, no subscription: B2B leads from Google Maps (Google Places) with name, category, address, phone, website, rating, reviews, hours, coordinates, plus optional e-mails and social profiles from each website. Fast API, no browser. Pay per place, plus per website with contacts.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-businesses
 
@@ -17,6 +17,7 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-busin
 | `minRating` | number | 0 | Keep only places rated at least this (0 = no filter). Filtered places are not billed. |
 | `website` | string: `any`, `with`, `without` | "any" | Filter on whether the business lists a website. Filtered places are not billed. |
 | `requirePhone` | boolean | false | Skip places that list no phone number. Filtered places are not billed. |
+| `contactDetails` | boolean | false | Also visit each place's website (homepage, and its contact or legal page when the homepage shows no e-mail) and return the e-mails, phone links and social profiles (Facebook, Instagram, LinkedIn, X, YouTube, TikTok)... |
 
 ## Example input
 
@@ -32,3 +33,4 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-busin
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Place**: $0.002 / $0.0015 / $0.0012 / $0.001. One Google Maps business returned with its details (address, phone, website, rating, hours, coordinates). Queries with no result and places removed by your filters are free.
+- **Contact details found**: $0.002 / $0.0015 / $0.0012 / $0.001. Optional (contactDetails): e-mails, phone links and social profiles found on the website of one place. Places without a website, sites that cannot be loaded and sites with nothing found are free.

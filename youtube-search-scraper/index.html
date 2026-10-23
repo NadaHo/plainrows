@@ -12,7 +12,7 @@
 <h2>Guides and comparisons</h2><ul><li><a href="../youtube-comments-api/">YouTube comments API without a Google Cloud project</a></li><li><a href="../youtube-search-results-with-views/">YouTube search results with views and duration as JSON: options compared</a></li></ul>
 <h2>Pricing</h2>
 <p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
-<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Video</b><br><span>One YouTube video from the search results, with title, URL, views, upload date, duration, channel and badges. Queries with no result, channels, playlists, repeated videos and videos removed by your filters are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr></table>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Video</b><br><span>One YouTube video from the search results, with title, URL, views, upload date, duration, channel and badges. Queries with no result, channels, playlists, repeated videos and videos removed by your filters are free.</span></td><td>$0.002</td><td>$0.0015</td><td>$0.0012</td><td>$0.001</td></tr><tr><td><b>Page checked (only new results)</b><br><span>Only with onlyNewVideos: one block of 20 YouTube results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.</span></td><td>$0.0025</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
 <h2>Run it from your code</h2>
 <p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
 <pre>curl -X POST \
@@ -39,6 +39,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/youtube-search-scraper">https://apify.com/plainrows/youtube-search-scraper</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-22.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-23.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>

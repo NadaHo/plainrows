@@ -1,4 +1,4 @@
-# jobs.ch & jobup.ch Jobs Scraper: Swiss Job Ads (`plainrows/jobs-ch-scraper`)
+# Switzerland Jobs Scraper: jobs.ch & jobup.ch Swiss Job Ads (`plainrows/jobs-ch-scraper`)
 
 Switzerland jobs scraper and MCP tool: paste jobs.ch or jobup.ch search URLs, or keywords + a Swiss place, get each job ad: title, company, place, workload (e.g. 80-100%), contract type, level, date, link. No login. Pay per job ($0.0012 or less) plus a $0.001 start fee per run.
 

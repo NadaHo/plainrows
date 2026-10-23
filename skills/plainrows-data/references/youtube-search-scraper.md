@@ -34,3 +34,4 @@ Store page and full documentation: https://apify.com/plainrows/youtube-search-sc
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Video**: $0.002 / $0.0015 / $0.0012 / $0.001. One YouTube video from the search results, with title, URL, views, upload date, duration, channel and badges. Queries with no result, channels, playlists, repeated videos and videos removed by your filters are free.
+- **Page checked (only new results)**: $0.0025 / $0.002 / $0.002 / $0.002. Only with onlyNewVideos: one block of 20 YouTube results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.
