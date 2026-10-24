@@ -1,4 +1,4 @@
-# Keyword Search Volume API & Difficulty: Ahrefs Alternative (`plainrows/keyword-search-volume`)
+# Keyword Search Volume Checker & API: Ahrefs Alternative (`plainrows/keyword-search-volume`)
 
 Bulk keyword search volume checker, search volume finder and search volume API, keyword research API and SEO MCP tool, Keyword Planner, Ahrefs or Semrush alternative: Google Ads volume, CPC, keyword difficulty, keyword intent, history for 10,000 keywords per run, 94 countries. Pay only for data.
 
@@ -33,3 +33,4 @@ Store page and full documentation: https://apify.com/plainrows/keyword-search-vo
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Keyword**: $0.01 / $0.008 / $0.007 / $0.006. One keyword returned with data: search volume, CPC, competition, keyword difficulty, search intent, trends and monthly history. Keywords without data, duplicates and invalid keywords are never charged. No fee per run.
+- **AI search volume**: $0.005 / $0.004 / $0.0035 / $0.003. Optional, off by default: one keyword returned with its AI search volume (how often it comes up in AI assistants, with monthly history). Only charged when "Include AI search volume" is on and a volume is found.

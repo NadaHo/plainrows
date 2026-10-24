@@ -1,6 +1,6 @@
-# Keyword Generator: Keyword Ideas, Related Keywords & Long Tail (`plainrows/keyword-ideas-generator`)
+# Keyword Research Tool: Keyword Ideas & Related Keywords (`plainrows/keyword-ideas-generator`)
 
-Keyword research tool and Ubersuggest alternative: turn seeds into up to 1,000 keyword ideas each: long-tail suggestions, Google related searches or same-topic ideas, with search volume, CPC, keyword difficulty, intent and 12-month trend. 94 countries. Pay per idea returned + a small fee per seed.
+Keyword research tool, Ubersuggest alternative and MCP tool: turn seeds into up to 1,000 keyword ideas each: long-tail suggestions, Google related searches or same-topic ideas, with search volume, CPC, keyword difficulty, intent and 12-month trend. 94 countries. Pay per idea + a small fee per seed.
 
 Store page and full documentation: https://apify.com/plainrows/keyword-ideas-generator
 

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Overview Scraper &amp; Tracker: Google AI Overview Citations | PlainRows</title><meta name="description" content="AI Overview tracker, AI Overview API and MCP tool: for each keyword, see if Google shows an AI Overview, if it cites your domain (rank, URL), which sites it cit">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/ai-overview-tracker/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>AI Overview Scraper &amp; Tracker: Google AI Overview Citations</h1>
+<p class="lead">AI Overview tracker, AI Overview API and MCP tool: for each keyword, see if Google shows an AI Overview, if it cites your domain (rank, URL), which sites it cites, and your organic rank. Pay per keyword, plus a fee per AI Overview found.</p>
+<p><a class="btn" href="https://apify.com/plainrows/ai-overview-tracker">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/ai-overview-tracker" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>AI Overview citation tracking (AEO / GEO): which of your target keywords trigger an AI Overview, and are you one of its sources?</li><li>AI Overview vs organic rank: spot keywords where you rank in the top 3 but are not cited, or are cited without ranking.</li><li>Competitor research: `citedDomains` shows which sites Google&#x27;s AI relies on for your topics: the pages to beat or to get mentioned on.</li><li>Bulk check of a keyword list: find which keywords show an AI Overview at all, before you invest in content.</li><li>Weekly reports: schedule a run and send the table to Google Sheets, Looker Studio, Slack, n8n, Make or Zapier.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Keyword checked</b><br><span>One keyword whose Google results page was read: AI Overview presence, citations of your domain, cited domains and your organic position. Keywords with no results, failures and keywords not checked are free.</span></td><td>$0.006</td><td>$0.005</td><td>$0.0045</td><td>$0.004</td></tr><tr><td><b>AI Overview found</b><br><span>Charged only when Google shows an AI Overview for the keyword (with text or sources). Keywords without an AI Overview, or whose AI Overview did not load, are not charged this event.</span></td><td>$0.005</td><td>$0.0045</td><td>$0.004</td><td>$0.004</td></tr><tr><td><b>Extra results page</b><br><span>Only when you raise &quot;Organic results checked&quot; above 10: one per extra page of 10 organic results that Google returned. Not charged at the default depth of 10.</span></td><td>$0.004</td><td>$0.004</td><td>$0.004</td><td>$0.004</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~ai-overview-tracker/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domain&quot;: &quot;hubspot.com&quot;,
+  &quot;keywords&quot;: [
+    &quot;what is a crm&quot;,
+    &quot;best crm for small business&quot;,
+    &quot;how to write a sales email&quot;
+  ],
+  &quot;brandNames&quot;: [
+    &quot;HubSpot&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;depth&quot;: 10
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/ai-overview-tracker&quot;).call(run_input={&#x27;domain&#x27;: &#x27;hubspot.com&#x27;,
+ &#x27;keywords&#x27;: [&#x27;what is a crm&#x27;,
+              &#x27;best crm for small business&#x27;,
+              &#x27;how to write a sales email&#x27;],
+ &#x27;brandNames&#x27;: [&#x27;HubSpot&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;depth&#x27;: 10})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/ai-overview-tracker</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/ai-overview-tracker</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/ai-overview-tracker">https://apify.com/plainrows/ai-overview-tracker</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-24.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

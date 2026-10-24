@@ -1,6 +1,6 @@
 # YouTube Search API: Videos, Views & Channels as JSON (`plainrows/youtube-search-api`)
 
-YouTube Search API: search results as JSON for any keyword, with video title, URL, views, channel, duration, upload date and position. Date, length, Shorts and live filters. No API key, no quota. Pay per video plus a small start fee; only-new-videos mode adds a fee per 20 results checked.
+YouTube Search API and MCP tool: search results as JSON for any keyword: video title, URL, views, channel, duration, upload date and position. Date, length, Shorts and live filters. No API key, no quota. Pay per video plus a small start fee; only-new-videos mode adds a fee per 20 results checked.
 
 Store page and full documentation: https://apify.com/plainrows/youtube-search-api
 

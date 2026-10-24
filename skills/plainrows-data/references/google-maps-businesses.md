@@ -1,6 +1,6 @@
 # Google Maps Scraper: Business Leads, Emails & Phones (`plainrows/google-maps-businesses`)
 
-An Outscraper alternative, no subscription: B2B leads from Google Maps (Google Places) with name, category, address, phone, website, rating, reviews, hours, coordinates, plus optional e-mails and social profiles from each website. Fast API, no browser. Pay per place, plus per website with contacts.
+Google Maps scraper and MCP tool, Outscraper alternative with no subscription: B2B leads from Google Places with name, category, address, phone, website, rating, reviews, hours, coordinates, plus optional e-mails and social profiles of each website. Pay per place, plus per website with contacts.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-businesses
 
