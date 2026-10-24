@@ -1,0 +1,225 @@
+{
+  "name": "Track whether Google AI Overviews cite your site, weekly in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Track whether Google AI Overviews cite your site, weekly in Google Sheets\n\n### Who's it for\nSEO and GEO consultants, content teams and founders who want to know, week after week, for which keywords Google's AI Overview cites their site, which competitors it cites instead, and whether their organic ranking still brings the click.\n\n### How it works\n1. Every Monday the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your keywords (one per line), your website, your brand and the country.\n3. The **AI Overview Tracker** Actor on Apify (`plainrows/ai-overview-tracker`) searches Google for each keyword and reads the AI Overview: shown or not, your site cited or not and at which rank, your brand named or not, the domains cited, and your organic position.\n4. A Code node turns each keyword into one dated row.\n5. The rows are appended to the `AI Overviews` tab, so you can chart the trend.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with an `AI Overviews` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `keywords`, `website`, `brand` and `country` in **Settings**.\n- Raise `depth` in the Apify node to look for your organic position beyond the first 10 results.\n- Post a Slack message when `citedInAiOverview` turns false for a keyword that mattered last week.\n\nPricing: one keyword check per keyword, plus a fee only when Google shows an AI Overview; keywords with no results or not reached are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "4216598a-b506-502b-9063-a33d60c80e3a",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. In **Settings**, put your `keywords` (one per line), your `website`, your `brand` and the `country` (US, GB, DE, FR...).\n2. Add your Apify credential (free account at apify.com) to *Check AI Overviews*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with an `AI Overviews` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per keyword checked and per AI Overview found (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "fd020150-634e-5f94-b233-04976381f66c",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "3086d3dc-92b3-5feb-b82b-814eb8c6c18b",
+      "name": "Every Monday",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "63a39918-f462-5a07-b15d-345cacc79f8a",
+              "name": "keywords",
+              "value": "what is a crm\nbest crm for small business\nhow to write a sales email",
+              "type": "string"
+            },
+            {
+              "id": "8c058257-1a81-5c4a-886b-485265ad4691",
+              "name": "website",
+              "value": "hubspot.com",
+              "type": "string"
+            },
+            {
+              "id": "22c2135a-3343-58e0-a511-66d7aa4bda08",
+              "name": "brand",
+              "value": "HubSpot",
+              "type": "string"
+            },
+            {
+              "id": "1f7a112d-a72e-50f3-b155-31b3b08456ef",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "60019ada-6563-56ee-98c3-504f42147847",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~ai-overview-tracker",
+        "customBody": "={{ JSON.stringify({ domain: $json.website, keywords: $json.keywords.split('\\n').map((k) => k.trim()).filter(Boolean), brandNames: [$json.brand].filter(Boolean), country: $json.country, depth: 10 }) }}",
+        "maxTotalChargeUsd": 2
+      },
+      "id": "3b9df82f-b84d-5930-9fae-c10f17c397eb",
+      "name": "Check AI Overviews",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One dated row per keyword: AI Overview shown, site cited and rank, brand named, cited domains, organic position.\nconst today = new Date().toISOString().slice(0, 10);\nreturn $input.all()\n  .map((i) => i.json)\n  .filter((r) => r.found !== false)\n  .map((r) => ({\n    json: {\n      week: today,\n      keyword: r.keyword,\n      aiOverviewShown: r.aiOverviewPresent,\n      citedInAiOverview: r.domainCitedInAiOverview,\n      citationRank: r.citationRank,\n      citedUrl: r.citedUrl,\n      brandNamed: r.brandMentionedInAiOverview,\n      topCitedDomains: (r.citedDomains ?? []).slice(0, 5).join(', '),\n      organicPosition: r.organicPosition,\n      country: r.country,\n    },\n  }));"
+      },
+      "id": "8c6a345b-83a5-5c12-b766-ecd454312c0a",
+      "name": "One row per keyword",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "AI Overviews",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "a27f3f02-bcc2-58d9-9dfc-6f9ac157e632",
+      "name": "Append to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Check AI Overviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check AI Overviews": {
+      "main": [
+        [
+          {
+            "node": "One row per keyword",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per keyword": {
+      "main": [
+        [
+          {
+            "node": "Append to sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
