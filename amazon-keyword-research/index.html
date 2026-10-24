@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon Keyword Research: Search Volume &amp; Reverse ASIN | PlainRows</title><meta name="description" content="Amazon keyword research tool, Helium 10 alternative and MCP tool: Amazon search volume for up to 10,000 keywords, related Amazon keywords, and reverse ASIN (key">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/amazon-keyword-research/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Amazon Keyword Research: Search Volume &amp; Reverse ASIN</h1>
+<p class="lead">Amazon keyword research tool, Helium 10 alternative and MCP tool: Amazon search volume for up to 10,000 keywords, related Amazon keywords, and reverse ASIN (keywords a product ranks for, with its rank). Volume: 16 markets. Pay $0.0006 per keyword with data + a $0.03 fee per batch, seed or ASIN.</p>
+<p><a class="btn" href="https://apify.com/plainrows/amazon-keyword-research">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/amazon-keyword-research" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Check the Amazon search volume of your listing keywords before writing a title, bullets or backend search terms.</li><li>Find long-tail Amazon keywords around a product idea (related keywords, up to 1,000 per seed).</li><li>Reverse ASIN a competitor: see which searches bring its traffic and where it ranks, then target the same keywords.</li><li>Size a niche: total monthly Amazon searches for a list of product keywords, per country.</li><li>Feed keyword data into Google Sheets, n8n / Make workflows or an AI agent.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Keyword</b><br><span>One Amazon keyword returned with data: search volume (all modes), related keyword depth, or the product&#x27;s rank for it (reverse ASIN). Keywords without volume, seeds or ASINs with nothing found, duplicates and invalid values are never charged.</span></td><td>$0.0006</td><td>$0.0006</td><td>$0.0006</td><td>$0.0006</td></tr><tr><td><b>Amazon lookup</b><br><span>One request answered by the Amazon data source: one per seed keyword, per ASIN, or per batch of up to 250 keywords for search volume (1-250 keywords = 1, 251-500 = 2). Not charged when the source refuses the request or is down.</span></td><td>$0.03</td><td>$0.03</td><td>$0.03</td><td>$0.03</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~amazon-keyword-research/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;keywords&quot;: [
+    &quot;phone case&quot;,
+    &quot;iphone charger&quot;,
+    &quot;wireless earbuds&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/amazon-keyword-research&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;phone case&#x27;, &#x27;iphone charger&#x27;, &#x27;wireless earbuds&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/amazon-keyword-research</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/amazon-keyword-research</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/amazon-keyword-research">https://apify.com/plainrows/amazon-keyword-research</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-24.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
