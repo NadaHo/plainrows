@@ -1,4 +1,4 @@
-# Google Jobs Scraper: Listings, Salaries & Apply Links (`plainrows/google-jobs-scraper`)
+# Google Jobs Scraper API: Listings, Salaries & Apply Links (`plainrows/google-jobs-scraper`)
 
 Google Jobs API and jobs MCP tool: listings for any job search and city (LinkedIn, Indeed, career sites): title, company, location, salary, job type, posting date, job board and apply link. 20 countries; a SerpApi Google Jobs alternative. Pay per job; only-new-jobs alerts add a small fee per page.
 

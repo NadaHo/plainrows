@@ -1,4 +1,4 @@
-# Tori.fi Scraper: Finland Marketplace Listings (`plainrows/tori-scraper`)
+# Tori Scraper (Tori.fi): Finland Marketplace Listings (`plainrows/tori-scraper`)
 
 Finland marketplace scraper and MCP tool: type a keyword or paste tori.fi "for sale" search URLs, get every listing: title, price, city, coordinates, private or business seller, brand, shipping, photos, date. No login. Pay per listing plus a small start fee per run.
 

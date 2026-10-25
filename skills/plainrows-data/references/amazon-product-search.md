@@ -1,4 +1,4 @@
-# Amazon Product Scraper: Search, Prices, ASINs & Ratings (`plainrows/amazon-product-search`)
+# Amazon Product Scraper API: Search, Prices, ASINs & Ratings (`plainrows/amazon-product-search`)
 
 Amazon product scraper and MCP tool: search Amazon by keyword in 15 marketplaces and get every product with ASIN, title, price, rating, reviews count, Best Seller and Amazon's Choice badges, bought last month, image and rank. No browser. Pay per product found, plus a small fee per 100 results.
 

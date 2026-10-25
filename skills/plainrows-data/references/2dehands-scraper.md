@@ -1,4 +1,4 @@
-# 2dehands Scraper: Belgian Listings & Prices (`plainrows/2dehands-scraper`)
+# 2dehands & 2ememain Scraper: Belgian Listings & Prices (`plainrows/2dehands-scraper`)
 
 Belgium marketplace scraper and MCP tool: paste 2dehands.be or 2ememain.be search URLs or keywords, get every listing: title, price, price type, city, date, image, condition, delivery, business seller name. No login, no browser. Pay per listing plus a small start fee per run.
 

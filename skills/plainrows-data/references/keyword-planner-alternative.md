@@ -1,4 +1,4 @@
-# Keyword Planner Alternative: Bulk Search Volume & CPC (`plainrows/keyword-planner-alternative`)
+# Google Keyword Planner Alternative: Bulk Search Volume & CPC (`plainrows/keyword-planner-alternative`)
 
 Google Keyword Planner alternative, Keyword Planner API, keyword CPC checker and MCP tool: Google Ads keyword planner, no Ads account. Input ≤ 10,000 keywords. Output, per row: search volume, CPC, bid range, competition, difficulty, intent, history. $0.70-1 per 1,000 keywords with data + $0.02/run.
 

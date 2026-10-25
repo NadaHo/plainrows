@@ -1,4 +1,4 @@
-# AI Overview Scraper & Tracker: Google AI Overview Citations (`plainrows/ai-overview-tracker`)
+# AI Overview Scraper & Tracker API: Google AI Overview Citations (`plainrows/ai-overview-tracker`)
 
 AI Overview tracker, AI Overview API and MCP tool: for each keyword, see if Google shows an AI Overview, if it cites your domain (rank, URL), which sites it cites, and your organic rank. Pay per keyword, plus a fee per AI Overview found.
 

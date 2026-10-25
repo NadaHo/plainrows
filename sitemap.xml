@@ -13,7 +13,6 @@
 <url><loc>https://nadaho.github.io/plainrows/google-trends-explorer/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-news-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-images-scraper/</loc><lastmod>2026-10-25</lastmod></url>
-<url><loc>https://nadaho.github.io/plainrows/amazon-product-search/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-ads-transparency/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/domain-authority-checker/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/youtube-search-scraper/</loc><lastmod>2026-10-25</lastmod></url>
@@ -27,6 +26,7 @@
 <url><loc>https://nadaho.github.io/plainrows/ats-job-postings/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-shopping-prices/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-jobs-scraper/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://nadaho.github.io/plainrows/amazon-product-search/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/perplexity-search-api/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/website-traffic-checker/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/ai-overview-tracker/</loc><lastmod>2026-10-25</lastmod></url>
@@ -53,9 +53,9 @@
 <url><loc>https://nadaho.github.io/plainrows/immoweb-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/jobs-cz-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/catho-jobs-scraper/</loc><lastmod>2026-10-25</lastmod></url>
-<url><loc>https://nadaho.github.io/plainrows/vagas-jobs-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/seo-competitors-keyword-gap/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/app-details-scraper/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://nadaho.github.io/plainrows/vagas-jobs-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/kleinanzeigen-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/aliexpress-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/kijiji-scraper/</loc><lastmod>2026-10-25</lastmod></url>
@@ -63,7 +63,6 @@
 <url><loc>https://nadaho.github.io/plainrows/otodom-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/propertyfinder-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/autoscout24-scraper/</loc><lastmod>2026-10-25</lastmod></url>
-<url><loc>https://nadaho.github.io/plainrows/yellowpages-au-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/bing-keyword-search-volume/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/redfin-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/coches-net-scraper/</loc><lastmod>2026-10-25</lastmod></url>
@@ -72,11 +71,12 @@
 <url><loc>https://nadaho.github.io/plainrows/2dehands-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/autovit-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/finn-scraper/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://nadaho.github.io/plainrows/tori-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/blocket-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/dba-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/imovirtual-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/standvirtual-scraper/</loc><lastmod>2026-10-25</lastmod></url>
-<url><loc>https://nadaho.github.io/plainrows/tori-scraper/</loc><lastmod>2026-10-25</lastmod></url>
+<url><loc>https://nadaho.github.io/plainrows/yellowpages-au-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-maps-reviews/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/arbeitsagentur-jobs-scraper/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://nadaho.github.io/plainrows/google-hotels-scraper/</loc><lastmod>2026-10-25</lastmod></url>
