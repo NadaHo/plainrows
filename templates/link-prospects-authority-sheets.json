@@ -1,0 +1,265 @@
+{
+  "name": "Score a Google Sheets list of link prospects by domain authority and spam score",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Score a Google Sheets list of link prospects by domain authority and spam score\n\n### Who's it for\nLink builders, SEO agencies, PR and outreach teams who collect prospect sites in Google Sheets and want to drop weak or spammy domains before sending a single e-mail, without a Moz or Ahrefs seat.\n\n### How it works\n1. Reads every domain from the `Prospects` tab (column `domain`; URLs are fine).\n2. A Code node sends them in one batch to the **Bulk Domain Authority Checker** Actor on Apify (`plainrows/domain-authority-checker`).\n3. The Actor returns a 0-100 domain rank (DataForSEO, based on the backlink profile) and a 0-100 spam score for each domain.\n4. A Code node labels each domain `keep`, `check (low rank)`, `skip (spam)` or `no data`, from the thresholds in **Settings**.\n5. One row per domain is written to the `Scores` tab.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Prospects` tab and a `Scores` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Change `minRank` and `maxSpamScore` in the **Settings** node.\n- Add `includeBacklinks: true` or `includeReferringDomains: true` to the Actor input for backlink counts (one more batch fee per 1,000 domains each).\n- Swap the Manual Trigger for a Schedule Trigger to re-score the list every month.\n\nPricing: pay per domain with data, a tiny lookup fee per domain sent and a fee per batch of up to 1,000 domains (see the Actor's Pricing tab); duplicates and invalid entries are not billed.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "3bbc96fe-ee68-5d72-a90c-aa528137716d",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Create a spreadsheet with two tabs: `Prospects` (header `domain` in A1, one domain or URL per row) and `Scores` (empty).\n2. Connect Google Sheets in both Sheets nodes and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Check authority*.\n4. Set `minRank` and `maxSpamScore` in **Settings** to your own link-building rules.\n\nThe Apify free plan checks the first 50 domains of a run; a paid Apify plan checks up to 10,000 in one run.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "0f9ad01b-73f3-5026-96d6-486bd99a3b7a",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0d457df2-d08d-5a3e-82a9-b84b2de78dd5",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41aa286f-fe5a-56a9-acd0-a371a2e1f20b",
+              "name": "minRank",
+              "value": 30,
+              "type": "number"
+            },
+            {
+              "id": "111fa695-56b8-54f8-8232-6e3039f0fd57",
+              "name": "maxSpamScore",
+              "value": 30,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f07c0a54-713d-5b9f-b692-d23da8b5dc2b",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Prospects",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "aebf4108-a766-52bf-951f-b3dfc8d24af0",
+      "name": "Read prospects",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect the domains of column \"domain\" into one list (one Actor run for the whole sheet, up to 10,000 domains).\nconst domains = $input.all()\n  .map((item) => String(item.json.domain ?? '').trim())\n  .filter(Boolean);\nif (domains.length === 0) throw new Error('No domain found: add a column named \"domain\" to the Prospects tab.');\nreturn [{ json: { domains } }];"
+      },
+      "id": "9e675042-d43d-5102-9084-2db1efc6538f",
+      "name": "Collect domains",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~domain-authority-checker",
+        "customBody": "={{ JSON.stringify({ domains: $json.domains, includeSpamScore: true }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "c923ac21-b149-57f0-a812-d5e428470243",
+      "name": "Check authority",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per domain with a keep / check / skip verdict from the thresholds in Settings.\nconst { minRank, maxSpamScore } = $('Settings').first().json;\nreturn $input.all()\n  .map((i) => i.json)\n  .filter((d) => d.domain)\n  .map((d) => {\n    let verdict = 'no data';\n    if (d.found !== false && d.domainRank != null) {\n      if (d.spamScore != null && d.spamScore > maxSpamScore) verdict = 'skip (spam)';\n      else if (d.domainRank >= minRank) verdict = 'keep';\n      else verdict = 'check (low rank)';\n    }\n    return {\n      json: {\n        domain: d.domain,\n        domainRank: d.domainRank ?? null,\n        spamScore: d.spamScore ?? null,\n        verdict,\n        checkedAt: d.observedAt,\n      },\n    };\n  });"
+      },
+      "id": "326f6045-aafc-5f8f-9926-8ff726e6066b",
+      "name": "Score prospects",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Scores",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "51623643-bf10-5af0-90d2-ca60accefbe0",
+      "name": "Write scores",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Read prospects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read prospects": {
+      "main": [
+        [
+          {
+            "node": "Collect domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect domains": {
+      "main": [
+        [
+          {
+            "node": "Check authority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check authority": {
+      "main": [
+        [
+          {
+            "node": "Score prospects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score prospects": {
+      "main": [
+        [
+          {
+            "node": "Write scores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
