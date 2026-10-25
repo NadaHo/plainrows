@@ -1,6 +1,6 @@
 # Google Shopping Prices Scraper: Products, Stores & Deals (`plainrows/google-shopping-prices`)
 
-Google Shopping scraper and MCP tool: prices for any search or product: price, old price and discount, seller, rating, delivery, image, plus each store's offer with domain, shipping and total price. 20 countries, no browser. Pay per result, plus small run and page fees from October 25, 2026.
+Google Shopping scraper and MCP tool: prices for any search or product: price, old price and discount, seller, rating, delivery, image, plus each store's offer with domain, shipping and total price. 20 countries, no browser. Pay per result, plus small run and page fees.
 
 Store page and full documentation: https://apify.com/plainrows/google-shopping-prices
 
@@ -32,3 +32,5 @@ Store page and full documentation: https://apify.com/plainrows/google-shopping-p
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Product offer**: $0.002 / $0.0015 / $0.0012 / $0.001. One Google Shopping product listing or one store offer returned with its price and details. Searches or product IDs with no result, and sponsored listings, are free.
+- **Results page**: $0.0026 / $0.0026 / $0.0026 / $0.0026. One block of results requested from the data source (up to 40 products for a search, up to 10 store offers for a product ID: 20 offers = 2 blocks), charged only when it returns at least one result, at about what the data source charges us. Searches and product IDs with no result are free.
+- **Actor Start**: $0.001 / $0.001 / $0.001 / $0.001. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

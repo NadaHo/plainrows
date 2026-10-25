@@ -1,4 +1,4 @@
-# SEO Competitors & Keyword Gap Finder (`plainrows/seo-competitors-keyword-gap`)
+# SEO Competitor Analysis & Keyword Gap Finder (`plainrows/seo-competitors-keyword-gap`)
 
 Keyword gap tool and MCP tool: the organic Google competitors of any website and the keywords they rank for that it misses: shared keywords, positions, traffic, volume, CPC, difficulty. 94 countries. Semrush alternative. $0.002 per competitor or keyword, plus a $0.012 fee per domain with results.
 
@@ -24,7 +24,9 @@ Store page and full documentation: https://apify.com/plainrows/seo-competitors-k
   "domains": [
     "plausible.io"
   ],
-  "country": "US"
+  "country": "US",
+  "gapCompetitors": 1,
+  "maxGapKeywords": 50
 }
 ```
 

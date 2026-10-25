@@ -32,4 +32,4 @@ Store page and full documentation: https://apify.com/plainrows/google-ads-transp
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Ad**: $0.001 / $0.0008 / $0.0007 / $0.0006. One ad creative returned with its details (advertiser, format, preview image, first and last shown dates, days running, Transparency Center link). Advertisers with no ad return a free row.
-- **Advertiser search**: $0.003 / $0.003 / $0.003 / $0.003. Charged once per domain, advertiser name or advertiser ID searched in the Google Ads Transparency Center, with or without ads found (covers the lookup, including resolving a name). Invalid inputs and duplicates are free.
+- **Advertiser search**: $0.0075 / $0.0075 / $0.0075 / $0.0075. Charged once per domain, advertiser name or advertiser ID searched in the Google Ads Transparency Center, with or without ads found (covers the lookup, including resolving a name). Invalid inputs and duplicates are free.

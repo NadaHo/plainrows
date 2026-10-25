@@ -1,6 +1,6 @@
 # Amazon Product Scraper: Search, Prices, ASINs & Ratings (`plainrows/amazon-product-search`)
 
-Search Amazon by keyword in 15 marketplaces and get every product: ASIN, title, price, rating, reviews count, Best Seller and Amazon's Choice badges, bought last month, image and rank. Fast API results, no browser. Pay per product found, plus a small fee per 100 results from October 25, 2026.
+Amazon product scraper and MCP tool: search Amazon by keyword in 15 marketplaces and get every product with ASIN, title, price, rating, reviews count, Best Seller and Amazon's Choice badges, bought last month, image and rank. No browser. Pay per product found, plus a small fee per 100 results.
 
 Store page and full documentation: https://apify.com/plainrows/amazon-product-search
 
@@ -33,3 +33,4 @@ Store page and full documentation: https://apify.com/plainrows/amazon-product-se
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Product**: $0.002 / $0.0015 / $0.0012 / $0.001. One Amazon product from the search results with its details (ASIN, title, price, rating, reviews count, badges, image, rank). Keywords with no result and products removed by your filters are free.
+- **Results page (100 products)**: $0.0045 / $0.0045 / $0.0045 / $0.0045. Charged once per block of up to 100 Amazon search results requested for a keyword that returns products (1 block up to 100 products; with filters, the blocks needed to reach your maximum). Keywords with no product are free.

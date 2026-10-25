@@ -1,6 +1,6 @@
 # Domain Overview & Organic Traffic: Semrush Alternative (`plainrows/domain-seo-overview`)
 
-Domain overview, SEO competitor analysis, bulk website traffic checker and Semrush MCP tool: organic traffic, keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu, Similarweb alternative. Pay per domain and keyword found, + $0.012/run from October 25, 2026.
+Domain overview, website SEO checker, Semrush API and Semrush MCP tool, bulk: organic traffic, keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu, Similarweb alternative. Pay per domain and keyword found, + $0.012/run.
 
 Store page and full documentation: https://apify.com/plainrows/domain-seo-overview
 
@@ -30,5 +30,6 @@ Store page and full documentation: https://apify.com/plainrows/domain-seo-overvi
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Domain**: $0.006 / $0.004 / $0.0035 / $0.003. One domain returned with data: estimated organic and paid Google traffic and keyword counts. Domains without data, duplicates and invalid entries are never charged.
-- **Top keyword**: $0.003 / $0.002 / $0.002 / $0.0018. One top traffic keyword returned for a domain (position, URL, estimated traffic, volume, CPC, difficulty, intent). Only charged when you ask for top keywords (topKeywords > 0).
+- **Domain**: $0.006 / $0.005 / $0.0045 / $0.004. One domain returned with data: estimated organic and paid Google traffic and keyword counts. Domains without data, duplicates and invalid entries are never charged.
+- **Top keyword**: $0.003 / $0.002 / $0.002 / $0.002. One top traffic keyword returned for a domain (position, URL, estimated traffic, volume, CPC, difficulty, intent). Only charged when you ask for top keywords (topKeywords > 0).
+- **Actor Start**: $0.012 / $0.012 / $0.012 / $0.012. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

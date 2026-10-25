@@ -29,4 +29,6 @@ Store page and full documentation: https://apify.com/plainrows/google-jobs-scrap
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Job listing**: $0.0015 / $0.0012 / $0.001 / $0.0008. One Google Jobs listing returned with its details. Searches with no job, duplicates and input mistakes are free.
-- **Page checked (only new results)**: $0.0015 / $0.0012 / $0.0012 / $0.0012. Only with onlyNewJobs: one page of up to 10 Google Jobs results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.
+- **Page checked (only new results)**: $0.0016 / $0.0016 / $0.0016 / $0.0016. Only with onlyNewJobs: one page of up to 10 Google Jobs results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.
+- **Results page**: $0.0016 / $0.0016 / $0.0016 / $0.0016. One page of up to 10 Google Jobs results requested from the data source (50 jobs per search = 5 pages), charged only when the search returns at least one job, at about what the data source charges us. Searches with no job are free. Not charged with Only new jobs, which pays page-checked instead.
+- **Actor Start**: $0.001 / $0.001 / $0.001 / $0.001. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

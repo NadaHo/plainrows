@@ -36,5 +36,6 @@ Store page and full documentation: https://apify.com/plainrows/google-trends-exp
 
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
-- **Google Trends search**: $0.006 / $0.005 / $0.0045 / $0.004. One Google Trends search (1 to 5 keywords compared) with all its rows: interest over time, interest by region, related queries and topics. Searches with no data are free.
+- **Google Trends search**: $0.006 / $0.0055 / $0.005 / $0.005. One Google Trends search (1 to 5 keywords compared) with all its rows: interest over time, interest by region, related queries and topics. Searches with no data are free.
 - **Fast mode**: $0.01 / $0.01 / $0.01 / $0.01. Extra fee per Google Trends search with data when you choose Speed = Fast (answer in about 10-30 seconds). Not charged in Standard mode.
+- **Actor Start**: $0.002 / $0.002 / $0.002 / $0.002. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

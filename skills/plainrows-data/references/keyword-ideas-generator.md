@@ -38,4 +38,4 @@ Store page and full documentation: https://apify.com/plainrows/keyword-ideas-gen
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Keyword**: $0.004 / $0.003 / $0.0025 / $0.002. One keyword idea returned with its search volume, CPC, competition, difficulty, intent and 12-month history. Ideas removed by your filters, duplicates and seeds with no idea are not billed as ideas.
-- **Seed keyword**: $0.01 / $0.01 / $0.01 / $0.01. Charged once per seed keyword sent to the data source, which bills a fixed fee for every search, even one that finds no idea. Not charged when the request is rejected or the data source is down.
+- **Seed keyword**: $0.016 / $0.016 / $0.016 / $0.016. Charged once per seed keyword sent to the data source, which bills a fixed fee for every search, even one that finds no idea. Not charged when the request is rejected or the data source is down.

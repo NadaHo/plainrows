@@ -1,6 +1,6 @@
 # Website Traffic Checker: Bulk Similarweb Alternative (`plainrows/website-traffic-checker`)
 
-Website traffic checker and MCP tool, a Similarweb alternative for search traffic: input up to 5,000 domains, get one row each with estimated monthly Google organic and paid traffic, ranking keywords count, traffic value and positions. 94 countries. $0.004-0.006 per domain + $0.012 per run.
+Website traffic checker and MCP tool, a traffic estimator and Similarweb alternative for search traffic: up to 5,000 domains, one row each with estimated monthly Google organic and paid traffic, ranking keywords, traffic value and positions. 94 countries. $0.004-0.006 per domain + $0.012 per run.
 
 Store page and full documentation: https://apify.com/plainrows/website-traffic-checker
 

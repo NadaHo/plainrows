@@ -67,7 +67,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
 | `plainrows/dba-scraper` | DBA Scraper: Denmark Marketplace Listings | from $0.0004 per listing | [references/dba-scraper.md](references/dba-scraper.md) |
 | `plainrows/domain-authority-checker` | Bulk Domain Authority Checker: DA, Spam Score & Backlinks | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
-| `plainrows/domain-seo-overview` | Domain Overview & Organic Traffic: Semrush Alternative | from $0.003 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
+| `plainrows/domain-seo-overview` | Domain Overview & Organic Traffic: Semrush Alternative | from $0.004 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
 | `plainrows/finn-cars-scraper` | FINN.no Car Scraper: Norway Used Car Listings | from $0.0006 per car listing | [references/finn-cars-scraper.md](references/finn-cars-scraper.md) |
 | `plainrows/finn-scraper` | FINN.no Scraper: Norway Marketplace Listings | from $0.0004 per listing | [references/finn-scraper.md](references/finn-scraper.md) |
 | `plainrows/google-ads-transparency` | Google Ads Scraper: Google Ads Transparency Center | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
@@ -85,7 +85,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-play-reviews-scraper` | Google Play Reviews Scraper: Ratings, Text & Replies | from $0.00005 per review | [references/google-play-reviews-scraper.md](references/google-play-reviews-scraper.md) |
 | `plainrows/google-reviews-scraper` | Google Reviews Scraper: Ratings, Text & Owner Replies | from $0.0002 per review | [references/google-reviews-scraper.md](references/google-reviews-scraper.md) |
 | `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
-| `plainrows/google-trends-explorer` | Google Trends Scraper & Google Trends API: Regions & Queries | from $0.004 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
+| `plainrows/google-trends-explorer` | Google Trends Scraper & Google Trends API: Regions & Queries | from $0.005 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
 | `plainrows/google-trends-keyword-discovery` | Google Trends Keyword Discovery: Rising & Related Keywords | from $0.005 per google trends search | [references/google-trends-keyword-discovery.md](references/google-trends-keyword-discovery.md) |
 | `plainrows/greenhouse-jobs-scraper` | Greenhouse Jobs Scraper: Any Greenhouse Job Board | from $0.0008 per job | [references/greenhouse-jobs-scraper.md](references/greenhouse-jobs-scraper.md) |
 | `plainrows/gupy-jobs-scraper` | Gupy Jobs Scraper: Brazil Job Ads from portal.gupy.io | from $0.0009 per job | [references/gupy-jobs-scraper.md](references/gupy-jobs-scraper.md) |
@@ -109,7 +109,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/redfin-scraper` | Redfin Scraper: US Homes for Sale, Prices & Details | from $0.00035 per listing | [references/redfin-scraper.md](references/redfin-scraper.md) |
 | `plainrows/reed-jobs-scraper` | UK Jobs Scraper: Reed.co.uk Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
 | `plainrows/remote-jobs-aggregator` | Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy | from $0.0006 per job | [references/remote-jobs-aggregator.md](references/remote-jobs-aggregator.md) |
-| `plainrows/seo-competitors-keyword-gap` | SEO Competitors & Keyword Gap Finder | from $0.0016 per competitor or gap keyword | [references/seo-competitors-keyword-gap.md](references/seo-competitors-keyword-gap.md) |
+| `plainrows/seo-competitors-keyword-gap` | SEO Competitor Analysis & Keyword Gap Finder | from $0.0016 per competitor or gap keyword | [references/seo-competitors-keyword-gap.md](references/seo-competitors-keyword-gap.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
 | `plainrows/tori-scraper` | Tori.fi Scraper: Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |

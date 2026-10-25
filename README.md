@@ -73,7 +73,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Redfin Scraper: US Homes for Sale, Prices & Details](https://apify.com/plainrows/redfin-scraper)
 - [UK Jobs Scraper: Reed.co.uk Job Ads & Salaries](https://apify.com/plainrows/reed-jobs-scraper)
 - [Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy](https://apify.com/plainrows/remote-jobs-aggregator)
-- [SEO Competitors & Keyword Gap Finder](https://apify.com/plainrows/seo-competitors-keyword-gap)
+- [SEO Competitor Analysis & Keyword Gap Finder](https://apify.com/plainrows/seo-competitors-keyword-gap)
 - [Standvirtual Scraper: Portugal Car Listings & Prices](https://apify.com/plainrows/standvirtual-scraper)
 - [Storia Scraper: Romania Property Listings & Prices](https://apify.com/plainrows/storia-scraper)
 - [Tori.fi Scraper: Finland Marketplace Listings](https://apify.com/plainrows/tori-scraper)

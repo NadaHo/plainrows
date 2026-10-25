@@ -1,6 +1,6 @@
 # SpyFu Alternative: PPC Keywords & Competitor Google Ads (`plainrows/ppc-competitor-keywords`)
 
-PPC competitor research and MCP tool: the keywords any website buys on Google Ads, with ad position, landing page, ad title and text, CPC, volume and estimated monthly ad spend. Bulk domains, 94 countries, organic keywords too. Pay per domain and keyword found, plus a $0.012 start fee per run.
+PPC competitor research, Google Ads competitor keywords and MCP tool: the paid keywords any website buys, with ad position, landing page, ad text, CPC, volume and monthly ad spend. Bulk domains, 94 countries, organic too. Pay per domain and keyword found, plus a $0.012 start fee per run.
 
 Store page and full documentation: https://apify.com/plainrows/ppc-competitor-keywords
 
