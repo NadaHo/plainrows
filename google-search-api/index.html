@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Search API: Google SERP Scraper &amp; Web Results | PlainRows</title><meta name="description" content="Google Search API and MCP tool, Google Custom Search API alternative: Google organic results as JSON (position, URL, domain, title, snippet, SERP features) for ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/google-search-api/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Google Search API: Google SERP Scraper &amp; Web Results</h1>
+<p class="lead">Google Search API and MCP tool, Google Custom Search API alternative: Google organic results as JSON (position, URL, domain, title, snippet, SERP features) for any query, country, language, device. $0.0024 per query with results plus $0.0003 per result, $0.0026 per extra page of 10, $0.001 per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/google-search-api">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-search-api" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>AI agents and RAG: give an LLM fresh Google results (URL, title, snippet) as an MCP tool, then let it read the pages it needs.</li><li>SEO: see who ranks on Google for your keywords, by country and language, desktop or mobile.</li><li>Research and monitoring: collect the top Google results for a list of topics, brands or questions on a schedule.</li><li>Lead and content discovery: find the sites, articles and forums Google shows for a topic.</li><li>Exports: send the rows to Google Sheets, BigQuery, Slack, n8n, Make or Zapier.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Organic result</b><br><span>One Google organic result returned: position, URL, domain, title and snippet. Queries with no result, failures and unreadable answers are free.</span></td><td>$0.0003</td><td>$0.0003</td><td>$0.0003</td><td>$0.0003</td></tr><tr><td><b>Search query with results</b><br><span>Charged once per query that returns at least one organic result (the data source charges a whole Google results page, even for one result). Queries with no result are free.</span></td><td>$0.0024</td><td>$0.0024</td><td>$0.0024</td><td>$0.0024</td></tr><tr><td><b>Extra results page</b><br><span>Only when you raise &quot;Max organic results per query&quot; above 10: one per extra page of 10 results that Google returned. Not charged at the default of 10.</span></td><td>$0.0026</td><td>$0.0026</td><td>$0.0026</td><td>$0.0026</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.001</td><td>$0.001</td><td>$0.001</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~google-search-api/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;queries&quot;: [
+    &quot;crm software&quot;,
+    &quot;best project management tool&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;device&quot;: &quot;desktop&quot;,
+  &quot;maxResults&quot;: 10
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/google-search-api&quot;).call(run_input={&#x27;queries&#x27;: [&#x27;crm software&#x27;, &#x27;best project management tool&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;device&#x27;: &#x27;desktop&#x27;,
+ &#x27;maxResults&#x27;: 10})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/google-search-api</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/google-search-api</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-search-api">https://apify.com/plainrows/google-search-api</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-25.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

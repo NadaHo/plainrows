@@ -5,6 +5,7 @@ Pay-per-result data APIs for SEO, leads, prices and web data, running on Apify.
 Website: https://nadaho.github.io/plainrows/
 
 - [2dehands & 2ememain Scraper: Belgian Listings & Prices](https://apify.com/plainrows/2dehands-scraper)
+- [AI Citations Finder: LLM Mentions in ChatGPT & AI Overviews](https://apify.com/plainrows/ai-citations-finder)
 - [AI Overview Scraper & Tracker API: Google AI Overview Citations](https://apify.com/plainrows/ai-overview-tracker)
 - [AI Visibility Tracker: ChatGPT Visibility & LLM Visibility](https://apify.com/plainrows/ai-search-brand-visibility)
 - [AliExpress Scraper: Products, Prices, Orders & Ratings](https://apify.com/plainrows/aliexpress-scraper)
@@ -21,6 +22,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Backlink API: Referring Domains & Backlinks Data](https://apify.com/plainrows/backlink-api)
 - [Bulk Backlink Checker: Referring Domains & Anchor Text API](https://apify.com/plainrows/backlink-checker)
 - [Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC](https://apify.com/plainrows/bing-keyword-search-volume)
+- [Bing Search API: Bing SERP Scraper & Web Results](https://apify.com/plainrows/bing-search-api)
 - [Blocket Scraper: Sweden Marketplace Listings](https://apify.com/plainrows/blocket-scraper)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
 - [Catho Jobs Scraper: Brazil Job Ads from catho.com.br](https://apify.com/plainrows/catho-jobs-scraper)
@@ -48,6 +50,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Google Play Reviews Scraper: Ratings, Text & Replies](https://apify.com/plainrows/google-play-reviews-scraper)
 - [Google Reviews Scraper: Ratings, Text & Owner Replies](https://apify.com/plainrows/google-reviews-scraper)
+- [Google Search API: Google SERP Scraper & Web Results](https://apify.com/plainrows/google-search-api)
 - [Google Shopping Prices Scraper: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
 - [Google Trends Scraper & Google Trends API: Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
 - [Google Trends Keyword Discovery: Rising & Related Keywords](https://apify.com/plainrows/google-trends-keyword-discovery)
