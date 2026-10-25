@@ -1,0 +1,265 @@
+{
+  "name": "Turn a Google Sheets list of topics into People Also Ask questions for FAQs and content briefs",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Turn a Google Sheets list of topics into People Also Ask questions for FAQs and content briefs\n\n### Who's it for\nContent writers, SEO agencies and marketers who plan articles and FAQ pages in Google Sheets and want the questions people really ask on Google, without AnswerThePublic or an SEO tool seat.\n\n### How it works\n1. Reads every topic from the `Topics` tab (column `topic`).\n2. A Code node sends them in one batch to the **People Also Ask Scraper** Actor on Apify (`plainrows/google-autocomplete-questions`), in `questions` mode.\n3. The Actor opens the \"People also ask\" box of each topic on Google (in the country you choose) and returns every question, the question it was revealed from, and the answer snippet and source page when Google shows one.\n4. One row per question is written to the `Questions` tab: sort by topic and you have the outline of an FAQ section or a content brief.\n\n### Requirements\n- An Apify account (free plan available) and its API token.\n- A Google Sheets account and a spreadsheet with a `Topics` tab and a `Questions` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Change `country` and `paaClickDepth` in the **Settings** node.\n- Use `mode: 'both'` in the Actor input to add Google autocomplete suggestions (long-tail keywords) to the same sheet.\n- Swap the Manual Trigger for a Schedule Trigger to refresh the questions every month.\n\nPricing: pay per question returned plus a small fee per Google lookup (see the Actor's Pricing tab); duplicates and topics with no result are not billed as results.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "e891f4e7-dc57-5d98-a7c4-dd095ad48bd2",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. Create a spreadsheet with two tabs: `Topics` (header `topic` in A1, one keyword or topic per row) and `Questions` (empty).\n2. Connect Google Sheets in both Sheets nodes and paste the spreadsheet URL.\n3. Add your Apify credential (free account at apify.com) to *Get questions*.\n4. Set `country` and `paaClickDepth` (0 = about 4 questions per topic, 4 = up to about 15) in **Settings**.\n\nThe Apify free plan handles 2 topics and 20 questions per topic per run; a paid Apify plan removes these limits.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "698ea37a-7d24-5333-a434-66f7c82a8a0f",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f9ce916f-212f-5320-b28a-1f4b50c8e2d3",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a41cbbdd-1f89-535e-81bc-90f49e823813",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "a9cf357f-2353-559d-bf41-8042ef987af4",
+              "name": "paaClickDepth",
+              "value": 4,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1cb93dab-0352-5b97-8fae-54f20608402b",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Topics",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "45e0a289-e6e4-5ae2-8d93-5c287048e6ae",
+      "name": "Read topics",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect the topics of column \"topic\" into one list (one Actor run for the whole sheet, up to 500 topics).\nconst seedKeywords = $input.all()\n  .map((item) => String(item.json.topic ?? '').trim())\n  .filter(Boolean);\nif (seedKeywords.length === 0) throw new Error('No topic found: add a column named \"topic\" to the Topics tab.');\nreturn [{ json: { seedKeywords } }];"
+      },
+      "id": "66f29b69-9e38-5c47-bc39-43df6ba973a2",
+      "name": "Collect topics",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~google-autocomplete-questions",
+        "customBody": "={{ JSON.stringify({ seedKeywords: $json.seedKeywords, mode: 'questions', country: $('Settings').first().json.country, paaClickDepth: $('Settings').first().json.paaClickDepth, includeRelatedSearches: false }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "b6a30bfa-4088-5d30-bcd9-0b2e429b5879",
+      "name": "Get questions",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        660,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One row per question, ready for an FAQ section or a content brief.\nreturn $input.all()\n  .map((i) => i.json)\n  .filter((r) => r.found !== false && r.text)\n  .map((r) => ({\n    json: {\n      topic: r.seed,\n      question: r.text,\n      type: r.type,\n      position: r.position,\n      openedFrom: r.parentQuestion ?? '',\n      answer: r.answer ?? '',\n      sourceUrl: r.sourceUrl ?? '',\n      country: r.country,\n      checkedAt: r.observedAt,\n    },\n  }));"
+      },
+      "id": "6f1b24ab-fe2a-5542-8619-c708b15720e1",
+      "name": "One row per question",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Questions",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "0aef55cc-4c9f-53fa-bb05-86bb56138d8e",
+      "name": "Write questions",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Read topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read topics": {
+      "main": [
+        [
+          {
+            "node": "Collect topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect topics": {
+      "main": [
+        [
+          {
+            "node": "Get questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get questions": {
+      "main": [
+        [
+          {
+            "node": "One row per question",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per question": {
+      "main": [
+        [
+          {
+            "node": "Write questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
