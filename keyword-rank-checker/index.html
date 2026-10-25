@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Keyword Rank Checker: Google SERP Position Tracker API | PlainRows</title><meta name="description" content="Keyword rank checker, SERP rank tracker and MCP tool: for each keyword, your Google organic position and ranking URL, competitor positions, the top 10 results a">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/keyword-rank-checker/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Keyword Rank Checker: Google SERP Position Tracker API</h1>
+<p class="lead">Keyword rank checker, SERP rank tracker and MCP tool: for each keyword, your Google organic position and ranking URL, competitor positions, the top 10 results and SERP features (featured snippet, local pack, People Also Ask). Pay per keyword, plus small fees per run and per extra page.</p>
+<p><a class="btn" href="https://apify.com/plainrows/keyword-rank-checker">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/keyword-rank-checker" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Rank tracking: check where your site ranks on Google for 10 or 1,000 keywords, by country and language.</li><li>Competitor positions: add competitor domains and see, keyword by keyword, who ranks above whom.</li><li>SERP analysis: the top 10 results (domain, URL, title) and which SERP features Google shows, before you write content.</li><li>Featured snippet tracking: `featuredSnippetOwned` says whether the snippet comes from your site.</li><li>Weekly reports: schedule a run and send the table to Google Sheets, Looker Studio, Slack, n8n, Make or Zapier.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Keyword checked</b><br><span>One keyword whose Google results page was read: your organic position and ranking URL, competitor positions, top 10 results and SERP features. Keywords with no results, failures and keywords not checked are free.</span></td><td>$0.006</td><td>$0.005</td><td>$0.0045</td><td>$0.004</td></tr><tr><td><b>Extra results page</b><br><span>Only when you raise &quot;Organic results checked&quot; above 10: one per extra page of 10 organic results that Google returned. Not charged at the default depth of 10.</span></td><td>$0.004</td><td>$0.004</td><td>$0.004</td><td>$0.004</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~keyword-rank-checker/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domain&quot;: &quot;hubspot.com&quot;,
+  &quot;keywords&quot;: [
+    &quot;crm software&quot;,
+    &quot;best crm for small business&quot;,
+    &quot;free crm&quot;
+  ],
+  &quot;competitorDomains&quot;: [
+    &quot;salesforce.com&quot;,
+    &quot;zoho.com&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;depth&quot;: 10
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/keyword-rank-checker&quot;).call(run_input={&#x27;domain&#x27;: &#x27;hubspot.com&#x27;,
+ &#x27;keywords&#x27;: [&#x27;crm software&#x27;, &#x27;best crm for small business&#x27;, &#x27;free crm&#x27;],
+ &#x27;competitorDomains&#x27;: [&#x27;salesforce.com&#x27;, &#x27;zoho.com&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;depth&#x27;: 10})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/keyword-rank-checker</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/keyword-rank-checker</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/keyword-rank-checker">https://apify.com/plainrows/keyword-rank-checker</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-25.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>
