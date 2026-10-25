@@ -18,11 +18,15 @@ charge for the same night: a rate parity check, competitor rate shopping, or the
 </ul>
 <p>Real example, checked on 2026-10-09 (Iberostar Selection Lisboa, 1 night on 2026-11-12, 2 adults, EUR): 32 booking sites from 105 to 185 EUR,
 official site 119 EUR, cheapest night of the next three months 94 EUR on 2026-11-30. Sponsored offers are removed: they repeat the same sites.</p>
+<p><b>Several check-in dates in one run</b>: fill in <code>checkInDates</code> (up to 31 dates, e.g. <code>2026-12-18</code>) and each hotel is
+checked for each date, one row per hotel and date. For a daily or weekly schedule, write relative dates such as <code>+7</code>, <code>+14</code>,
+<code>+21</code>, <code>+28</code>: each run then checks the coming weeks, with no input to update.</p>
+<pre>{ "hotels": ["Hyatt Regency Lisbon"], "checkInDates": ["+7", "+14", "+21", "+28"], "nights": 2, "currency": "EUR" }</pre>
 
 <h2>Price</h2>
 <table>
 <tr><th>Step</th><th>Price (Starter plan)</th></tr>
-<tr><td>One hotel compared: all booking sites + price calendar</td><td>$0.007</td></tr>
+<tr><td>One hotel compared for one date: all booking sites + price calendar</td><td>$0.007</td></tr>
 <tr><td>Finding a hotel given by name (skipped for IDs and links)</td><td>$0.006</td></tr>
 </table>
 <p>Example: 20 hotels checked every day for a month (600 checks, by ID) cost about $4.20.
