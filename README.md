@@ -51,7 +51,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Play Reviews Scraper: Ratings, Text & Replies](https://apify.com/plainrows/google-play-reviews-scraper)
 - [Google Reviews Scraper & API: Ratings, Text & Owner Replies](https://apify.com/plainrows/google-reviews-scraper)
 - [Google Search API: Google SERP Scraper & Web Results](https://apify.com/plainrows/google-search-api)
-- [Google Shopping Prices Scraper & API: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
+- [Google Shopping Prices Scraper: Products, Stores & Deals](https://apify.com/plainrows/google-shopping-prices)
 - [Google Trends Scraper & Google Trends API: Regions & Queries](https://apify.com/plainrows/google-trends-explorer)
 - [Google Trends Keyword Discovery: Rising & Related Keywords](https://apify.com/plainrows/google-trends-keyword-discovery)
 - [Greenhouse Jobs Scraper: Any Greenhouse Job Board](https://apify.com/plainrows/greenhouse-jobs-scraper)
