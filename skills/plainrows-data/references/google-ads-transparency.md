@@ -1,4 +1,4 @@
-# Google Ads Scraper: Google Ads Transparency Center (`plainrows/google-ads-transparency`)
+# Google Ads Scraper & API: Google Ads Transparency Center (`plainrows/google-ads-transparency`)
 
 Google Ads scraper and MCP tool: every Google ad a competitor runs (Transparency Center) from a domain, brand or advertiser ID: creative ID, format, preview image, first and last shown, days running. Filters: country, platform, format, dates. New-ads alerts. Pay per ad plus a fee per advertiser.
 

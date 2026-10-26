@@ -1,4 +1,4 @@
-# Trustpilot Reviews Scraper: New Reviews & Replies (`plainrows/trustpilot-reviews`)
+# Trustpilot Reviews Scraper & API: New Reviews & Replies (`plainrows/trustpilot-reviews`)
 
 Trustpilot reviews scraper and unofficial Trustpilot API and MCP tool: reviews of any company with stars, title, text, date, language, verified flag and company reply, plus TrustScore and review count. No reviewer names. Only-new mode for alerts. Pay per review plus small fetch and start fees.
 

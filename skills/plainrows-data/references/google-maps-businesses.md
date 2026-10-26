@@ -1,4 +1,4 @@
-# Google Maps Scraper: Business Leads, Emails & Phones (`plainrows/google-maps-businesses`)
+# Google Maps Scraper & API: Business Leads, Emails & Phones (`plainrows/google-maps-businesses`)
 
 Google Maps scraper and MCP tool, Google Maps API and Outscraper alternative, no subscription: B2B leads from Google Places with name, address, phone, website, rating, reviews, hours, coordinates, plus optional e-mails and socials of each website. Pay per place, plus per website with contacts.
 

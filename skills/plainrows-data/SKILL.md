@@ -64,7 +64,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/catho-jobs-scraper` | Catho Jobs Scraper: Brazil Job Ads from catho.com.br | from $0.0009 per job | [references/catho-jobs-scraper.md](references/catho-jobs-scraper.md) |
 | `plainrows/chatgpt-search-scraper` | ChatGPT Search Scraper: Answers, Citations & Sources API | from $0.008 per chatgpt answer | [references/chatgpt-search-scraper.md](references/chatgpt-search-scraper.md) |
 | `plainrows/coches-net-scraper` | coches.net Scraper: Spain Car Listings, Prices & Mileage | from $0.0004 per listing | [references/coches-net-scraper.md](references/coches-net-scraper.md) |
-| `plainrows/company-registry-lookup` | Company Registry Lookup: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
+| `plainrows/company-registry-lookup` | Company Registry Lookup & API: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
 | `plainrows/competitor-keywords-api` | Competitor Keywords API: Ranked Keywords of Any Domain | from $0.004 per domain | [references/competitor-keywords-api.md](references/competitor-keywords-api.md) |
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
 | `plainrows/dba-scraper` | DBA Scraper: Denmark Marketplace Listings | from $0.0004 per listing | [references/dba-scraper.md](references/dba-scraper.md) |
@@ -72,22 +72,22 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/domain-seo-overview` | Domain Overview & SEO API: Organic Traffic, Semrush Alternative | from $0.004 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
 | `plainrows/finn-cars-scraper` | FINN.no Car Scraper: Norway Used Car Listings | from $0.0006 per car listing | [references/finn-cars-scraper.md](references/finn-cars-scraper.md) |
 | `plainrows/finn-scraper` | FINN Scraper (FINN.no): Norway Marketplace Listings | from $0.0004 per listing | [references/finn-scraper.md](references/finn-scraper.md) |
-| `plainrows/google-ads-transparency` | Google Ads Scraper: Google Ads Transparency Center | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
+| `plainrows/google-ads-transparency` | Google Ads Scraper & API: Google Ads Transparency Center | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
 | `plainrows/google-autocomplete-questions` | People Also Ask Scraper & Google Autocomplete Keywords | from $0.0003 per suggestion | [references/google-autocomplete-questions.md](references/google-autocomplete-questions.md) |
 | `plainrows/google-hotels-prices` | Google Hotels Prices Scraper: Price Comparison of Booking Sites | from $0.0008 per hotel | [references/google-hotels-prices.md](references/google-hotels-prices.md) |
 | `plainrows/google-hotels-scraper` | Google Hotels Scraper: Prices, Ratings & Booking Sites | from $0.0008 per hotel | [references/google-hotels-scraper.md](references/google-hotels-scraper.md) |
 | `plainrows/google-images-scraper` | Google Images Scraper API: Image URLs, Sources & Filters | from $0.0006 per image | [references/google-images-scraper.md](references/google-images-scraper.md) |
 | `plainrows/google-jobs-scraper` | Google Jobs Scraper API: Listings, Salaries & Apply Links | from $0.0008 per job listing | [references/google-jobs-scraper.md](references/google-jobs-scraper.md) |
-| `plainrows/google-maps-businesses` | Google Maps Scraper: Business Leads, Emails & Phones | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
-| `plainrows/google-maps-email-extractor` | Google Maps Email Extractor: Business Leads with Emails | from $0.001 per place | [references/google-maps-email-extractor.md](references/google-maps-email-extractor.md) |
+| `plainrows/google-maps-businesses` | Google Maps Scraper & API: Business Leads, Emails & Phones | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
+| `plainrows/google-maps-email-extractor` | Google Maps Email Extractor & API: Business Leads with Emails | from $0.001 per place | [references/google-maps-email-extractor.md](references/google-maps-email-extractor.md) |
 | `plainrows/google-maps-no-website-leads` | Google Maps No Website Leads: Businesses Without Website | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
 | `plainrows/google-maps-rank-tracker` | Local Falcon Alternative: Google Maps Rank Tracker & Local SEO | from $0.006 per grid point checked | [references/google-maps-rank-tracker.md](references/google-maps-rank-tracker.md) |
 | `plainrows/google-maps-reviews` | Google Maps Reviews Scraper & API | from $0.0002 per review | [references/google-maps-reviews.md](references/google-maps-reviews.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
 | `plainrows/google-play-reviews-scraper` | Google Play Reviews Scraper: Ratings, Text & Replies | from $0.00005 per review | [references/google-play-reviews-scraper.md](references/google-play-reviews-scraper.md) |
-| `plainrows/google-reviews-scraper` | Google Reviews Scraper: Ratings, Text & Owner Replies | from $0.0002 per review | [references/google-reviews-scraper.md](references/google-reviews-scraper.md) |
+| `plainrows/google-reviews-scraper` | Google Reviews Scraper & API: Ratings, Text & Owner Replies | from $0.0002 per review | [references/google-reviews-scraper.md](references/google-reviews-scraper.md) |
 | `plainrows/google-search-api` | Google Search API: Google SERP Scraper & Web Results | from $0.0003 per organic result | [references/google-search-api.md](references/google-search-api.md) |
-| `plainrows/google-shopping-prices` | Google Shopping Prices Scraper: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
+| `plainrows/google-shopping-prices` | Google Shopping Prices Scraper & API: Products, Stores & Deals | from $0.001 per product offer | [references/google-shopping-prices.md](references/google-shopping-prices.md) |
 | `plainrows/google-trends-explorer` | Google Trends Scraper & Google Trends API: Regions & Queries | from $0.005 per google trends search | [references/google-trends-explorer.md](references/google-trends-explorer.md) |
 | `plainrows/google-trends-keyword-discovery` | Google Trends Keyword Discovery: Rising & Related Keywords | from $0.005 per google trends search | [references/google-trends-keyword-discovery.md](references/google-trends-keyword-discovery.md) |
 | `plainrows/greenhouse-jobs-scraper` | Greenhouse Jobs Scraper: Any Greenhouse Job Board | from $0.0008 per job | [references/greenhouse-jobs-scraper.md](references/greenhouse-jobs-scraper.md) |
@@ -119,7 +119,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
 | `plainrows/tori-scraper` | Tori Scraper (Tori.fi): Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
-| `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
+| `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper & API: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
 | `plainrows/vagas-jobs-scraper` | Brazil Jobs Scraper: Vagas Job Ads (Vagas.com.br) | from $0.0009 per job | [references/vagas-jobs-scraper.md](references/vagas-jobs-scraper.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
 | `plainrows/website-screenshot` | Website Screenshot API: Full Page, Mobile & Bulk Capture | from $0.0018 per screenshot | [references/website-screenshot.md](references/website-screenshot.md) |
@@ -127,7 +127,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/website-traffic-checker` | Website Traffic Checker: Bulk Similarweb Alternative | from $0.004 per domain | [references/website-traffic-checker.md](references/website-traffic-checker.md) |
 | `plainrows/workday-jobs-scraper` | Workday Jobs Scraper: Any myworkdayjobs Careers Site | from $0.0008 per job | [references/workday-jobs-scraper.md](references/workday-jobs-scraper.md) |
 | `plainrows/yellowpages-au-scraper` | Yellow Pages Australia Scraper: Business Leads & Phones | from $0.0018 per business | [references/yellowpages-au-scraper.md](references/yellowpages-au-scraper.md) |
-| `plainrows/youtube-comments-scraper` | YouTube Comments Scraper: Video Comments Export | from $0.0002 per comment | [references/youtube-comments-scraper.md](references/youtube-comments-scraper.md) |
+| `plainrows/youtube-comments-scraper` | YouTube Comments Scraper & API: Video Comments Export | from $0.0002 per comment | [references/youtube-comments-scraper.md](references/youtube-comments-scraper.md) |
 | `plainrows/youtube-search-api` | YouTube Search API: Videos, Views & Channels as JSON | from $0.001 per video | [references/youtube-search-api.md](references/youtube-search-api.md) |
 | `plainrows/youtube-search-scraper` | YouTube Search Scraper: Videos, Views & Channels by Keyword | from $0.001 per video | [references/youtube-search-scraper.md](references/youtube-search-scraper.md) |
 

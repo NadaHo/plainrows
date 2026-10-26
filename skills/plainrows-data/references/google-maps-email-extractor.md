@@ -1,4 +1,4 @@
-# Google Maps Email Extractor: Business Leads with Emails (`plainrows/google-maps-email-extractor`)
+# Google Maps Email Extractor & API: Business Leads with Emails (`plainrows/google-maps-email-extractor`)
 
 Google Maps email extractor and MCP tool: local businesses on Google Maps with the e-mails, phone links and social profiles (Facebook, Instagram, LinkedIn) of their websites, plus name, address, phone, website, rating, category. Pay per place, per website with contacts found, and a small start fee.
 
