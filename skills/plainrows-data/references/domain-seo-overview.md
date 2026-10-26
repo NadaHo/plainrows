@@ -1,6 +1,6 @@
-# Domain Overview & Organic Traffic: Semrush Alternative (`plainrows/domain-seo-overview`)
+# Domain Overview & SEO API: Organic Traffic, Semrush Alternative (`plainrows/domain-seo-overview`)
 
-Domain overview, website SEO checker, Semrush API and Semrush MCP tool, bulk: organic traffic, keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu, Similarweb alternative. Pay per domain and keyword found, + $0.012/run.
+Domain overview and SEO API, website SEO checker, Semrush API and Semrush MCP tool, bulk: organic traffic, keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu, Similarweb alternative. Pay per domain and keyword found, + $0.012/run.
 
 Store page and full documentation: https://apify.com/plainrows/domain-seo-overview
 

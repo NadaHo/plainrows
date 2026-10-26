@@ -1,4 +1,4 @@
-# Google Maps Reviews Scraper (`plainrows/google-maps-reviews`)
+# Google Maps Reviews Scraper & API (`plainrows/google-maps-reviews`)
 
 Google Maps reviews scraper and MCP tool: stars, text, date, translation, photos, owner reply and the place's rating for any place. Paste Maps links, place IDs, CIDs or names. No reviewer names. Only-new-reviews mode for daily alerts. Pay per review plus small fetch and start fees.
 

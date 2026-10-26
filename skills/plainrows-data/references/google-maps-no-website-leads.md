@@ -1,6 +1,6 @@
-# Google Maps Businesses Without Website: Web Design Leads (`plainrows/google-maps-no-website-leads`)
+# Google Maps No Website Leads: Businesses Without Website (`plainrows/google-maps-no-website-leads`)
 
-Google Maps leads scraper and MCP tool: local businesses with no website on Google Maps: name, phone, address, rating, reviews count, category and opening hours. Leads for web design agencies. Any city or country. Pay per business found plus a small start fee; filtered places are free.
+Businesses without website on Google Maps: no website leads scraper and MCP tool. Name, phone, address, rating, reviews count, category and opening hours of local businesses with no website, web design leads for agencies. Any city or country. Pay per business found plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-no-website-leads
 
@@ -8,14 +8,14 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-no-we
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `searchQueries` (required) | array |  | What you would type in Google Maps, one per line: "plumber in Austin", "coffee shop Berlin Mitte", "dentist 75011 Paris". Put the city or area in the query, or use Coordinates below. Up to 1,000 queries per run. |
+| `searchQueries` (required) | array |  | What you would type in Google Maps, one per line: "plumber in Austin", "coffee shop Berlin Mitte", "dentist 75011 Paris". Put the city or area in the query, or use Coordinates below. Up to 1,000 queries per run. Free... |
 | `country` | string (20 codes, see the Store page) | "US" | Country used for the Google Maps search (ignored when Coordinates are set, except for the default language). |
 | `languageCode` | string |  | Two-letter language code, e.g. "en" or "fr". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). |
-| `maxPlacesPerQuery` | integer | 100 | Google Maps returns up to about 700 places per search. Each place returned is billed; see Pricing. |
+| `maxPlacesPerQuery` | integer | 100 | Google Maps returns up to about 700 places per search. Each place returned is billed (about $0.0015 on the Starter plan); places removed by filters are free. Free Apify plan: at most 20 places per query. |
 | `coordinates` | string |  | Center the search on "latitude,longitude", e.g. "40.7128,-74.0060". Useful to search a neighbourhood or a place without a city name in the query. |
 | `zoom` | integer | 13 | Map zoom level around the coordinates: 11 = whole city, 13 = district, 15 = a few streets. |
 | `minRating` | number | 0 | Keep only places rated at least this (0 = no filter). Filtered places are not billed. |
-| `website` | string: `any`, `with`, `without` | "without" | Filter on whether the business lists a website. Default: only businesses with no website (web design leads). Filtered places are not billed. |
+| `website` | string: `any`, `with`, `without`, `noOwnSite` | "without" | Filter on whether the business lists a website. Default: only businesses with no website (web design leads). "noOwnSite" also keeps businesses whose only link is a Facebook, Instagram, Yelp or delivery page (more leads... |
 | `requirePhone` | boolean | false | Skip places that list no phone number. Filtered places are not billed. |
 
 ## Example input
