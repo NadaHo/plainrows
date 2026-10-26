@@ -1,4 +1,4 @@
-# PDF to Markdown Converter: PDF to Text API for AI Agents & RAG (`plainrows/pdf-to-markdown`)
+# PDF to Markdown API & Converter: PDF to Text for AI Agents, RAG (`plainrows/pdf-to-markdown`)
 
 PDF to markdown converter and MCP tool for AI agents and RAG: give PDF URLs, get clean Markdown with headings, page texts, title, author and word count. Text-layer PDFs only, no OCR. Pay $0.003 per PDF converted (up to 30 pages), $0.0001 per extra page, plus a small start fee per run.
 

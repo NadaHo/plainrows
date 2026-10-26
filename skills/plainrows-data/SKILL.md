@@ -107,7 +107,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/marktplaats-scraper` | Marktplaats Scraper: Dutch Listings & Prices | from $0.0005 per listing | [references/marktplaats-scraper.md](references/marktplaats-scraper.md) |
 | `plainrows/otodom-scraper` | Otodom Scraper: Poland Property Listings & Prices | from $0.0007 per listing | [references/otodom-scraper.md](references/otodom-scraper.md) |
 | `plainrows/otomoto-scraper` | Otomoto Scraper: Polish Car Listings & Prices | from $0.0004 per listing | [references/otomoto-scraper.md](references/otomoto-scraper.md) |
-| `plainrows/pdf-to-markdown` | PDF to Markdown Converter: PDF to Text API for AI Agents & RAG | from $0.003 per pdf converted | [references/pdf-to-markdown.md](references/pdf-to-markdown.md) |
+| `plainrows/pdf-to-markdown` | PDF to Markdown API & Converter: PDF to Text for AI Agents, RAG | from $0.003 per pdf converted | [references/pdf-to-markdown.md](references/pdf-to-markdown.md) |
 | `plainrows/perplexity-search-api` | Perplexity Scraper & Perplexity Search API: Answers, Citations | from $0.012 per answer returned | [references/perplexity-search-api.md](references/perplexity-search-api.md) |
 | `plainrows/ppc-competitor-keywords` | SpyFu Alternative: PPC Keywords & Competitor Google Ads | from $0.004 per domain | [references/ppc-competitor-keywords.md](references/ppc-competitor-keywords.md) |
 | `plainrows/propertyfinder-scraper` | Property Finder Scraper: UAE Property Listings | from $0.0005 per listing | [references/propertyfinder-scraper.md](references/propertyfinder-scraper.md) |

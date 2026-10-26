@@ -71,7 +71,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Marktplaats Scraper: Dutch Listings & Prices](https://apify.com/plainrows/marktplaats-scraper)
 - [Otodom Scraper: Poland Property Listings & Prices](https://apify.com/plainrows/otodom-scraper)
 - [Otomoto Scraper: Polish Car Listings & Prices](https://apify.com/plainrows/otomoto-scraper)
-- [PDF to Markdown Converter: PDF to Text API for AI Agents & RAG](https://apify.com/plainrows/pdf-to-markdown)
+- [PDF to Markdown API & Converter: PDF to Text for AI Agents, RAG](https://apify.com/plainrows/pdf-to-markdown)
 - [Perplexity Scraper & Perplexity Search API: Answers, Citations](https://apify.com/plainrows/perplexity-search-api)
 - [SpyFu Alternative: PPC Keywords & Competitor Google Ads](https://apify.com/plainrows/ppc-competitor-keywords)
 - [Property Finder Scraper: UAE Property Listings](https://apify.com/plainrows/propertyfinder-scraper)
