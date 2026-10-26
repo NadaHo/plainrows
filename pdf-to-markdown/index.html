@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF to Markdown Converter: PDF to Text API for AI Agents &amp; RAG | PlainRows</title><meta name="description" content="PDF to markdown converter and MCP tool for AI agents and RAG: give PDF URLs, get clean Markdown with headings, page texts, title, author and word count. Text-la">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/pdf-to-markdown/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>PDF to Markdown Converter: PDF to Text API for AI Agents &amp; RAG</h1>
+<p class="lead">PDF to markdown converter and MCP tool for AI agents and RAG: give PDF URLs, get clean Markdown with headings, page texts, title, author and word count. Text-layer PDFs only, no OCR. Pay $0.003 per PDF converted (up to 30 pages), $0.0001 per extra page, plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/pdf-to-markdown">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/pdf-to-markdown" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>RAG and knowledge bases: feed research papers, manuals, reports and documentation into a vector store as Markdown, page by page.</li><li>AI agents (MCP): let an agent read a PDF it found on the web in one tool call.</li><li>Summaries and extraction: give an LLM the Markdown of contracts, filings, datasheets or whitepapers.</li><li>Search and archiving: index the full text of public PDFs with their page count and word count.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>PDF converted</b><br><span>One PDF downloaded and converted to Markdown from its text layer, up to 30 pages included. Scanned PDFs without text, unreadable or password-protected files, files over 50 MB, non-PDFs and URLs that fail (404, timeout) are free.</span></td><td>$0.003</td><td>$0.003</td><td>$0.003</td><td>$0.003</td></tr><tr><td><b>Extra page</b><br><span>Each converted page beyond the 30 included in a PDF (only when maxPagesPerPdf is above 30 and the PDF is longer).</span></td><td>$0.0001</td><td>$0.0001</td><td>$0.0001</td><td>$0.0001</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~pdf-to-markdown/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;urls&quot;: [
+    &quot;https://arxiv.org/pdf/1706.03762&quot;,
+    &quot;https://www.irs.gov/pub/irs-pdf/fw9.pdf&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/pdf-to-markdown&quot;).call(run_input={&#x27;urls&#x27;: [&#x27;https://arxiv.org/pdf/1706.03762&#x27;,
+          &#x27;https://www.irs.gov/pub/irs-pdf/fw9.pdf&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/pdf-to-markdown</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/pdf-to-markdown</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/pdf-to-markdown">https://apify.com/plainrows/pdf-to-markdown</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-26.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+</body></html>

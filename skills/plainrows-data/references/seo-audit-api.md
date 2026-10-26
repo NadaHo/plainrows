@@ -1,4 +1,4 @@
-# SEO Audit API: On-Page SEO Checker & Meta Tags (`plainrows/seo-audit-api`)
+# SEO Audit API: On-Page SEO Checker, Meta Tags & Site Audit (`plainrows/seo-audit-api`)
 
 SEO audit API and MCP tool: on-page SEO checker for up to 1,000 URLs per run. One row per page: HTTP status, title and meta description with length, H1, canonical, nofollow, word count, links, missing image alt, load time, on-page score, failed checks. Pay per page, plus a small fee per run.
 
