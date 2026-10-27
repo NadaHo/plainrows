@@ -1,4 +1,4 @@
-# Public Tenders Search: EU TED & UK Procurement API (`plainrows/public-tenders-search`)
+# Public Tenders API & Search: EU TED & UK Procurement API (`plainrows/public-tenders-search`)
 
 Public tenders search and MCP tool: government contracts, notices and award winners from EU TED (Tenders Electronic Daily), UK Find a Tender and Contracts Finder: keywords, CPV, countries, value in EUR, deadlines, winners. Only-new-notices mode. Pay per notice plus a start fee per run.
 

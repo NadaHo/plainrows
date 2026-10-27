@@ -44,7 +44,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/ai-citations-finder` | AI Citations Finder: LLM Mentions in ChatGPT & AI Overviews | from $0.003 per ai question | [references/ai-citations-finder.md](references/ai-citations-finder.md) |
 | `plainrows/ai-overview-tracker` | AI Overview Scraper & Tracker API: Google AI Overview Citations | from $0.004 per keyword checked | [references/ai-overview-tracker.md](references/ai-overview-tracker.md) |
 | `plainrows/ai-search-brand-visibility` | AI Visibility Tracker: ChatGPT Visibility & LLM Visibility | from $0.01 per ai answer | [references/ai-search-brand-visibility.md](references/ai-search-brand-visibility.md) |
-| `plainrows/aliexpress-scraper` | AliExpress Scraper: Products, Prices, Orders & Ratings | from $0.001 per product | [references/aliexpress-scraper.md](references/aliexpress-scraper.md) |
 | `plainrows/amazon-keyword-research` | Amazon Keyword Research: Search Volume & Reverse ASIN | from $0.0006 per keyword | [references/amazon-keyword-research.md](references/amazon-keyword-research.md) |
 | `plainrows/amazon-product-search` | Amazon Product Scraper API: Search, Prices, ASINs & Ratings | from $0.001 per product | [references/amazon-product-search.md](references/amazon-product-search.md) |
 | `plainrows/app-details-scraper` | App Store Scraper & Google Play Scraper: App Details | from $0.001 per app | [references/app-details-scraper.md](references/app-details-scraper.md) |
@@ -53,7 +52,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/arbeitsagentur-jobs-scraper` | Germany Jobs Scraper: Arbeitsagentur API, Bundesagentur Jobs | from $0.0006 per job | [references/arbeitsagentur-jobs-scraper.md](references/arbeitsagentur-jobs-scraper.md) |
 | `plainrows/ashby-jobs-scraper` | Ashby Jobs Scraper: Any Ashby Job Board | from $0.0008 per job | [references/ashby-jobs-scraper.md](references/ashby-jobs-scraper.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
-| `plainrows/autoscout24-scraper` | AutoScout24 Scraper: Car Listings, Prices & Mileage | from $0.0004 per listing | [references/autoscout24-scraper.md](references/autoscout24-scraper.md) |
 | `plainrows/autovit-scraper` | Autovit Scraper: Romania Car Listings & Prices | from $0.0004 per listing | [references/autovit-scraper.md](references/autovit-scraper.md) |
 | `plainrows/backlink-api` | Backlink API: Referring Domains & Backlinks Data | from $0.0012 per backlink or referring domain | [references/backlink-api.md](references/backlink-api.md) |
 | `plainrows/backlink-checker` | Bulk Backlink Checker & API: Referring Domains & Anchor Text | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
@@ -81,7 +79,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-keyword-planner-api` | Google Keyword Planner API: Google Ads Search Volume & CPC | from $0.003 per keyword with search volume | [references/google-keyword-planner-api.md](references/google-keyword-planner-api.md) |
 | `plainrows/google-maps-businesses` | Google Maps Scraper & API: Business Leads, Emails & Phones | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
 | `plainrows/google-maps-email-extractor` | Google Maps Email Extractor & API: Business Leads with Emails | from $0.001 per place | [references/google-maps-email-extractor.md](references/google-maps-email-extractor.md) |
-| `plainrows/google-maps-no-website-leads` | Google Maps No Website Leads: Businesses Without Website | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
+| `plainrows/google-maps-no-website-leads` | Google Maps Businesses Without Website: Web Design Leads | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
 | `plainrows/google-maps-rank-tracker` | Local Falcon Alternative: Google Maps Rank Tracker & Local SEO | from $0.006 per grid point checked | [references/google-maps-rank-tracker.md](references/google-maps-rank-tracker.md) |
 | `plainrows/google-maps-reviews` | Google Maps Reviews Scraper & API | from $0.0002 per review | [references/google-maps-reviews.md](references/google-maps-reviews.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
@@ -101,17 +99,14 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/keyword-planner-alternative` | Google Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
 | `plainrows/keyword-rank-checker` | Keyword Rank Checker: Google SERP Position Tracker API | from $0.004 per keyword checked | [references/keyword-rank-checker.md](references/keyword-rank-checker.md) |
 | `plainrows/keyword-search-volume` | Google Keyword Search Volume Checker & API: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
-| `plainrows/kijiji-scraper` | Kijiji Scraper: Canada Listings, Prices & Cars | from $0.0005 per listing | [references/kijiji-scraper.md](references/kijiji-scraper.md) |
-| `plainrows/kleinanzeigen-scraper` | Kleinanzeigen Scraper: Listings, Prices & Locations | from $0.0007 per listing | [references/kleinanzeigen-scraper.md](references/kleinanzeigen-scraper.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |
-| `plainrows/marktplaats-scraper` | Marktplaats Scraper: Dutch Listings & Prices | from $0.0005 per listing | [references/marktplaats-scraper.md](references/marktplaats-scraper.md) |
 | `plainrows/otodom-scraper` | Otodom Scraper: Poland Property Listings & Prices | from $0.0007 per listing | [references/otodom-scraper.md](references/otodom-scraper.md) |
 | `plainrows/otomoto-scraper` | Otomoto Scraper: Polish Car Listings & Prices | from $0.0004 per listing | [references/otomoto-scraper.md](references/otomoto-scraper.md) |
 | `plainrows/pdf-to-markdown` | PDF to Markdown API & Converter: PDF to Text for AI Agents, RAG | from $0.003 per pdf converted | [references/pdf-to-markdown.md](references/pdf-to-markdown.md) |
 | `plainrows/perplexity-search-api` | Perplexity Scraper & Perplexity Search API: Answers, Citations | from $0.012 per answer returned | [references/perplexity-search-api.md](references/perplexity-search-api.md) |
 | `plainrows/ppc-competitor-keywords` | SpyFu Alternative: PPC Keywords & Competitor Google Ads | from $0.004 per domain | [references/ppc-competitor-keywords.md](references/ppc-competitor-keywords.md) |
 | `plainrows/propertyfinder-scraper` | Property Finder Scraper: UAE Property Listings | from $0.0005 per listing | [references/propertyfinder-scraper.md](references/propertyfinder-scraper.md) |
-| `plainrows/public-tenders-search` | Public Tenders Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
+| `plainrows/public-tenders-search` | Public Tenders API & Search: EU TED & UK Procurement API | from $0.0015 per notice | [references/public-tenders-search.md](references/public-tenders-search.md) |
 | `plainrows/redfin-scraper` | Redfin Scraper: US Homes for Sale, Prices & Details | from $0.00035 per listing | [references/redfin-scraper.md](references/redfin-scraper.md) |
 | `plainrows/reed-jobs-scraper` | UK Jobs Scraper: Reed.co.uk Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
 | `plainrows/remote-jobs-aggregator` | Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy | from $0.0006 per job | [references/remote-jobs-aggregator.md](references/remote-jobs-aggregator.md) |

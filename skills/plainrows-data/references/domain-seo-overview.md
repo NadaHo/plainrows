@@ -1,6 +1,6 @@
 # Domain Overview & SEO API: Organic Traffic, Semrush Alternative (`plainrows/domain-seo-overview`)
 
-Domain overview and SEO API, website SEO checker, Semrush API and Semrush MCP tool, bulk: organic traffic, keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu, Similarweb alternative. Pay per domain and keyword found, + $0.012/run.
+Domain overview and SEO API, website SEO checker, Semrush API and Semrush MCP tool, bulk: organic traffic, keyword counts and 1,000 competitor keywords per site, 94 countries. A Semrush, Ahrefs, SpyFu, Similarweb alternative. Pay per domain and keyword found, + $0.012/run. Free plan: 2 domains/run.
 
 Store page and full documentation: https://apify.com/plainrows/domain-seo-overview
 
@@ -8,7 +8,7 @@ Store page and full documentation: https://apify.com/plainrows/domain-seo-overvi
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `domains` (required) | array |  | One website per line: example.com, https://www.example.com/page or blog.example.com. Up to 5,000 per run. URLs are reduced to their domain (subdomains other than www are kept). Duplicates are removed for free. |
+| `domains` (required) | array |  | One website per line: example.com, https://www.example.com/page or blog.example.com. Up to 5,000 per run (free Apify plan: 2 domains per run, 10 top keywords each; paid plans: no limit). URLs are reduced to their domain... |
 | `country` | string (94 codes, see the Store page) | "US" | Country whose Google search data you want. |
 | `languageCode` | string |  | Language code, e.g. "en", "fr" or "zh-TW". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). Only languages offered by the data source for that country work; others... |
 | `topKeywords` | integer | 10 | How many of the keywords bringing the most organic traffic to return per domain (position, URL, volume, CPC, difficulty, intent). 0 = traffic metrics only, otherwise 10 to 1,000. Each keyword returned is billed; see... |
