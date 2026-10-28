@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.NadaHo/domain-seo-overview",
+  "title": "Domain SEO Overview (Semrush alternative)",
+  "description": "Organic traffic, keyword counts and up to 1,000 competitor keywords of any domain; 94 countries.",
+  "version": "1.0.0",
+  "websiteUrl": "https://apify.com/plainrows/domain-seo-overview",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.apify.com/?tools=plainrows/domain-seo-overview",
+      "headers": [
+        {
+          "name": "Authorization",
+          "isSecret": true,
+          "description": "Optional: 'Bearer <your Apify API token>'. MCP clients with OAuth can sign in to Apify instead. Runs are billed to your Apify account."
+        }
+      ]
+    }
+  ]
+}

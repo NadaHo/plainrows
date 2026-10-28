@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.NadaHo/domain-authority-checker",
+  "title": "Domain Authority & Spam Score Checker",
+  "description": "Bulk domain rank (0-100), SEO spam score, backlinks and referring domains for up to 10,000 domains.",
+  "version": "1.0.0",
+  "websiteUrl": "https://apify.com/plainrows/domain-authority-checker",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.apify.com/?tools=plainrows/domain-authority-checker",
+      "headers": [
+        {
+          "name": "Authorization",
+          "isSecret": true,
+          "description": "Optional: 'Bearer <your Apify API token>'. MCP clients with OAuth can sign in to Apify instead. Runs are billed to your Apify account."
+        }
+      ]
+    }
+  ]
+}

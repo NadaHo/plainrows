@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.NadaHo/plainrows-seo",
+  "title": "PlainRows SEO tools: volume, backlinks, authority",
+  "description": "5 SEO tools: keyword volume, Keyword Planner data, backlinks, domain authority, domain traffic.",
+  "version": "1.0.0",
+  "websiteUrl": "https://nadaho.github.io/plainrows/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.apify.com/?tools=plainrows/keyword-search-volume,plainrows/keyword-planner-alternative,plainrows/backlink-checker,plainrows/domain-authority-checker,plainrows/domain-seo-overview",
+      "headers": [
+        {
+          "name": "Authorization",
+          "isSecret": true,
+          "description": "Optional: 'Bearer <your Apify API token>'. MCP clients with OAuth can sign in to Apify instead. Runs are billed to your Apify account."
+        }
+      ]
+    }
+  ]
+}

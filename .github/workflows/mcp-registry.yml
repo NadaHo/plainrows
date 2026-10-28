@@ -1,0 +1,37 @@
+# Source: plainrows apify-actors marketing/mcp-registry/workflow.yml (copied by marketing/hub/build.py).
+# Publishes the changed .github/mcp/*.json files to the official MCP registry (namespace io.github.NadaHo/*).
+name: MCP registry
+on:
+  push:
+    branches: [main]
+    paths: [".github/mcp/**"]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install mcp-publisher
+        run: curl -sL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+      - name: Login (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish changed servers
+        run: |
+          before="${{ github.event.before }}"
+          if git cat-file -e "$before^{commit}" 2>/dev/null; then
+            files=$(git diff --name-only --diff-filter=AM "$before" "${{ github.sha }}" -- .github/mcp/)
+          else
+            files=$(ls .github/mcp/*.json)
+          fi
+          failed=0
+          for f in $files; do
+            echo "== $f"
+            ./mcp-publisher publish "$f" || failed=$((failed + 1))
+          done
+          echo "failed: $failed"
+          test "$failed" -eq 0
