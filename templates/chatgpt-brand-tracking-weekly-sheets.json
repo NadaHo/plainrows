@@ -1,0 +1,231 @@
+{
+  "name": "Track what ChatGPT answers about your brand every week in Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Track what ChatGPT answers about your brand every week in Google Sheets\n\n### Who's it for\nMarketing teams, SEO and GEO consultants and agencies who ask ChatGPT the questions their buyers ask, every week, and want to see whether ChatGPT names their brand, in which position among the brands it recommends, and whether it cites their website.\n\n### How it works\n1. Every Monday the Schedule Trigger starts the workflow.\n2. The **Settings** node holds your questions (one per line), your brand, your website, your competitors and the country.\n3. The **ChatGPT Search Scraper** Actor on Apify (`plainrows/chatgpt-search-scraper`) asks each question to ChatGPT with web search and returns the answer, the brands and products it names, the sources it cites and the searches it ran.\n4. A Code node turns each answer into one dated row: brand named or not, its rank among the brands ChatGPT lists, website cited or not and at which rank, competitors named, top cited domains and a link to the answer.\n5. The rows are appended to the `ChatGPT tracking` tab, so you can chart the trend and compare weeks.\n\n### Requirements\n- An Apify account and its API token.\n- A Google Sheets account and a spreadsheet with a `ChatGPT tracking` tab.\n- The Apify node is the verified community node `@apify/n8n-nodes-apify` (available on n8n Cloud; on self-hosted n8n install it from Settings > Community nodes).\n\n### How to customize\n- Edit `questions`, `brand`, `website`, `competitors` and `country` in **Settings** (30 questions a week is a typical tracking set).\n- Post a Slack message when `brandNamed` is false for a question where you were named last week.\n- Track Gemini and Google AI Mode too with the AI Search Visibility Tracker template.\n\nPricing: one price per answer (see the Actor's Pricing tab); empty answers and failed questions are free.",
+        "height": 760,
+        "width": 520
+      },
+      "id": "07597c40-fda0-5ce9-beac-b066f3dc3858",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Setup\n1. In **Settings**, put your `questions` (one per line), your `brand`, your `website`, your `competitors` (comma-separated) and the `country`.\n2. Add your Apify credential (account at apify.com) to *Ask ChatGPT*.\n3. Connect Google Sheets in *Append to sheet* and pick a spreadsheet with a `ChatGPT tracking` tab.\n4. Run once by hand to check the rows.\n\n**Cost:** a price per answer (see the Actor's Pricing tab); the node caps each run with *Maximum Cost per Run*.",
+        "height": 340,
+        "width": 420,
+        "color": 7
+      },
+      "id": "a559c626-fa33-54cc-ba66-dd098da8f12a",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "7a33e252-be90-554e-93bb-557205a93202",
+      "name": "Every Monday",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9ed95879-91ad-5f8b-b28d-4e3e4f01c6ff",
+              "name": "questions",
+              "value": "best project management software for small teams\nbest project management tool for agencies\nbest Trello alternative",
+              "type": "string"
+            },
+            {
+              "id": "e5690691-c31c-5055-815e-2a0193495e14",
+              "name": "brand",
+              "value": "Asana",
+              "type": "string"
+            },
+            {
+              "id": "7b53ffdb-fa8b-5525-9aaf-95ca4bce7eb7",
+              "name": "website",
+              "value": "asana.com",
+              "type": "string"
+            },
+            {
+              "id": "1bca2f10-62b3-5edb-95f5-024568c30ad5",
+              "name": "competitors",
+              "value": "Monday, ClickUp, Trello, Notion",
+              "type": "string"
+            },
+            {
+              "id": "2cd7d1cd-a1a3-53d8-8ebf-ca8213342b04",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c904390f-fa13-516a-b02d-4a8526c34bea",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~chatgpt-search-scraper",
+        "customBody": "={{ JSON.stringify({ prompts: $json.questions.split('\\n').map((q) => q.trim()).filter(Boolean), country: $json.country, includeSearchResults: false }) }}",
+        "maxTotalChargeUsd": 1
+      },
+      "id": "cbd00225-d93c-5951-8f46-3519b816893b",
+      "name": "Ask ChatGPT",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One dated row per question: is the brand named, where among the brands ChatGPT lists, is the site cited.\nconst s = $('Settings').first().json;\nconst brand = String(s.brand || '').trim().toLowerCase();\nconst site = String(s.website || '').trim().toLowerCase().replace(/^https?:\\/\\//, '').replace(/^www\\./, '').replace(/\\/.*$/, '');\nconst competitors = String(s.competitors || '').split(',').map((c) => c.trim()).filter(Boolean);\nconst date = new Date().toISOString().slice(0, 10);\nconst named = (text, name) => !!name && new RegExp('(^|[^\\\\p{L}\\\\p{N}])' + name.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&') + '($|[^\\\\p{L}\\\\p{N}])', 'iu').test(text);\nconst onSite = (d) => !!site && (d === site || String(d).endsWith('.' + site));\nreturn $input.all().filter(({ json: r }) => r.found).map(({ json: r }) => {\n  const answer = r.answer || '';\n  const brands = (r.brandEntities || []).map((e) => e.name || e.title || '');\n  const brandRank = brands.findIndex((b) => named(b, brand) || named(brand, b.toLowerCase()));\n  const cited = r.citedDomains || [];\n  const siteRank = cited.findIndex(onSite);\n  return { json: {\n    date,\n    question: r.prompt,\n    brandNamed: named(answer, brand),\n    brandRank: brandRank >= 0 ? brandRank + 1 : null,\n    brandsListed: brands.length,\n    siteCited: siteRank >= 0,\n    siteCitationRank: siteRank >= 0 ? siteRank + 1 : null,\n    competitorsNamed: competitors.filter((c) => named(answer, c)).join(', '),\n    topCitedDomains: cited.slice(0, 5).join(', '),\n    chatgptUrl: r.chatgptUrl,\n  } };\n});"
+      },
+      "id": "04cf3767-448c-54c8-bef3-52b95d7d62dd",
+      "name": "One row per answer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "ChatGPT tracking",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "49de4f58-a0a2-5473-8233-e5904132e591",
+      "name": "Append to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Ask ChatGPT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask ChatGPT": {
+      "main": [
+        [
+          {
+            "node": "One row per answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One row per answer": {
+      "main": [
+        [
+          {
+            "node": "Append to sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
