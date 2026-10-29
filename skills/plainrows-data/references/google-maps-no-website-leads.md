@@ -1,6 +1,6 @@
 # Google Maps Businesses Without Website: Web Design Leads (`plainrows/google-maps-no-website-leads`)
 
-Businesses without website on Google Maps: no website leads scraper and MCP tool. Name, phone, address, rating, reviews count, category and opening hours of local businesses with no website, for web design agencies. Any city or country. Pay per business found plus a small start fee.
+Businesses without website on Google Maps: no website leads scraper and MCP tool. Local business leads: name, phone, address, rating, reviews count, category and opening hours of businesses with no website, for web design agencies. Any city or country. Pay per business found plus a small start fee.
 
 Store page and full documentation: https://apify.com/plainrows/google-maps-no-website-leads
 
