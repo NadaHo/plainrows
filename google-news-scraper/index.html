@@ -11,7 +11,7 @@
 <h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/google-news-scraper/examples/google-news-scraper-brand-mentions-today">Monitor brand mentions in Google News (last 24h)</a>: Get every Google News article mentioning a brand in the last 24 hours, newest first, with publisher, snippet and date. Schedule it daily.</li><li><a href="https://apify.com/plainrows/google-news-scraper/examples/google-news-scraper-industry-news-week">Collect this week&#x27;s news on an industry topic</a>: Collect Google News articles from the past week on a topic, with publisher, URL, snippet and publication date.</li><li><a href="https://apify.com/plainrows/google-news-scraper/examples/google-news-scraper-new-articles-alert">Get only new Google News articles about your brand</a>: Schedule this task daily: the first run lists today&#x27;s articles, each later run returns only articles it has never delivered, so you pay once per article. Send them to Slack, e-mail or a sheet.</li></ul>
 <h2>Guides and comparisons</h2><ul><li><a href="../brand-news-monitoring-json/">Brand news monitoring as JSON: new articles in Slack, Sheets or n8n, once each</a></li><li><a href="../newsapi-alternative/">NewsAPI alternative for production: Google News results billed per article</a></li></ul>
 <h2>Pricing</h2>
-<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. This Actor needs a paid Apify plan: on the free plan nothing is looked up (each lookup costs the data source more than the free plan pays).</p>
 <table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Article</b><br><span>One Google News article returned with its title, URL, publisher, snippet, publication time and position. Queries with no result, duplicates and input mistakes are free.</span></td><td>$0.002</td><td>$0.0016</td><td>$0.0013</td><td>$0.0009</td></tr><tr><td><b>Page checked (only new results)</b><br><span>Only with onlyNewArticles: one page of up to 10 Google News results checked for new results, charged even when nothing new is found (it pays the data source). Normal runs never pay it.</span></td><td>$0.0025</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
 <h2>Run it from your code</h2>
 <p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
@@ -40,6 +40,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-news-scraper">https://apify.com/plainrows/google-news-scraper</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-28.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-29.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>

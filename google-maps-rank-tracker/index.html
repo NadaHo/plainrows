@@ -11,7 +11,7 @@
 <h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/google-maps-rank-tracker/examples/google-maps-rank-tracker-coffee-shop-geo-grid-london">Geo-grid Google Maps ranking of a coffee shop in London</a>: See where a coffee shop ranks on Google Maps at 25 points around it for &quot;coffee shop&quot; and &quot;espresso&quot;, with the top 3 competitors at each point, average rank and share of local voice.</li><li><a href="https://apify.com/plainrows/google-maps-rank-tracker/examples/google-maps-rank-tracker-local-rank-check-3x3">Quick local rank check on a 3x3 grid</a>: A 9-point Google Maps rank check 500 m apart around a business for one keyword: the cheapest way to see if it shows in the local pack nearby.</li></ul>
 <h2>Guides and comparisons</h2><ul><li><a href="../local-falcon-alternative-pay-per-point/">Local Falcon alternative without a subscription: geo-grid rank tracking per point</a></li></ul>
 <h2>Pricing</h2>
-<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. This Actor needs a paid Apify plan: on the free plan nothing is looked up (each lookup costs the data source more than the free plan pays).</p>
 <table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Grid point checked</b><br><span>One grid point searched on Google Maps for one keyword: the business&#x27;s rank there (or not ranked) and the top 3 places. Charged only when Google Maps returned places. The business lookup, the summary per keyword, a business not found, points with no place and unreadable answers are free.</span></td><td>$0.01</td><td>$0.008</td><td>$0.007</td><td>$0.006</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
 <h2>Run it from your code</h2>
 <p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
@@ -44,6 +44,6 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-maps-rank-tracker">https://apify.com/plainrows/google-maps-rank-tracker</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-28.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-10-29.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 </body></html>
