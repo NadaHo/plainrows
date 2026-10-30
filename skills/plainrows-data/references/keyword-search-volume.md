@@ -1,4 +1,4 @@
-# Google Keyword Search Volume Checker & API: Ahrefs Alternative (`plainrows/keyword-search-volume`)
+# Google Keyword Search Volume Checker & API: Keyword Research (`plainrows/keyword-search-volume`)
 
 Bulk keyword search volume checker, search volume finder, search volume tool & search volume API, keyword research API and SEO MCP tool, Keyword Planner, Ahrefs/Semrush alternative: Google keyword volume tool (CPC, keyword difficulty, intent, history), 10k keywords, 94 countries. + AI search volume.
 

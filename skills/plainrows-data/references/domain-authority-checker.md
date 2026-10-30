@@ -1,6 +1,6 @@
 # Bulk Domain Authority Checker & API: DA, Spam Score & Backlinks (`plainrows/domain-authority-checker`)
 
-SEO domain authority checker and API, bulk DA checker MCP tool: ≤ 10,000 domains a run: domain rank (0-100), SEO spam score, backlinks, referring domains and nofollow counts. Website authority: Moz DA checker & Ahrefs Domain Rating (DR) alternative. Pay per domain with data plus lookup fees.
+SEO domain authority checker and API, bulk DA checker MCP tool: ≤ 10,000 domains a run: domain rank (0-100), SEO spam score, backlinks, referring domains and nofollow counts. Website authority checker: Moz DA & Ahrefs DR alternative, domain rating checker. Pay per domain with data plus lookup fees.
 
 Store page and full documentation: https://apify.com/plainrows/domain-authority-checker
 

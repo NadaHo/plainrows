@@ -1,6 +1,6 @@
 # ChatGPT Search Scraper: Answers, Citations & Sources API (`plainrows/chatgpt-search-scraper`)
 
-ChatGPT Search Scraper and MCP tool: send prompts, get ChatGPT's answer with web search as JSON: markdown text, cited sources, search results, fan-out queries, brands and products. No account, no browser. $0.008 per answer, plus $0.001 per run; empty or failed answers are free.
+ChatGPT Search Scraper and MCP tool: send prompts, get ChatGPT's answer with web search as JSON: markdown text, ChatGPT citations and sources, search results, fan-out queries, brands and products. No account, no browser. $0.008 per answer, plus $0.001 per run; empty or failed answers are free.
 
 Store page and full documentation: https://apify.com/plainrows/chatgpt-search-scraper
 

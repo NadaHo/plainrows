@@ -1,6 +1,6 @@
 ---
 name: plainrows-data
-description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Planner Alternative (Bulk Search Volume & CPC); Google Keyword Planner API (Google Ads Search Volume & CPC); Bing Keyword Search Volume & CPC; Keyword Ideas Generator; Google Autocomplete & People Also Ask; Google Trends Explorer; Google Trends Keyword Discovery (Rising & Related); Website Organic Traffic & Top Keywords; Competitor Keywords API (Ranked Keywords); Bulk Website Traffic Checker; SEO Competitors & Keyword Gap Finder; PPC Competitor Keywords (SpyFu Alternative); Bulk Domain Authority Checker; Backlink Checker; Backlink API (Referring Domains & Backlinks Data); Broken Link Checker; SEO Audit API (On-Page SEO Checker); AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); AI Overview Tracker (Google AI Overview Citations); Perplexity Search API (Answers & Citations); ChatGPT Search Scraper (Answers & Citations); AI Citations Finder (LLM Mentions in ChatGPT & AI Overviews);...
+description: Get structured web data as JSON rows by calling PlainRows Actors on Apify - Keyword Search Volume, CPC & Difficulty; Keyword Planner Alternative (Bulk Search Volume & CPC); Google Keyword Planner API (Google Ads Search Volume & CPC); Google Autocomplete & People Also Ask; Google Trends Explorer; Google Trends Keyword Discovery (Rising & Related); Website Organic Traffic & Top Keywords; Competitor Keywords API (Ranked Keywords); Bulk Website Traffic Checker; PPC Competitor Keywords (SpyFu Alternative); Bulk Domain Authority Checker; Backlink Checker; Backlink API (Referring Domains & Backlinks Data); Broken Link Checker; SEO Audit API (On-Page SEO Checker); AI Search Visibility Tracker (ChatGPT, Gemini, AI Mode); AI Overview Tracker (Google AI Overview Citations); Perplexity Search API (Answers & Citations); ChatGPT Search Scraper (Answers & Citations); AI Citations Finder (LLM Mentions in ChatGPT & AI Overviews); Keyword Rank Checker (Google SERP Position); Google Search API (SERP Scraper & Web Results);...
 compatibility: Needs network access to api.apify.com and an APIFY_TOKEN environment variable (free Apify account).
 metadata:
   author: PlainRows
@@ -55,7 +55,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/autovit-scraper` | Autovit Scraper: Romania Car Listings & Prices | from $0.0004 per listing | [references/autovit-scraper.md](references/autovit-scraper.md) |
 | `plainrows/backlink-api` | Backlink API: Referring Domains & Backlinks Data | from $0.0012 per backlink or referring domain | [references/backlink-api.md](references/backlink-api.md) |
 | `plainrows/backlink-checker` | Bulk Backlink Checker & API: Referring Domains & Anchor Text | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
-| `plainrows/bing-keyword-search-volume` | Bing Keyword Search Volume: Bulk Bing Ads Volume & CPC | from $0.0001 per keyword | [references/bing-keyword-search-volume.md](references/bing-keyword-search-volume.md) |
 | `plainrows/bing-search-api` | Bing Search API: Bing SERP Scraper & Web Results | from $0.0003 per organic result | [references/bing-search-api.md](references/bing-search-api.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
@@ -67,7 +66,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
 | `plainrows/dba-scraper` | DBA Scraper: Denmark Marketplace Listings | from $0.0004 per listing | [references/dba-scraper.md](references/dba-scraper.md) |
 | `plainrows/domain-authority-checker` | Bulk Domain Authority Checker & API: DA, Spam Score & Backlinks | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
-| `plainrows/domain-seo-overview` | Domain Overview & SEO API: Organic Traffic, Semrush Alternative | from $0.004 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
+| `plainrows/domain-seo-overview` | Domain Overview & Semrush API Alternative: Organic Traffic | from $0.004 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
 | `plainrows/finn-cars-scraper` | FINN.no Car Scraper: Norway Used Car Listings | from $0.0006 per car listing | [references/finn-cars-scraper.md](references/finn-cars-scraper.md) |
 | `plainrows/finn-scraper` | FINN Scraper (FINN.no): Norway Marketplace Listings | from $0.0004 per listing | [references/finn-scraper.md](references/finn-scraper.md) |
 | `plainrows/google-ads-transparency` | Google Ads Scraper & API: Google Ads Transparency Center | from $0.0006 per ad | [references/google-ads-transparency.md](references/google-ads-transparency.md) |
@@ -80,7 +79,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-maps-businesses` | Google Maps Scraper & API: Business Leads, Emails & Phones | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
 | `plainrows/google-maps-email-extractor` | Google Maps Email Extractor & API: Business Leads with Emails | from $0.001 per place | [references/google-maps-email-extractor.md](references/google-maps-email-extractor.md) |
 | `plainrows/google-maps-no-website-leads` | Google Maps Businesses Without Website: Web Design Leads | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
-| `plainrows/google-maps-rank-tracker` | Local Falcon Alternative: Google Maps Rank Tracker & Local SEO | from $0.006 per grid point checked | [references/google-maps-rank-tracker.md](references/google-maps-rank-tracker.md) |
 | `plainrows/google-maps-reviews` | Google Maps Reviews Scraper & API | from $0.0002 per review | [references/google-maps-reviews.md](references/google-maps-reviews.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
 | `plainrows/google-play-reviews-scraper` | Google Play Reviews Scraper: Ratings, Text & Replies | from $0.00005 per review | [references/google-play-reviews-scraper.md](references/google-play-reviews-scraper.md) |
@@ -95,10 +93,9 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/imovirtual-scraper` | Imovirtual Scraper: Portugal Property Listings & Prices | from $0.0004 per listing | [references/imovirtual-scraper.md](references/imovirtual-scraper.md) |
 | `plainrows/jobs-ch-scraper` | Switzerland Jobs Scraper: jobs.ch & jobup.ch Swiss Job Ads | from $0.0009 per job | [references/jobs-ch-scraper.md](references/jobs-ch-scraper.md) |
 | `plainrows/jobs-cz-scraper` | Czech Jobs Scraper: Jobs.cz Job Listings & Salaries | from $0.0009 per job | [references/jobs-cz-scraper.md](references/jobs-cz-scraper.md) |
-| `plainrows/keyword-ideas-generator` | Keyword Research Tool & API: Keyword Ideas & Related Keywords | from $0.002 per keyword | [references/keyword-ideas-generator.md](references/keyword-ideas-generator.md) |
 | `plainrows/keyword-planner-alternative` | Google Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
 | `plainrows/keyword-rank-checker` | Keyword Rank Checker: Google SERP Position Tracker API | from $0.004 per keyword checked | [references/keyword-rank-checker.md](references/keyword-rank-checker.md) |
-| `plainrows/keyword-search-volume` | Google Keyword Search Volume Checker & API: Ahrefs Alternative | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
+| `plainrows/keyword-search-volume` | Google Keyword Search Volume Checker & API: Keyword Research | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |
 | `plainrows/otodom-scraper` | Otodom Scraper: Poland Property Listings & Prices | from $0.0007 per listing | [references/otodom-scraper.md](references/otodom-scraper.md) |
 | `plainrows/otomoto-scraper` | Otomoto Scraper: Polish Car Listings & Prices | from $0.0004 per listing | [references/otomoto-scraper.md](references/otomoto-scraper.md) |
@@ -111,7 +108,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/reed-jobs-scraper` | UK Jobs Scraper: Reed.co.uk Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
 | `plainrows/remote-jobs-aggregator` | Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy | from $0.0006 per job | [references/remote-jobs-aggregator.md](references/remote-jobs-aggregator.md) |
 | `plainrows/seo-audit-api` | SEO Audit API: On-Page SEO Checker, Meta Tags & Site Audit | from $0.002 per page audited | [references/seo-audit-api.md](references/seo-audit-api.md) |
-| `plainrows/seo-competitors-keyword-gap` | SEO Competitor Analysis & Keyword Gap Finder | from $0.0016 per competitor or gap keyword | [references/seo-competitors-keyword-gap.md](references/seo-competitors-keyword-gap.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
 | `plainrows/tori-scraper` | Tori Scraper (Tori.fi): Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
