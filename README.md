@@ -29,7 +29,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Competitor Keywords API: Ranked Keywords of Any Domain](https://apify.com/plainrows/competitor-keywords-api)
 - [Contact Details Scraper: Emails, Phones & Social Profiles](https://apify.com/plainrows/contact-details-scraper)
 - [DBA Scraper: Denmark Marketplace Listings](https://apify.com/plainrows/dba-scraper)
-- [Bulk Domain Authority Checker & API: DA, Spam Score & Backlinks](https://apify.com/plainrows/domain-authority-checker)
+- [Bulk Domain Authority Checker & API: DA, DR & Spam Score](https://apify.com/plainrows/domain-authority-checker)
 - [Domain Overview & Semrush API Alternative: Organic Traffic](https://apify.com/plainrows/domain-seo-overview)
 - [FINN.no Car Scraper: Norway Used Car Listings](https://apify.com/plainrows/finn-cars-scraper)
 - [FINN Scraper (FINN.no): Norway Marketplace Listings](https://apify.com/plainrows/finn-scraper)

@@ -1,6 +1,6 @@
-# Bulk Domain Authority Checker & API: DA, Spam Score & Backlinks (`plainrows/domain-authority-checker`)
+# Bulk Domain Authority Checker & API: DA, DR & Spam Score (`plainrows/domain-authority-checker`)
 
-SEO domain authority checker and API, bulk DA checker MCP tool: ≤ 10,000 domains a run: domain rank (0-100), SEO spam score, backlinks, referring domains and nofollow counts. Website authority checker: Moz DA & Ahrefs DR alternative, domain rating checker. Pay per domain with data plus lookup fees.
+SEO domain authority checker and API, bulk DA checker MCP tool: ≤ 10,000 domains a run: domain rank (0-100), SEO spam score, backlinks, referring domains, nofollow. Moz domain authority alternative, Ahrefs DR alternative, website authority and domain rating checker. Pay per domain plus lookup fees.
 
 Store page and full documentation: https://apify.com/plainrows/domain-authority-checker
 
@@ -9,9 +9,9 @@ Store page and full documentation: https://apify.com/plainrows/domain-authority-
 | Field | Type | Default | What it does |
 |---|---|---|---|
 | `domains` (required) | array |  | Domains to check, one per line: "example.com", "blog.example.com" or a full URL (it is reduced to its domain; "www." is removed). Duplicates are removed. Up to 10,000 domains per run, checked in batches of 1,000. Free... |
-| `includeSpamScore` | boolean | true | Add the spam score (0-100). Each metric group adds one batch lookup per 1,000 domains; see Pricing. |
-| `includeBacklinks` | boolean | false | Add the total number of live backlinks (off by default). Adds one batch lookup per 1,000 domains. |
-| `includeReferringDomains` | boolean | false | Add referring domains, referring main domains and their nofollow counts (off by default). Adds one batch lookup per 1,000 domains. |
+| `includeSpamScore` | boolean | true | Add the spam score (0-100). Each metric group adds one batch lookup per 1,000 domains; see Pricing. Example: true. |
+| `includeBacklinks` | boolean | false | Add the total number of live backlinks (off by default). Adds one batch lookup per 1,000 domains. Example: true to get the backlinks count. |
+| `includeReferringDomains` | boolean | false | Add referring domains, referring main domains and their nofollow counts (off by default). Adds one batch lookup per 1,000 domains. Example: true to get referring domains. |
 
 ## Example input
 
@@ -20,7 +20,9 @@ Store page and full documentation: https://apify.com/plainrows/domain-authority-
   "domains": [
     "apify.com",
     "forbes.com",
-    "bbc.co.uk"
+    "bbc.co.uk",
+    "github.com",
+    "wikipedia.org"
   ]
 }
 ```

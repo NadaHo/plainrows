@@ -65,7 +65,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/competitor-keywords-api` | Competitor Keywords API: Ranked Keywords of Any Domain | from $0.004 per domain | [references/competitor-keywords-api.md](references/competitor-keywords-api.md) |
 | `plainrows/contact-details-scraper` | Contact Details Scraper: Emails, Phones & Social Profiles | from $0.0015 per website with contacts | [references/contact-details-scraper.md](references/contact-details-scraper.md) |
 | `plainrows/dba-scraper` | DBA Scraper: Denmark Marketplace Listings | from $0.0004 per listing | [references/dba-scraper.md](references/dba-scraper.md) |
-| `plainrows/domain-authority-checker` | Bulk Domain Authority Checker & API: DA, Spam Score & Backlinks | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
+| `plainrows/domain-authority-checker` | Bulk Domain Authority Checker & API: DA, DR & Spam Score | from $0.001 per domain | [references/domain-authority-checker.md](references/domain-authority-checker.md) |
 | `plainrows/domain-seo-overview` | Domain Overview & Semrush API Alternative: Organic Traffic | from $0.004 per domain | [references/domain-seo-overview.md](references/domain-seo-overview.md) |
 | `plainrows/finn-cars-scraper` | FINN.no Car Scraper: Norway Used Car Listings | from $0.0006 per car listing | [references/finn-cars-scraper.md](references/finn-cars-scraper.md) |
 | `plainrows/finn-scraper` | FINN Scraper (FINN.no): Norway Marketplace Listings | from $0.0004 per listing | [references/finn-scraper.md](references/finn-scraper.md) |
