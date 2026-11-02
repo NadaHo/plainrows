@@ -33,6 +33,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Domain Overview & Semrush API Alternative: Organic Traffic](https://apify.com/plainrows/domain-seo-overview)
 - [FINN.no Car Scraper: Norway Used Car Listings](https://apify.com/plainrows/finn-cars-scraper)
 - [FINN Scraper (FINN.no): Norway Marketplace Listings](https://apify.com/plainrows/finn-scraper)
+- [Gemini Search Scraper: Gemini Answers, Citations & Sources](https://apify.com/plainrows/gemini-search-scraper)
 - [Google Ads Scraper & API: Google Ads Transparency Center](https://apify.com/plainrows/google-ads-transparency)
 - [People Also Ask Scraper & Google Autocomplete Keywords](https://apify.com/plainrows/google-autocomplete-questions)
 - [Google Hotels Prices Scraper: Price Comparison of Booking Sites](https://apify.com/plainrows/google-hotels-prices)
