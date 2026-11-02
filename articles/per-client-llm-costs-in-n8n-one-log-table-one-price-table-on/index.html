@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Per-client LLM costs in n8n: one log table, one price table, one query | PlainRows</title><meta name="description" content="A question that keeps coming up on the n8n forum: you build automations for several clients on one OpenAI or Anthropic account, and at month end you need to kno">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/per-client-llm-costs-in-n8n-one-log-table-one-price-table-on/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>Per-client LLM costs in n8n: one log table, one price table, one query</h1><p class="lead">2026-11-02</p><p>A question that keeps coming up on the n8n forum: you build automations for several clients on one OpenAI or Anthropic account, and at month end you need to know what each client cost. Here&#x27;s a setup that holds up with shared sub-workflows, cached tokens and retries.</p>
+<h3>1. Tag the client at the entry point</h3>
+<p>Every workflow a client triggers sets a <code>client_id</code> in its first node. Sub-workflows receive it as a declared input on the &quot;When Executed by Another Workflow&quot; trigger. Don&#x27;t infer the client from the workflow name: the name stops identifying the client as soon as two clients share a sub-workflow.</p>
+<h3>2. Log the real token counts</h3>
+<p>When you call the model through an HTTP Request node, the response contains the billed counts:</p>
+<p>| Provider | Fields |</p>
+<p>|---|---|</p>
+<p>| OpenAI Chat Completions | <code>usage.prompt<i>tokens</code>, <code>usage.completion</i>tokens</code>, <code>usage.prompt<i>tokens</i>details.cached_tokens</code> |</p>
+<p>| OpenAI Responses | <code>usage.input<i>tokens</code>, <code>usage.output</i>tokens</code>, <code>usage.input<i>tokens</i>details.cached_tokens</code> |</p>
+<p>| Anthropic Messages | <code>usage.input<i>tokens</code>, <code>usage.output</i>tokens</code>, <code>usage.cache<i>read</i>input<i>tokens</code>, <code>usage.cache</i>creation<i>input</i>tokens</code> |</p>
+<p>The AI Agent and chat model sub-nodes don&#x27;t expose usage to the main flow. A separate scheduled workflow can read finished executions through the n8n API (<code>GET /api/v1/executions?includeData=true</code>) and sum the <code>tokenUsage</code> / <code>tokenUsageEstimate</code> objects of the model sub-node&#x27;s runs. The estimate is n8n&#x27;s count, not the provider&#x27;s, so flag those rows as approximate.</p>
+<p>Normalise the counts before storing them. OpenAI&#x27;s <code>prompt<i>tokens</code> includes cached tokens, while Anthropic&#x27;s <code>input</i>tokens</code> excludes both cache reads and cache writes:</p>
+
+<pre>
+create table llm_usage (
+  call_id        text primary key,  -- provider response id
+  ts             timestamptz not null,
+  client_id      text not null,
+  workflow       text,
+  execution_id   text,
+  model          text,
+  input_uncached int,  -- OpenAI: prompt_tokens - cached_tokens | Anthropic: input_tokens
+  cache_read     int,  -- OpenAI: cached_tokens                  | Anthropic: cache_read_input_tokens
+  cache_write    int,  -- OpenAI: 0                              | Anthropic: cache_creation_input_tokens
+  output_tok     int
+);
+
+</pre>
+<p>Using the response id as primary key means a log step that runs twice can&#x27;t double-count. A retried call that succeeded has a new id and appears again, which matches what the provider bills. A call that failed with an HTTP error returns no usage and costs nothing.</p>
+<h3>3. Apply prices at month end</h3>
+<p>Keep prices in a table with <code>valid<i>from</code> / <code>valid</i>to</code> so a price change doesn&#x27;t rewrite past months:</p>
+
+<pre>
+select u.client_id,
+       date_trunc(&#x27;month&#x27;, u.ts) as month,
+       round(sum( u.input_uncached * p.in_per_m
+                + u.cache_read     * p.cache_read_per_m
+                + u.cache_write    * p.cache_write_per_m
+                + u.output_tok     * p.out_per_m ) / 1e6, 2) as usd
+from llm_usage u
+join prices p
+  on p.model = u.model
+ and u.ts &gt;= p.valid_from
+ and (p.valid_to is null or u.ts &lt; p.valid_to)
+group by 1, 2
+order by 1, 2;
+
+</pre>
+<p>Compare the monthly total with the provider invoice. The gap is usage that doesn&#x27;t go through n8n (scripts, the playground, someone else&#x27;s agent on the same key). Close it before invoicing from this table.</p>
+<h3>4. Catch runaways within the hour</h3>
+<p>A workflow can&#x27;t reliably stop a loop it is itself running. The hard stop is a budget limit at the provider, ideally one project or key per client. On top of that, an hourly query that compares calls per client and workflow with their usual hourly count, and alerts at about 3x, catches a retry storm the same hour.</p>
+<h3>Limits</h3>
+<ul>
+<li><code>tokenUsageEstimate</code> rows are estimates. If a client&#x27;s invoice depends on them, move that client&#x27;s calls to HTTP Request nodes.</li>
+<li>Per-minute voice costs are a different unit. Put them on their own invoice line rather than converting them into tokens.</li>
+<li>This tells you what each client cost, not whether to pass it through or charge a flat fee. A flat fee works for small, steady spend. Spend that can double in a month is easier to defend as pass-through with this breakdown attached.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-02.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
