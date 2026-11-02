@@ -78,7 +78,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/google-keyword-planner-api` | Google Keyword Planner API: Google Ads Search Volume & CPC | from $0.003 per keyword with search volume | [references/google-keyword-planner-api.md](references/google-keyword-planner-api.md) |
 | `plainrows/google-maps-businesses` | Google Maps Scraper & API: Business Leads, Emails & Phones | from $0.001 per place | [references/google-maps-businesses.md](references/google-maps-businesses.md) |
 | `plainrows/google-maps-email-extractor` | Google Maps Email Extractor & API: Business Leads with Emails | from $0.001 per place | [references/google-maps-email-extractor.md](references/google-maps-email-extractor.md) |
-| `plainrows/google-maps-no-website-leads` | Google Maps Businesses Without Website: Web Design Leads | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
+| `plainrows/google-maps-no-website-leads` | Google Maps No Website Business Leads: Web Design Leads | from $0.001 per place | [references/google-maps-no-website-leads.md](references/google-maps-no-website-leads.md) |
 | `plainrows/google-maps-reviews` | Google Maps Reviews Scraper & API | from $0.0002 per review | [references/google-maps-reviews.md](references/google-maps-reviews.md) |
 | `plainrows/google-news-scraper` | Google News Scraper API: Articles, Sources & Dates | from $0.0009 per article | [references/google-news-scraper.md](references/google-news-scraper.md) |
 | `plainrows/google-play-reviews-scraper` | Google Play Reviews Scraper: Ratings, Text & Replies | from $0.00005 per review | [references/google-play-reviews-scraper.md](references/google-play-reviews-scraper.md) |

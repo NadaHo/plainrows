@@ -42,7 +42,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Google Keyword Planner API: Google Ads Search Volume & CPC](https://apify.com/plainrows/google-keyword-planner-api)
 - [Google Maps Scraper & API: Business Leads, Emails & Phones](https://apify.com/plainrows/google-maps-businesses)
 - [Google Maps Email Extractor & API: Business Leads with Emails](https://apify.com/plainrows/google-maps-email-extractor)
-- [Google Maps Businesses Without Website: Web Design Leads](https://apify.com/plainrows/google-maps-no-website-leads)
+- [Google Maps No Website Business Leads: Web Design Leads](https://apify.com/plainrows/google-maps-no-website-leads)
 - [Google Maps Reviews Scraper & API](https://apify.com/plainrows/google-maps-reviews)
 - [Google News Scraper API: Articles, Sources & Dates](https://apify.com/plainrows/google-news-scraper)
 - [Google Play Reviews Scraper: Ratings, Text & Replies](https://apify.com/plainrows/google-play-reviews-scraper)

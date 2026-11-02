@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Google Maps Businesses Without Website: Web Design Leads | PlainRows</title><meta name="description" content="Businesses without website on Google Maps: no website leads scraper and MCP tool. Local business leads: name, phone, address, rating, reviews count, category an">
+<title>Google Maps No Website Business Leads: Web Design Leads | PlainRows</title><meta name="description" content="Google Maps no website business leads: businesses without website on Google Maps: no website leads scraper and MCP tool. Local business leads: name, phone, addr">
 <link rel="canonical" href="https://nadaho.github.io/plainrows/google-maps-no-website-leads/"><link rel="stylesheet" href="../style.css">
 </head><body><header><a class="brand" href="../">PlainRows</a></header>
 <main>
-<h1>Google Maps Businesses Without Website: Web Design Leads</h1>
-<p class="lead">Businesses without website on Google Maps: no website leads scraper and MCP tool. Local business leads: name, phone, address, rating, reviews count, category and opening hours of businesses with no website, for web design agencies. Any city or country. Pay per business found plus a small start fee.</p>
+<h1>Google Maps No Website Business Leads: Web Design Leads</h1>
+<p class="lead">Google Maps no website business leads: businesses without website on Google Maps: no website leads scraper and MCP tool. Local business leads: name, phone, address, rating, reviews, category and hours of businesses with no website, for web design leads. Pay per business found plus a start fee.</p>
 <p><a class="btn" href="https://apify.com/plainrows/google-maps-no-website-leads">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-maps-no-website-leads" alt="Actor status"></p>
 <h2>Typical uses</h2><ul><li>Web design agencies and freelancers: businesses by trade and city with no website, with their phone and address, to pitch a site.</li><li>Website builders and local marketing offers: size a market (how many plumbers in a city have no site) and build call lists.</li><li>Sales teams: phone-first prospect lists, filtered by rating so you call businesses that are active and well reviewed.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Google Sheets, HubSpot or an MCP client with structured JSON.</li></ul>
 <h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/google-maps-no-website-leads/examples/google-maps-no-website-leads-hair-salons-without-website">Find hair salons without a website (web design leads)</a>: List hair salons on Google Maps that show no website but do have a phone number, with address, rating and opening hours: a ready call list for web designers and local marketing agencies. Change the city to yours.</li></ul>
@@ -20,7 +20,8 @@
   -H &#x27;Content-Type: application/json&#x27; \
   -d &#x27;{
   &quot;searchQueries&quot;: [
-    &quot;hair salon in Odessa, TX&quot;
+    &quot;hair salon in Odessa, TX&quot;,
+    &quot;plumber in Dayton, OH&quot;
   ],
   &quot;country&quot;: &quot;US&quot;,
   &quot;maxPlacesPerQuery&quot;: 20,
@@ -29,7 +30,7 @@
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/google-maps-no-website-leads&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;hair salon in Odessa, TX&#x27;],
+run = client.actor(&quot;plainrows/google-maps-no-website-leads&quot;).call(run_input={&#x27;searchQueries&#x27;: [&#x27;hair salon in Odessa, TX&#x27;, &#x27;plumber in Dayton, OH&#x27;],
  &#x27;country&#x27;: &#x27;US&#x27;,
  &#x27;maxPlacesPerQuery&#x27;: 20,
  &#x27;website&#x27;: &#x27;without&#x27;})
@@ -44,7 +45,7 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-maps-no-website-leads">https://apify.com/plainrows/google-maps-no-website-leads</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-01.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-02.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 <script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>
