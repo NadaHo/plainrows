@@ -60,7 +60,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Czech Jobs Scraper: Jobs.cz Job Listings & Salaries](https://apify.com/plainrows/jobs-cz-scraper)
 - [Google Keyword Planner Alternative: Bulk Search Volume & CPC](https://apify.com/plainrows/keyword-planner-alternative)
 - [Keyword Rank Checker: Google SERP Position Tracker API](https://apify.com/plainrows/keyword-rank-checker)
-- [Google Keyword Search Volume Checker & API: Keyword Research](https://apify.com/plainrows/keyword-search-volume)
+- [Google Keyword Search Volume Checker & API: CPC & Difficulty](https://apify.com/plainrows/keyword-search-volume)
 - [Lever Jobs Scraper: Any Lever Job Board](https://apify.com/plainrows/lever-jobs-scraper)
 - [Otodom Scraper: Poland Property Listings & Prices](https://apify.com/plainrows/otodom-scraper)
 - [Otomoto Scraper: Polish Car Listings & Prices](https://apify.com/plainrows/otomoto-scraper)

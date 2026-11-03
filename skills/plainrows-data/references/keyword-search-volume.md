@@ -1,6 +1,6 @@
-# Google Keyword Search Volume Checker & API: Keyword Research (`plainrows/keyword-search-volume`)
+# Google Keyword Search Volume Checker & API: CPC & Difficulty (`plainrows/keyword-search-volume`)
 
-Bulk keyword search volume checker, search volume finder, search volume tool & search volume API, keyword research API and SEO MCP tool, Keyword Planner, Ahrefs/Semrush alternative: Google keyword volume tool (CPC, keyword difficulty, intent, history), 10k keywords, 94 countries. + AI search volume.
+Bulk keyword search volume checker & keyword difficulty checker, search volume finder, search volume tool & search volume API, keyword research API and SEO MCP tool, Keyword Planner, Ahrefs/Semrush alternative: Google keyword volume tool (CPC, keyword difficulty, intent, history). + AI search volume
 
 Store page and full documentation: https://apify.com/plainrows/keyword-search-volume
 
@@ -9,12 +9,12 @@ Store page and full documentation: https://apify.com/plainrows/keyword-search-vo
 | Field | Type | Default | What it does |
 |---|---|---|---|
 | `keywords` (required) | array |  | Keywords to look up, one per item, up to 10,000 per run (max 80 characters and 10 words each). Best results with phrases people really type into Google (1 to 4 words): very long-tail, misspelled or brand-new phrases... |
-| `mode` | string: `volume`, `ideas` | "volume" | "Search volume": metrics for each keyword you enter. "Keyword ideas": each keyword is a seed and the run returns related keyword ideas with the same metrics (plus seedKeyword), billed per idea with data like a keyword. |
-| `country` | string (94 codes, see the Store page) | "US" | Country whose Google search data you want (94 countries). |
+| `mode` | string: `volume`, `ideas` | "volume" | "Search volume": metrics for each keyword you enter. "Keyword ideas": each keyword is a seed and the run returns related keyword ideas with the same metrics (plus seedKeyword), billed per idea with data like a keyword.... |
+| `country` | string (94 codes, see the Store page) | "US" | Country whose Google search data you want (94 countries). Example: "GB" for the United Kingdom. |
 | `languageCode` | string |  | Language code, e.g. "en", "fr" or "zh-TW". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). Only languages offered by the data source for that country work; others... |
 | `historyMonths` | integer | 12 | How many months of monthly search volumes to include per keyword, most recent first. 0 = none. Up to 96 months (data goes back to 2018 for most keywords). No extra cost. In ideas mode the data source returns 12 months... |
-| `includeAiSearchVolume` | boolean | false | Search volume mode only, from October 24, 2026: add aiSearchVolume (estimated monthly use of the keyword in AI tools and chat assistants) and its monthly history to each found keyword. Billed per keyword with a positive... |
-| `maxIdeasPerSeed` | integer | 50 | Ideas mode only: most related keyword ideas returned per seed keyword, most relevant first. An idea already returned for another seed is not returned or billed again. Ignored in search volume mode. |
+| `includeAiSearchVolume` | boolean | false | Search volume mode only: add aiSearchVolume (estimated monthly use of the keyword in AI tools and chat assistants) and its monthly history to each found keyword. Billed per keyword with a positive AI volume (see the... |
+| `maxIdeasPerSeed` | integer | 50 | Ideas mode only: most related keyword ideas returned per seed keyword, most relevant first. An idea already returned for another seed is not returned or billed again. Ignored in search volume mode. Example: 100. |
 
 ## Example input
 
@@ -23,7 +23,14 @@ Store page and full documentation: https://apify.com/plainrows/keyword-search-vo
   "keywords": [
     "coffee maker",
     "espresso machine",
-    "french press"
+    "french press",
+    "cold brew coffee",
+    "coffee grinder",
+    "pour over coffee",
+    "moka pot",
+    "milk frother",
+    "decaf coffee",
+    "coffee beans"
   ],
   "mode": "volume",
   "country": "US"

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OAuth APIs that want Basic auth on the token call: running the token flow yourself in Make | PlainRows</title><meta name="description" content="Some OAuth 2.0 providers refuse client credentials in the body of the token request. They want `Authorization: Basic base64(client_id:client_secret)` on `/oauth">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/oauth-apis-that-want-basic-auth-on-the-token-call-running-th/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>OAuth APIs that want Basic auth on the token call: running the token flow yourself in Make</h1><p class="lead">2026-11-03</p><p>Some OAuth 2.0 providers refuse client credentials in the body of the token request. They want <code>Authorization: Basic base64(client<i>id:client</i>secret)</code> on <code>/oauth/token</code> and nothing else. Bling ERP (API v3) is one of them, and a question on the Make forum this week ran into it: the consent screen works, then the connection fails with <code>invalid_client</code>.</p>
+<p>The generic OAuth 2.0 connection of Make&#x27;s HTTP &gt; Make a request module lets you add extra body parameters to the token and refresh requests. It also has a Custom Headers field, but the docs don&#x27;t say whether those headers go on the token call. Try a static <code>Authorization: Basic ...</code> header there first. If the provider still answers <code>invalid_client</code>, handle the tokens yourself. It takes three scenarios and a data store.</p>
+<h3>The pieces</h3>
+<p>| Piece | What it does |</p>
+<p>|---|---|</p>
+<p>| Data store <code>tokens</code> | one record: <code>access<i>token</code>, <code>refresh</i>token</code>, <code>expires_at</code> |</p>
+<p>| Callback scenario (instant, always on) | Custom webhook = the app&#x27;s redirect URL; exchanges the code for tokens and saves them |</p>
+<p>| Refresh scenario (scheduled) | exchanges the refresh token for new tokens before the access token expires |</p>
+<p>| Your API scenarios | read the access token and send <code>Authorization: Bearer ...</code> |</p>
+<h3>Callback scenario</h3>
+<p>1. <b>Custom webhook.</b> Register its URL as the redirect URL in the provider&#x27;s developer settings.</p>
+<p>2. <b>HTTP &gt; Make a request.</b></p>
+<p>   - Authentication type: <b>Basic Auth</b>, with a keychain where username = client ID and password = client secret. Make encodes the header.</p>
+<p>   - <code>POST</code> to the token URL, body <code>application/x-www-form-urlencoded</code>: <code>grant<i>type=authorization</i>code</code>, <code>code={{1.code}}</code>, plus <code>redirect_uri</code> if the provider requires it.</p>
+<p>   - Parse response: yes.</p>
+<p>3. <b>Data store &gt; Add/replace a record</b> with <code>expires<i>at = {{addSeconds(now; 2.data.expires</i>in)}}</code>.</p>
+<p>4. <b>Webhook response</b> with a short &quot;connected&quot; page.</p>
+<p>Keep this scenario on before you open the authorization link. Authorization codes are short-lived. Bling&#x27;s expire after 30 seconds, so copying one by hand into a module is too slow. If you send a <code>state</code> value, check it with a filter right after the webhook.</p>
+<h3>Refresh scenario</h3>
+<p>Schedule it a bit inside the access token&#x27;s lifetime. For Bling, the access token lasts 6 hours (<code>expires<i>in: 21600</code>) and the refresh token 30 days, so every 5 hours works. Same HTTP module, with <code>grant</i>type=refresh<i>token</code> and <code>refresh</i>token={{record.refresh_token}}</code>. Save <b>both</b> tokens from the response. Many providers rotate the refresh token, and the old one may stop working once it&#x27;s used.</p>
+<p>Refresh from one scenario only. Two scenarios refreshing with the same refresh token at the same moment is the classic way to end up logged out.</p>
+<h3>Calling the API</h3>
+<p>Get the record, then HTTP &gt; Make a request with Authentication type &quot;No authentication&quot; and a header <code>Authorization: Bearer {{record.access_token}}</code>.</p>
+<h3>Provider-specific headers</h3>
+<p>Read the token section of the provider&#x27;s docs once more before building. Bling, for example, has deprecated its opaque tokens. To get JWTs you add <code>enable-jwt: 1</code> to every token and refresh request. If you forget it on the refresh call, you silently fall back to the old kind.</p>
+<h3>Limits</h3>
+<ul>
+<li>Tokens sit in a data store. Turn on &quot;Data is confidential&quot; in the scenario settings so they don&#x27;t appear in execution history, and limit who can open the data store.</li>
+<li>If the refresh scenario stops for longer than the refresh token&#x27;s lifetime (30 days for Bling), someone has to click the authorization link again. A failure alert on the refresh scenario is worth adding.</li>
+<li>A scheduled refresh costs a few runs a day even when nothing else happens. On a small plan, refresh on demand instead: check <code>expires_at</code> at the start of each API scenario and refresh only when it is close.</li>
+<li>This is one connection for one account. For many end users you need one record per user, keyed by something you get back in <code>state</code>.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-03.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
