@@ -97,6 +97,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/keyword-planner-alternative` | Google Keyword Planner Alternative: Bulk Search Volume & CPC | from $0.0007 per keyword | [references/keyword-planner-alternative.md](references/keyword-planner-alternative.md) |
 | `plainrows/keyword-rank-checker` | Keyword Rank Checker: Google SERP Position Tracker API | from $0.004 per keyword checked | [references/keyword-rank-checker.md](references/keyword-rank-checker.md) |
 | `plainrows/keyword-search-volume` | Google Keyword Search Volume Checker & API: CPC & Difficulty | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
+| `plainrows/keyword-suchvolumen` | Keyword Suchvolumen Tool & API: Google Keyword-Recherche | from $0.006 per keyword | [references/keyword-suchvolumen.md](references/keyword-suchvolumen.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |
 | `plainrows/otodom-scraper` | Otodom Scraper: Poland Property Listings & Prices | from $0.0007 per listing | [references/otodom-scraper.md](references/otodom-scraper.md) |
 | `plainrows/otomoto-scraper` | Otomoto Scraper: Polish Car Listings & Prices | from $0.0004 per listing | [references/otomoto-scraper.md](references/otomoto-scraper.md) |

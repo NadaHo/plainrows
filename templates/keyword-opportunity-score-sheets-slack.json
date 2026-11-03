@@ -1,0 +1,420 @@
+{
+  "name": "Score keyword opportunities with search volume, CPC and difficulty, then post quick wins to Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Score keyword opportunities with search volume, CPC and difficulty, then post quick wins to Slack\n\n### How it works\nFor SEO freelancers, content teams and agencies who need to know which keywords to target first.\n1. Paste keywords in the form (one per line).\n2. The workflow cleans them (lowercase, single spaces), removes duplicates and skips keywords already in your sheet, so you never pay twice for the same keyword.\n3. The **Keyword Search Volume** Actor on Apify (`plainrows/keyword-search-volume`) returns Google monthly searches, CPC, competition, keyword difficulty (0-100) and intent, in 94 countries.\n4. Each keyword gets an **opportunity score (0-100)** with the reason in plain words, and a tier: *quick win* (enough searches, low difficulty), *worth a look*, *low priority* or *no data*.\n5. Sorted rows are appended to the `Opportunities` tab; one Slack message lists the quick wins. No quick win, no message.\n\n### Setup\n- Apify account (the free plan checks 20 keywords per run, 5 runs a day): add your Apify credential to *Get volume, CPC and difficulty*. Community node `@apify/n8n-nodes-apify`, tested with 0.9.0 on n8n 2.42.4 ([install guide](https://docs.n8n.io/integrations/community-nodes/installation/)).\n- Google Sheets: an `Opportunities` tab with the header row from the red note; paste the spreadsheet URL in both Sheets nodes.\n- Slack: connect your account and pick the channel.\n- Edit **Settings**: `country`, `minVolume`, `maxDifficulty`, `goodScore`, `slackTopN`.\n\n### Customization\n- Change the weights in *Score opportunities*: each part of the formula is one commented line.\n- Replace the form with a Schedule Trigger and a Sheets read to rescore a list every month.\n\nCost: you pay per keyword with data (see the Actor's Pricing tab); keywords without data are free, and the Apify node caps each run at $5 (about 600 keywords with data per run).",
+        "height": 760,
+        "width": 520
+      },
+      "id": "edfc605b-d60a-5490-a2f4-1afb094b06a0",
+      "name": "Description",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        -340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 1. Keywords and settings\nPaste keywords in the form. Thresholds and country live in **Settings**.",
+        "height": 380,
+        "width": 460,
+        "color": 7
+      },
+      "id": "099ff91c-490c-534f-a35f-20e252ac9787",
+      "name": "Input",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 2. Clean and deduplicate\nLowercase, single spaces, duplicates removed, keywords already in the sheet skipped before anything is billed.",
+        "height": 380,
+        "width": 460,
+        "color": 7
+      },
+      "id": "e43fe9d7-a33b-5e6d-8172-4c4d558789c6",
+      "name": "Dedupe",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 3. Metrics and score\nVolume, CPC and difficulty from Apify, then a 0-100 score with its reason. Weights are commented in the Code node.",
+        "height": 380,
+        "width": 460,
+        "color": 7
+      },
+      "id": "e987de1e-d8a1-5713-8a82-4299fc3f5f37",
+      "name": "Score",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        860,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Before the first run\nRow 1 of the `Opportunities` tab must hold these column names:\n`batchRank, keyword, tier, opportunityScore, why, searchVolume, keywordDifficulty, cpcUsd, competitionLevel, searchIntent, trendYearlyPct, country, checkedAt`",
+        "height": 400,
+        "width": 300,
+        "color": 3
+      },
+      "id": "2976c146-df1b-5fe5-a995-6b3a15885b28",
+      "name": "Sheet header",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 4. Alert on quick wins\nOne Slack message with the best quick wins; none, no message.",
+        "height": 280,
+        "width": 480,
+        "color": 7
+      },
+      "id": "6e5a6d4c-88d0-530a-8f9e-68fb2bfb40aa",
+      "name": "Output",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Keyword opportunity finder",
+        "formDescription": "One keyword per line (commas also split). Duplicates and keywords already in your sheet are skipped.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Keywords",
+              "fieldType": "textarea",
+              "placeholder": "espresso machine\nfrench press\nmoka pot",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0ba00434-3d97-59b8-ad12-fb099bb27674",
+      "name": "Submit keywords",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "460010ae-0bcc-585a-8e47-fee80d543a85",
+              "name": "country",
+              "value": "US",
+              "type": "string"
+            },
+            {
+              "id": "a5445764-9326-5bd0-ac26-72cb3fd04b57",
+              "name": "minVolume",
+              "value": 100,
+              "type": "number"
+            },
+            {
+              "id": "fa5b38dd-78d7-5fca-88d0-0b86f6ec58c9",
+              "name": "maxDifficulty",
+              "value": 30,
+              "type": "number"
+            },
+            {
+              "id": "f9401e81-9d3e-538e-8594-0f41833163fc",
+              "name": "goodScore",
+              "value": 50,
+              "type": "number"
+            },
+            {
+              "id": "d802ae88-bc52-5301-a0ed-412c12ab1934",
+              "name": "slackTopN",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8fc5f03f-ca36-5505-a050-f584e9cbd21f",
+      "name": "Settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "6ddc651f-d829-57e4-bfd7-f4e19ac64a94",
+      "name": "Read saved keywords",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        120
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      },
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Clean the submitted keywords before paying for them:\n// lowercase, single spaces, no duplicates, no keyword the Actor would refuse (over 80 characters or 10 words),\n// and skip keywords already checked in the sheet (rows tagged \"no data\" are checked again).\nconst norm = (s) => String(s ?? '').normalize('NFKC').toLowerCase().replace(/\\s+/g, ' ').trim();\nconst submitted = String($('Submit keywords').first().json['Keywords'] ?? '').split(/[\\n,;]+/);\nconst saved = new Set($('Read saved keywords').all()\n  .filter((i) => i.json.tier !== 'no data')\n  .map((i) => norm(i.json.keyword)).filter(Boolean));\n\nconst seen = new Set();\nconst keywords = [];\nlet duplicates = 0;\nlet alreadySaved = 0;\nlet tooLong = 0;\nfor (const raw of submitted) {\n  const keyword = norm(raw);\n  if (!keyword) continue;\n  if (seen.has(keyword)) { duplicates++; continue; }\n  seen.add(keyword);\n  if (keyword.length > 80 || keyword.split(' ').length > 10) { tooLong++; continue; }\n  if (saved.has(keyword)) { alreadySaved++; continue; }\n  keywords.push(keyword);\n}\n// Nothing new: end here without calling Apify (nothing billed).\nif (keywords.length === 0) return [];\nreturn [{ json: { keywords, duplicates, alreadySaved, tooLong } }];"
+      },
+      "id": "5eacd845-b93a-5259-b7b4-7636ac47931b",
+      "name": "Clean and dedupe keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorId": "plainrows~keyword-search-volume",
+        "customBody": "={{ JSON.stringify({ keywords: $json.keywords, country: $('Settings').first().json.country, historyMonths: 0 }) }}",
+        "maxTotalChargeUsd": 5
+      },
+      "id": "06e8deb0-504a-5676-8c53-e62b1cadced0",
+      "name": "Get volume, CPC and difficulty",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        920,
+        120
+      ],
+      "credentials": {
+        "apifyApi": {
+          "id": "",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Opportunity score from 0 to 100 = volume points + ease points + value points.\n//   Volume (max 40): 8 points per power of ten -> 100 searches = 16, 1,000 = 24, 10,000 = 32, 100,000+ = 40.\n//   Ease   (max 40): (100 - keyword difficulty) x 0.4 -> difficulty 10 = 36, 50 = 20, 90 = 4. Unknown = 20.\n//   Value  (max 20): CPC in USD x 4 -> $1 = 4, $2.50 = 10, $5 or more = 20 (advertisers pay for buyers).\n// Quick win = at least minVolume searches a month AND difficulty at most maxDifficulty.\nconst s = $('Settings').first().json;\nconst minVolume = Number(s.minVolume ?? 100);\nconst maxDifficulty = Number(s.maxDifficulty ?? 30);\nconst goodScore = Number(s.goodScore ?? 50);\nconst norm = (k) => String(k ?? '').normalize('NFKC').toLowerCase().replace(/\\s+/g, ' ').trim();\nconst saved = new Set($('Read saved keywords').all()\n  .filter((i) => i.json.tier !== 'no data')\n  .map((i) => norm(i.json.keyword)).filter(Boolean));\nconst savedNoData = new Set($('Read saved keywords').all()\n  .filter((i) => i.json.tier === 'no data')\n  .map((i) => norm(i.json.keyword)).filter(Boolean));\n// Rows the Actor did not look up (free-plan limits): not written, so they are checked on a later run.\nconst notLookedUp = /^(Not looked up|Nothing was looked up|Free Apify plan)/;\nconst today = new Date().toISOString().slice(0, 10);\n\nconst seen = new Set();\nconst rows = [];\nfor (const { json: k } of $input.all()) {\n  const keyword = norm(k.keyword);\n  if (!keyword || seen.has(keyword) || saved.has(keyword)) continue;\n  if (k.found === false && notLookedUp.test(k.note ?? '')) continue;\n  seen.add(keyword);\n  // Already in the sheet as \"no data\" and still without data: not written twice.\n  if (k.found === false && savedNoData.has(keyword)) continue;\n  // Same columns on every row, in the order of the sheet header.\n  const row = (tier, opportunityScore, why, m = {}) => ({\n    keyword, tier, opportunityScore, why,\n    searchVolume: m.searchVolume ?? null, keywordDifficulty: m.keywordDifficulty ?? null, cpcUsd: m.cpcUsd ?? null,\n    competitionLevel: m.competitionLevel ?? null, searchIntent: m.searchIntent ?? null, trendYearlyPct: m.trendYearlyPct ?? null,\n    country: k.country ?? s.country, checkedAt: today,\n  });\n  if (k.found === false) {\n    rows.push(row('no data', null, k.note || 'No Google data for this keyword (not billed)'));\n    continue;\n  }\n  const volume = Number(k.searchVolume) || 0;\n  const kd = k.keywordDifficulty ?? null;\n  const cpc = Number(k.cpcUsd) || 0;\n  const volumePts = Math.round(Math.min(40, Math.max(0, 8 * Math.log10(Math.max(volume, 1)))));\n  const easePts = kd == null ? 20 : Math.round((100 - kd) * 0.4);\n  const valuePts = Math.round(Math.min(20, cpc * 4));\n  const score = volumePts + easePts + valuePts;\n  const quickWin = volume >= minVolume && kd != null && kd <= maxDifficulty;\n  const why = `${volume.toLocaleString('en-US')} searches/mo (+${volumePts}), ` +\n    `difficulty ${kd ?? 'unknown'} (+${easePts}), CPC $${cpc.toFixed(2)} (+${valuePts})`;\n  rows.push(row(quickWin ? 'quick win' : score >= goodScore ? 'worth a look' : 'low priority', score, why, k));\n}\n// Best first: quick wins first, even below goodScore; then by score; keywords without data at the end.\nconst order = { 'quick win': 0, 'worth a look': 1, 'low priority': 2, 'no data': 3 };\nrows.sort((a, b) => order[a.tier] - order[b.tier] || (b.opportunityScore ?? -1) - (a.opportunityScore ?? -1));\nreturn rows.map((r, i) => ({ json: { batchRank: i + 1, ...r } }));"
+      },
+      "id": "ca78e366-389b-5e73-989c-e04b2429db1b",
+      "name": "Score opportunities",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "d99fdccc-3ee4-5b93-80a0-ccdb26e1f579",
+      "name": "Append to Opportunities tab",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1400,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// One Slack message with the best quick wins. No quick win: no message.\nconst s = $('Settings').first().json;\nconst rows = $input.all().map((i) => i.json);\nconst scored = rows.filter((r) => r.tier !== 'no data').length;\nconst wins = rows.filter((r) => r.tier === 'quick win');\nif (wins.length === 0) return [];\n// Keywords the free Apify plan did not look up (not written to the sheet, same test as in Score opportunities).\nconst notLookedUp = /^(Not looked up|Nothing was looked up|Free Apify plan)/;\nconst notChecked = $('Get volume, CPC and difficulty').all()\n  .filter((i) => i.json.found === false && notLookedUp.test(i.json.note ?? '')).length;\nconst skipped = notChecked > 0 ? `, ${notChecked} not checked (free Apify plan): submit them again later` : '';\nconst top = Number(s.slackTopN) || 10;\nconst lines = wins.slice(0, top).map((r, i) =>\n  `${i + 1}. *${r.keyword}*: score ${r.opportunityScore}, ${Number(r.searchVolume || 0).toLocaleString('en-US')} searches/mo, ` +\n  `difficulty ${r.keywordDifficulty}, CPC $${Number(r.cpcUsd || 0).toFixed(2)}${r.searchIntent ? `, ${r.searchIntent}` : ''}`);\nconst more = wins.length > top ? `\\n…and ${wins.length - top} more in the sheet.` : '';\nreturn [{ json: {\n  text: `:rocket: *${wins.length} keyword quick win${wins.length > 1 ? 's' : ''}* in ${s.country} ` +\n    `(${scored} new keywords scored${skipped}; difficulty ≤ ${s.maxDifficulty}, ${s.minVolume}+ searches/mo)\\n\\n` +\n    lines.join('\\n') + more,\n  quickWins: wins.length,\n} }];"
+      },
+      "id": "7b294809-5203-5b00-adee-cce1c613ce4d",
+      "name": "Build quick wins message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "d24798f0-face-507f-9086-2378dc4f4efb",
+      "name": "Post quick wins to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1620,
+        280
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Submit keywords": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Read saved keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read saved keywords": {
+      "main": [
+        [
+          {
+            "node": "Clean and dedupe keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean and dedupe keywords": {
+      "main": [
+        [
+          {
+            "node": "Get volume, CPC and difficulty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get volume, CPC and difficulty": {
+      "main": [
+        [
+          {
+            "node": "Score opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score opportunities": {
+      "main": [
+        [
+          {
+            "node": "Append to Opportunities tab",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Build quick wins message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build quick wins message": {
+      "main": [
+        [
+          {
+            "node": "Post quick wins to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
