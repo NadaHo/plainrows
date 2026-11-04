@@ -54,7 +54,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/autovit-scraper` | Autovit Scraper: Romania Car Listings & Prices | from $0.0004 per listing | [references/autovit-scraper.md](references/autovit-scraper.md) |
 | `plainrows/backlink-api` | Backlink API: Referring Domains & Backlinks Data | from $0.0012 per backlink or referring domain | [references/backlink-api.md](references/backlink-api.md) |
-| `plainrows/backlink-checker` | Bulk Backlink Checker & API: Referring Domains & Anchor Text | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
+| `plainrows/backlink-checker` | Backlink Checker & API: Bulk Referring Domains & Anchor Text | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
 | `plainrows/bing-search-api` | Bing Search API: Bing SERP Scraper & Web Results | from $0.0003 per organic result | [references/bing-search-api.md](references/bing-search-api.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
