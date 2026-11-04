@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asking DataForSEO for gzip: why the body can arrive still compressed, and a check that works everywhere | PlainRows</title><meta name="description" content="DataForSEO compresses its responses when the request says `Accept-Encoding: gzip`, and the savings are large. One open-source SEO project measured the US locati">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/asking-dataforseo-for-gzip-why-the-body-can-arrive-still-com/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>Asking DataForSEO for gzip: why the body can arrive still compressed, and a check that works everywhere</h1><p class="lead">2026-11-04</p><p>DataForSEO compresses its responses when the request says <code>Accept-Encoding: gzip</code>, and the savings are large. One open-source SEO project measured the US location list at about 9.9 MB uncompressed and 0.6 MB with gzip. Their 04.11.2026 bug report shows the catch: in one runtime, the body reached <code>JSON.parse</code> still compressed and every call failed with <code>Unexpected token &#x27;\x1f&#x27;</code>.</p>
+<h3>What happens in each runtime</h3>
+<p>I tested this with a local server that always answers gzip with <code>Content-Encoding: gzip</code>:</p>
+<p>| Client | Body you get | <code>Content-Encoding</code> afterwards |</p>
+<p>|---|---|---|</p>
+<p>| workerd (2026-11-04), header set or not | decoded | still <code>gzip</code> |</p>
+<p>| Node 22 <code>fetch</code>, header set or not | decoded | still <code>gzip</code> |</p>
+<p>| Python <code>urllib</code> with the header set | <b>compressed</b> (<code>1f 8b</code>) | <code>gzip</code> |</p>
+<p>| curl with the header but without <code>--compressed</code> | <b>compressed</b> | <code>gzip</code> |</p>
+<p>| celld (denoland/celld#238, reported, not tested by me) | <b>compressed</b> | <code>gzip</code> |</p>
+<p>Two things follow:</p>
+<p>1. &quot;The runtime decodes gzip for me&quot; depends on the runtime. Low-level clients (urllib, plain curl) never decode, and at least one Workers-compatible runtime doesn&#x27;t either.</p>
+<p>2. You can&#x27;t rely on the header to decide. workerd and Node decode the body and keep <code>Content-Encoding: gzip</code>, so &quot;header says gzip, decompress it&quot; breaks on the runtimes that work, and &quot;trust the runtime&quot; breaks on the ones that don&#x27;t.</p>
+<h3>A check that works everywhere</h3>
+<p>A JSON body starts with <code>{</code>, <code>[</code> or whitespace, never with the gzip magic bytes <code>1f 8b</code>. So check the bytes:</p>
+
+<pre>
+async function readJsonText(response: Response): Promise&lt;string&gt; {
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  if (bytes.length &gt;= 2 &amp;&amp; bytes[0] === 0x1f &amp;&amp; bytes[1] === 0x8b) {
+    const decoded = new Blob([bytes]).stream().pipeThrough(new DecompressionStream(&quot;gzip&quot;));
+    return await new Response(decoded).text();
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+</pre>
+<p>I ran this in workerd and in Node 22 with a gzipped JSON body (with non-ASCII characters), a plain body and an empty body, and it returned the original string each time. Read the bytes with <code>arrayBuffer()</code>, not <code>text()</code>. Once the bytes have gone through <code>text()</code>, the <code>8b</code> byte is replaced by U+FFFD, which is why the log in that bug report shows <code>1f ef bf bd 08</code>, and you can&#x27;t reliably get the original bytes back.</p>
+<p>The same check in Python, where <code>urllib</code> never decodes:</p>
+
+<pre>
+import gzip, json, urllib.request
+
+# url and auth (your &quot;Basic ...&quot; header value) defined elsewhere
+req = urllib.request.Request(url, headers={&quot;Accept-Encoding&quot;: &quot;gzip&quot;, &quot;Authorization&quot;: auth})
+raw = urllib.request.urlopen(req, timeout=60).read()
+data = json.loads(gzip.decompress(raw) if raw[:2] == b&quot;\x1f\x8b&quot; else raw)
+
+</pre>
+<p>(<code>requests</code> and <code>httpx</code> decode gzip on their own. The check costs nothing there and protects you if you switch clients.)</p>
+<h3>Limits</h3>
+<ul>
+<li>This buffers the whole body, so the compressed and decoded copies sit in memory together. That&#x27;s fine at 10 MB. For very large responses (Lighthouse, big SERP batches), stream through <code>DecompressionStream</code> instead of reading everything first.</li>
+<li>Brotli (<code>br</code>) has different magic bytes and isn&#x27;t supported by <code>DecompressionStream</code> everywhere. If you only ask for <code>gzip</code>, you only get gzip.</li>
+<li>Don&#x27;t retry a billed call because parsing failed: the request reached DataForSEO and was charged. Fix the decoding and parse the body you already have.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-04.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
