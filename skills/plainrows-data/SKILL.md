@@ -59,7 +59,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
 | `plainrows/catho-jobs-scraper` | Catho Jobs Scraper: Brazil Job Ads from catho.com.br | from $0.0009 per job | [references/catho-jobs-scraper.md](references/catho-jobs-scraper.md) |
-| `plainrows/chatgpt-search-scraper` | ChatGPT Search Scraper: Answers, Citations & Sources API | from $0.008 per chatgpt answer | [references/chatgpt-search-scraper.md](references/chatgpt-search-scraper.md) |
+| `plainrows/chatgpt-search-scraper` | ChatGPT Scraper: Search Answers, Citations & Sources API | from $0.008 per chatgpt answer | [references/chatgpt-search-scraper.md](references/chatgpt-search-scraper.md) |
 | `plainrows/coches-net-scraper` | coches.net Scraper: Spain Car Listings, Prices & Mileage | from $0.0004 per listing | [references/coches-net-scraper.md](references/coches-net-scraper.md) |
 | `plainrows/company-registry-lookup` | Company Registry Lookup & API: SIRENE, LEI, Brreg & KYB Data | from $0.0012 per company | [references/company-registry-lookup.md](references/company-registry-lookup.md) |
 | `plainrows/competitor-keywords-api` | Competitor Keywords API: Ranked Keywords of Any Domain | from $0.004 per domain | [references/competitor-keywords-api.md](references/competitor-keywords-api.md) |

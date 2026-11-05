@@ -23,7 +23,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Blocket Scraper: Sweden Marketplace Listings](https://apify.com/plainrows/blocket-scraper)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
 - [Catho Jobs Scraper: Brazil Job Ads from catho.com.br](https://apify.com/plainrows/catho-jobs-scraper)
-- [ChatGPT Search Scraper: Answers, Citations & Sources API](https://apify.com/plainrows/chatgpt-search-scraper)
+- [ChatGPT Scraper: Search Answers, Citations & Sources API](https://apify.com/plainrows/chatgpt-search-scraper)
 - [coches.net Scraper: Spain Car Listings, Prices & Mileage](https://apify.com/plainrows/coches-net-scraper)
 - [Company Registry Lookup & API: SIRENE, LEI, Brreg & KYB Data](https://apify.com/plainrows/company-registry-lookup)
 - [Competitor Keywords API: Ranked Keywords of Any Domain](https://apify.com/plainrows/competitor-keywords-api)
