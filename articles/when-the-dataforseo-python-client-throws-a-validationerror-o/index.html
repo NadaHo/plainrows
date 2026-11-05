@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When the DataForSEO Python client throws a ValidationError on a call you already paid for | PlainRows</title><meta name="description" content="A bug report filed on 05.11.2026 against DataForSEO&#x27;s official Python client (`dataforseo-client` 2.1.9 and 2.1.10) shows a failure mode worth knowing about if ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/when-the-dataforseo-python-client-throws-a-validationerror-o/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>When the DataForSEO Python client throws a ValidationError on a call you already paid for</h1><p class="lead">2026-11-05</p><p>A bug report filed on 05.11.2026 against DataForSEO&#x27;s official Python client (<code>dataforseo-client</code> 2.1.9 and 2.1.10) shows a failure mode worth knowing about if you use any strictly typed, generated API client: the HTTP request succeeds and is billed, and then the client throws while parsing the response.</p>
+<h3>The symptom</h3>
+<p><code>ai<i>optimization/llm</i>mentions/target_metrics/live</code> raises:</p>
+
+<pre>
+pydantic_core._pydantic_core.ValidationError: 1 validation error for AggregatedMetricsItemInfo
+key
+  Input should be a valid string [type=string_type, input_value=2840, input_type=int]
+
+</pre>
+<p>The model types <code>key</code> as a strict string for every grouping, but under <code>aggregated_metrics.location</code> the API returns a location code, which is an integer (2840 is the United States). Under <code>language</code> or <code>platform</code> the key is a string, so those parse fine.</p>
+<p>According to the report, a call costs about $0.10. You pay it, you get an exception, and if your code records the cost only after a successful parse, the charge never shows up in your own accounting.</p>
+<h3>A workaround you can apply today</h3>
+<p>Loosen that one field once, at startup:</p>
+
+<pre>
+from typing import Optional, Union
+from pydantic import StrictInt, StrictStr
+from dataforseo_client.models.aggregated_metrics_item_info import AggregatedMetricsItemInfo
+
+AggregatedMetricsItemInfo.model_fields[&quot;key&quot;].annotation = Optional[Union[StrictInt, StrictStr]]
+AggregatedMetricsItemInfo.model_rebuild(force=True)
+
+</pre>
+<p>I tested this with dataforseo-client 2.1.10, pydantic 2.14.3 and Python 3.14, against a mocked HTTP response, not a live call:</p>
+<ul>
+<li><code>llm<i>mentions</i>target<i>metrics</i>live</code> called through the client with urllib3 mocked: it fails without the patch and returns with it. <code>location[0].key</code> is the int <code>2840</code>, <code>language[0].key</code> is still the string <code>&quot;en&quot;</code>, and <code>to_dict()</code> keeps the int.</li>
+<li>The same class is used by the <code>location</code> list of <code>multi<i>target</i>metrics</code> and of the four <code>top<i>mentioned</i>*</code> endpoints (brands, brand_categories, domains, pages). Parsing <code>{&quot;location&quot;: [{&quot;key&quot;: 2840}]}</code> with each of those item models fails before the patch and works after it.</li>
+</ul>
+<p>You don&#x27;t need to rebuild the parent models. Rebuilding the item class was enough in every case I tried.</p>
+<p>The documentation doesn&#x27;t settle what those other endpoints send either. The <code>top<i>mentioned</i>domains</code> page types the location <code>key</code> as integer, but its example response shows <code>&quot;key&quot;: &quot;2840&quot;</code> in quotes. The <code>Union</code> accepts both.</p>
+<h3>Or skip the models</h3>
+<p>Every endpoint method has a <code><i>without</i>preload_content</code> twin that returns the raw HTTP response:</p>
+
+<pre>
+import json
+
+raw = api.llm_mentions_target_metrics_live_without_preload_content([request])
+data = json.loads(raw.data)
+cost = data[&quot;cost&quot;]
+
+</pre>
+<p>You lose attribute access and type hints, but a schema mismatch can&#x27;t stop you from reading the data or the cost. If you track spend per call, I think this is the safer default anyway: read <code>cost</code> from the raw JSON first, then parse into models if you want them.</p>
+<h3>Limits</h3>
+<ul>
+<li>The patch is a monkeypatch of generated code. Remove it once a fixed release is out, and pin the client version until then, because a regenerated model could be shaped differently.</li>
+<li>I haven&#x27;t seen a live response from these endpoints, so I can&#x27;t tell you which of them really send integer keys. The patch works whichever type they send.</li>
+<li>Don&#x27;t retry a billed call because parsing failed. The request reached DataForSEO and was charged, so a retry costs the same again. Fix the parsing and keep the body you already have.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-05.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
