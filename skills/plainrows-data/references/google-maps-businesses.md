@@ -33,4 +33,5 @@ Store page and full documentation: https://apify.com/plainrows/google-maps-busin
 ## Price per event (Apify plan: Free / Starter / Scale / Business)
 
 - **Place**: $0.002 / $0.0015 / $0.0012 / $0.001. One Google Maps business returned with its details (address, phone, website, rating, hours, coordinates). Queries with no result and places removed by your filters are free.
-- **Contact details found**: $0.002 / $0.0015 / $0.0012 / $0.001. Optional (contactDetails): e-mails, phone links and social profiles found on the website of one place. Places without a website, sites that cannot be loaded and sites with nothing found are free.
+- **Contact details found**: $0.002 / $0.0015 / $0.0012 / $0.001. Optional (contactDetails): e-mails, phone links and social profiles found on the website of one place. Places without a website, sites that cannot be loaded, sites with nothing found and sites that object to solicitation are free.
+- **Actor Start**: $0.003 / $0.003 / $0.003 / $0.003. Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).

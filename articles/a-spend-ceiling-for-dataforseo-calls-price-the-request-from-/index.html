@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A spend ceiling for DataForSEO calls: price the request from the free price list before you send it | PlainRows</title><meta name="description" content="A bug report filed on 05.11.2026 against an open-source SEO command-line tool describes a guard doing its job a little too well. The user asked for search volum">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/a-spend-ceiling-for-dataforseo-calls-price-the-request-from-/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>A spend ceiling for DataForSEO calls: price the request from the free price list before you send it</h1><p class="lead">2026-11-06</p><p>A bug report filed on 05.11.2026 against an open-source SEO command-line tool describes a guard doing its job a little too well. The user asked for search volumes on 797 keywords with a 0.20 USD ceiling. The tool refused to run (&quot;cannot enforce spend ceiling without current pricing&quot;) even though the tool&#x27;s own estimate said 0.09 USD, because it had no price snapshot loaded for that command.</p>
+<p>I think refusing is the right default: a ceiling that guesses prices isn&#x27;t a ceiling. But you don&#x27;t need a manual price file to enforce one. DataForSEO gives you three pieces to work with: a free price list for your own account, a daily spending limit enforced on their side, and a <code>cost</code> field in every response. Here is how I&#x27;d use them together.</p>
+<h3>1. Read prices from <code>appendix/user_data</code> (free)</h3>
+<p><code>GET https://api.dataforseo.com/v3/appendix/user_data</code> costs nothing (the response reports <code>&quot;cost&quot;: 0</code>). Besides your balance and rate limits, <code>tasks[0].result[0].price</code> holds the price of every endpoint for your account. This is what it looked like when I called it on 06.11.2026:</p>
+
+<pre>
+&quot;keywords_data&quot;: {
+  &quot;google_ads&quot;: {
+    &quot;search_volume&quot;: {
+      &quot;live&quot;: {
+        &quot;priority_normal&quot;: [{&quot;cost_type&quot;: &quot;per_request&quot;, &quot;cost&quot;: 0.09}]
+      }
+    }
+  }
+},
+&quot;dataforseo_labs&quot;: {
+  &quot;keyword_overview&quot;: {
+    &quot;live&quot;: {
+      &quot;priority_normal&quot;: [
+        {&quot;cost_type&quot;: &quot;per_result&quot;, &quot;cost&quot;: 0.00012},
+        {&quot;cost_type&quot;: &quot;per_request&quot;, &quot;cost&quot;: 0.012}
+      ]
+    }
+  }
+}
+
+</pre>
+<p>(Trimmed: each endpoint also has <code>priority<i>low</code> and <code>priority</i>high</code>.) Two things to know before you parse it:</p>
+<ul>
+<li>Each priority holds a <b>list</b> of entries, not one object. Labs endpoints have two entries, a fixed price per request plus a price per result row, and you need to add them up. <code>cost<i>type</code> is <code>per</i>request</code> (per GET or POST) or <code>per_result</code> (per returned row; for Labs keyword endpoints that means per keyword item that comes back).</li>
+<li>The tree doesn&#x27;t always follow the URL. In the response I got, the endpoint <code>/v3/dataforseo<i>labs/google/keyword</i>overview/live</code> is priced under <code>dataforseo<i>labs/keyword</i>overview/live</code>, with no <code>google</code> level, while <code>keywords<i>data</code> keeps its <code>google</i>ads</code> level. Look up the paths in your own response before you hard-code them.</li>
+</ul>
+<h3>2. Turn the prices into a worst-case estimate</h3>
+<p>The formula:</p>
+
+<pre>
+estimate = ceil(items / max_items_per_request) × per_request + items × per_result
+
+</pre>
+<p>Use the maximum number of result rows, so the estimate is an upper bound. For keyword endpoints, that&#x27;s one row per keyword you send.</p>
+<ul>
+<li>Google Ads search volume, live: up to 1,000 keywords per request, and the docs say each request is billed the same whatever the number of keywords. 797 keywords = 1 request = 0.09 USD at the price above. 1,001 keywords would be 2 requests, 0.18 USD.</li>
+<li>Labs keyword overview, live: up to 700 keywords per request. 797 keywords = 2 requests: 2 × 0.012 + 797 × 0.00012 = 0.1196 USD at most.</li>
+</ul>
+<p>Here is the guard in plain Python (standard library only):</p>
+
+<pre>
+import base64, json, math, time, urllib.request
+
+API = &quot;https://api.dataforseo.com/v3&quot;
+
+def fetch_prices(login, password):
+    &quot;&quot;&quot;Free call (cost 0). Returns the price tree of your own account.&quot;&quot;&quot;
+    token = base64.b64encode(f&quot;{login}:{password}&quot;.encode()).decode()
+    req = urllib.request.Request(f&quot;{API}/appendix/user_data&quot;,
+                                 headers={&quot;Authorization&quot;: f&quot;Basic {token}&quot;})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        body = json.load(r)
+    result = body[&quot;tasks&quot;][0][&quot;result&quot;][0]
+    return {&quot;fetched_at&quot;: time.time(), &quot;price&quot;: result[&quot;price&quot;],
+            &quot;balance&quot;: result[&quot;money&quot;][&quot;balance&quot;]}
+
+def unit_prices(snapshot, path, priority=&quot;priority_normal&quot;):
+    &quot;&quot;&quot;path like &#x27;keywords_data/google_ads/search_volume/live&#x27;.
+    Returns (per_request, per_result). Raises KeyError if the path is unknown.&quot;&quot;&quot;
+    node = snapshot[&quot;price&quot;]
+    for part in path.split(&quot;/&quot;):
+        node = node[part]
+    per_request = per_result = 0.0
+    for entry in node[priority]:
+        if entry[&quot;cost_type&quot;] == &quot;per_request&quot;:
+            per_request += entry[&quot;cost&quot;]
+        elif entry[&quot;cost_type&quot;] == &quot;per_result&quot;:
+            per_result += entry[&quot;cost&quot;]
+        else:
+            raise ValueError(f&quot;unknown cost_type {entry[&#x27;cost_type&#x27;]!r}&quot;)
+    return per_request, per_result
+
+def worst_case_cost(snapshot, path, n_items, items_per_request):
+    per_request, per_result = unit_prices(snapshot, path)
+    requests = math.ceil(n_items / items_per_request)
+    return requests * per_request + n_items * per_result
+
+def check_ceiling(snapshot, path, n_items, items_per_request, ceiling_usd,
+                  max_age_s=24 * 3600):
+    if time.time() - snapshot[&quot;fetched_at&quot;] &gt; max_age_s:
+        raise RuntimeError(&quot;price snapshot too old, refresh it&quot;)
+    estimate = worst_case_cost(snapshot, path, n_items, items_per_request)
+    if estimate &gt; ceiling_usd:
+        raise RuntimeError(f&quot;estimate {estimate:.4f} USD &gt; ceiling {ceiling_usd} USD&quot;)
+    return estimate
+
+</pre>
+<p>I ran it against a live <code>user_data</code> response, which costs nothing. I didn&#x27;t make any paid call. Results:</p>
+<ul>
+<li><code>check<i>ceiling(s, &quot;keywords</i>data/google<i>ads/search</i>volume/live&quot;, 797, 1000, 0.2)</code> returns <code>0.09</code>.</li>
+<li><code>check<i>ceiling(s, &quot;dataforseo</i>labs/keyword_overview/live&quot;, 797, 700, 0.2)</code> returns <code>0.11964</code>.</li>
+<li>2,500 keywords on search volume are refused: <code>estimate 0.2700 USD &gt; ceiling 0.2 USD</code>.</li>
+<li><code>dataforseo<i>labs/google/keyword</i>overview/live</code> raises <code>KeyError: &#x27;google&#x27;</code>.</li>
+</ul>
+<p>All of these fail closed. If the path is unknown, the cost type is new or the snapshot is old, the call doesn&#x27;t go out, which is the behaviour you want from a guard. If you also want the run to stop when the account is nearly empty, compare the estimate with <code>snapshot[&quot;balance&quot;]</code> too.</p>
+<h3>3. Put a hard limit on the account as well</h3>
+<p>A ceiling in your code only protects that one process. Two cron jobs, a retry loop or a colleague&#x27;s script each have their own copy. DataForSEO lets you set a daily expense limit in the API Settings of the dashboard, for all APIs or for one API or endpoint. According to their help center, a request over the limit is refused with error code 40203 (&quot;The cost limit has been exceeded&quot;), and the limit works over 24 hours in UTC. I set it to the most I&#x27;d accept losing on a bad day, and I keep the per-run ceiling in code for the normal case.</p>
+<h3>4. Reconcile with what was actually billed</h3>
+<p>Every response has a top-level <code>cost</code> and a <code>cost</code> per task. Log the estimate before the call, then the billed <code>cost</code> after it, in the same place. If the billed cost ever exceeds the estimate, your price snapshot or your request count is wrong, and you want to find out on a 0.10 USD call, not a 50 USD one. Read <code>cost</code> from the raw JSON before anything else can throw. A parsing error after a billed call shouldn&#x27;t make the charge disappear from your books.</p>
+<h3>Limits</h3>
+<ul>
+<li>The price list is for <b>your</b> account at the moment you read it. Prices change, and the figures above are only what one account showed on 06.11.2026. Refresh at least once a day and don&#x27;t share a snapshot between accounts.</li>
+<li><code>per_result</code> makes the real cost depend on how many rows come back. The worst-case formula overestimates when some keywords have no data. That&#x27;s the safe side, but a tight ceiling can refuse runs that would have fit.</li>
+<li>A client-side check doesn&#x27;t see other processes spending at the same moment. If several workers share one budget, have each one reserve its estimate in a shared counter (one database row, one Redis key) before calling, and release the difference afterwards. Otherwise rely on the account limit.</li>
+<li>The daily account limit stops spending, it doesn&#x27;t refund it. Everything billed before the cut stays billed.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-06.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
