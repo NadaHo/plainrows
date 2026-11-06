@@ -1,6 +1,6 @@
 # People Also Ask Scraper & Google Autocomplete Keywords (`plainrows/google-autocomplete-questions`)
 
-People Also Ask scraper (PAA) and Google keyword suggestions MCP tool: PAA questions, autocomplete and related searches, 20 countries. Question keywords, comparison and A-Z expansions for long tail keywords and FAQs. An AnswerThePublic alternative. Pay per result plus a small fee per search.
+People Also Ask scraper (PAA) and Google autocomplete scraper MCP tool: PAA questions, keyword suggestions and related searches, 20 countries. Question keywords, comparison and A-Z expansions for long tail keywords and FAQs. An AnswerThePublic alternative. Pay per result plus a small fee per search.
 
 Store page and full documentation: https://apify.com/plainrows/google-autocomplete-questions
 
@@ -8,18 +8,18 @@ Store page and full documentation: https://apify.com/plainrows/google-autocomple
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `seedKeywords` (required) | array |  | One topic per line, e.g. "running shoes" or "how to learn python". Up to 500 seeds per run, max 120 characters each. |
-| `mode` | string: `both`, `autocomplete`, `questions` | "both" | Autocomplete = what Google suggests while typing (with the expansions below). Questions = the "People also ask" box and the "Related searches" at the bottom of the Google results page for each seed. |
-| `country` | string (20 codes, see the Store page) | "US" | Country whose Google suggestions and questions you want. |
-| `languageCode` | string |  | Two-letter language code, e.g. "en" or "fr". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). |
-| `maxResultsPerSeed` | integer | 300 | Stops looking up more expansions for a seed once it has this many results. Each result is billed; see Pricing. |
+| `seedKeywords` (required) | array |  | One topic per line, e.g. "running shoes" or "how to learn python". Up to 500 seeds per run, max 120 characters each. Example: ["running shoes", "how to learn python"]. |
+| `mode` | string: `both`, `autocomplete`, `questions` | "both" | Autocomplete = what Google suggests while typing (with the expansions below). Questions = the "People also ask" box and the "Related searches" at the bottom of the Google results page for each seed. Example: "both" for... |
+| `country` | string (20 codes, see the Store page) | "US" | Country whose Google suggestions and questions you want. Example: "US", or "DE" for German suggestions from Google Germany. |
+| `languageCode` | string |  | Two-letter language code, e.g. "en" or "fr". Leave empty to use the country's main language (for example German for Switzerland, French for Belgium). Example: "fr" with country "CH" for French suggestions in Switzerland. |
+| `maxResultsPerSeed` | integer | 300 | Stops looking up more expansions for a seed once it has this many results. Each result is billed; see Pricing. Example: 50 to keep a quick, cheap sample per seed. |
 | `expandQuestions` | boolean | true | Also look up the seed with question words in the search language: "how / what / why / can / is ... running shoes" (12 words in English, about 10 in other languages). Skipped for a seed that is already a question. Each... |
-| `expandComparisons` | boolean | false | Also look up "running shoes vs / or / for / with / without / near / like / to ..." (8 to 9 words, localized). |
-| `expandAlphabet` | boolean | false | Also look up "running shoes a" to "running shoes z": 26 more lookups per seed for hundreds of long-tail suggestions. |
-| `customExpansions` | array |  | Your own patterns, up to 50. Use {seed} to place the seed ("best {seed}", "{seed} for kids"); text without {seed} is added after it. |
-| `onlyWithSeedWords` | boolean | true | Drop autocomplete suggestions that do not contain every word of the seed (Google sometimes fills the list with unrelated queries). Dropped suggestions are not billed. Does not apply to People Also Ask questions. |
-| `paaClickDepth` | integer | 4 | Google reveals more questions each time a question is opened. 0 = only the first 4 questions or so, 4 = up to about 15. |
-| `includeRelatedSearches` | boolean | true | Also return the "Related searches" shown at the bottom of the results page. |
+| `expandComparisons` | boolean | false | Also look up "running shoes vs / or / for / with / without / near / like / to ..." (8 to 9 words, localized). Example: true to find "running shoes vs ..." comparison topics. |
+| `expandAlphabet` | boolean | false | Also look up "running shoes a" to "running shoes z": 26 more lookups per seed for hundreds of long-tail suggestions. Example: true for a full long-tail list (about 27 lookups per seed). |
+| `customExpansions` | array |  | Your own patterns, up to 50. Use {seed} to place the seed ("best {seed}", "{seed} for kids"); text without {seed} is added after it. Example: ["best {seed}", "{seed} for beginners"]. |
+| `onlyWithSeedWords` | boolean | true | Drop autocomplete suggestions that do not contain every word of the seed (Google sometimes fills the list with unrelated queries). Dropped suggestions are not billed. Does not apply to People Also Ask questions.... |
+| `paaClickDepth` | integer | 4 | Google reveals more questions each time a question is opened. 0 = only the first 4 questions or so, 4 = up to about 15. Example: 0 for a cheap first look, 4 for the most questions. |
+| `includeRelatedSearches` | boolean | true | Also return the "Related searches" shown at the bottom of the results page. Example: false to get only autocomplete and People also ask rows. |
 
 ## Example input
 
