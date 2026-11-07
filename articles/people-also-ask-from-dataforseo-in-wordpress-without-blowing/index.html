@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>People Also Ask from DataForSEO in WordPress without blowing a 30-second request | PlainRows</title><meta name="description" content="An issue opened on 06.11.2026 against an open-source WordPress FAQ generator points at a gap that a lot of plugins probably have. The plugin used to pull Google">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/people-also-ask-from-dataforseo-in-wordpress-without-blowing/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>People Also Ask from DataForSEO in WordPress without blowing a 30-second request</h1><p class="lead">2026-11-07</p><p>An issue opened on 06.11.2026 against an open-source WordPress FAQ generator points at a gap that a lot of plugins probably have. The plugin used to pull Google&#x27;s People Also Ask (PAA) questions from DataForSEO&#x27;s SERP API. The call was removed because it was &quot;too slow (15s+ timeouts with 0 bytes)&quot; and killed bulk runs on hosts with a 30-second limit. Since then the FAQ questions come only from two Labs keyword calls, while the ranking code still gives PAA the highest weight and the readme still promises real PAA questions.</p>
+<p>You don&#x27;t need another provider to get PAA back. The problem is that the plugin waits for a live SERP inside the same PHP request that does everything else. Here is how I&#x27;d do it instead.</p>
+<h3>What the live call costs, in money and seconds</h3>
+<p>DataForSEO&#x27;s pricing page (read on 07.11.2026) gives three ways to get the same Google organic SERP, priced per SERP of up to 10 results:</p>
+<p>| Mode | Price per SERP | Stated turnaround |</p>
+<p>|---|---|---|</p>
+<p>| Live (<code>live/advanced</code>, one request) | $0.002 | &quot;up to 6 seconds on average&quot; |</p>
+<p>| Priority queue (<code>task<i>post</code> + <code>task</i>get</code>) | $0.0012 | &quot;up to 1 minute on average&quot; |</p>
+<p>| Standard queue (<code>task<i>post</code> + <code>task</i>get</code>) | $0.0006 | &quot;~5 minutes on average&quot;, target 45 minutes |</p>
+<p>Those are averages, not upper bounds. One live call I recorded on 22.10.2026 (&quot;crm software&quot;, US, English, depth 10) took 3.16 s and cost $0.002. It returned 4 PAA questions and 8 related searches. That&#x27;s one call, not a benchmark. The &quot;0 bytes&quot; in the error is what cURL reports when its timeout runs out before the first byte of the answer arrives, so the plugin was hitting slow calls well past the average.</p>
+<p>Now look at the whole request. In that generator, the two Labs calls have a 5 s timeout each and the LLM call has 25 s. That is already 35 s in the worst case before any SERP call. Whatever you set the SERP timeout to, a synchronous chain like that can&#x27;t fit under 30 s on a bad day.</p>
+<p>One detail worth checking on your own host: per the PHP manual, on Linux <code>max<i>execution</i>time</code> &quot;only affect[s] the execution time of the script itself&quot; and doesn&#x27;t count things like stream operations. So the limit that actually cuts a request stuck on the network is often a wall-clock one: PHP-FPM&#x27;s <code>request<i>terminate</i>timeout</code>, the web server&#x27;s FastCGI or proxy timeout, or the host&#x27;s own limit. The log tells you which one fired. A PHP fatal &quot;Maximum execution time of 30 seconds exceeded&quot; is not the same problem as a 504 from the proxy.</p>
+<h3>The fix: queue the SERP, collect it later</h3>
+<p>The task endpoints were made for this. You post the task in one short request, DataForSEO runs it, and a cron job picks up the result. As a bonus, on the Standard queue it costs less than a third of the live price. The flow:</p>
+<p>1. When a post is queued for FAQ generation (one post or a bulk run), send one <code>task_post</code> with <code>tag</code> set to the post ID.</p>
+<p>2. Every few minutes, WP-Cron calls <code>tasks<i>ready</code>. It&#x27;s free, it returns up to 1,000 finished tasks from the last three days, and a task stays on the list until you collect it. Fetch only the tasks with your own tags from <code>task</i>get/advanced</code> and save the questions in post meta.</p>
+<p>3. Generate the FAQ once the meta is there. If you don&#x27;t want to wait, generate it without PAA and regenerate later.</p>
+
+<pre>
+function paa_dfs_request( string $method, string $url, ?array $body, int $timeout ) {
+	$args = array(
+		&#x27;method&#x27;  =&gt; $method,
+		&#x27;timeout&#x27; =&gt; $timeout,
+		&#x27;headers&#x27; =&gt; array(
+			&#x27;Authorization&#x27; =&gt; &#x27;Basic &#x27; . base64_encode( get_option( &#x27;my_dfs_login&#x27; ) . &#x27;:&#x27; . get_option( &#x27;my_dfs_password&#x27; ) ),
+			&#x27;Content-Type&#x27;  =&gt; &#x27;application/json&#x27;,
+		),
+	);
+	if ( null !== $body ) {
+		$args[&#x27;body&#x27;] = wp_json_encode( $body );
+	}
+	$response = wp_remote_request( $url, $args );
+	if ( is_wp_error( $response ) ) {
+		return $response;
+	}
+	return json_decode( wp_remote_retrieve_body( $response ), true );
+}
+
+/** Pull PAA questions and related searches out of an &quot;advanced&quot; SERP result. */
+function paa_from_serp_result( $result ): array {
+	$out = array();
+	foreach ( (array) ( $result[&#x27;items&#x27;] ?? array() ) as $item ) {
+		$type = $item[&#x27;type&#x27;] ?? &#x27;&#x27;;
+		if ( &#x27;people_also_ask&#x27; === $type ) {
+			foreach ( (array) ( $item[&#x27;items&#x27;] ?? array() ) as $el ) {
+				if ( ! empty( $el[&#x27;title&#x27;] ) ) {
+					$out[] = array( &#x27;question&#x27; =&gt; $el[&#x27;title&#x27;], &#x27;source&#x27; =&gt; &#x27;paa&#x27; );
+				}
+			}
+		} elseif ( &#x27;related_searches&#x27; === $type ) {
+			foreach ( (array) ( $item[&#x27;items&#x27;] ?? array() ) as $query ) {
+				if ( is_string( $query ) &amp;&amp; &#x27;&#x27; !== $query ) {
+					$out[] = array( &#x27;question&#x27; =&gt; $query, &#x27;source&#x27; =&gt; &#x27;related_search&#x27; );
+				}
+			}
+		}
+	}
+	return $out;
+}
+
+/** Step 1, in the editor or bulk request: queue one SERP task per post. */
+function paa_queue( int $post_id, string $keyword, int $location_code, string $language_code ): bool {
+	$body = paa_dfs_request( &#x27;POST&#x27;, &#x27;https://api.dataforseo.com/v3/serp/google/organic/task_post&#x27;, array(
+		array(
+			&#x27;keyword&#x27;       =&gt; $keyword,
+			&#x27;location_code&#x27; =&gt; $location_code,
+			&#x27;language_code&#x27; =&gt; $language_code,
+			&#x27;depth&#x27;         =&gt; 10,
+			&#x27;tag&#x27;           =&gt; &#x27;faq-&#x27; . $post_id,
+		),
+	), 10 );
+	if ( is_wp_error( $body ) ) {
+		// Don&#x27;t send it again blindly: the task may exist (and be billed) even if the answer was lost.
+		return false;
+	}
+	$task = $body[&#x27;tasks&#x27;][0] ?? array();
+	if ( 20100 !== (int) ( $task[&#x27;status_code&#x27;] ?? 0 ) ) { // 20100 = &quot;Task Created.&quot;
+		return false;
+	}
+	update_post_meta( $post_id, &#x27;_faq_paa_status&#x27;, &#x27;queued&#x27; );
+	return true;
+}
+
+/** Step 2, from WP-Cron every few minutes: collect the finished tasks that are ours. */
+function paa_collect(): int {
+	$ready = paa_dfs_request( &#x27;GET&#x27;, &#x27;https://api.dataforseo.com/v3/serp/google/organic/tasks_ready&#x27;, null, 10 );
+	if ( is_wp_error( $ready ) ) {
+		return 0;
+	}
+	$done = 0;
+	foreach ( (array) ( $ready[&#x27;tasks&#x27;][0][&#x27;result&#x27;] ?? array() ) as $t ) {
+		if ( ! preg_match( &#x27;/^faq-(\d+)$/&#x27;, (string) ( $t[&#x27;tag&#x27;] ?? &#x27;&#x27; ), $m ) || empty( $t[&#x27;endpoint_advanced&#x27;] ) ) {
+			continue; // not ours: leave it on the list for whoever posted it
+		}
+		$got = paa_dfs_request( &#x27;GET&#x27;, &#x27;https://api.dataforseo.com&#x27; . $t[&#x27;endpoint_advanced&#x27;], null, 15 );
+		if ( is_wp_error( $got ) ) {
+			continue; // retried on the next run if it is still listed
+		}
+		$task = $got[&#x27;tasks&#x27;][0] ?? array();
+		$code = (int) ( $task[&#x27;status_code&#x27;] ?? 0 );
+		if ( 20000 === $code ) {
+			$questions = paa_from_serp_result( $task[&#x27;result&#x27;][0] ?? array() );
+		} elseif ( 40102 === $code ) { // &quot;No Search Results.&quot;
+			$questions = array();
+		} else {
+			continue;
+		}
+		update_post_meta( (int) $m[1], &#x27;_faq_paa&#x27;, $questions );
+		update_post_meta( (int) $m[1], &#x27;_faq_paa_status&#x27;, &#x27;done&#x27; );
+		$done++;
+	}
+	return $done;
+}
+
+</pre>
+<p>The output uses the same <code>paa</code> and <code>related<i>search</code> source names the plugin&#x27;s ranking already weights, so nothing else has to change. <code>endpoint</i>advanced</code> in <code>tasks_ready</code> is a path starting with <code>/v3/</code>, which is why the host is prepended. Related searches come back as plain strings, while PAA questions are objects with a <code>title</code>.</p>
+<p>What I tested, and how: the code ran on PHP 8.5 with stubbed WordPress functions and mocked HTTP, no paid call. Parsing the recorded live response gave the 4 PAA questions and 8 related searches. The queue step sent a one-task array tagged <code>faq-42</code> and returned false on a 40200 &quot;Payment Required&quot; answer and on a timeout. The collector stored a finished task, stored an empty list for 40102, left a timed-out task for the next run and never fetched a task with someone else&#x27;s tag. I haven&#x27;t run it against the real API or inside a real WordPress install.</p>
+<h3>If it has to stay synchronous</h3>
+<p>Sometimes the FAQ has to come out of the same click. Then give the SERP call its own short timeout (8 to 10 s), treat a timeout as &quot;no PAA this time&quot; rather than a failed FAQ, and cache the questions in a transient keyed on keyword, location and language, so a bulk run over posts that share a focus keyword pays once. Also count the time of every call in the request against the wall-clock limit, not just this one.</p>
+<h3>Limits</h3>
+<ul>
+<li>Not every SERP has a PAA box. You still pay for the SERP when there is none, and you get no PAA questions from it. The <code>people<i>also</i>ask<i>click</i>depth</code> parameter (1 to 4) expands more questions for $0.00015 per click. Clicks that can&#x27;t be performed are refunded.</li>
+<li>PAA questions have no search volume. If your ranking uses volume as a tiebreaker, they need their own weight, which is what that plugin already does.</li>
+<li>The Standard queue is an average of about 5 minutes with a 45-minute target, so &quot;collect later&quot; can mean most of an hour on a bad day. Priority costs twice as much and averages about a minute.</li>
+<li>A post can stay <code>queued</code> for good: the task failed on DataForSEO&#x27;s side, or a <code>task_get</code> timed out after the task was already marked as collected. Re-queue posts that are still <code>queued</code> after a day or so. That&#x27;s another SERP to pay.</li>
+<li>WP-Cron only runs when the site gets traffic. On a quiet site, trigger <code>wp-cron.php</code> from a real cron job.</li>
+<li><code>tasks<i>ready</code> is limited to 20 calls a minute and only lists tasks from the last three days. If you use <code>postback</i>url</code> instead (results POSTed to your site, gzipped), those tasks don&#x27;t appear in <code>tasks_ready</code> unless the postback failed. And your site needs a public URL that accepts them.</li>
+<li>If a live call times out on your side, I&#x27;d count it as spent. I haven&#x27;t found a statement in the docs either way on whether an abandoned live request is billed.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-07.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
