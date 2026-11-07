@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SpyFu Alternative: PPC Keywords &amp; Competitor Google Ads | PlainRows</title><meta name="description" content="PPC competitor research, Google Ads competitor keywords and MCP tool: the paid keywords any website buys, with ad position, landing page, ad text, CPC, volume a">
+<title>SpyFu Alternative: PPC Keywords &amp; Competitor Google Ads | PlainRows</title><meta name="description" content="SpyFu alternative and MCP tool for PPC competitor research and Google Ads competitor keywords: paid keywords a website buys, with ad position, landing page, ad ">
 <link rel="canonical" href="https://nadaho.github.io/plainrows/ppc-competitor-keywords/"><link rel="stylesheet" href="../style.css">
 </head><body><header><a class="brand" href="../">PlainRows</a></header>
 <main>
 <h1>SpyFu Alternative: PPC Keywords &amp; Competitor Google Ads</h1>
-<p class="lead">PPC competitor research, Google Ads competitor keywords and MCP tool: the paid keywords any website buys, with ad position, landing page, ad text, CPC, volume and monthly ad spend. Bulk domains, 94 countries, organic too. Pay per domain and keyword found, plus a $0.012 start fee per run.</p>
+<p class="lead">SpyFu alternative and MCP tool for PPC competitor research and Google Ads competitor keywords: paid keywords a website buys, with ad position, landing page, ad text, CPC, volume, monthly ad spend. Bulk domains, 94 countries, organic too. Pay per domain and keyword found + $0.012 start fee per run.</p>
 <p><a class="btn" href="https://apify.com/plainrows/ppc-competitor-keywords">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/ppc-competitor-keywords" alt="Actor status"></p>
 <h2>Typical uses</h2><ul><li>See which keywords a competitor pays for on Google Ads, what its ads say and which landing pages they send to.</li><li>Estimate a competitor&#x27;s Google Ads budget (`paidTrafficCostUsd`) and paid traffic, for one site or hundreds in one run.</li><li>Find keywords worth bidding on: the terms your competitors advertise on, with volume and CPC, as a spreadsheet with one row per keyword.</li><li>Qualify leads by their ad spend: agencies can spot businesses that already advertise on Google.</li><li>Track competitors&#x27; ads over time by scheduling runs; feed n8n / Make workflows, dashboards or AI agents with clean JSON.</li></ul>
 <h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/ppc-competitor-keywords/examples/ppc-competitor-keywords-competitor-google-ads-keywords">Competitor Google Ads keywords of a domain (SpyFu alternative)</a>: See which keywords a competitor buys on Google Ads, here hubspot.com in the US: one row per paid keyword with its ad position, search volume, CPC and estimated paid traffic. Swap in your competitors&#x27; domains.</li><li><a href="https://apify.com/plainrows/ppc-competitor-keywords/examples/ppc-competitor-keywords-compare-paid-keywords-3-competitors">Compare the paid keywords of 3 competitors</a>: Put 3 competing domains side by side, here monday.com, asana.com and clickup.com: the 20 top Google Ads keywords of each, with CPC, search volume and position, to find the keywords they all pay for.</li></ul>
@@ -20,7 +20,11 @@
   -H &#x27;Content-Type: application/json&#x27; \
   -d &#x27;{
   &quot;domains&quot;: [
-    &quot;semrush.com&quot;
+    &quot;semrush.com&quot;,
+    &quot;hubspot.com&quot;,
+    &quot;shopify.com&quot;,
+    &quot;zapier.com&quot;,
+    &quot;monday.com&quot;
   ],
   &quot;country&quot;: &quot;US&quot;,
   &quot;keywordType&quot;: &quot;paid&quot;
@@ -28,7 +32,13 @@
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/ppc-competitor-keywords&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;semrush.com&#x27;], &#x27;country&#x27;: &#x27;US&#x27;, &#x27;keywordType&#x27;: &#x27;paid&#x27;})
+run = client.actor(&quot;plainrows/ppc-competitor-keywords&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;semrush.com&#x27;,
+             &#x27;hubspot.com&#x27;,
+             &#x27;shopify.com&#x27;,
+             &#x27;zapier.com&#x27;,
+             &#x27;monday.com&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;keywordType&#x27;: &#x27;paid&#x27;})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
     print(row)</pre>
 <h2>Use it in automations and AI agents</h2>
@@ -40,7 +50,7 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/ppc-competitor-keywords">https://apify.com/plainrows/ppc-competitor-keywords</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-06.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-07.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 <script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>
