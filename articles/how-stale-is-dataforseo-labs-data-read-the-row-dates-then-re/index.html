@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How stale is DataForSEO Labs data? Read the row dates, then refresh only what a decision needs | PlainRows</title><meta name="description" content="An issue opened on 08.11.2026 in a small open-source SEO tool raises a fair worry: DataForSEO Labs (ranked keywords, competitors, domain intersection) is a data">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/how-stale-is-dataforseo-labs-data-read-the-row-dates-then-re/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>How stale is DataForSEO Labs data? Read the row dates, then refresh only what a decision needs</h1><p class="lead">2026-11-08</p><p>An issue opened on 08.11.2026 in a small open-source SEO tool raises a fair worry: DataForSEO Labs (ranked keywords, competitors, domain intersection) is a database snapshot, so it can lag by weeks or months. The plan in the issue is sound: Search Console for your own site, live SERP calls for competitor positions on your target keywords, Google Ads volumes instead of Labs volumes, an &quot;as of&quot; date on every table, and Labs kept for discovery. A follow-up asks for an automatic status check on every URL the tool shows that isn&#x27;t a live 200 page in the latest crawl.</p>
+<p>Before rebuilding anything, I&#x27;d measure how stale the data really is. The responses already tell you, and it costs nothing extra.</p>
+<h3>How old the rows actually are</h3>
+<p>Every Labs row carries its own dates. In <code>ranked<i>keywords</code>, each item has <code>ranked</i>serp<i>element.last</i>updated<i>time</code> (when that SERP was captured) and <code>previous</i>updated<i>time</code> (the capture before that). The keyword part has <code>keyword</i>data.keyword<i>info.last</i>updated<i>time</code> and a <code>monthly</i>searches</code> array. <code>keyword<i>overview</code> with <code>include</i>serp<i>info: true</code> returns the same <code>serp</i>info.last<i>updated</i>time</code>, at no extra cost.</p>
+<p>Here&#x27;s what I saw in responses I kept. These are small samples, not a benchmark:</p>
+<p>| Call (US, English) | Fetched | SERP captured | Days old | Previous capture |</p>
+<p>|---|---|---|---|---|</p>
+<p>| <code>ranked_keywords</code>, 3 rows | 27.10.2026 | 30.07, 10.09, 15.09 | 89, 47, 42 | 76, 65, 64 days earlier |</p>
+<p>| <code>keyword<i>overview</code> + serp</i>info | 12.10.2026 | 30.07 | 74 | – |</p>
+<p>On the volume side, the <code>keyword<i>info</code> rows in the 27.10 response were updated between 13.09 and 15.09, and the newest month in <code>monthly</i>searches</code> was August 2026. Two other calls from October (keyword ideas, domain intersection) also had <code>keyword<i>info</code> dates of 12–15.09. <code>search</i>intent_info</code> dates were from late April.</p>
+<p>So in those samples, SERP positions were 6 to 13 weeks old and refreshed roughly every two months. Volumes were probably one Google Ads update behind: Google normally adds the previous month around mid-month, so September should have been out by 27.10. I didn&#x27;t call the status endpoint that day to confirm it. That fits the issue&#x27;s split. Labs is fine for finding ideas and competitors. It&#x27;s not good enough for &quot;did they overtake us last week&quot;.</p>
+<p>There&#x27;s also a free check of the whole database: <code>GET /v3/dataforseo<i>labs/status</code> returns a <code>date</i>update</code> for the Google, Bing and Amazon databases, and the docs say it isn&#x27;t charged. Keep in mind that a database update doesn&#x27;t mean every row was refreshed that day. That&#x27;s why the per-row dates are what matter.</p>
+<h3>Put the date on the screen from the row itself</h3>
+<p>Rather than guessing which columns are stale, show what the API says:</p>
+
+<pre>
+from datetime import date, datetime, timezone
+
+def row_age_days(ts: str | None, today: date | None = None) -&gt; int | None:
+    &quot;&quot;&quot;DataForSEO timestamps look like &#x27;2026-07-30 06:09:07 +00:00&#x27;.&quot;&quot;&quot;
+    if not ts:
+        return None
+    today = today or datetime.now(timezone.utc).date()
+    return (today - date.fromisoformat(ts[:10])).days
+
+def freshness(item: dict) -&gt; dict:
+    &quot;&quot;&quot;One ranked_keywords item -&gt; the dates worth showing next to it.&quot;&quot;&quot;
+    serp = item.get(&quot;ranked_serp_element&quot;) or {}
+    kinfo = (item.get(&quot;keyword_data&quot;) or {}).get(&quot;keyword_info&quot;) or {}
+    months = kinfo.get(&quot;monthly_searches&quot;) or []
+    newest = max(((m[&quot;year&quot;], m[&quot;month&quot;]) for m in months if m.get(&quot;year&quot;)), default=None)
+    return {
+        &quot;serp_as_of&quot;: (serp.get(&quot;last_updated_time&quot;) or &quot;&quot;)[:10] or None,
+        &quot;serp_age_days&quot;: row_age_days(serp.get(&quot;last_updated_time&quot;)),
+        &quot;volume_as_of&quot;: (kinfo.get(&quot;last_updated_time&quot;) or &quot;&quot;)[:10] or None,
+        &quot;volume_newest_month&quot;: f&quot;{newest[0]}-{newest[1]:02d}&quot; if newest else None,
+    }
+
+</pre>
+<p>Then make one rule and stick to it. For example, a position older than 30 days is shown as an estimate and can&#x27;t drive a &quot;they beat you&quot; alert until a live check confirms it.</p>
+<h3>Live checks only where a decision depends on them</h3>
+<p>The targets list is short, so checking it live is cheap. Prices from DataForSEO&#x27;s pricing pages, read in October and November 2026:</p>
+<p>| What | Standard queue | Live |</p>
+<p>|---|---|---|</p>
+<p>| Google organic SERP, per 10 results | $0.0006 | $0.002 |</p>
+<p>| Google Ads search volume, per task of up to 1,000 keywords | $0.06 | $0.09 |</p>
+<p>| Labs (most endpoints), per task + per row returned | – | $0.012 + $0.00012 |</p>
+<p>200 target keywords checked once a month on the standard queue costs 200 × $0.0006 = $0.12. Weekly, that&#x27;s about $0.52 a month. The same check live costs $0.40 per pass. Two limits are worth knowing. First, the price covers the first 10 results: if you want to see a competitor at position 35, <code>depth: 100</code> multiplies the price by 10. Second, Google Ads live endpoints accept at most 12 requests per minute per account, so send one 1,000-keyword task, not 1,000 one-keyword tasks.</p>
+<p>Monthly is enough for volumes. The docs say Google &quot;generally&quot; updates keyword data in the middle of the month, and Google Ads doesn&#x27;t return the current month. <code>GET /v3/keywords<i>data/google</i>ads/status</code> is free and returns <code>actual<i>data</code> (whether last month is in yet) plus <code>last</i>year<i>in</i>monthly<i>searches</code> / <code>last</i>month<i>in</i>monthly<i>searches</code>. Run the volume refresh the first time <code>actual</i>data</code> turns true in a month, not on a fixed date.</p>
+<p>For positions, the standard queue fits a weekly cron: <code>task<i>post</code> up to 100 tasks per call, with <code>tag</code> set to your target ID. Then poll <code>GET /v3/serp/google/organic/tasks</i>ready</code> (free) and fetch each finished task once:</p>
+
+<pre>
+import base64, json, os, urllib.request
+
+API = &quot;https://api.dataforseo.com/v3&quot;
+AUTH = &quot;Basic &quot; + base64.b64encode(
+    f&quot;{os.environ[&#x27;DFS_LOGIN&#x27;]}:{os.environ[&#x27;DFS_PASSWORD&#x27;]}&quot;.encode()).decode()
+
+def call(method, path, body=None):
+    req = urllib.request.Request(API + path, method=method,
+        data=json.dumps(body).encode() if body is not None else None,
+        headers={&quot;Authorization&quot;: AUTH, &quot;Content-Type&quot;: &quot;application/json&quot;})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.load(r)
+
+def post_targets(targets):  # [{&quot;id&quot;: &quot;t42&quot;, &quot;keyword&quot;: &quot;...&quot;, &quot;location_code&quot;: 2840, &quot;language_code&quot;: &quot;en&quot;}]
+    for i in range(0, len(targets), 100):
+        call(&quot;POST&quot;, &quot;/serp/google/organic/task_post&quot;, [
+            {&quot;keyword&quot;: t[&quot;keyword&quot;], &quot;location_code&quot;: t[&quot;location_code&quot;],
+             &quot;language_code&quot;: t[&quot;language_code&quot;], &quot;depth&quot;: 10, &quot;tag&quot;: t[&quot;id&quot;]}
+            for t in targets[i:i + 100]])
+
+def collect(domains):  # {&quot;t42&quot;: &quot;competitor.com&quot;, ...}
+    ready = call(&quot;GET&quot;, &quot;/serp/google/organic/tasks_ready&quot;)
+    out = {}
+    for task in ready.get(&quot;tasks&quot;) or []:
+        for r in task.get(&quot;result&quot;) or []:
+            if r.get(&quot;tag&quot;) not in domains:
+                continue  # someone else&#x27;s task on the same account
+            got = call(&quot;GET&quot;, f&quot;/serp/google/organic/task_get/regular/{r[&#x27;id&#x27;]}&quot;)
+            res = ((got[&quot;tasks&quot;][0].get(&quot;result&quot;)) or [{}])[0]
+            want = domains[r[&quot;tag&quot;]]
+            def ours(d):
+                d = (d or &quot;&quot;).lower()
+                return d == want or d.endswith(&quot;.&quot; + want)  # not &quot;notcompetitor.com&quot;
+            pos = next((it[&quot;rank_group&quot;] for it in res.get(&quot;items&quot;) or []
+                        if it.get(&quot;type&quot;) == &quot;organic&quot; and ours(it.get(&quot;domain&quot;))), None)
+            out[r[&quot;tag&quot;]] = {&quot;position&quot;: pos, &quot;checked_at&quot;: res.get(&quot;datetime&quot;)}
+    return out
+
+</pre>
+<p><code>position: None</code> means &quot;not in the depth you paid for&quot;, not &quot;not ranking&quot;. Show it as &quot;&gt; 10&quot;.</p>
+<h3>The URL status check from the follow-up</h3>
+<p>Every URL that comes out of Labs or Search Console has a date of its own, and a page can be redirected or deleted since then. A HEAD request with no redirect follow is the right primitive. A few servers get HEAD wrong, though, so fall back to a 1-byte GET:</p>
+
+<pre>
+import time, urllib.error, urllib.request
+from urllib.parse import urljoin
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *a, **k):
+        return None  # hand 3xx back to us instead of following it
+
+OPENER = urllib.request.build_opener(NoRedirect)
+UA = {&quot;User-Agent&quot;: &quot;my-seo-tool url-check (contact: you@example.com)&quot;}
+
+def check(url, cache, max_age_s=7 * 86400):
+    hit = cache.get(url)
+    if hit and time.time() - hit[&quot;at&quot;] &lt; max_age_s:
+        return hit
+    status, target = None, None
+    for method, extra in ((&quot;HEAD&quot;, {}), (&quot;GET&quot;, {&quot;Range&quot;: &quot;bytes=0-0&quot;})):
+        req = urllib.request.Request(url, method=method, headers={**UA, **extra})
+        try:
+            with OPENER.open(req, timeout=10) as r:
+                status = r.status
+        except urllib.error.HTTPError as e:
+            status = e.code
+            if 300 &lt;= e.code &lt; 400:
+                target = urljoin(url, e.headers.get(&quot;Location&quot;, &quot;&quot;))
+        except (urllib.error.URLError, TimeoutError):
+            status = &quot;unreachable&quot;
+        if status not in (405, 501, 403):  # HEAD refused or blocked: retry once with GET
+            break
+    hit = {&quot;status&quot;: status, &quot;target&quot;: target, &quot;at&quot;: time.time()}
+    cache[url] = hit
+    return hit
+
+</pre>
+<p>Notes from running checks like this:</p>
+<ul>
+<li>A 206 from the Range GET means the page is up. Treat it like a 200.</li>
+<li>A 403 on both methods is usually a bot filter, not a missing page. Show it as &quot;blocked&quot;, not as an error.</li>
+<li>One 301 hop is enough to show the target. Don&#x27;t chase chains here: the next crawl will.</li>
+<li>Go easy on competitor sites. One request at a time per host, a second or two apart, and the 7-day cache means the same URL isn&#x27;t checked on every page load.</li>
+</ul>
+<h3>What this doesn&#x27;t solve</h3>
+<p>Live SERPs come from one location and one device per call, so they won&#x27;t match what someone sees in another city or logged in. Google Ads volumes are rounded buckets for low-volume terms, so a &quot;change&quot; from 210 to 260 can be noise. Search Console is still the only real source for your own site. The rest is two kinds of estimate: one with a date on it, and one you paid a fraction of a cent to refresh.</p>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-08.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
