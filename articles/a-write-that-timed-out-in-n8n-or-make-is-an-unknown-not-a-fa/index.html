@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A write that timed out in n8n or Make is an unknown, not a failure: look it up before you resend | PlainRows</title><meta name="description" content="A question on the n8n forum on 08.11.2026: a workflow sends a write to an external API and the call times out. The write may have gone through, but the lookup s">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/a-write-that-timed-out-in-n8n-or-make-is-an-unknown-not-a-fa/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>A write that timed out in n8n or Make is an unknown, not a failure: look it up before you resend</h1><p class="lead">2026-11-09</p><p>A question on the n8n forum on 08.11.2026: a workflow sends a write to an external API and the call times out. The write may have gone through, but the lookup still says &quot;not found&quot; because reads lag, and the API has no idempotency keys. What do you wait for before sending it again? The same week, a Make user had a CRM &quot;create&quot; module that returned a 504 after about 30 seconds even though the record was created, so every retry risked a duplicate.</p>
+<p>The forum replies already have the right rule: a timeout means you don&#x27;t know what happened, not that it failed. Here&#x27;s how I&#x27;d wire that rule in both tools, then a full worked case with one API I use a lot (starting an Apify Actor run from n8n). It&#x27;s a good example because the API gives you everything you need to settle the question without guessing.</p>
+<h3>First, stop the tools from resending for you</h3>
+<p>Both tools can resend a write on their own before your logic gets a say.</p>
+<ul>
+<li><b>n8n:</b> &quot;Retry On Fail&quot; in a node&#x27;s settings reruns the node after any failure, timeouts included. Leave it on for reads. Turn it off on any node that creates or charges something, and set &quot;On Error&quot; to &quot;Continue (using error output)&quot; so the timeout goes into a branch you control.</li>
+<li><b>Make:</b> per Make&#x27;s help page on automatic retries, <code>RateLimitError</code>, <code>ConnectionError</code> and <code>ModuleTimeoutError</code> can produce incomplete executions that Make retries by itself, up to 8 times (1 min, 10 min, 10 min, 30 min, 30 min, 30 min, 3 h, 3 h, so about 8 hours in total), *starting from the module that failed*. If that module is a create, each retry is a resend. Put an error handler route on the create module, and make that route do the lookup described below instead of relying on the automatic retry.</li>
+</ul>
+<h3>The pattern for any API</h3>
+<p>1. <b>Write down what you&#x27;re about to send, before you send it.</b> A row in a sheet or a database table: your own reference (form submission ID, order ID, anything stable), the payload, the time, <code>status = pending</code>.</p>
+<p>2. <b>If the API lets you store that reference</b> in a searchable field, include it in the write. That&#x27;s what makes the lookup exact later on.</p>
+<p>3. <b>Timeout = still <code>pending</code>.</b> Wait longer than the API&#x27;s read lag before you look. If &quot;not found&quot; 10 seconds later is normal for that API, checking after 10 seconds tells you nothing. I check after 2, 5 and 15 minutes.</p>
+<p>4. <b>Found exactly one match →</b> mark it <code>done</code> and carry on with the existing record&#x27;s ID.</p>
+<p>5. <b>Not found after the last check →</b> resend once, and only once.</p>
+<p>6. <b>Two matches, or a lookup that itself fails →</b> stop and send it to a person. Don&#x27;t create anything else.</p>
+<p>The weak spot is step 2. If the API has no field for your reference, you end up matching on content (same email, same amount, within a few minutes of each other), and that can&#x27;t separate two genuine identical requests. When that&#x27;s the case, I&#x27;d rather send ambiguous cases to a human than resend automatically.</p>
+<h3>Worked case: starting an Apify run from n8n</h3>
+<p>A lot of n8n workflows call Apify&#x27;s <code>run-sync-get-dataset-items</code> endpoint from an HTTP Request node: one POST, and the dataset rows come back. Apify&#x27;s API reference says that if the run takes longer than 300 seconds, the response is a 408. Apify&#x27;s academy page on running Actors through the API adds that the response then describes the run with status <code>RUNNING</code>. In other words, your HTTP call gave up but the run didn&#x27;t, and it keeps using (and billing) compute. The same page suggests restarting the run asynchronously at that point. I&#x27;d look for the existing run first: restarting while the first run is still going means paying for two runs.</p>
+<p>The cleaner setup avoids the long call altogether. Every request is short and the run ID is in your hands from the start:</p>
+<p><b>1. Set node</b> before the call: <code>sentAt</code> = <code>{{ $now.minus({ seconds: 5 }).toUTC().toISO() }}</code> and <code>input</code> = the JSON you&#x27;re about to send.</p>
+<p><b>2. HTTP Request: start the run</b> (Retry On Fail off, error output on)</p>
+
+<pre>
+POST https://api.apify.com/v2/acts/OWNER~ACTOR-NAME/runs?waitForFinish=60&amp;maxTotalChargeUsd=2
+Header: Authorization: Bearer &lt;your Apify token, stored as a Header Auth credential&gt;
+Body (JSON): {{ JSON.stringify($json.input) }}
+
+</pre>
+<p><code>waitForFinish</code> is capped at 60 seconds. If the run finishes in that time, you get it back with its final status. If not, you still get the run object with its <code>id</code> and <code>defaultDatasetId</code>. <code>maxTotalChargeUsd</code> caps what that single run can be charged, which also caps the damage if a duplicate slips through.</p>
+<p><b>3. Poll, success branch.</b> <code>GET https://api.apify.com/v2/actor-runs/{{ $json.data.id }}?waitForFinish=60</code>, followed by an IF node: while <code>data.status</code> is <code>READY</code> or <code>RUNNING</code>, loop back. Cap the loop (for example 30 rounds = 30 minutes) and alert someone if the cap is reached. When the status is <code>SUCCEEDED</code>, read <code>GET https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items</code>.</p>
+<p><b>4. Lookup, error branch.</b> This only runs if the start call itself didn&#x27;t answer:</p>
+<ul>
+<li>Wait node, 2 minutes.</li>
+<li><code>GET https://api.apify.com/v2/acts/OWNER~ACTOR-NAME/runs?desc=1&amp;limit=20&amp;startedAfter={{ $(&#x27;Set&#x27;).first().json.sentAt }}</code>. Per the API reference, the list is filtered on start time, and each item has <code>id</code>, <code>status</code>, <code>startedAt</code>, <code>meta.origin</code> and <code>defaultKeyValueStoreId</code>.</li>
+<li>IF node: if <code>data.items</code> is empty, no run started. Go to the &quot;not found&quot; path (check once more after 5 minutes, then resend once). Otherwise, Split Out on <code>data.items</code>, then one HTTP Request per candidate: <code>GET https://api.apify.com/v2/key-value-stores/{{ $json.defaultKeyValueStoreId }}/records/INPUT</code>. Apify keeps each run&#x27;s input there, so you can compare it with what you sent.</li>
+<li>A Code node (&quot;Run Once for All Items&quot;) decides:</li>
+</ul>
+
+<pre>
+// Compares the stored INPUT of each candidate run with what we sent.
+// Only the keys we sent are compared, in case defaults were added to the stored input.
+const sent = $(&#x27;Set&#x27;).first().json.input;
+const candidates = $(&#x27;Split Out&#x27;).all();   // run list items, same order as the INPUT calls
+const inputs = $input.all();               // one stored INPUT per candidate
+
+const same = (a, b) =&gt; JSON.stringify(a) === JSON.stringify(b);
+const matches = inputs
+  .map((it, i) =&gt; ({ run: candidates[i].json, stored: it.json }))
+  .filter(({ stored }) =&gt; Object.keys(sent).every(k =&gt; same(sent[k], stored[k])));
+
+let decision = &#x27;resend_once&#x27;;
+if (matches.length === 1) decision = &#x27;follow_run&#x27;;
+if (matches.length &gt; 1) decision = &#x27;human&#x27;;
+return [{ json: { decision, found: matches.length, runId: matches[0]?.run.id ?? null } }];
+
+</pre>
+<ul>
+<li>Switch node on <code>decision</code>: <code>follow<i>run</code> goes into the polling loop from step 3 with that <code>runId</code>. <code>resend</i>once</code> goes back to the start node with a flag that stops a second resend (check again after 5 minutes first, as in the general pattern). <code>human</code> sends an alert with the run IDs. Once you&#x27;ve picked the run you keep, a duplicate can be stopped with <code>POST https://api.apify.com/v2/actor-runs/RUN_ID/abort</code>. Usage already consumed stays charged.</li>
+</ul>
+<h3>Limits</h3>
+<ul>
+<li>If two executions start the same Actor with the same input within the same few minutes, the stored input can&#x27;t tell them apart. That&#x27;s the content-matching limit from above. One fix is to give each workflow its own Apify task and list that task&#x27;s runs (<code>GET /v2/actor-tasks/TASK_ID/runs?desc=1</code>) instead of the Actor&#x27;s. Another is to queue the starts.</li>
+<li>Adding a unique &quot;reference&quot; field to the input only works if the Actor accepts extra fields. Some input schemas reject unknown properties, so check that before relying on it.</li>
+<li>I haven&#x27;t checked what the 408 body of the <code>run-sync-get-dataset-items</code> variant contains in every case, which is why the lookup above doesn&#x27;t depend on it. If your n8n HTTP timeout is shorter than 300 seconds, n8n gives up first and you get no body at all.</li>
+<li>The polling loop costs one request per minute per run. That&#x27;s fine for a few runs a day. For many runs, Apify&#x27;s ad-hoc webhooks (the <code>webhooks</code> parameter on the start call) let Apify call your n8n webhook when the run ends, so you don&#x27;t have to poll.</li>
+<li>None of this makes a non-idempotent API safe. It only makes sure that each resend is a decision your workflow made, not something that happened by default.</li>
+</ul>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-09.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
