@@ -22,13 +22,29 @@
   &quot;keywords&quot;: [
     &quot;phone case&quot;,
     &quot;iphone charger&quot;,
-    &quot;wireless earbuds&quot;
+    &quot;wireless earbuds&quot;,
+    &quot;yoga mat&quot;,
+    &quot;water bottle&quot;,
+    &quot;laptop stand&quot;,
+    &quot;led strip lights&quot;,
+    &quot;air fryer&quot;,
+    &quot;dog bed&quot;,
+    &quot;coffee grinder&quot;
   ]
 }&#x27;</pre>
 <pre>from apify_client import ApifyClient
 
 client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
-run = client.actor(&quot;plainrows/amazon-keyword-research&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;phone case&#x27;, &#x27;iphone charger&#x27;, &#x27;wireless earbuds&#x27;]})
+run = client.actor(&quot;plainrows/amazon-keyword-research&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;phone case&#x27;,
+              &#x27;iphone charger&#x27;,
+              &#x27;wireless earbuds&#x27;,
+              &#x27;yoga mat&#x27;,
+              &#x27;water bottle&#x27;,
+              &#x27;laptop stand&#x27;,
+              &#x27;led strip lights&#x27;,
+              &#x27;air fryer&#x27;,
+              &#x27;dog bed&#x27;,
+              &#x27;coffee grinder&#x27;]})
 for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
     print(row)</pre>
 <h2>Use it in automations and AI agents</h2>
@@ -40,7 +56,7 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/amazon-keyword-research">https://apify.com/plainrows/amazon-keyword-research</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-08.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-09.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 <script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>
