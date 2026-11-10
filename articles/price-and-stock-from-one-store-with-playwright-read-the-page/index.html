@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Price and stock from one store with Playwright: read the page&#x27;s structured data before writing selectors | PlainRows</title><meta name="description" content="A GitHub issue opened on 09.11.2026 scopes the first piece of a price tracker: open one pilot store&#x27;s website, read the price and stock of 5 products with Playw">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/price-and-stock-from-one-store-with-playwright-read-the-page/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>Price and stock from one store with Playwright: read the page&#x27;s structured data before writing selectors</h1><p class="lead">2026-11-10</p><p>A GitHub issue opened on 09.11.2026 scopes the first piece of a price tracker: open one pilot store&#x27;s website, read the price and stock of 5 products with Playwright, print the results, and only then extend to more stores. That&#x27;s a sensible first step. Here&#x27;s how I&#x27;d write it so the 5-product version keeps working when you add a second store, and where it will still break.</p>
+<p>The short version: most product pages already describe their price and availability in machine-readable form, for search engines. Read that first, and only fall back to CSS selectors when it&#x27;s missing.</p>
+<h3>Check what the store already publishes (5 minutes, no code)</h3>
+<p>Open one product page, view the source (not the inspector, the raw source) and search for <code>application/ld+json</code>. On most shop systems you&#x27;ll find a schema.org <code>Product</code> block with an <code>offers</code> object that looks like this:</p>
+
+<pre>
+{
+  &quot;@type&quot;: &quot;Product&quot;,
+  &quot;name&quot;: &quot;...&quot;,
+  &quot;sku&quot;: &quot;...&quot;,
+  &quot;offers&quot;: {
+    &quot;@type&quot;: &quot;Offer&quot;,
+    &quot;price&quot;: &quot;49.90&quot;,
+    &quot;priceCurrency&quot;: &quot;CHF&quot;,
+    &quot;availability&quot;: &quot;https://schema.org/InStock&quot;
+  }
+}
+
+</pre>
+<p>Two shop systems also have public JSON you can open in the browser:</p>
+<ul>
+<li><b>Shopify:</b> add <code>.js</code> to the product URL (<code>/products/&lt;handle&gt;.js</code>). You get the variants with <code>price</code> in cents (an integer) and <code>available</code> as true/false. <code>/products/&lt;handle&gt;.json</code> exists too, with prices as strings like <code>&quot;49.90&quot;</code>.</li>
+<li><b>WooCommerce:</b> <code>/wp-json/wc/store/v1/products?slug=&lt;slug&gt;</code> (the Store API, no key needed unless the shop has switched it off). Prices are strings in minor units, with <code>currency<i>minor</i>unit</code> telling you where the decimal point goes, plus <code>is<i>in</i>stock</code>.</li>
+</ul>
+<p>If the pilot store is a partner rather than a site you&#x27;re watching from outside, ask them first. Many stores already generate a product feed (for Google Shopping, for example) with price and availability for every product, and that beats any scraper.</p>
+<h3>The script</h3>
+<p>This uses Playwright as the issue asks, reads JSON-LD first, falls back to selectors you set per store, respects robots.txt and waits between pages. It prints one line per product and appends to a CSV so you have history from day one.</p>
+
+<pre>
+# pip install playwright &amp;&amp; playwright install chromium
+import csv, json, time
+from datetime import datetime, timezone
+from urllib import robotparser
+from urllib.parse import urlparse
+from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+
+UA = &quot;price-tracker-pilot/0.1 (+https://your-project-page.example)&quot;
+DELAY_S = 5
+PRODUCTS = [
+    &quot;https://store.example/products/item-1&quot;,
+    # ... 5 product URLs
+]
+# Only used when the page has no usable JSON-LD. Fill in after looking at one page.
+FALLBACK = {&quot;price&quot;: &quot;.product-price&quot;, &quot;stock&quot;: &quot;.stock-status&quot;}
+
+_robots = {}
+def allowed(url):
+    host = urlparse(url)
+    base = f&quot;{host.scheme}://{host.netloc}&quot;
+    if base not in _robots:
+        rp = robotparser.RobotFileParser(base + &quot;/robots.txt&quot;)
+        rp.read()
+        _robots[base] = rp
+    return _robots[base].can_fetch(UA, url)
+
+def walk(node):
+    &quot;&quot;&quot;Yield every dict in a JSON-LD tree (handles @graph, lists, nesting).&quot;&quot;&quot;
+    if isinstance(node, list):
+        for n in node:
+            yield from walk(n)
+    elif isinstance(node, dict):
+        yield node
+        for v in node.values():
+            yield from walk(v)
+
+def is_type(node, name):
+    t = node.get(&quot;@type&quot;)
+    return name in (t if isinstance(t, list) else [t])
+
+def from_jsonld(blocks):
+    for raw in blocks:
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        for node in walk(data):
+            if not is_type(node, &quot;Product&quot;):
+                continue
+            offers = node.get(&quot;offers&quot;) or {}
+            offers = offers if isinstance(offers, list) else [offers]
+            for o in offers:
+                price = o.get(&quot;price&quot;, o.get(&quot;lowPrice&quot;))
+                if price is None:
+                    continue
+                avail = str(o.get(&quot;availability&quot;, &quot;&quot;)).rstrip(&quot;/&quot;).rsplit(&quot;/&quot;, 1)[-1]
+                return {&quot;price&quot;: str(price), &quot;currency&quot;: o.get(&quot;priceCurrency&quot;),
+                        &quot;stock&quot;: avail or None, &quot;offers&quot;: len(offers), &quot;source&quot;: &quot;jsonld&quot;}
+    return None
+
+def from_selectors(page):
+    out = {&quot;currency&quot;: None, &quot;offers&quot;: None, &quot;source&quot;: &quot;selector&quot;}
+    for key, sel in FALLBACK.items():
+        try:
+            out[key] = (page.locator(sel).first.text_content(timeout=10_000) or &quot;&quot;).strip() or None
+        except PWTimeout:
+            out[key] = None
+    return out
+
+with sync_playwright() as p, open(&quot;prices.csv&quot;, &quot;a&quot;, newline=&quot;&quot;) as f:
+    writer = csv.writer(f)
+    browser = p.chromium.launch()
+    page = browser.new_page(user_agent=UA)
+    for url in PRODUCTS:
+        now = datetime.now(timezone.utc).isoformat(timespec=&quot;seconds&quot;)
+        if not allowed(url):
+            print(f&quot;{url}  skipped (robots.txt)&quot;)
+            continue
+        try:
+            resp = page.goto(url, wait_until=&quot;load&quot;, timeout=30_000)
+        except PWTimeout:
+            print(f&quot;{url}  timeout&quot;)
+            writer.writerow([now, url, None, None, None, None, &quot;timeout&quot;])
+            continue
+        status = resp.status if resp else None
+        blocks = page.locator(&#x27;script[type=&quot;application/ld+json&quot;]&#x27;).all_text_contents()
+        row = from_jsonld(blocks) or from_selectors(page)
+        print(f&quot;{url}  {status}  {row[&#x27;price&#x27;]} {row[&#x27;currency&#x27;] or &#x27;&#x27;}  &quot;
+              f&quot;{row[&#x27;stock&#x27;]}  ({row[&#x27;source&#x27;]})&quot;)
+        writer.writerow([now, url, status, row[&quot;price&quot;], row[&quot;currency&quot;],
+                         row[&quot;stock&quot;], row[&quot;source&quot;]])
+        time.sleep(DELAY_S)
+    browser.close()
+
+</pre>
+<p>A few choices in there, and why:</p>
+<ul>
+<li><b>The price stays a string.</b> <code>&quot;49.90&quot;</code> turned into a float and back is how you end up with <code>49.900000000000006</code> in a report. Convert with <code>decimal.Decimal</code> when you compare prices.</li>
+<li><b><code>wait<i>until=&quot;load&quot;</code>, not <code>&quot;networkidle&quot;</code>.</b> Playwright&#x27;s own docs discourage <code>networkidle</code>, and pages with chat widgets or analytics polling never go idle. If the store injects its JSON-LD with JavaScript after load, wait for it explicitly: <code>page.locator(&#x27;script[type=&quot;application/ld+json&quot;]&#x27;).first.wait</i>for(state=&quot;attached&quot;)</code>.</li>
+<li><b>The <code>source</code> column.</b> When you add store number 2, you&#x27;ll immediately see which stores need hand-written selectors and which don&#x27;t.</li>
+<li><b>HTTP status in every row.</b> A 403 or 429 is the store telling you something. Slow down or stop, don&#x27;t retry harder.</li>
+</ul>
+<h3>Before you trust the numbers</h3>
+<p>Check the 5 products against what you see on the page, once, by hand. That&#x27;s the actual test for this issue, and it catches the cases below:</p>
+<ul>
+<li><b>Variants.</b> A T-shirt in 4 sizes has 4 offers, sometimes with different prices and stock. The script takes the first offer with a price and records how many offers there were. If that number is above 1, decide which variant you&#x27;re tracking (by <code>sku</code> in the offer) instead of trusting &quot;first&quot;.</li>
+<li><b>Sale prices.</b> Some themes put the regular price in JSON-LD and show the sale price on the page (or the other way round). If they disagree on your pilot products, the visible price wins and you need the selector for that store.</li>
+<li><b>&quot;Stock&quot; is usually in/out, not a quantity.</b> schema.org has <code>InStock</code>, <code>OutOfStock</code>, <code>LimitedAvailability</code>, <code>PreOrder</code>, <code>BackOrder</code> and a few more. Shopify&#x27;s public JSON only gives <code>available</code>. WooCommerce fills <code>low<i>stock</i>remaining</code> only when the shop tracks stock for that product and it&#x27;s below the shop&#x27;s low-stock threshold, otherwise it&#x27;s <code>null</code>. If the MVP needs real quantities, no public page will give you that reliably. You need the store&#x27;s cooperation.</li>
+<li><b>Price depends on who&#x27;s asking.</b> Currency and price can change with country (IP or a cookie), with VAT display settings, or with a customer login. Run the tracker from the same place every time, and note in the CSV which country it ran from if that could vary.</li>
+<li><b>Cookie banners and bot checks.</b> A consent overlay usually doesn&#x27;t stop either method (the script reads text from the page, it doesn&#x27;t click anything), but a few sites only load the product content after consent, and then both come back empty. A captcha or &quot;verify you are human&quot; page is a no: that store isn&#x27;t a good pilot.</li>
+</ul>
+<h3>Etiquette, because it decides whether this keeps working</h3>
+<p>Five products once a day with 5 seconds between pages is nothing for a store. 5,000 products every hour is a different conversation. Keep the delay, send a user agent that says who you are, read robots.txt (the script does), and read the store&#x27;s terms of use before you scale up. Prices are generally public facts, but the terms are what the store will point to if it blocks you.</p>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-10.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
