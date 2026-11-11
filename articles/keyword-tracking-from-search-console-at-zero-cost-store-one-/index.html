@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Keyword tracking from Search Console at zero cost: store one row per day, then match your keyword list loosely | PlainRows</title><meta name="description" content="A GitHub issue opened on 11.11.2026 asks for a no-cost design for keyword tracking built on Google Search Console. Two sites, 31 target keywords. The current se">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/keyword-tracking-from-search-console-at-zero-cost-store-one-/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>Keyword tracking from Search Console at zero cost: store one row per day, then match your keyword list loosely</h1><p class="lead">2026-11-11</p><p>A GitHub issue opened on 11.11.2026 asks for a no-cost design for keyword tracking built on Google Search Console. Two sites, 31 target keywords. The current setup keeps aggregated 7/28/90-day snapshots and only three of them per combination, so there&#x27;s no real trend. And <b>0 of the 31 keywords match a GSC query exactly</b>. The author is already careful: GSC &quot;position&quot; is an average and not a SERP rank, a missing match doesn&#x27;t mean &quot;not ranking&quot;, and legacy rows with <code>position=0</code> shouldn&#x27;t be shown. Here&#x27;s how I&#x27;d fix the history and the matching without paying for anything. At the end there&#x27;s a cost estimate for exact SERP checks, for the day someone asks for them.</p>
+<h3>1. Stop storing windows, store days</h3>
+<p>A 7/28/90-day window is an aggregate, so you can&#x27;t get a daily series back out of three of them. The Search Analytics API will give you each day separately if you ask for one day at a time. Search Console keeps about 16 months of data, so you can <b>backfill 16 months today</b> instead of waiting for history to build up.</p>
+<p>One call per site per day, with <code>startDate == endDate</code>:</p>
+
+<pre>
+# pip install google-api-python-client google-auth
+from datetime import date, timedelta
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+
+creds = service_account.Credentials.from_service_account_file(
+    &quot;sa.json&quot;, scopes=[&quot;https://www.googleapis.com/auth/webmasters.readonly&quot;])
+gsc = build(&quot;searchconsole&quot;, &quot;v1&quot;, credentials=creds, cache_discovery=False)
+
+def day_rows(site: str, day: date, dimensions: list[str]) -&gt; list[dict]:
+    rows, start = [], 0
+    while True:
+        body = {
+            &quot;startDate&quot;: day.isoformat(), &quot;endDate&quot;: day.isoformat(),
+            &quot;dimensions&quot;: dimensions,  # e.g. [&quot;query&quot;] or [&quot;query&quot;, &quot;page&quot;]
+            &quot;type&quot;: &quot;web&quot;,
+            &quot;dataState&quot;: &quot;final&quot;,      # the default; skips days that are still moving
+            &quot;rowLimit&quot;: 25000, &quot;startRow&quot;: start,
+        }
+        resp = gsc.searchanalytics().query(siteUrl=site, body=body).execute()
+        batch = resp.get(&quot;rows&quot;, [])
+        rows += batch
+        if len(batch) &lt; 25000:
+            return rows
+        start += 25000
+
+# Domain property: &quot;sc-domain:example.es&quot;; URL-prefix property: &quot;https://example.es/&quot;
+
+</pre>
+<p>To give the script access, add the service account&#x27;s e-mail as a user of the property (Settings, Users and permissions, Restricted is enough). No billing account is needed, and at one or two calls per day per site you won&#x27;t get anywhere near the API quotas.</p>
+<p>For the daily job, re-fetch the last 5 or 6 days on every run and upsert. Final data usually shows up 2 to 3 days late, and re-fetching makes the job idempotent: a run that fails costs you nothing.</p>
+<p>I&#x27;d store two grains, because they answer different questions and their numbers don&#x27;t add up to each other:</p>
+<ul>
+<li><code>dimensions: [&quot;query&quot;]</code> (aggregated by property): &quot;how does the site do for this query&quot;. Use this one for tracking.</li>
+<li><code>dimensions: [&quot;query&quot;, &quot;page&quot;]</code> (aggregated by page): &quot;which URL is showing&quot;. Its position and impressions are counted per page, so don&#x27;t sum them back into query-level numbers.</li>
+</ul>
+<p>Plus a third, tiny call with <code>dimensions: [&quot;date&quot;]</code> and no query. It gives you the property&#x27;s real daily totals, which you&#x27;ll need in section 3.</p>
+<p>A schema proposal, in the &quot;SQL only, not applied&quot; spirit of the issue:</p>
+
+<pre>
+create table gsc_query_daily (
+  site        text    not null,
+  day         date    not null,
+  query       text    not null,
+  clicks      integer not null,
+  impressions integer not null,
+  position    numeric not null,          -- GSC average position for that day
+  fetched_at  timestamptz not null default now(),
+  primary key (site, day, query)
+);
+
+create table gsc_site_daily (             -- totals without the query dimension
+  site text not null, day date not null,
+  clicks integer not null, impressions integer not null,
+  primary key (site, day)
+);
+
+</pre>
+<p>Weekly position has to be weighted by impressions. A plain <code>avg(position)</code> lets a day with 1 impression at position 40 count as much as a day with 60 impressions at position 6:</p>
+
+<pre>
+select site, query, date_trunc(&#x27;week&#x27;, day) as week,
+       sum(impressions) as impressions, sum(clicks) as clicks,
+       round(sum(position * impressions) / nullif(sum(impressions), 0), 1) as avg_position
+from gsc_query_daily
+group by 1, 2, 3;
+
+</pre>
+<h3>2. Why 0 of 31 match, and how to match without lying</h3>
+<p>Exact matching on <code>lower(trim(keyword))</code> fails for boring reasons, especially in Spanish. People type without accents (&quot;traduccion simultanea&quot;), drop prepositions (&quot;alquiler equipos traduccion&quot;), reorder words, or add a city. A catalog written by a human uses the tidy form, and real queries rarely look like that.</p>
+<p>I&#x27;d keep the catalog untouched and add a match type next to each observed query:</p>
+
+<pre>
+import re, unicodedata
+
+STOP = {&quot;de&quot;, &quot;del&quot;, &quot;la&quot;, &quot;el&quot;, &quot;los&quot;, &quot;las&quot;, &quot;para&quot;, &quot;en&quot;, &quot;y&quot;, &quot;a&quot;, &quot;con&quot;}
+
+def norm(s: str) -&gt; str:
+    s = unicodedata.normalize(&quot;NFKD&quot;, s.lower())
+    s = &quot;&quot;.join(c for c in s if not unicodedata.combining(c))
+    return re.sub(r&quot;\s+&quot;, &quot; &quot;, re.sub(r&quot;[^\w\s]&quot;, &quot; &quot;, s)).strip()
+
+def tokens(s: str) -&gt; frozenset:
+    return frozenset(t for t in norm(s).split() if t not in STOP)
+
+def match_type(keyword: str, query: str) -&gt; str | None:
+    if query.strip().lower() == keyword.strip().lower():
+        return &quot;exact&quot;
+    if norm(query) == norm(keyword):
+        return &quot;normalized&quot;   # accents, case, punctuation
+    if tokens(keyword) and tokens(keyword) &lt;= tokens(query):
+        return &quot;contains_all_words&quot;   # word order, extra words like a city
+    return None
+
+</pre>
+<p>For each catalog keyword, the screen shows the queries that matched, grouped by match type, with impressions, clicks and weighted position. A keyword with no matching query in the last 28 days gets the <code>no_observada</code> status, and the label should say exactly what it means: &quot;no impressions recorded for a matching query in this period&quot;. It doesn&#x27;t mean &quot;doesn&#x27;t rank&quot;. The page may sit on page 3, where almost nobody looks, or the query may be too rare to be reported (next section).</p>
+<p>If you&#x27;d rather push part of the matching to the API, <code>dimensionFilterGroups</code> supports <code>contains</code>, <code>equals</code>, <code>notContains</code>, <code>notEquals</code>, <code>includingRegex</code> and <code>excludingRegex</code> (RE2). For example, <code>{&quot;dimension&quot;: &quot;query&quot;, &quot;operator&quot;: &quot;includingRegex&quot;, &quot;expression&quot;: &quot;traducci(o|ó)n&quot;}</code> pulls the accented and unaccented spellings in one call. I still prefer fetching everything and matching locally: it&#x27;s one call either way on a small site, and you can change the rules without fetching again.</p>
+<h3>3. Measure the hidden part instead of guessing it</h3>
+<p>Search Console leaves out queries that were searched by very few people, for privacy. Those impressions still count in the property totals, but they have no row when you group by query. On a small B2B site with niche, local queries, this can be a big share of the traffic. That&#x27;s one more reason a 31-keyword catalog finds few matches.</p>
+<p>You can measure it for free with the two tables above:</p>
+
+<pre>
+select s.site, s.day, s.impressions as total_impressions,
+       coalesce(sum(q.impressions), 0) as impressions_with_query,
+       round(100.0 * (s.impressions - coalesce(sum(q.impressions), 0))
+             / nullif(s.impressions, 0), 1) as hidden_pct
+from gsc_site_daily s
+left join gsc_query_daily q on q.site = s.site and q.day = s.day
+group by s.site, s.day, s.impressions;
+
+</pre>
+<p>Show that percentage on the dashboard. If 60 % of impressions are hidden, the keyword view is a partial sample, and the reader should know that before they read &quot;no_observada&quot; as bad news.</p>
+<p>Two more display rules I&#x27;d add, as my own rule of thumb rather than anything official:</p>
+<ul>
+<li>Don&#x27;t show week-over-week position changes for a query with fewer than ~20 impressions in the week. An average over 3 impressions jumps around for no reason.</li>
+<li>Filter by <code>country</code> when the business is local. Values are ISO 3166-1 alpha-3 codes (Spain is <code>ESP</code>; rows come back in lowercase, <code>esp</code>). Otherwise impressions from other countries skew the average position.</li>
+</ul>
+<h3>4. If exact SERP positions are ever approved: what it costs</h3>
+<p>GSC can&#x27;t tell you &quot;position 4 on mobile in Madrid today&quot;. For that you need a SERP API, and the bill is simply keywords × devices × checks per month × price per request. In my own measurements this month on DataForSEO, one Google top-10 request cost about $0.0015 in its priority queue and $0.0023 in live mode (prices change, check before you budget):</p>
+<p>| Scope | Requests/month | At $0.0015 | At $0.0023 |</p>
+<p>|---|---|---|---|</p>
+<p>| 10 key keywords, desktop + mobile, weekly | 10 × 2 × 4.3 ≈ 86 | ≈ $0.13 | ≈ $0.20 |</p>
+<p>| All 31, desktop + mobile, weekly | 31 × 2 × 4.3 ≈ 267 | ≈ $0.40 | ≈ $0.61 |</p>
+<p>| All 31, desktop + mobile, daily | 31 × 2 × 30 = 1,860 | ≈ $2.79 | ≈ $4.28 |</p>
+<p>With a per-search plan from another provider (the issue mentions SerpAPI), compare the same request count to the plan&#x27;s monthly allowance. Whatever the provider, a SERP check is one sample, at one moment, from one location. Weekly checks of a short list against a fixed location (Spain, Spanish, plus the city if the business is local) usually say more than daily checks of everything. Store those rows in their own table with a <code>source</code> column, so they never get mixed up with GSC averages or the legacy <code>position=0</code> rows.</p>
+<h3>What I&#x27;d ship first</h3>
+<p>1. Backfill 16 months of <code>gsc<i>query</i>daily</code> and <code>gsc<i>site</i>daily</code>, then a daily job that re-fetches the last 6 days.</p>
+<p>2. The catalog view with match type, weighted weekly position, <code>no_observada</code> worded exactly as above, and the hidden-impressions percentage.</p>
+<p>3. Only then, if someone needs an exact rank, a short weekly SERP list with its cost written next to it.</p>
+<p>What this doesn&#x27;t do: GSC has no data for keywords where the site gets no impressions. To see the demand you&#x27;re missing entirely, you need search volumes. Google Ads&#x27; Keyword Planner gives free ranges if you have an Ads account; exact monthly numbers come from paid keyword data, which is a separate question.</p>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-11.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
