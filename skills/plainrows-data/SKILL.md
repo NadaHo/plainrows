@@ -33,7 +33,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 
 - Rows with `"found": false` mean the source had no data for that input; they are not billed as results (some tools charge a small fixed fee per search, listed on their pricing table).
 - Missing values are `null`, never guessed.
-- Invalid inputs end the run without charge; the reason is in the run's status message and in the `OUTPUT` record of its key-value store.
+- Invalid inputs end the run before any lookup: nothing is charged except the run start fee of the tools that have one ("Actor Start" in their price list); the reason is in the run's status message and in the `OUTPUT` record of its key-value store.
 - Prices are per result (see each reference file). Tell the user the expected cost before large runs.
 
 ## Tools
