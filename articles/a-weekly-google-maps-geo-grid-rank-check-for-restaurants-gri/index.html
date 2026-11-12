@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A weekly Google Maps geo-grid rank check for restaurants: grid math, place matching, and the real cost per location | PlainRows</title><meta name="description" content="A GitHub issue opened on November 11, 2026 plans keyword rank tracking for restaurant websites. Owners want to know &quot;do we show up when someone nearby searches ">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/a-weekly-google-maps-geo-grid-rank-check-for-restaurants-gri/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>A weekly Google Maps geo-grid rank check for restaurants: grid math, place matching, and the real cost per location</h1><p class="lead">2026-11-12</p><p>A GitHub issue opened on November 11, 2026 plans keyword rank tracking for restaurant websites. Owners want to know &quot;do we show up when someone nearby searches &#x27;shawarma near me&#x27; or &#x27;best brunch in Olaya&#x27;?&quot;. The plan: up to 10 keywords per location, a weekly check of the location&#x27;s position in Google Maps results at the points of a 5 × 5 grid spaced 1 km apart, &quot;not in the top 20&quot; instead of 0, a baseline check when the site is first published, and a monthly budget per organization. The data provider is still &quot;vendor to pick&quot;. I build this kind of check myself, so here&#x27;s the part the issue leaves open: how to generate the grid, how to know that a result is *your* restaurant, what one weekly check costs, and what a grid can&#x27;t tell you.</p>
+<h3>1. The grid</h3>
+<p>A grid point is just a coordinate. At each one you ask Google Maps for the keyword as if the searcher stood there. One degree of latitude is about 111.32 km everywhere. One degree of longitude shrinks with the cosine of the latitude (about 101 km at Riyadh&#x27;s 24.7° N). So:</p>
+
+<pre>
+// grid.ts — weekly geo-grid check on Google Maps. Node 18+ or a Worker (fetch, btoa).
+const KM_PER_DEG_LAT = 111.32;
+
+export type Point = { row: number; col: number; lat: number; lng: number };
+
+/** n x n points around (lat, lng), spacingM apart; row 0 = north, col 0 = west. */
+export function gridPoints(lat: number, lng: number, n = 5, spacingM = 1000): Point[] {
+  const half = (n - 1) / 2, km = spacingM / 1000, out: Point[] = [];
+  for (let row = 0; row &lt; n; row++)
+    for (let col = 0; col &lt; n; col++)
+      out.push({
+        row, col,
+        lat: +(lat + ((half - row) * km) / KM_PER_DEG_LAT).toFixed(6),
+        lng: +(lng + ((col - half) * km) / (KM_PER_DEG_LAT * Math.cos((lat * Math.PI) / 180))).toFixed(6),
+      });
+  return out;
+}
+
+</pre>
+<p>I checked it with a haversine distance: for a 5 × 5 grid at 24.6951, 46.6853, neighbouring cells come out 998.8 m apart east-west and 998.9 m north-south. That&#x27;s well inside what matters for a map grid. Row/col indexes are what the colored map needs, so keep them with every result.</p>
+<h3>2. One search per point, through a queue</h3>
+<p>Any SERP API that accepts a coordinate for Maps searches will do. I&#x27;ll use DataForSEO&#x27;s Google Maps endpoint as the example because its prices are public. One request = one point × one keyword. It takes <code>location_coordinate</code> as <code>&quot;lat,lng,zoom&quot;</code> (zoom 3z to 21z, 17z if omitted) and bills per result page of up to 100 places. Public prices today (11.2026):</p>
+<p>| Mode | Per point | One weekly check (10 keywords × 25 points) | Per month (× 52 / 12) |</p>
+<p>|---|---|---|---|</p>
+<p>| Standard queue | $0.0006 | $0.15 | ≈ $0.65 |</p>
+<p>| Priority queue | $0.0012 | $0.30 | ≈ $1.30 |</p>
+<p>| Live | $0.002 | $0.50 | ≈ $2.17 |</p>
+<p>That&#x27;s <b>per location</b>. A weekly cron job doesn&#x27;t need answers within seconds, so the standard queue is the right fit: post the tasks, collect them later. A <code>tag</code> on each task brings the check, keyword and grid cell back with the result:</p>
+
+<pre>
+export const PRICE_PER_SERP = { standard: 0.0006, priority: 0.0012, live: 0.002 }; // USD, up to 100 results each
+
+/** Cost of one check, known before any call: compare it with what&#x27;s left of the month&#x27;s budget. */
+export const checkCostUsd = (keywords: number, n: number, price = PRICE_PER_SERP.standard) =&gt;
+  keywords * n * n * price;
+
+/** Task bodies for task_post (max 100 per request). */
+export function tasksFor(checkId: string, keywordId: string, phrase: string, locale: &quot;ar&quot; | &quot;en&quot;, pts: Point[], zoom = 15) {
+  return pts.map((p) =&gt; ({
+    keyword: phrase,
+    location_coordinate: `${p.lat},${p.lng},${zoom}z`,
+    language_code: locale,        // the keyword&#x27;s own language, as the issue says
+    depth: 20,                    // you only report the top 20; the price is the same up to 100
+    tag: `${checkId}:${keywordId}:${p.row}:${p.col}`,
+  }));
+}
+
+export async function postTasks(tasks: object[], login: string, password: string) {
+  const auth = &quot;Basic &quot; + btoa(`${login}:${password}`);
+  const ids: string[] = [];
+  for (let i = 0; i &lt; tasks.length; i += 100) {
+    const res = await fetch(&quot;https://api.dataforseo.com/v3/serp/google/maps/task_post&quot;, {
+      method: &quot;POST&quot;,
+      headers: { Authorization: auth, &quot;Content-Type&quot;: &quot;application/json&quot; },
+      body: JSON.stringify(tasks.slice(i, i + 100)),
+    });
+    const body: any = await res.json();
+    for (const t of body.tasks ?? []) {
+      if (t.status_code !== 20100) throw new Error(`task refused: ${t.status_code} ${t.status_message}`);
+      ids.push(t.id);
+    }
+  }
+  return ids;
+}
+
+</pre>
+<p>The budget rule from the issue fits naturally here. The price of a check is known before you send anything (keywords × points × unit price), so the cron job compares <code>checkCostUsd(...)</code> with the rest of the organization&#x27;s monthly budget and skips the whole check, with a reason, if it doesn&#x27;t fit. Don&#x27;t run half a grid: a grid with 12 points out of 25 isn&#x27;t comparable with last week&#x27;s. Count the baseline check at first publish in the same budget, plus a little room for re-posting failed cells.</p>
+<p><b>Keep the zoom fixed.</b> The zoom changes which places come back, so a history where the zoom changed halfway is two different measurements. Store <code>zoom</code> with every check, next to <code>gridSize</code> and <code>spacingMeters</code>.</p>
+<h3>3. Collecting, and knowing a result is yours</h3>
+<p>Receiving results is free. <code>tasks<i>ready</code> lists up to 1,000 finished tasks from the last three days (20 calls a minute), and <code>task</i>get/advanced/{id}</code> returns each one. An hourly cron tick that collects whatever is ready is enough. If you&#x27;d rather not poll, <code>postback_url</code> pushes results to an endpoint of yours. If other jobs share the same API account, skip any tag that doesn&#x27;t start with one of your open check IDs before parsing it.</p>
+<p>The important part is matching. <b>Match on the place ID (or the CID), never on the name.</b> Restaurant names repeat (&quot;Shawarma House&quot; can easily have three branches inside one grid), and names show up in Arabic or in English depending on the query language. So you need each location&#x27;s Google place ID once, at setup. The cheapest reliable way: let the owner paste their Google Maps link, or run one Maps search for the restaurant&#x27;s name at its own coordinates (one $0.0006 request) and have the owner confirm which result is theirs. Store it on <code>OrganizationLocation</code>.</p>
+
+<pre>
+/** Position of the location among the organic places of one result; null = not in the top 20. */
+export function rankOf(items: any[] | null | undefined, placeId: string, cid?: string): number | null {
+  const places = (items ?? []).filter((i) =&gt; i?.type === &quot;maps_search&quot;).slice(0, 20);
+  const i = places.findIndex((p) =&gt; p.place_id === placeId || (cid != null &amp;&amp; p.cid === cid));
+  return i === -1 ? null : i + 1;
+}
+
+/** One row per finished grid cell. Errors stay errors, never &quot;not in the top 20&quot;.
+ *  auth: the same &quot;Basic ...&quot; header as in postTasks. */
+export async function collect(auth: string, placeOf: (keywordId: string) =&gt; { placeId: string; cid?: string }) {
+  const base = &quot;https://api.dataforseo.com/v3/serp/google/maps&quot;;
+  const get = async (path: string) =&gt;
+    (await (await fetch(`${base}/${path}`, { headers: { Authorization: auth } })).json()) as any;
+  const ready = await get(&quot;tasks_ready&quot;);
+  const rows: { tag: string; rank: number | null; status: &quot;ok&quot; | &quot;no_results&quot; | &quot;error&quot; }[] = [];
+  for (const t of ready.tasks?.[0]?.result ?? []) {
+    const body = await get(`task_get/advanced/${t.id}`);
+    const task = body.tasks?.[0];
+    const tag: string = task?.data?.tag ?? t.tag;
+    const { placeId, cid } = placeOf(tag.split(&quot;:&quot;)[1]);
+    if (task?.status_code === 20000) rows.push({ tag, rank: rankOf(task.result?.[0]?.items, placeId, cid), status: &quot;ok&quot; });
+    else if (task?.status_code === 40102) rows.push({ tag, rank: null, status: &quot;no_results&quot; });
+    else rows.push({ tag, rank: null, status: &quot;error&quot; }); // re-post this cell, don&#x27;t store it as &quot;not in top 20&quot;
+  }
+  return rows;
+}
+
+</pre>
+<p>Two details in there are deliberate:</p>
+<ul>
+<li>Only <code>maps_search</code> items are counted, so sponsored pins don&#x27;t push your position down. Decide whether you want that, and say it in the UI.</li>
+<li>A failed task is not &quot;not found&quot;. If you store an error as &quot;not in the top 20&quot;, one bad provider minute shows up as a ranking drop on the owner&#x27;s dashboard. Re-post failed cells, and only close the check when all 25 have an answer. Code 40102 (&quot;no search results&quot;) is a real empty answer: no places at all came back for that point.</li>
+</ul>
+<p>On Workers, keep an eye on the subrequest limit per invocation (one <code>fetch</code> per <code>task_get</code>). Collect in batches across ticks rather than all at once.</p>
+<p>I ran this code offline before posting. I type-checked it with <code>tsc --strict</code>, ran the grid and cost functions, and ran <code>collect</code> against a mocked <code>fetch</code> that returned a saved real Maps response, a 40102 and a 50000. It returned rank 3, <code>no_results</code> and <code>error</code>, as intended. I didn&#x27;t make a live call for this post.</p>
+<h3>4. The numbers on the dashboard</h3>
+<p>The issue already says &quot;not in the top 20, never 0&quot;. The average still needs a convention, though, or an unranked point quietly vanishes from it:</p>
+
+<pre>
+/** Not found counts as 21 in the average, so weeks stay comparable. */
+export function summarize(ranks: (number | null)[]) {
+  const found = ranks.filter((r): r is number =&gt; r !== null);
+  const avg = (xs: number[]) =&gt; (xs.length ? +(xs.reduce((a, b) =&gt; a + b, 0) / xs.length).toFixed(2) : null);
+  return {
+    averageRank: avg(ranks.map((r) =&gt; r ?? 21)),
+    averageRankWhereFound: avg(found),
+    foundPct: ranks.length ? Math.round((100 * found.length) / ranks.length) : null,
+    top3Pct: ranks.length ? Math.round((100 * found.filter((r) =&gt; r &lt;= 3).length) / ranks.length) : null,
+  };
+}
+
+</pre>
+<p>For ranks <code>[1, 2, null, 5, null]</code> this gives an average of 10 (counting misses as 21), 2.67 where found, found at 60 % of points, top 3 at 40 %. Owners usually understand the last one best: &quot;you&#x27;re in the top 3 at 10 of 25 points around your restaurant&quot;. I&#x27;d show it next to the map and add <code>foundPct</code> and <code>top3Pct</code> columns to <code>SeoRankCheck</code> instead of recomputing them from <code>points</code> every time.</p>
+<h3>What a grid doesn&#x27;t tell you</h3>
+<ul>
+<li>It&#x27;s a simulation. A coordinate stands in for the searcher&#x27;s position, which is what &quot;near me&quot; depends on. But a real person on a phone, signed in, with a search history, can see a different order. Present the result as &quot;what a searcher at this spot sees&quot;, not &quot;what everyone sees&quot;.</li>
+<li>One sample a week is noisy. Maps results move from day to day, so a change of one or two places in the average isn&#x27;t news. Look at the trend over three or four checks before telling an owner something improved.</li>
+<li>Google Maps results aren&#x27;t the same as the map pack in normal Google Search. They&#x27;re related but not identical. If the owner&#x27;s question is really about the search results page, that&#x27;s a different (organic/local) request.</li>
+<li>For a few keywords, a free spot check still works: open Google Maps, search the keyword from the restaurant&#x27;s neighbourhood, and look. The grid is worth paying for when you need history and many points.</li>
+</ul>
+<p>For Part 1 of the issue, Google&#x27;s structured data docs describe <code>priceRange</code> as either a numerical range (&quot;$10-15&quot;) or a number of currency signs (&quot;$$$&quot;), shorter than 100 characters, or Google won&#x27;t show it. In Riyadh, a range in the local currency (for example &quot;SAR 40-80&quot;) is less ambiguous than dollar signs. <code>servesCuisine</code> is free text in schema.org, so the fixed key list with translations the issue describes is a good way to keep it consistent.</p>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-12.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
