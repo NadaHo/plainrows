@@ -8,7 +8,7 @@
 <p class="lead">Google News API and MCP tool to monitor brands and topics: title, URL, publisher, snippet, time and position of every article, 20 countries. Time filter, sort by date, only-new mode for alerts. A NewsAPI and Google Alerts alternative. Pay per article, plus a fee per page checked in only-new mode.</p>
 <p><a class="btn" href="https://apify.com/plainrows/google-news-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-news-scraper" alt="Actor status"></p>
 <h2>Typical uses</h2><ul><li>Brand and competitor monitoring: turn on Only new articles, schedule a daily run on your brand names and get (and pay for) each new article mentioning them once.</li><li>PR and media relations: see which outlets cover a topic, how high they rank and when they published.</li><li>Market and investment watch: follow companies, tickers, products or regulations in several countries at once.</li><li>Content and SEO teams: find what is trending in Google News for your keywords, with the publishers that rank.</li><li>Automations and AI agents: feed n8n, Make, Zapier, Slack, Google Sheets or an MCP client with structured JSON.</li></ul>
-
+<h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/google-news-scraper/examples/google-news-scraper-brand-mentions-today">Monitor brand mentions in Google News (last 24h)</a>: Get every Google News article mentioning a brand in the last 24 hours, newest first, with publisher, snippet and date. Schedule it daily.</li><li><a href="https://apify.com/plainrows/google-news-scraper/examples/google-news-scraper-industry-news-week">Collect this week&#x27;s news on an industry topic</a>: Collect Google News articles from the past week on a topic, with publisher, URL, snippet and publication date.</li><li><a href="https://apify.com/plainrows/google-news-scraper/examples/google-news-scraper-new-articles-alert">Get only new Google News articles about your brand</a>: Schedule this task daily: the first run lists today&#x27;s articles, each later run returns only articles it has never delivered, so you pay once per article. Send them to Slack, e-mail or a sheet.</li></ul>
 <h2>Guides and comparisons</h2><ul><li><a href="../brand-news-monitoring-json/">Brand news monitoring as JSON: new articles in Slack, Sheets or n8n, once each</a></li><li><a href="../newsapi-alternative/">NewsAPI alternative for production: Google News results billed per article</a></li></ul>
 <h2>Pricing</h2>
 <p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. This Actor needs a paid Apify plan: on the free plan nothing is looked up (each lookup costs the data source more than the free plan pays).</p>
@@ -40,7 +40,7 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-news-scraper">https://apify.com/plainrows/google-news-scraper</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-12.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-11.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 <script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>

@@ -8,7 +8,7 @@
 <p class="lead">Google AI Mode scraper and MCP tool: send queries, get Google AI Mode&#x27;s answer as JSON: markdown text and every cited source (URL, domain, title, snippet). No Google account, no browser. $0.008 per answer, plus $0.001 per run; empty or failed answers are free.</p>
 <p><a class="btn" href="https://apify.com/plainrows/google-ai-mode-api">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/google-ai-mode-api" alt="Actor status"></p>
 <h2>Typical uses</h2><ul><li>AI search visibility (GEO / AEO): which sites does Google AI Mode cite for the queries your buyers type? Is yours one of them?</li><li>Citation research: `sources` and `citedDomains` show the pages Google AI Mode relies on, in order.</li><li>Content gaps: read what the answer says, and which competitors it cites, before writing your own page.</li><li>Answers with sources for your app or agent: Google AI Mode as plain JSON, with the citations kept apart from the text.</li><li>Weekly reports: schedule a run and send the rows to Google Sheets, Looker Studio, Slack, n8n, Make or Zapier.</li></ul>
-
+<h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/google-ai-mode-api/examples/google-ai-mode-api-brand-visibility-buyer-questions">Google AI Mode answers for 5 buyer questions, with sources</a>: Ask Google AI Mode the questions your buyers ask, here 5 about project management software, and get one row per question: the full answer and the pages it cites. Compare with ChatGPT and Gemini to see where your brand is recommended.</li></ul>
 
 <h2>Pricing</h2>
 <p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
@@ -42,7 +42,7 @@ for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 <p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/google-ai-mode-api">https://apify.com/plainrows/google-ai-mode-api</a></p>
 </main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-12.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-11.
 <a href="../privacy/">Contact &amp; Privacy</a></footer>
 <script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>
