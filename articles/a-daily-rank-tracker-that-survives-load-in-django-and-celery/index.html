@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A daily rank tracker that survives load in Django and Celery: one task per keyword, one row per day, a quota on manual c | PlainRows</title><meta name="description" content="A GitHub issue opened on 13.11.2026 lists why a Django + Celery rank tracker won&#x27;t hold up under real load. The daily task checks every keyword one after anothe">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/articles/a-daily-rank-tracker-that-survives-load-in-django-and-celery/"><link rel="stylesheet" href="../../style.css">
+</head><body><header><a class="brand" href="../../">PlainRows</a></header>
+<main><h1>A daily rank tracker that survives load in Django and Celery: one task per keyword, one row per day, a quota on manual c</h1><p class="lead">2026-11-13</p><p>A GitHub issue opened on 13.11.2026 lists why a Django + Celery rank tracker won&#x27;t hold up under real load. The daily task checks every keyword one after another in a single task. It never sleeps, so it bursts requests at Google. A few hundred keywords hit the 30-minute <code>CELERY<i>TASK</i>TIME<i>LIMIT</code>. Error snapshots count as &quot;checked today&quot;, so a failed keyword waits until tomorrow. <code>update</i>or<i>create(..., recorded</i>at=now)</code> adds a new row on every retry. And <code>POST /keywords/&lt;id&gt;/check/</code> has no quota or cooldown, so scraping and DataForSEO costs have no ceiling. The issue already has the right fix list. Here&#x27;s the code I&#x27;d write for each item, tested, plus the cost numbers that decide most of it.</p>
+<p>The setup in the repository: Django 4.2, Celery 5, Redis as broker, <code>USE<i>TZ = True</code> with <code>TIME</i>ZONE = &quot;UTC&quot;</code>. DataForSEO <code>serp/google/organic/live/advanced</code> comes first, at depth 100, with a direct Google scraper as fallback.</p>
+<h3>1. One row per keyword per day, enforced by the database</h3>
+<p>The current unique constraint includes <code>recorded_at</code>, a timestamp, so it never matches twice. Add a date column and put the constraint on it:</p>
+
+<pre>
+# models.py (KeywordRanking)
+recorded_on = models.DateField(db_index=True)  # UTC day of the observation
+
+class Meta:
+    constraints = [
+        models.UniqueConstraint(
+            fields=[&quot;keyword&quot;, &quot;search_engine&quot;, &quot;country&quot;, &quot;language&quot;, &quot;device&quot;, &quot;recorded_on&quot;],
+            name=&quot;one_ranking_per_keyword_per_day&quot;,
+        )
+    ]
+
+</pre>
+<p>Rows already in the table can break the new constraint, so the migration runs in three steps: add the field as <code>null=True</code>, then a <code>RunPython</code> that fills it and removes the duplicates, then make it non-null and swap the constraints. The <code>RunPython</code> step keeps the newest row of each day, except that an error never replaces a real answer:</p>
+
+<pre>
+def fill_and_dedupe(apps, schema_editor):
+    KR = apps.get_model(&quot;seo&quot;, &quot;KeywordRanking&quot;)
+    keep, drop, batch = {}, [], []
+    for r in KR.objects.order_by(&quot;recorded_at&quot;, &quot;id&quot;).iterator(chunk_size=2000):
+        r.recorded_on = r.recorded_at.date()  # UTC day: USE_TZ=True, TIME_ZONE=&quot;UTC&quot;
+        batch.append(r)
+        k = (r.keyword_id, r.search_engine, r.country, r.language, r.device, r.recorded_on)
+        prev = keep.get(k)
+        if prev is None:
+            keep[k] = (r.pk, r.result_status)
+        elif r.result_status == &quot;error&quot; and prev[1] != &quot;error&quot;:
+            drop.append(r.pk)        # a later error never replaces a real answer
+        else:
+            drop.append(prev[0])     # otherwise the latest row of the day wins
+            keep[k] = (r.pk, r.result_status)
+        if len(batch) == 2000:
+            KR.objects.bulk_update(batch, [&quot;recorded_on&quot;])
+            batch = []
+    KR.objects.bulk_update(batch, [&quot;recorded_on&quot;])
+    for i in range(0, len(drop), 500):
+        KR.objects.filter(pk__in=drop[i:i + 500]).delete()
+
+</pre>
+<p>The service then writes through one function. A failed retry can no longer overwrite the position you already have for today:</p>
+
+<pre>
+def save_daily_snapshot(keyword, result, now=None):
+    now = now or timezone.now()
+    key = dict(keyword=keyword, search_engine=keyword.search_engine, country=keyword.country,
+               language=keyword.language, device=keyword.device,
+               recorded_on=timezone.localdate(now))
+    values = dict(position=result.position, ranking_url=result.url, title=result.title or &quot;&quot;,
+                  result_status=result.status, error_message=result.error_message or &quot;&quot;,
+                  search_domain=keyword.search_domain or &quot;google.com.et&quot;, recorded_at=now)
+    with transaction.atomic():
+        snap, created = (KeywordRanking.objects.select_for_update()
+                         .get_or_create(**key, defaults=values))
+        if created:
+            return snap
+        if result.status == RankingResultStatus.ERROR and snap.result_status != RankingResultStatus.ERROR:
+            return snap  # keep today&#x27;s real answer, drop the failed retry
+        for field, value in values.items():
+            setattr(snap, field, value)
+        snap.save(update_fields=list(values))
+        return snap
+
+</pre>
+<p>If two workers create the same row at once, one of them gets the <code>IntegrityError</code>. Django&#x27;s <code>get<i>or</i>create</code> catches it and reads the row the other worker wrote. So the constraint is the real guarantee, not the Python code.</p>
+<h3>2. &quot;Done today&quot; means a real answer</h3>
+
+<pre>
+from django.db.models import Exists, OuterRef
+
+DONE = [RankingResultStatus.FOUND, RankingResultStatus.NOT_FOUND]
+
+def keywords_to_check(today):
+    done_today = KeywordRanking.objects.filter(
+        keyword=OuterRef(&quot;pk&quot;), recorded_on=today, result_status__in=DONE)
+    return (Keyword.objects.filter(is_active=True)
+            .annotate(done=Exists(done_today)).filter(done=False)
+            .select_related(&quot;project__owner&quot;))
+
+</pre>
+<p>That&#x27;s one query instead of one <code>exists()</code> per keyword. A keyword whose only row today is an <code>error</code> is still &quot;to do&quot;.</p>
+<h3>3. Fan out: the beat task only enqueues</h3>
+
+<pre>
+@shared_task(name=&quot;apps.seo.tasks.run_daily_rank_checks&quot;)
+def run_daily_rank_checks():
+    today, allowed, queued = timezone.localdate(), {}, 0
+    for kw in keywords_to_check(today).iterator():
+        owner = kw.project.owner
+        if owner.pk not in allowed:  # one entitlement check per owner, not per keyword
+            allowed[owner.pk] = PlanEntitlementService.can_use_feature(owner, FeatureCode.RANK_TRACKING)
+        if allowed[owner.pk]:
+            check_keyword_daily.delay(kw.pk)
+            queued += 1
+    return {&quot;date&quot;: str(today), &quot;queued&quot;: queued}
+
+
+class TransientSerpError(Exception):
+    pass
+
+
+@shared_task(bind=True, name=&quot;apps.seo.tasks.check_keyword_daily&quot;,
+             autoretry_for=(TransientSerpError,), retry_backoff=60, retry_backoff_max=1800,
+             retry_jitter=True, max_retries=4, acks_late=True,
+             soft_time_limit=120, time_limit=150)
+def check_keyword_daily(self, keyword_id):
+    kw = Keyword.objects.select_related(&quot;project&quot;).get(pk=keyword_id)
+    if not keywords_to_check(timezone.localdate()).filter(pk=kw.pk).exists():
+        return &quot;already done&quot;            # a duplicate message or a manual check got there first
+    snap = RankTrackerService().check_keyword(kw)  # now saves through save_daily_snapshot
+    if snap.result_status == RankingResultStatus.ERROR:
+        raise TransientSerpError(snap.error_message[:200])  # retried after a random 0-1, 0-2, 0-4, 0-8 min
+    return snap.result_status
+
+</pre>
+<p>The enqueuing task takes seconds whatever the keyword count. Each check has its own two-minute limit, so the 30-minute limit stops mattering. Add a second beat entry a few hours after the first, calling the same <code>run<i>daily</i>rank_checks</code>. Because &quot;done&quot; means a real answer, it only picks up what failed all its retries. I&#x27;d keep it at two passes a day: a keyword that is still failing after that is a problem to look at, not one to keep paying for.</p>
+<h3>4. Throttle the part that needs it, and know what <code>rate_limit=</code> does</h3>
+<p>Celery&#x27;s <code>rate_limit=&quot;30/m&quot;</code> applies <b>per worker instance, not globally</b>. Celery&#x27;s docs say so, and it&#x27;s easy to miss. Four workers at <code>30/m</code> make 120 calls a minute. For a limit across all workers, count in Redis:</p>
+
+<pre>
+import time
+import redis
+from django.conf import settings
+
+_redis = redis.Redis.from_url(settings.CELERY_BROKER_URL)
+
+def take_slot(name, per_minute):
+    &quot;&quot;&quot;Global across all workers: at most per_minute calls in the current clock minute.&quot;&quot;&quot;
+    key = f&quot;ratelimit:{name}:{int(time.time() // 60)}&quot;
+    n = _redis.incr(key)
+    if n == 1:
+        _redis.expire(key, 120)
+    return n &lt;= per_minute
+
+</pre>
+<p>Call it right before the direct Google fetch, not around the whole check. When there&#x27;s no slot, return an <code>error</code> result (&quot;throttled&quot;). The task&#x27;s backoff retries it, with growing random delays. It&#x27;s a fixed window, so a burst at a minute boundary can reach twice the limit for a moment. For a scraper fallback, that&#x27;s acceptable.</p>
+<p>Two limits to be honest about. DataForSEO&#x27;s live endpoint accepts thousands of calls a minute, so you don&#x27;t throttle it for the provider&#x27;s sake: the only reason to pace those calls is your budget. And a direct scraper that hits Google from one server IP gets CAPTCHAs sooner or later, however slowly you pace it. I would turn the fallback off for the scheduled run and keep it, if at all, for occasional manual checks. A pacing limit makes blocks less frequent. It doesn&#x27;t stop them.</p>
+<h3>5. Manual checks: a cooldown per keyword and a daily quota per user</h3>
+<p>With Django&#x27;s cache. It has to be a shared cache: the project&#x27;s settings have no <code>CACHES</code>, which means the per-process local-memory cache, so every worker would have its own counters. Django 4.2 ships <code>django.core.cache.backends.redis.RedisCache</code>, so you can point it at the same Redis.</p>
+
+<pre>
+from datetime import datetime, timedelta, timezone as dt_timezone
+from django.core.cache import cache
+from django.utils import timezone
+
+COOLDOWN_S = 15 * 60
+DAILY_MANUAL = {&quot;starter&quot;: 20, &quot;agency&quot;: 100}
+
+def manual_check_refusal(user_id, plan, keyword_id):
+    &quot;&quot;&quot;None if allowed, else (reason, retry_after_seconds).&quot;&quot;&quot;
+    if not cache.add(f&quot;rank:cooldown:{keyword_id}&quot;, 1, COOLDOWN_S):
+        return &quot;cooldown&quot;, COOLDOWN_S
+    today = timezone.localdate()
+    key = f&quot;rank:manual:{user_id}:{today.isoformat()}&quot;
+    cache.add(key, 0, 2 * 86400)
+    if cache.incr(key) &gt; DAILY_MANUAL.get(plan, 0):
+        tomorrow = datetime.combine(today + timedelta(days=1), datetime.min.time(), tzinfo=dt_timezone.utc)
+        return &quot;daily_quota&quot;, int((tomorrow - timezone.now()).total_seconds())
+    return None
+
+</pre>
+<p>In <code>check_ranking</code>, after the entitlement check: if this returns a refusal, answer <code>429</code> with a <code>Retry-After</code> header and don&#x27;t enqueue anything. <code>cache.add</code> only writes when the key is missing, so two quick clicks give one check. <code>incr</code> is atomic on Redis. The cooldown is reported as the full 15 minutes, a slight overestimate that the client can live with. The plan names and numbers are placeholders: take them from the plan model you already use for keyword quotas.</p>
+<h3>6. The cost numbers that decide the rest</h3>
+<p>DataForSEO bills Google organic <b>per page of 10 results</b>, rounded up, and refunds the difference when Google returns fewer than you asked for. At depth 100, that&#x27;s 10 pages per check. The prices on their pricing page today (11.2026), for one keyword checked once a day:</p>
+<p>| Mode | Per check at depth 100 | 300 keywords / day | 300 keywords / 30 days |</p>
+<p>|---|---|---|---|</p>
+<p>| Live | $0.020 | $6.00 | $180 |</p>
+<p>| Priority queue | $0.012 | $3.60 | $108 |</p>
+<p>| Standard queue | $0.006 | $1.80 | $54 |</p>
+<p>| Standard queue, depth 20 | $0.0012 | $0.36 | $10.80 |</p>
+<p>Two choices matter more than any throttle:</p>
+<ul>
+<li><b>Depth.</b> The model stores &quot;not in top 100&quot;, but if the dashboard shows &quot;not in the top 20&quot; past page 2, depth 20 costs a fifth as much. Decide it per plan.</li>
+<li><b>Queue instead of live for the daily run.</b> A scheduled job doesn&#x27;t need an answer within seconds. <code>serp/google/organic/task<i>post</code> takes up to 100 tasks per request, with a <code>tag</code> (put the keyword id there). <code>tasks</i>ready</code> lists the finished ones, and <code>task<i>get/advanced/{id}</code> returns the same result as live at less than a third of the price. The beat task posts. A second periodic task every few minutes collects what&#x27;s ready and saves it through <code>save</i>daily_snapshot</code>. Keep live for the manual button, where someone is waiting.</li>
+</ul>
+<p>Whatever you choose, read the <code>cost</code> field each response returns and add it to a daily total per plan. That&#x27;s the number to compare with what the plan brings in, and to cut off when something loops.</p>
+<h3>What I tested, and what I didn&#x27;t</h3>
+<p>I ran the migration function, <code>save<i>daily</i>snapshot</code>, <code>keywords<i>to</i>check</code> and <code>manual<i>check</i>refusal</code> against Django 4.2.11 on SQLite, with the local-memory cache standing in for Redis. Six rows over two days dedupe to one per day: the later success wins over a later error, and the last error stays on a day with no success. Error, success, then error on the same day leaves one row holding the success. The quota refuses the 21st check of a <code>starter</code> user, and the cooldown refuses a second click on the same keyword. I checked that Celery 5.7 accepts the task options and schedules a jittered retry when the error is raised, and I ran the Redis counter against a fake client (3 of 5 calls pass at <code>per_minute=3</code>). I didn&#x27;t run anything against the project&#x27;s real database, a real Redis or a live DataForSEO account. The prices come from DataForSEO&#x27;s public pricing page as of 13.11.2026.</p>
+<p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-13.
+<a href="../../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
