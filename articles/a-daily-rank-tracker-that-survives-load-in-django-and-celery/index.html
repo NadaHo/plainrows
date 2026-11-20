@@ -187,7 +187,7 @@ def manual_check_refusal(user_id, plan, keyword_id):
 <p>I ran the migration function, <code>save<i>daily</i>snapshot</code>, <code>keywords<i>to</i>check</code> and <code>manual<i>check</i>refusal</code> against Django 4.2.11 on SQLite, with the local-memory cache standing in for Redis. Six rows over two days dedupe to one per day: the later success wins over a later error, and the last error stays on a day with no success. Error, success, then error on the same day leaves one row holding the success. The quota refuses the 21st check of a <code>starter</code> user, and the cooldown refuses a second click on the same keyword. I checked that Celery 5.7 accepts the task options and schedules a jittered retry when the error is raised, and I ran the Redis counter against a fake client (3 of 5 calls pass at <code>per_minute=3</code>). I didn&#x27;t run anything against the project&#x27;s real database, a real Redis or a live DataForSEO account. The prices come from DataForSEO&#x27;s public pricing page as of 13.11.2026.</p>
 <p><i>Written with AI assistance and reviewed by PlainRows.</i></p></main>
 <footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
-Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-18.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-20.
 <a href="../../privacy/">Contact &amp; Privacy</a></footer>
 <script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body></html>

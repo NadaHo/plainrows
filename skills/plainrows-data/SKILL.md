@@ -99,6 +99,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/keyword-rank-checker` | Keyword Rank Checker: Google SERP Position Tracker API | from $0.004 per keyword checked | [references/keyword-rank-checker.md](references/keyword-rank-checker.md) |
 | `plainrows/keyword-search-volume` | Google Keyword Search Volume Checker & API: CPC & Difficulty | from $0.006 per keyword | [references/keyword-search-volume.md](references/keyword-search-volume.md) |
 | `plainrows/keyword-suchvolumen` | Keyword Suchvolumen Tool & API: Google Keyword-Recherche | from $0.006 per keyword | [references/keyword-suchvolumen.md](references/keyword-suchvolumen.md) |
+| `plainrows/leboncoin-scraper` | Leboncoin Scraper: Listings, Prices & Locations | from $0.0009 per listing | [references/leboncoin-scraper.md](references/leboncoin-scraper.md) |
 | `plainrows/lever-jobs-scraper` | Lever Jobs Scraper: Any Lever Job Board | from $0.0008 per job | [references/lever-jobs-scraper.md](references/lever-jobs-scraper.md) |
 | `plainrows/otodom-scraper` | Otodom Scraper: Poland Property Listings & Prices | from $0.0007 per listing | [references/otodom-scraper.md](references/otodom-scraper.md) |
 | `plainrows/otomoto-scraper` | Otomoto Scraper: Polish Car Listings & Prices | from $0.0004 per listing | [references/otomoto-scraper.md](references/otomoto-scraper.md) |
@@ -113,6 +114,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/seo-audit-api` | SEO Audit API: On-Page SEO Checker, Meta Tags & Site Audit | from $0.002 per page audited | [references/seo-audit-api.md](references/seo-audit-api.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
+| `plainrows/telegram-channel-scraper` | Telegram Channel Scraper: Posts, Views & Reactions | from $0.00045 per post | [references/telegram-channel-scraper.md](references/telegram-channel-scraper.md) |
 | `plainrows/tori-scraper` | Tori Scraper (Tori.fi): Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper & API: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |

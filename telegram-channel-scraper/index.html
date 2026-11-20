@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telegram Channel Scraper: Posts, Views &amp; Reactions | PlainRows</title><meta name="description" content="Telegram channel scraper and MCP tool: give public channel names or t.me links, get every post: text, date, views, reactions, photos, video, links, hashtags, fo">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/telegram-channel-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Telegram Channel Scraper: Posts, Views &amp; Reactions</h1>
+<p class="lead">Telegram channel scraper and MCP tool: give public channel names or t.me links, get every post: text, date, views, reactions, photos, video, links, hashtags, forwards, plus channel title and subscribers. Date limit and in-channel search. No login. Pay per post, plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/telegram-channel-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/telegram-channel-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Monitoring: news, crypto, deals, job or brand channels every morning (schedule a run with `postsNewerThan`).</li><li>Research and media analysis: what a channel posted, when, and how many views and reactions each post got.</li><li>Lead generation and partnerships: compare channels by subscribers and engagement before you contact or advertise.</li><li>Datasets for AI: clean text with dates and links for RAG, summaries or sentiment analysis.</li><li>Spreadsheets, BI and AI agents: rows ready for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Post</b><br><span>One Telegram channel post returned with its details (text, date, views, reactions, media links, links, hashtags, forward source, channel title and subscribers). Channels without posts, private or unknown names, blocked or unreadable pages and input mistakes are free.</span></td><td>$0.0006</td><td>$0.00055</td><td>$0.0005</td><td>$0.00045</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.003</td><td>$0.003</td><td>$0.003</td><td>$0.003</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~telegram-channel-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;channels&quot;: [
+    &quot;durov&quot;
+  ],
+  &quot;maxPostsPerChannel&quot;: 20
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/telegram-channel-scraper&quot;).call(run_input={&#x27;channels&#x27;: [&#x27;durov&#x27;], &#x27;maxPostsPerChannel&#x27;: 20})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/telegram-channel-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/telegram-channel-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/telegram-channel-scraper">https://apify.com/plainrows/telegram-channel-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-20.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
