@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StepStone Jobs Scraper: Germany Job Offers, Salaries &amp; API | PlainRows</title><meta name="description" content="StepStone jobs scraper and MCP tool: give job titles or stepstone.de search URLs, get the job offers (up to 1,000 per search): title, company, location, date po">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/stepstone-jobs-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>StepStone Jobs Scraper: Germany Job Offers, Salaries &amp; API</h1>
+<p class="lead">StepStone jobs scraper and MCP tool: give job titles or stepstone.de search URLs, get the job offers (up to 1,000 per search): title, company, location, date posted, salary range (estimated or not), home office, snippet, labels, link. No login. Pay per job offer, plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/stepstone-jobs-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/stepstone-jobs-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Job market research: how many offers for a role, in which cities, at what salary range.</li><li>Recruiting and staffing agencies: find companies hiring for the roles you place, every morning (schedule a daily run).</li><li>Salary benchmarks: compare ranges per role and city, knowing which ones are StepStone estimates.</li><li>Job alerts and aggregators: new offers for your keywords, deduplicated across searches.</li><li>Spreadsheets, BI and AI agents: clean rows for Google Sheets, n8n, Make, Zapier or an MCP client.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Job offer</b><br><span>One StepStone job offer returned with its details (title, company, location, date posted, salary range, home office, snippet, labels, link). Searches without offers, blocked or unreadable pages, offers already returned by another search of the run and input mistakes are free.</span></td><td>$0.00055</td><td>$0.0005</td><td>$0.00045</td><td>$0.0004</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.003</td><td>$0.003</td><td>$0.003</td><td>$0.003</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~stepstone-jobs-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;searches&quot;: [
+    &quot;software entwickler&quot;
+  ],
+  &quot;location&quot;: &quot;Berlin&quot;,
+  &quot;maxResultsPerSearch&quot;: 25
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/stepstone-jobs-scraper&quot;).call(run_input={&#x27;searches&#x27;: [&#x27;software entwickler&#x27;],
+ &#x27;location&#x27;: &#x27;Berlin&#x27;,
+ &#x27;maxResultsPerSearch&#x27;: 25})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/stepstone-jobs-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/stepstone-jobs-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/stepstone-jobs-scraper">https://apify.com/plainrows/stepstone-jobs-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-22.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

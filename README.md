@@ -77,6 +77,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy](https://apify.com/plainrows/remote-jobs-aggregator)
 - [SEO Audit API: On-Page SEO Checker, Meta Tags & Site Audit](https://apify.com/plainrows/seo-audit-api)
 - [Standvirtual Scraper: Portugal Car Listings & Prices](https://apify.com/plainrows/standvirtual-scraper)
+- [StepStone Jobs Scraper: Germany Job Offers, Salaries & API](https://apify.com/plainrows/stepstone-jobs-scraper)
 - [Storia Scraper: Romania Property Listings & Prices](https://apify.com/plainrows/storia-scraper)
 - [Telegram Channel Scraper: Posts, Views & Reactions](https://apify.com/plainrows/telegram-channel-scraper)
 - [Tori Scraper (Tori.fi): Finland Marketplace Listings](https://apify.com/plainrows/tori-scraper)

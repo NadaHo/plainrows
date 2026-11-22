@@ -113,6 +113,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/remote-jobs-aggregator` | Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy | from $0.0006 per job | [references/remote-jobs-aggregator.md](references/remote-jobs-aggregator.md) |
 | `plainrows/seo-audit-api` | SEO Audit API: On-Page SEO Checker, Meta Tags & Site Audit | from $0.002 per page audited | [references/seo-audit-api.md](references/seo-audit-api.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
+| `plainrows/stepstone-jobs-scraper` | StepStone Jobs Scraper: Germany Job Offers, Salaries & API | from $0.0004 per job offer | [references/stepstone-jobs-scraper.md](references/stepstone-jobs-scraper.md) |
 | `plainrows/storia-scraper` | Storia Scraper: Romania Property Listings & Prices | from $0.0004 per listing | [references/storia-scraper.md](references/storia-scraper.md) |
 | `plainrows/telegram-channel-scraper` | Telegram Channel Scraper: Posts, Views & Reactions | from $0.00045 per post | [references/telegram-channel-scraper.md](references/telegram-channel-scraper.md) |
 | `plainrows/tori-scraper` | Tori Scraper (Tori.fi): Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
