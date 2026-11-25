@@ -8,7 +8,7 @@ Store page and full documentation: https://apify.com/plainrows/chatgpt-search-sc
 
 | Field | Type | Default | What it does |
 |---|---|---|---|
-| `prompts` (required) | array |  | One prompt per line, as you would type it in ChatGPT. Up to 200 prompts per run, 1 to 500 characters each. Each prompt is one ChatGPT answer with web search. Free Apify plan: 3 prompts per run (paid plans: no limit).... |
+| `prompts` (required) | array |  | One prompt per line, as you would type it in ChatGPT. Up to 200 prompts per run, 1 to 500 characters each. Each prompt is one ChatGPT answer with web search. Speed: 5 prompts are asked at a time and each answer takes... |
 | `country` | string (20 codes, see the Store page) | "US" | Country ChatGPT answers and searches the web from (two-letter ISO code). Example: "GB" for answers from the United Kingdom. |
 | `languageCode` | string |  | Two-letter language code, e.g. "en", "de", "fr". Default: the main language of the country. Example: "de" with country "CH" for German answers from Switzerland. |
 | `includeSearchResults` | boolean | true | Add the web search results ChatGPT read (url, domain, title, description). Off: only their count. The price per answer does not change. Example: false to keep only the answer and its cited sources. |

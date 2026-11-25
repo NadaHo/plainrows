@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steam Scraper: Games, Prices &amp; Reviews | PlainRows</title><meta name="description" content="Steam scraper and MCP tool: game details, prices, discounts, release dates, developers, genres and review scores for any list of Steam games, or their user revi">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/steam-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Steam Scraper: Games, Prices &amp; Reviews</h1>
+<p class="lead">Steam scraper and MCP tool: game details, prices, discounts, release dates, developers, genres and review scores for any list of Steam games, or their user reviews (recommended, hours played, votes, text). App IDs, store URLs or names. Pay per row + start fee.</p>
+<p><a class="btn" href="https://apify.com/plainrows/steam-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/steam-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Price and discount tracking: the current price and discount of a list of games in any store country (US, DE, GB, BR, JP...).</li><li>Market research: genres, developers, publishers, release dates and review scores of a niche, for a pitch deck or a game launch.</li><li>Review analysis: the latest or most helpful reviews of your game or a competitor&#x27;s, with hours played, for sentiment analysis or an AI summary.</li><li>AI agents: ask an agent &quot;what do players complain about in game X?&quot; and let it call this Actor through Apify&#x27;s MCP server.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Row</b><br><span>One Steam game with its data (games mode) or one user review (reviews mode). Games not found, blocked or without reviews are free rows.</span></td><td>$0.0008</td><td>$0.0007</td><td>$0.0006</td><td>$0.0005</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.0005</td><td>$0.0005</td><td>$0.0005</td><td>$0.0005</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~steam-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;games&quot;: [
+    &quot;1145360&quot;,
+    &quot;https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/&quot;,
+    &quot;Stardew Valley&quot;
+  ],
+  &quot;mode&quot;: &quot;games&quot;,
+  &quot;maxReviewsPerGame&quot;: 20,
+  &quot;country&quot;: &quot;US&quot;
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/steam-scraper&quot;).call(run_input={&#x27;games&#x27;: [&#x27;1145360&#x27;,
+           &#x27;https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/&#x27;,
+           &#x27;Stardew Valley&#x27;],
+ &#x27;mode&#x27;: &#x27;games&#x27;,
+ &#x27;maxReviewsPerGame&#x27;: 20,
+ &#x27;country&#x27;: &#x27;US&#x27;})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/steam-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/steam-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/steam-scraper">https://apify.com/plainrows/steam-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-25.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

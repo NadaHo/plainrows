@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WHOIS Lookup: Bulk Domain Age, Expiry &amp; Availability Checker | PlainRows</title><meta name="description" content="WHOIS lookup and MCP tool for any list of domains: registrar, creation and expiry dates, domain age, days until expiry, status, name servers, DNSSEC, and whethe">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/whois-lookup/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>WHOIS Lookup: Bulk Domain Age, Expiry &amp; Availability Checker</h1>
+<p class="lead">WHOIS lookup and MCP tool for any list of domains: registrar, creation and expiry dates, domain age, days until expiry, status, name servers, DNSSEC, and whether the domain is registered. RDAP first, WHOIS for .de, .io, .co, .it. Pay per domain plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/whois-lookup">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/whois-lookup" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>SEO and link building: check the age and expiry date of domains before buying links or an expired domain.</li><li>Domain investing and brand protection: see which names in a list are free, which expire soon, and who the registrar is.</li><li>Lead qualification and fraud checks: flag very young domains (a few days old) in sign-ups, shops or e-mails.</li><li>IT and security inventory: list the expiry dates, registrars, DNSSEC and name servers of all your company&#x27;s domains, and catch renewals before they lapse.</li><li>Automations and AI agents: enrich a CRM, a Google Sheet or an n8n / Make / Zapier flow with domain age and expiry.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Domain</b><br><span>One domain the registry answered for: registered (registrar, dates, status, name servers) or not registered. Domains without an answer (rate limit, timeout, extension without a public service) are free.</span></td><td>$0.002</td><td>$0.0018</td><td>$0.0015</td><td>$0.0012</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.0005</td><td>$0.0005</td><td>$0.0005</td><td>$0.0005</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~whois-lookup/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;domains&quot;: [
+    &quot;apify.com&quot;,
+    &quot;wikipedia.org&quot;,
+    &quot;bbc.co.uk&quot;,
+    &quot;spiegel.de&quot;,
+    &quot;example-domain-not-registered-123.com&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/whois-lookup&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;apify.com&#x27;,
+             &#x27;wikipedia.org&#x27;,
+             &#x27;bbc.co.uk&#x27;,
+             &#x27;spiegel.de&#x27;,
+             &#x27;example-domain-not-registered-123.com&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/whois-lookup</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/whois-lookup</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/whois-lookup">https://apify.com/plainrows/whois-lookup</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-25.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
