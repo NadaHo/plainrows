@@ -19,6 +19,7 @@ Website: https://nadaho.github.io/plainrows/
 - [Autovit Scraper: Romania Car Listings & Prices](https://apify.com/plainrows/autovit-scraper)
 - [Backlink API: Referring Domains & Backlinks Data](https://apify.com/plainrows/backlink-api)
 - [Backlink Checker & API: Bulk Referring Domains & Anchor Text](https://apify.com/plainrows/backlink-checker)
+- [Baidu Search Scraper & API: Baidu SERP Results](https://apify.com/plainrows/baidu-search-scraper)
 - [Bing Search API: Bing SERP Scraper & Web Results](https://apify.com/plainrows/bing-search-api)
 - [Blocket Scraper: Sweden Marketplace Listings](https://apify.com/plainrows/blocket-scraper)
 - [Broken Link Checker: 404s, Redirect Chains & Sitemaps](https://apify.com/plainrows/broken-link-checker)
@@ -95,6 +96,7 @@ Website: https://nadaho.github.io/plainrows/
 - [YouTube Comments Scraper & API: Video Comments Export](https://apify.com/plainrows/youtube-comments-scraper)
 - [YouTube Search API: Videos, Views & Channels as JSON](https://apify.com/plainrows/youtube-search-api)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
+- [YouTube Transcript Scraper & API: Video Subtitles to Text](https://apify.com/plainrows/youtube-transcript-scraper)
 
 Free n8n workflow templates are in [`templates/`](templates/).
 

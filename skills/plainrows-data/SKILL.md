@@ -55,6 +55,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/autovit-scraper` | Autovit Scraper: Romania Car Listings & Prices | from $0.0004 per listing | [references/autovit-scraper.md](references/autovit-scraper.md) |
 | `plainrows/backlink-api` | Backlink API: Referring Domains & Backlinks Data | from $0.0012 per backlink or referring domain | [references/backlink-api.md](references/backlink-api.md) |
 | `plainrows/backlink-checker` | Backlink Checker & API: Bulk Referring Domains & Anchor Text | from $0.0012 per backlink or referring domain | [references/backlink-checker.md](references/backlink-checker.md) |
+| `plainrows/baidu-search-scraper` | Baidu Search Scraper & API: Baidu SERP Results | from $0.0004 per organic result | [references/baidu-search-scraper.md](references/baidu-search-scraper.md) |
 | `plainrows/bing-search-api` | Bing Search API: Bing SERP Scraper & Web Results | from $0.0003 per organic result | [references/bing-search-api.md](references/bing-search-api.md) |
 | `plainrows/blocket-scraper` | Blocket Scraper: Sweden Marketplace Listings | from $0.0004 per listing | [references/blocket-scraper.md](references/blocket-scraper.md) |
 | `plainrows/broken-link-checker` | Broken Link Checker: 404s, Redirect Chains & Sitemaps | from $0.0006 per page | [references/broken-link-checker.md](references/broken-link-checker.md) |
@@ -131,5 +132,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/youtube-comments-scraper` | YouTube Comments Scraper & API: Video Comments Export | from $0.0002 per comment | [references/youtube-comments-scraper.md](references/youtube-comments-scraper.md) |
 | `plainrows/youtube-search-api` | YouTube Search API: Videos, Views & Channels as JSON | from $0.001 per video | [references/youtube-search-api.md](references/youtube-search-api.md) |
 | `plainrows/youtube-search-scraper` | YouTube Search Scraper: Videos, Views & Channels by Keyword | from $0.001 per video | [references/youtube-search-scraper.md](references/youtube-search-scraper.md) |
+| `plainrows/youtube-transcript-scraper` | YouTube Transcript Scraper & API: Video Subtitles to Text | from $0.007 per transcript | [references/youtube-transcript-scraper.md](references/youtube-transcript-scraper.md) |
 
 Other ways to use the same tools: MCP server `https://mcp.apify.com?tools=plainrows/<slug>`, n8n, Make and Zapier (Apify integration).

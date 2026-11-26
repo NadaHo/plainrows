@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baidu Search Scraper &amp; API: Baidu SERP Results | PlainRows</title><meta name="description" content="Baidu search scraper and MCP tool: Baidu organic results as JSON (position, URL, domain, title, snippet) for any query, China, desktop or mobile. $0.003 per que">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/baidu-search-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>Baidu Search Scraper &amp; API: Baidu SERP Results</h1>
+<p class="lead">Baidu search scraper and MCP tool: Baidu organic results as JSON (position, URL, domain, title, snippet) for any query, China, desktop or mobile. $0.003 per query with results + $0.0004 per result, $0.0026 per extra page of 50, $0.001 start fee per run. Empty queries free.</p>
+<p><a class="btn" href="https://apify.com/plainrows/baidu-search-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/baidu-search-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>SEO for China: see who ranks on Baidu for your keywords (Chinese or brand names), desktop or mobile.</li><li>Market research: collect the top Baidu results for products, competitors or topics (Zhihu, Baidu Baike, Baijiahao, CSDN, Tieba...).</li><li>Brand monitoring: check what Baidu shows for your brand or product names on a schedule.</li><li>AI agents and RAG: give an LLM fresh Chinese web results (URL, title, snippet) from Baidu as an MCP tool.</li><li>Exports: send the rows to Google Sheets, BigQuery, Slack, n8n, Make or Zapier.</li></ul>
+
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Organic result</b><br><span>One Baidu organic result returned: position, URL, domain, title and snippet. Queries with no result, failures and unreadable answers are free.</span></td><td>$0.0004</td><td>$0.0004</td><td>$0.0004</td><td>$0.0004</td></tr><tr><td><b>Search query with results</b><br><span>Charged once per query that returns at least one organic result (the data source charges a whole Baidu results page, even for one result). Queries with no result are free.</span></td><td>$0.003</td><td>$0.003</td><td>$0.003</td><td>$0.003</td></tr><tr><td><b>Extra results page</b><br><span>Only when you raise &quot;Max organic results per query&quot; above 50: one per extra Baidu page (about 50 results) that Baidu returned. Not charged at the default of 10.</span></td><td>$0.0026</td><td>$0.0026</td><td>$0.0026</td><td>$0.0026</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.001</td><td>$0.001</td><td>$0.001</td><td>$0.001</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~baidu-search-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;queries&quot;: [
+    &quot;\u7b14\u8bb0\u672c\u7535\u8111&quot;,
+    &quot;python \u6559\u7a0b&quot;
+  ],
+  &quot;device&quot;: &quot;desktop&quot;,
+  &quot;maxResults&quot;: 10
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/baidu-search-scraper&quot;).call(run_input={&#x27;queries&#x27;: [&#x27;笔记本电脑&#x27;, &#x27;python 教程&#x27;], &#x27;device&#x27;: &#x27;desktop&#x27;, &#x27;maxResults&#x27;: 10})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/baidu-search-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/baidu-search-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/baidu-search-scraper">https://apify.com/plainrows/baidu-search-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-26.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
