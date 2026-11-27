@@ -15,6 +15,7 @@ Website: https://nadaho.github.io/plainrows/
 - [App Store Reviews Scraper: iOS Ratings, Titles & Text](https://apify.com/plainrows/app-store-reviews-scraper)
 - [Germany Jobs Scraper: Arbeitsagentur API, Bundesagentur Jobs](https://apify.com/plainrows/arbeitsagentur-jobs-scraper)
 - [Ashby Jobs Scraper: Any Ashby Job Board](https://apify.com/plainrows/ashby-jobs-scraper)
+- [ASO Keyword Rankings: App Store & Google Play Search](https://apify.com/plainrows/aso-keyword-rankings)
 - [ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby](https://apify.com/plainrows/ats-job-postings)
 - [Autovit Scraper: Romania Car Listings & Prices](https://apify.com/plainrows/autovit-scraper)
 - [Backlink API: Referring Domains & Backlinks Data](https://apify.com/plainrows/backlink-api)
@@ -97,6 +98,7 @@ Website: https://nadaho.github.io/plainrows/
 - [YouTube Search API: Videos, Views & Channels as JSON](https://apify.com/plainrows/youtube-search-api)
 - [YouTube Search Scraper: Videos, Views & Channels by Keyword](https://apify.com/plainrows/youtube-search-scraper)
 - [YouTube Transcript Scraper & API: Video Subtitles to Text](https://apify.com/plainrows/youtube-transcript-scraper)
+- [YouTube Video Details Scraper & API: Views, Likes, Tags](https://apify.com/plainrows/youtube-video-details-scraper)
 
 Free n8n workflow templates are in [`templates/`](templates/).
 

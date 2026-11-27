@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASO Keyword Rankings: App Store &amp; Google Play Search | PlainRows</title><meta name="description" content="ASO keyword rank tracker, API and MCP tool: for each keyword, the apps ranked in App Store and Google Play search (rank, app ID, name, developer, rating, rating">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/aso-keyword-rankings/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>ASO Keyword Rankings: App Store &amp; Google Play Search</h1>
+<p class="lead">ASO keyword rank tracker, API and MCP tool: for each keyword, the apps ranked in App Store and Google Play search (rank, app ID, name, developer, rating, ratings count, price, link), 20 countries. Pay per ranked app, plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/aso-keyword-rankings">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/aso-keyword-rankings" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>ASO keyword research: see which apps own a keyword before you target it, and how strong they are (ratings, ratings count).</li><li>Rank tracking: re-run on a schedule and follow the rank of your app and your competitors for your keywords.</li><li>Competitor discovery: list every app that shows up for the words your users type.</li><li>Country checks: compare the ranking for the same keyword in the US, UK, Germany, Brazil or Japan.</li><li>AI agents: let an assistant answer &quot;which apps rank first for budget app on the App Store?&quot;.</li><li>Exports: send the rows to Google Sheets, Notion, BigQuery, Slack, n8n, Make or Zapier.</li></ul>
+<h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/aso-keyword-rankings/examples/aso-keyword-rankings-app-store-keyword-rank">App Store and Google Play rankings for a keyword</a>: See which apps rank for a keyword in App Store and Google Play search (here habit tracker, US): rank, app ID, name, developer, rating, ratings count, price and link. Track your app or a competitor for ASO.</li></ul>
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Ranked app</b><br><span>One app ranked for a keyword in App Store or Google Play search, with its rank, ID, name, rating, ratings count, price and link. Keywords without results, store failures and input mistakes are free.</span></td><td>$0.0008</td><td>$0.0008</td><td>$0.0008</td><td>$0.0008</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~aso-keyword-rankings/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;keywords&quot;: [
+    &quot;habit tracker&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/aso-keyword-rankings&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;habit tracker&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/aso-keyword-rankings</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/aso-keyword-rankings</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/aso-keyword-rankings">https://apify.com/plainrows/aso-keyword-rankings</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-27.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

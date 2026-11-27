@@ -51,6 +51,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/app-store-reviews-scraper` | App Store Reviews Scraper: iOS Ratings, Titles & Text | from $0.00005 per review | [references/app-store-reviews-scraper.md](references/app-store-reviews-scraper.md) |
 | `plainrows/arbeitsagentur-jobs-scraper` | Germany Jobs Scraper: Arbeitsagentur API, Bundesagentur Jobs | from $0.0006 per job | [references/arbeitsagentur-jobs-scraper.md](references/arbeitsagentur-jobs-scraper.md) |
 | `plainrows/ashby-jobs-scraper` | Ashby Jobs Scraper: Any Ashby Job Board | from $0.0008 per job | [references/ashby-jobs-scraper.md](references/ashby-jobs-scraper.md) |
+| `plainrows/aso-keyword-rankings` | ASO Keyword Rankings: App Store & Google Play Search | from $0.0008 per ranked app | [references/aso-keyword-rankings.md](references/aso-keyword-rankings.md) |
 | `plainrows/ats-job-postings` | ATS Jobs Scraper: Workday, Greenhouse, Lever & Ashby | from $0.0008 per job | [references/ats-job-postings.md](references/ats-job-postings.md) |
 | `plainrows/autovit-scraper` | Autovit Scraper: Romania Car Listings & Prices | from $0.0004 per listing | [references/autovit-scraper.md](references/autovit-scraper.md) |
 | `plainrows/backlink-api` | Backlink API: Referring Domains & Backlinks Data | from $0.0012 per backlink or referring domain | [references/backlink-api.md](references/backlink-api.md) |
@@ -133,5 +134,6 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/youtube-search-api` | YouTube Search API: Videos, Views & Channels as JSON | from $0.001 per video | [references/youtube-search-api.md](references/youtube-search-api.md) |
 | `plainrows/youtube-search-scraper` | YouTube Search Scraper: Videos, Views & Channels by Keyword | from $0.001 per video | [references/youtube-search-scraper.md](references/youtube-search-scraper.md) |
 | `plainrows/youtube-transcript-scraper` | YouTube Transcript Scraper & API: Video Subtitles to Text | from $0.007 per transcript | [references/youtube-transcript-scraper.md](references/youtube-transcript-scraper.md) |
+| `plainrows/youtube-video-details-scraper` | YouTube Video Details Scraper & API: Views, Likes, Tags | from $0.0065 per video details | [references/youtube-video-details-scraper.md](references/youtube-video-details-scraper.md) |
 
 Other ways to use the same tools: MCP server `https://mcp.apify.com?tools=plainrows/<slug>`, n8n, Make and Zapier (Apify integration).

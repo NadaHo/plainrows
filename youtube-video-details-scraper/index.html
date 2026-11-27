@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Video Details Scraper &amp; API: Views, Likes, Tags | PlainRows</title><meta name="description" content="YouTube video details scraper, API and MCP tool: views, likes, comment count, publish date, duration, tags, category, description, channel and subscribers, capt">
+<link rel="canonical" href="https://nadaho.github.io/plainrows/youtube-video-details-scraper/"><link rel="stylesheet" href="../style.css">
+</head><body><header><a class="brand" href="../">PlainRows</a></header>
+<main>
+<h1>YouTube Video Details Scraper &amp; API: Views, Likes, Tags</h1>
+<p class="lead">YouTube video details scraper, API and MCP tool: views, likes, comment count, publish date, duration, tags, category, description, channel and subscribers, caption languages for any video or Short. Paste links or IDs. Pay per video found, plus a small start fee per run.</p>
+<p><a class="btn" href="https://apify.com/plainrows/youtube-video-details-scraper">Try it on Apify</a> &nbsp; <img src="https://apify.com/actor-badge?actor=plainrows/youtube-video-details-scraper" alt="Actor status"></p>
+<h2>Typical uses</h2><ul><li>Influencer and creator research: compare views, likes and engagement of videos before a sponsorship.</li><li>Content and SEO research: read the tags, titles and descriptions of the videos that rank for your topic.</li><li>Tracking: re-run on a schedule to follow the views and likes of your own or a competitor&#x27;s videos.</li><li>Enrichment: turn a list of video links (from a sheet, a CRM or a YouTube search) into full metadata.</li><li>AI agents: let an assistant check a video&#x27;s numbers, date and length before it cites or summarises it.</li><li>Exports: send the rows to Google Sheets, Notion, BigQuery, Slack, n8n, Make or Zapier.</li></ul>
+<h2>Ready-to-run examples</h2><ul><li><a href="https://apify.com/plainrows/youtube-video-details-scraper/examples/youtube-video-details-scraper-youtube-video-views-likes">Get YouTube video views, likes and tags from a link</a>: Paste YouTube video or Short links or IDs and get views, likes, comment count, publish date, duration, tags, category, description, channel and subscribers, plus caption languages. No API key or quota.</li></ul>
+
+<h2>Pricing</h2>
+<p>Pay per use, no subscription, no monthly fee. The price depends on your Apify plan. Apify's free plan includes $5 of usage every month.</p>
+<table><tr><th>You pay per</th><th>Free plan</th><th>Starter</th><th>Scale</th><th>Business</th></tr><tr><td><b>Video details</b><br><span>Details of one YouTube video returned: views, likes, comments, publish date, duration, tags, category, description, channel and subscribers. Videos not found, failures and input mistakes are free.</span></td><td>$0.0065</td><td>$0.0065</td><td>$0.0065</td><td>$0.0065</td></tr><tr><td><b>Actor Start</b><br><span>Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).</span></td><td>$0.002</td><td>$0.002</td><td>$0.002</td><td>$0.002</td></tr></table>
+<h2>Run it from your code</h2>
+<p>Get an API token in the Apify Console (Settings → Integrations), then:</p>
+<pre>curl -X POST \
+  &quot;https://api.apify.com/v2/acts/plainrows~youtube-video-details-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN&quot; \
+  -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{
+  &quot;videos&quot;: [
+    &quot;https://www.youtube.com/watch?v=jNQXAC9IVRw&quot;
+  ]
+}&#x27;</pre>
+<pre>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;&lt;YOUR_APIFY_TOKEN&gt;&quot;)
+run = client.actor(&quot;plainrows/youtube-video-details-scraper&quot;).call(run_input={&#x27;videos&#x27;: [&#x27;https://www.youtube.com/watch?v=jNQXAC9IVRw&#x27;]})
+for row in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(row)</pre>
+<h2>Use it in automations and AI agents</h2>
+<ul>
+<li><b>n8n, Make, Zapier:</b> use the official Apify integration and pick the Actor <code>plainrows/youtube-video-details-scraper</code>.</li>
+
+<li><b>MCP (Claude, Cursor, other AI agents):</b> <code>https://mcp.apify.com?tools=plainrows/youtube-video-details-scraper</code></li>
+</ul>
+<p>Full documentation, input options and output fields: <a href="https://apify.com/plainrows/youtube-video-details-scraper">https://apify.com/plainrows/youtube-video-details-scraper</a></p>
+</main>
+<footer>PlainRows builds pay-per-result data APIs that run on <a href="https://apify.com/plainrows">Apify</a>.
+Questions or bugs: open an issue on the Actor's page in the Apify Store. Prices checked 2026-11-27.
+<a href="../privacy/">Contact &amp; Privacy</a></footer>
+<script data-goatcounter="https://plainrows.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
