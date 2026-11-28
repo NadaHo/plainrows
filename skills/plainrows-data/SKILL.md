@@ -114,6 +114,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/reed-jobs-scraper` | UK Jobs Scraper: Reed.co.uk Job Ads & Salaries | from $0.0005 per job | [references/reed-jobs-scraper.md](references/reed-jobs-scraper.md) |
 | `plainrows/remote-jobs-aggregator` | Remote Jobs Scraper & API: Himalayas, RemoteOK, Jobicy | from $0.0006 per job | [references/remote-jobs-aggregator.md](references/remote-jobs-aggregator.md) |
 | `plainrows/seo-audit-api` | SEO Audit API: On-Page SEO Checker, Meta Tags & Site Audit | from $0.002 per page audited | [references/seo-audit-api.md](references/seo-audit-api.md) |
+| `plainrows/shopify-products-scraper` | Shopify Scraper: Products, Prices, Variants & Stock | from $0.0005 per product | [references/shopify-products-scraper.md](references/shopify-products-scraper.md) |
 | `plainrows/standvirtual-scraper` | Standvirtual Scraper: Portugal Car Listings & Prices | from $0.0004 per listing | [references/standvirtual-scraper.md](references/standvirtual-scraper.md) |
 | `plainrows/steam-scraper` | Steam Scraper: Games, Prices & Reviews | from $0.0005 per row | [references/steam-scraper.md](references/steam-scraper.md) |
 | `plainrows/stepstone-jobs-scraper` | StepStone Jobs Scraper: Germany Job Offers, Salaries & API | from $0.0004 per job offer | [references/stepstone-jobs-scraper.md](references/stepstone-jobs-scraper.md) |
@@ -122,6 +123,7 @@ until `status` is `SUCCEEDED`, then read `GET /v2/datasets/<defaultDatasetId>/it
 | `plainrows/tori-scraper` | Tori Scraper (Tori.fi): Finland Marketplace Listings | from $0.0004 per listing | [references/tori-scraper.md](references/tori-scraper.md) |
 | `plainrows/tripadvisor-reviews` | Tripadvisor Reviews Scraper API: Hotels & Restaurants | from $0.0002 per review | [references/tripadvisor-reviews.md](references/tripadvisor-reviews.md) |
 | `plainrows/trustpilot-reviews` | Trustpilot Reviews Scraper & API: New Reviews & Replies | from $0.0002 per review | [references/trustpilot-reviews.md](references/trustpilot-reviews.md) |
+| `plainrows/twitch-scraper` | Twitch Scraper: Channels, Live Streams, Clips & Videos | from $0.0007 per result | [references/twitch-scraper.md](references/twitch-scraper.md) |
 | `plainrows/vagas-jobs-scraper` | Brazil Jobs Scraper: Vagas Job Ads (Vagas.com.br) | from $0.0009 per job | [references/vagas-jobs-scraper.md](references/vagas-jobs-scraper.md) |
 | `plainrows/website-email-extractor` | Website Email Extractor: Emails, Phones & Socials from URLs | from $0.0015 per website with contacts | [references/website-email-extractor.md](references/website-email-extractor.md) |
 | `plainrows/website-screenshot` | Website Screenshot API: Full Page, Mobile & Bulk Capture | from $0.0018 per screenshot | [references/website-screenshot.md](references/website-screenshot.md) |
